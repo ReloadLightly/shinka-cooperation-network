@@ -20,6 +20,118 @@ import signal
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def run_multiobjective(args, config):
+    """Use the native runner with scientific Pareto/deadline integration.
+
+    This branch does no readiness campaign, administrative model call or browser
+    check. It preserves the existing subscription isolation and local services.
+    The native runner owns all proposals, adaptation, scheduling and resumption.
+    """
+    import importlib.util
+
+    if args.native_worker or args.supervisor_only:
+        raise ValueError("multiobjective-v1 uses the native runner, not the legacy terminating supervisor")
+    hours = args.window_hours
+    if hours is not None and not positive_number(hours):
+        raise ValueError("--window-hours must be finite and positive")
+    # The user superseded the former session deadline. Publication checkpoints
+    # do not limit scientific admission. An explicit future --window-hours is
+    # still supported; stale inherited deadlines must not stop this campaign.
+    deadline = time.time() + hours * 3600 if hours is not None else None
+    if deadline is None:
+        os.environ.pop("SHINKA_EXECUTION_DEADLINE", None)
+    else:
+        os.environ["SHINKA_EXECUTION_DEADLINE"] = str(deadline)
+    os.environ["SHINKA_PRICING_MODE"] = "offline"
+    os.environ["SHINKA_HEADLESS_COMMAND"] = f"{sys.executable} {ROOT / 'shinka/headless_isolated.py'}"
+    os.environ["SHINKA_HEADLESS_TIMEOUT"] = "1800"
+    os.environ["PYTHON_DOTENV_DISABLED"] = "1"
+    for name in list(os.environ):
+        if name.endswith("API_KEY") or name in {"OPENAI_ACCESS_TOKEN", "ANTHROPIC_AUTH_TOKEN"}:
+            os.environ.pop(name, None)
+    from shinka.core import EvolutionConfig, ShinkaEvolveRunner
+    from shinka.database import DatabaseConfig
+    from shinka.launch import LocalJobConfig
+    from shinka.llm.providers.headless import parse_headless_model
+
+    evo = config["evolution"].copy()
+    evo["execution_window_seconds"] = max(0.001, deadline - time.time()) if deadline is not None else None
+    for key in ("llm_models", "meta_llm_models", "novelty_llm_models", "prompt_llm_models"):
+        for model in evo[key]:
+            if not model.startswith("headless/codex@"):
+                raise ValueError(f"Unauthorized model route: {model}")
+            parse_headless_model(model)
+    if not evo["embedding_model"].startswith("local/potion-base-8M@http://127.0.0.1:"):
+        raise ValueError("Use the existing pinned local embeddings; no paid fallback")
+    public_workdir = ROOT / "runs/public_mutation" / args.results_dir.name
+    public_workdir.mkdir(parents=True, exist_ok=True)
+    for key in ("llm_kwargs", "meta_llm_kwargs", "novelty_llm_kwargs", "prompt_llm_kwargs"):
+        evo[key] = {**evo.get(key, {}), "headless_work_dir": str(public_workdir)}
+    task = (ROOT / "shinka/task_prompt_multiobjective.md").read_text()
+    task += "\n\nNative mathematical operators and compatibility:\n" + (ROOT / "configs/effect-catalog-v2.json").read_text()
+    initial = args.initial.resolve()
+    if initial == (ROOT / "candidates/initial.py").resolve():
+        initial = ROOT / "candidates/initial_multiobjective.py"
+    evo.update(task_sys_msg=task, init_program_path=str(initial), results_dir=str(args.results_dir))
+    policy = json.loads((ROOT / "configs/multiobjective-v1.json").read_text())
+    settings = json.loads((ROOT / policy["prediction_settings"]).read_text())
+    annual_cap = settings["estimation"]["timeout_seconds"] * settings["estimation"]["max_attempts"] + settings["forecast"]["timeout_seconds"] + 300
+    timeout = len(settings["development_years"]) * annual_cap + 600
+    job = LocalJobConfig(eval_program_path=str(ROOT / "scripts/multiobjective_evaluation.py"), python_executable=sys.executable,
+                         extra_cmd_args={"protocol": "multiobjective-v1"},
+                         time=f"{timeout // 3600:02d}:{timeout % 3600 // 60:02d}:{timeout % 60:02d}", **config["job"])
+    db = DatabaseConfig(db_path=str(args.results_dir / "programs.sqlite"), **config["database"])
+    evolution = EvolutionConfig(**evo)
+    resolved = {"protocol": policy, "evolution": dataclasses.asdict(evolution),
+                "database": dataclasses.asdict(db), "job": dataclasses.asdict(job),
+                "runner": config["runner"], "upstream_commit": config["upstream_commit"],
+                "model_routing": json.loads((ROOT / "shinka/model-routing-multiobjective.json").read_text()),
+                "resource_policy": config["resource_policy"], "execution_deadline_unix": deadline,
+                "pareto_extension": "shinka/pareto_selection.py", "native_extension": "shinka/multiobjective_native.patch",
+                "overall_generation_ceiling": None, "paid_api_fallback": False}
+    with (args.results_dir / "campaign_supervisor.lock").open("a") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        write_json(args.results_dir / "resolved_config.json", resolved)
+        if not args.execute:
+            print(json.dumps({"resolved_config": str(args.results_dir / "resolved_config.json"),
+                              "execution_deadline_unix": deadline, "launched": False}))
+            return 0
+        module_spec = importlib.util.spec_from_file_location("project_scientific_pareto", ROOT / "shinka/pareto_selection.py")
+        module = importlib.util.module_from_spec(module_spec)
+        sys.modules[module_spec.name] = module
+        module_spec.loader.exec_module(module)
+        module.install_native_pareto()
+        os.chdir(ROOT)
+        streams, services = [], []
+        try:
+            for name, command in (
+                ("embedding", [sys.executable, str(ROOT / "shinka/embedding_server.py"),
+                               "--log", str(args.results_dir / "embedding_calls.jsonl")]),
+                ("webui", [str(Path(sys.executable).parent / "shinka_visualize"),
+                           str(args.results_dir), "--port", str(args.webui_port)]),
+            ):
+                stream = (args.results_dir / f"{name}.log").open("a")
+                streams.append(stream)
+                service = subprocess.Popen(command, cwd=ROOT, stdout=stream, stderr=subprocess.STDOUT)
+                services.append(service)
+                (args.results_dir / f"{name}.pid").write_text(str(service.pid) + "\n")
+            boundary = f"explicit admission deadline {deadline:.0f}" if deadline is not None else "continuing campaign; publication checkpoints do not stop admission"
+            print(f"Native WebUI: http://localhost:{args.webui_port}; {boundary}", flush=True)
+            runner = ShinkaEvolveRunner(evo_config=evolution, db_config=db, job_config=job,
+                                        **config["runner"], verbose=True)
+            runner.run()
+        finally:
+            # Numerical jobs are drained/checkpointed by the native runner. Only
+            # this launcher's visualization/embedding services are stopped here.
+            for service in services:
+                if service.poll() is None:
+                    service.terminate()
+                    service.wait(timeout=10)
+            for stream in streams:
+                stream.close()
+    return 75 if deadline is not None and time.time() >= deadline else 0
+
+
 def positive_number(value) -> bool:
     return isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value) and value > 0
 
@@ -151,6 +263,7 @@ def main() -> int:
     parser.add_argument("--results-dir", type=Path, default=ROOT / "runs/evolution_native")
     parser.add_argument("--initial", type=Path, default=ROOT / "candidates/initial.py")
     parser.add_argument("--webui-port", type=int, default=8899)
+    parser.add_argument("--window-hours", type=float, help="Optional explicit admission window; omitted for the continuing multiobjective campaign")
     parser.add_argument("--execute", action="store_true", help="Launch only after all measured scientific gates pass")
     parser.add_argument("--native-worker", action="store_true", help=argparse.SUPPRESS)
     parser.add_argument("--supervisor-only", action="store_true", help=argparse.SUPPRESS)
@@ -158,6 +271,8 @@ def main() -> int:
     config = json.loads(args.config.read_text())
     args.results_dir = args.results_dir.resolve()
     args.results_dir.mkdir(parents=True, exist_ok=True)
+    if config.get("protocol") == "multiobjective-v1":
+        return run_multiobjective(args, config)
     if args.supervisor_only:
         # Re-execution discards heavy scientific imports from preflight. Keep a
         # lightweight supervisor alongside the one native worker on this host.

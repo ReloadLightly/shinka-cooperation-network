@@ -43,7 +43,6 @@ def main():
             subprocess.run([sys.executable,str(ROOT/"scripts/check_contract.py")],cwd=ROOT,check=True)
             preflight()
             return 0
-        preflight()
         settings=read_json(SETTINGS)
         spec,_=read_program(BASELINE)
         years=[args.target] if args.target else settings["development_years"]

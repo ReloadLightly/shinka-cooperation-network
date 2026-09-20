@@ -2,11 +2,11 @@
 
 <sub>COMPUTATIONAL RESEARCH REPORT · REPRODUCTION & PRESPECIFIED EXTENSION</sub>
 
-# Free Riding, Network Effects,<br>and Predictive Specification Evolution
+# Defense-Cooperation Networks: Replication and Predictive Model Discovery.
 
 **Reconstructing Kinne & Kang’s defense-cooperation model with RSiena and ShinkaEvolve**
 
-20 September 2026 · Research checkpoint 01 · [Original paper](https://doi.org/10.1017/S0020818322000315)
+20 September 2026 · Recoverable research campaign · [Original paper](https://doi.org/10.1017/S0020818322000315)
 
 [Abstract](#abstract) · [Model](#2-original-model-and-reconstruction) · [Methods](#3-prespecified-evolution-and-evaluation) · [Results](#4-results) · [Reproduce](#7-reproducibility-and-artifacts)
 
@@ -16,22 +16,22 @@
 
 ## Abstract
 
-Can interpretable changes to the countries’ network-objective specification improve prediction of future defense cooperation agreements (DCAs)? We reconstruct Kinne and Kang’s continuous-time network–behavior model using the original **R 4.2.1 / RSiena 1.3.10** engine and define a separate temporal experiment with fixed **PRROC 1.3.1** fitness. Candidate structures retain the empirical controls and defense-spending objective; coefficients are estimated from past observations. Development fitness is the equally weighted improvement in annual PR-AUC for 2006–2009 over the original predictive Model 3, refitted on the same training observations. The 2010 target is reserved from evolutionary selection. At this checkpoint, independent source-parity and native leakage checks pass, and **86 original-source endpoint simulations** have completed across seven experimental settings. The first empirical forecast baseline, trained on 1990–2005, fails the declared convergence policy after three attempts. Consequently, **no predictive fitness or evolutionary improvement is established**. Native Shinka infrastructure is verified, while the scientific campaign remains gated on valid estimation.
+Can ShinkaEvolve discover interpretable alternative network-selection specifications that improve forecasts of defense-cooperation agreements and defense spending relative to Kinne and Kang’s Model 3? We reconstruct the original model using **R 4.2.1 / RSiena 1.3.10**, and conduct a separate, strict temporal forecasting extension. Network mechanisms may evolve; empirical controls and the spending equation’s structure remain fixed, with all coefficients jointly reestimated. **Multiobjective-v1** measures equally weighted 2006–2009 improvements in PRROC PR-AUC, tie-probability Brier score and ordinal-spending RMSE. Three reference forecasts have completed with 1,000 endpoints each; their PR-AUCs are **0.885308, 0.941662 and 0.914560**. Each improves ranking over persistence while having slightly worse Brier score. The 2009 reference is still being estimated, so no complete candidate objective vector or evolutionary improvement is established. Original-source reproduction remains partial: **86 endpoints across seven settings**. The authors favor an efficiency interpretation; our predictive extension cannot independently establish that explanation or improved security.
 
-| Original-source execution | Independent source parity | Accepted forecast baselines | Evolutionary evaluations |
+| Original-source execution | Accepted reference forecasts | Unique changed-model evaluations | Native evolutionary proposals |
 |:---:|:---:|:---:|:---:|
-| **7 settings · 86 endpoints** | **18 / 18 checks passed** | **0** | **0 valid** |
+| **7 settings · 86 endpoints** | **3 / 4 development years** | **0 complete** | **0** |
 
 ## 1. Research question
 
-> Can a modified network-objective specification improve held-out DCA tie PR-AUC relative to the original empirical specification, when both are refitted on exactly the same training observations?
+> Can ShinkaEvolve discover interpretable alternative network-selection specifications that improve forecasts of defense-cooperation agreements and defense spending relative to Kinne and Kang’s Model 3?
 
 The experiment separates two functions:
 
 | Function | Scientific role | What may change? |
 |---|---|---|
-| **Countries’ network objective** | Governs stochastic tie choices inside RSiena | Supported network statistics; their coefficients are statistically re-estimated |
-| **Evolutionary fitness** | Measures predictive improvement in [`evaluate.py`](evaluate.py) | Fixed evaluator, splits, observations, forecast rules and metric |
+| **Countries’ network objective** | Governs stochastic tie choices inside RSiena | Native statistics, functional parameters and compatible interactions; coefficients are statistically reestimated |
+| **Evolutionary fitness** | Measures improvement through the trusted evaluator | Fixed objectives, splits, observations and forecast rules |
 
 Candidate programs cannot redefine their fitness. This project studies predictive model specification; improved prediction would not establish improved national security or optimal policy. There is no partnership-search or national-strategy optimization component.
 
@@ -39,14 +39,14 @@ Candidate programs cannot redefine their fitness. This project studies predictiv
 
 The empirical model jointly represents an **undirected DCA network** and **ordinal defense effort**. In continuous time, actors receive opportunities to change ties or spending. Symmetric tie proposals use unilateral initiative with partner confirmation (`modelType=3`); spending moves one category per opportunity (`behModelType=1`). Spending/GDP is discretized into 11 left-closed categories. Spending RMSE is therefore reported in **ordinal category units**.
 
-The predictive reference is **Model 3**. Its network objective includes density, total degree, transitive triads, alter spending, democracy and material capabilities, plus alliance, distance, UN voting distance, trade and NATO dyadic controls. The spending objective retains its linear/quadratic shapes, seven controls, network degree and dense-triad effect. Model 4’s additional free-riding interaction is absent.
+The predictive reference is **Model 3**. Its network objective includes density, total degree, transitive triads, alter spending, democracy and material capabilities, plus alliance, distance, UN voting distance, trade and NATO dyadic controls. The spending objective retains its linear/quadratic shapes, seven controls, network degree and dense-triad effect. Model 4’s additional effort-dependent spending term is absent. The authors’ comparison favors **efficiency rather than free riding**. Source agreement in inputs and effects establishes reconstruction, not reproduction of fitted estimates or substantive conclusions. Retaining Model 3’s spending structure cannot independently reproduce the Model 4 efficiency-versus-free-riding comparison. Spending coefficients are jointly reestimated for every candidate, so network changes can alter spending forecasts.
 
 The illustrative ABM uses generated covariates and assigned coefficients. These coefficients are not fitted contemporary-country preferences. Its `degPlus` internal parameter is **2** (square-root degrees), whereas empirical Model 3 uses the native default **1** (raw degrees).
 
 | Execution mode | Scientific purpose | Preserved or declared protocol |
 |---|---|---|
 | `paper_reproduction` | Reconstruct the authors’ results | Original source, sample, settings, seeds and native engine; discrepancies recorded |
-| `evolution_forecast` | Test structural predictive improvement | Prespecified annual, past-only, unconditional forecasts and fixed PR-AUC fitness |
+| `evolution_forecast` | Test structural predictive improvement | Prespecified annual, past-only, unconditional forecasts and three fixed objectives |
 
 Three consequential source differences are retained in the record: the appendix describes training through **2009**, but its caller uses **1990–2008**; validation restores rates initialized from observed **2009–2010** data; and SAOM scoring flattens both symmetric directions while the logit comparison uses unordered pairs. The extension explicitly changes those forecast choices.
 
@@ -88,34 +88,46 @@ PRROC::pr.curve(
 )$auc.integral
 ```
 
-Let $B_t$ denote the original predictive specification refitted through $t-1$. The independent evolutionary fitness is
+Let $B_t$ denote original predictive Model 3 refitted through $t-1$. Under [**multiobjective-v1**](configs/multiobjective-v1.json), maximize all three equally weighted development objectives:
 
 $$
-\boxed{F(C)=\frac{1}{4}\sum_{t=2006}^{2009}
-\left[\operatorname{PR\!AUC}(C,t)-\operatorname{PR\!AUC}(B_t,t)\right].}
+J_1(C)=\frac14\sum_{t=2006}^{2009}[\mathrm{PR\!AUC}(C,t)-\mathrm{PR\!AUC}(B_t,t)],
+$$
+$$
+J_2(C)=\frac14\sum_{t=2006}^{2009}[\mathrm{Brier}(B_t,t)-\mathrm{Brier}(C,t)],
+$$
+$$
+J_3(C)=\frac14\sum_{t=2006}^{2009}[\mathrm{RMSE}_{spending}(B_t,t)-\mathrm{RMSE}_{spending}(C,t)].
 $$
 
-**Positive $F$ means better average development PR-AUC.** Years have equal weight. Negative improvements remain negative. There are no complexity, runtime, spending or qualitative bonuses. Native Shinka receives `combined_score = 1 + F` to avoid its pinned archive’s exact-zero handling bug; raw $F$ is retained.
+Brier is the mean squared error of tie probabilities, not exclusively calibration. Spending RMSE uses mean simulated categories and remains in ordinal units. The reference has vector **(0, 0, 0)** once every annual evaluation is valid. Common masks exclude diagonals, missing observations and structurally invalid outcomes. All four years must succeed. Failed or unconverged fits have **invalid/null fitness**, never fabricated losses or partial-year averages. The PRROC integral is not sklearn average precision.
 
-Each eligible pair is scored once. Diagonals, origin-missing pairs, missing outcomes and structurally invalid dyads are excluded using a common, candidate-independent mask. Every development year must succeed. A failed fit has **invalid/null fitness**, never a fabricated loss or a partial-year mean. The PRROC integral is not sklearn average precision.
+For native components requiring stable scalar credit, use exactly `combined_score = 2 + (J1 + J2 + J3 / 10) / 3`. Ten is the range of eleven spending categories. This declared equal-theoretical-range preference is our operational choice, not the authors’ formula or evidence of equal practical influence. **Pareto retention and parent selection use the full vector.** There are no complexity, runtime or qualitative rewards. The earlier PR-only protocol and results remain archived separately; its raw `F` equals the new `J1`, while its historical native mapping was `1 + F`.
+
+Estimation policy v2 preserves **max|t| < 0.1 and overall convergence < 0.25**, alongside native validity and identification diagnostics. It permits three `nsub=3, n3=1000` attempts and, if needed, exactly one saved-fit continuation with the authors’ stronger main-estimation settings `nsub=5, n3=3000`. Stop at the first acceptable fit. The same rule applies to reference and candidates; forecasts retain **1,000 endpoints**. Accepted results are reused when their scientific inputs are unchanged.
 
 ### 3.3 Interpretable search space
 
-The candidate interface produces a literal, validated specification:
+The candidate interface returns structured native mathematics:
 
 ```python
 def build_network_spec(allowed_schema):
     return {
-        "schema_version": 1,
-        "network_effects": ["degPlus", "transTriads"],
+        "schema_version": 2,
+        "network_effects": [
+            {"effect": "degPlus", "parameter": 1},
+            {"effect": "transTriads", "parameter": 0},
+        ],
     }
 ```
 
-The fixed catalog supports `degPlus`, `transTriads`, `inPop`, and `gwesp` with its native internal parameter 69. At most three mutable effects are allowed: **15 possible subsets**, including the original specification. Density, empirical controls and spending structure remain fixed. A restricted AST interpreter accepts data without executing candidate Python. The trusted R adapter constructs real RSiena effects and estimates their coefficients; arbitrary Python utility functions are not injected into the simulator.
+The [native catalog](configs/effect-catalog-v2.json) supports degree activity/popularity, raw and square-root responses, truncation knots, reciprocal-degree responses, degree assortativity, alternative closure forms and GWESP decay, Jaccard similarity, four-cycles, distance-two and betweenness statistics. Compatible two- and three-factor interactions combine mechanisms with available covariates. Native factors multiply tie-change contributions; arbitrary products of actor objectives are unsupported. A literal AST decoder never executes candidate Python. The trusted R adapter preserves native effect identities, parameters and interaction operands when transferring coefficients into forecasts, including algebraic recentering of spending-dependent products.
 
-Canonical identities distinguish mathematical specifications from cosmetic rewrites. Common seeds, estimation rules and simulation budgets apply across comparisons. ROC-AUC, Brier score, ordinal spending RMSE, formation/dissolution performance, persistence, structural diagnostics, computational cost and complexity are reported separately. A subset without both classes has no valid AUC.
+The former **15-specification catalog, three-effect ceiling, four-proposal pilot and twelve-generation overall limit are withdrawn**. There is no arbitrary effect-count cap; a 32 KiB source bound and native compatibility/identification constraints remain. Raw `degPlus`, `inPop` and `outAct` cannot be stacked because their symmetric-network estimation moments are proportional; their actor-choice mechanisms remain alternatives. The analogous square-root combinations are excluded too. `degPlus` parameters ≥2 share one square-root implementation and canonicalize to 2. Confirmed aliases and factor ordering do not count as additional discoveries. Different canonical hashes do not guarantee that every mathematical equivalence has been characterized.
 
-**Complete specification:** [evaluator v1](docs/EVALUATOR_SPEC_v1.md) · [effect catalog](configs/effect-catalog-v1.json) · [selection and final-test rules](docs/SELECTION.md)
+All nondominated canonical alternatives are preserved. Project extensions to Shinka use nondominated rank and objective-space diversity for retention, parents, executable inspirations and migration. Scientific feedback includes annual objectives, convergence, formation/dissolution, persistence and structural diagnostics. Code-embedding novelty remains separate from mathematical novelty.
+
+The development-only final-reporting rule selects unique J1, J2, J3 and auxiliary-score champions from the Pareto frontier, resolving exact ties by fewer free structural coefficients and then canonical identity. Deduplicate and include the reference. A fresh development simulation repetition assesses limited Monte Carlo sensitivity before the selected set and reporting rule are frozen; it does not alter membership. Report every locked finalist on 2010, including losses. A session checkpoint neither ends the campaign nor triggers final-year access. [Selection details](docs/SELECTION.md).
 
 ## 4. Results
 
@@ -136,24 +148,32 @@ Canonical identities distinguish mathematical specifications from cosmetic rewri
 
 The **first Figure 5 public-goods cell** also completed with the original 159-country calibration, opportunity rates 200 and spending-degree coefficient $\gamma=-0.05$. A requested `n3=25` yields **26 actual endpoints** under native two-worker rounding. Mean defense effort was **1.023464 categories**, density **0.496865**, and clustering **0.496518**. The native call took **626.613 seconds**. This is one grid point, not the complete Figure 5 curve. [Native specification and summary](results/paper_reproduction/abm-full/endpoint_summary.json) · [endpoint data](results/paper_reproduction/abm-full/endpoint_diagnostics.csv)
 
-Both original drivers are **paused at completed-call checkpoints**. No scientific process remains running at this publication checkpoint.
+Both original-source drivers remain **paused at completed-call checkpoints**. Their outputs are preserved while empirical forecasting takes priority.
 
-### 4.2 Empirical baseline: convergence not achieved
+### 4.2 Empirical reference forecasts
 
-![Three estimation attempts for the 2006-target baseline; none passes both declared convergence thresholds.](results/evolution_forecast/convergence/baseline_convergence.png)
+The bounded continuation resolved the earlier 2006 convergence failure without changing acceptance thresholds. Three reference fits and forecasts are complete. These are cumulative results; 2006 and 2007 were saved before the latest 2–3-hour execution window.
 
-*Figure 2. Estimation diagnostics for Model 3 trained on 1990–2005. Both strict criteria must pass. The third attempt passes the parameterwise criterion but fails overall convergence. This is an estimation diagnostic, not a predictive comparison.* [PDF](results/evolution_forecast/convergence/baseline_convergence.pdf) · [plot data](results/evolution_forecast/convergence/baseline_convergence_plot_data.csv)
+| Target | Accepted attempt | Max. absolute t-ratio | Overall convergence | PR-AUC | Brier | Spending RMSE |
+|---:|---:|---:|---:|---:|---:|---:|
+| 2006 | 4 | 0.05882920 | 0.14818946 | 0.885307944587 | 0.005488310220 | 0.371239362775 |
+| 2007 | 4 | 0.04937219 | 0.14525484 | 0.941661642008 | 0.004086563129 | 0.363818030354 |
+| 2008 | 3 | 0.09340243 | 0.23084237 | 0.914560377575 | 0.004505291667 | 0.439598610503 |
+| 2009 | Running | — | — | — | — | — |
 
-| Attempt | Runtime (s) | Maximum absolute convergence $t$ | Overall convergence | Accepted |
-|---:|---:|---:|---:|:---:|
-| 1 | 664.205 | 0.258198394145 | 0.561063321743 | No |
-| 2 | 597.301 | 0.102125124334 | 0.297489294752 | No |
-| 3 | 618.160 | 0.094447585313 | 0.323754366293 | No |
-| **Required** | — | **< 0.1** | **< 0.25** | **Both** |
+Each completed forecast returned exactly **1,000 endpoints** and scored **12,720 eligible unordered pairs**, excluding 160 pairs involving an origin-inactive country. Spending comparisons contain 152, 152 and 146 countries respectively. The existing evaluator entered 2009 fitting at **21:25:33 UTC**. Its first attempt failed (max|t| 0.11228053; overall 0.35094438; 1,314.003 s); continuation from the saved fit is active. This is nonconvergence, not by itself evidence of a software defect. The next publication checkpoint is approximately **23:15 UTC / 01:15 Berlin**. The user superseded the former stopping instruction: fitting and evolution continue across publication checkpoints while actual resources permit.
 
-The three-attempt policy is exhausted. No prediction from these fits was scored. The [initial evaluator output](results/evolution_forecast/initial/metrics.json) records `combined_score: null`, `raw_F: null`, and actionable failure feedback. Full native fit objects, coefficients, covariance diagnostics, errors and runtime records are retained in the [baseline cache](results/cache/7e68932cdb5e36c240411e968554f4cdc211ddc6bd453fb6a8b9fc47ebe8be4d/).
+| Target | Persistence PR-AUC | Persistence Brier | Formation PR-AUC | Dissolution PR-AUC | Total fitting time, all attempts |
+|---:|---:|---:|---:|---:|---:|
+| 2006 | 0.863880670037 | 0.005424528302 | 0.015180235117 | 0.098349858713 | 6,042.586 s |
+| 2007 | 0.910837757172 | 0.003773584906 | 0.038517184507 | 0.022624255212 | 8,211.529 s |
+| 2008 | 0.900873672246 | 0.004402515723 | 0.022770206409 | 0.030813282345 | 3,559.530 s |
 
-This finding establishes a failure to converge under the declared policy. It does not establish worse prediction, non-estimability, or an evolutionary improvement.
+Model 3 ranks ties better than persistence in these three years but has slightly worse probability MSE. Formation scores concern the 50, 37 and 40 newly observed ties; overall tie-ranking performance is not evidence of equally strong prediction of new partnerships. The 2007 forecast overpredicts triangles: mean 875.948 against 751 observed, outside the 95% simulation envelope [800, 958]. The 2006 observation lies inside its envelope, and 2008 is at the lower endpoint. Alternative closure or saturation forms are a hypothesis to explore, not a demonstrated improvement.
+
+The 2007 fit-and-forecast stage took **2 h 17 min 47 s**, peak RSS **744,640 KB**; its forecast took 44.986 s. The 2008 stage took **1 h 00 min 07 s**, peak RSS **690,224 KB**. Estimation dominates cost. Reusing endpoint predictions supplies Brier, spending RMSE and [descriptive reliability bins](results/evolution_forecast/baseline-calibration-2006-2007.json) without another fitting campaign. No changed specification has completed evaluation, and **no evolutionary improvement is demonstrated**.
+
+The [historical v1 invalid result](results/evolution_forecast/initial/metrics.json) and three failed fits remain intact. [Current numerical artifacts](results/cache/) retain every attempt, accepted fit, coefficients, probabilities, masks, score provenance and resource logs. The old convergence figure documents only the superseded three-attempt checkpoint.
 
 ### 4.3 Coverage and reference values
 
@@ -161,16 +181,18 @@ This finding establishes a failure to converge under the declared policy. It doe
 |---|---|
 | Original equilibrium diagnostic | **6 / 101** settings; 60 endpoints |
 | Figures 5–7 simulation campaign | **1 / 564** settings; 26 endpoints |
-| First temporal baseline | Three completed attempts; **no accepted fit** |
-| Full four-year baseline / seed-zero check | Incomplete |
-| Structural candidate / conventional search | Implemented; no valid evaluation |
+| Temporal references | **2006–2008 accepted and scored**; 2009 in progress |
+| Complete four-year objective vector | Pending 2009; no partial-year fitness |
+| Structural candidates / conventional comparison | Expanded grammar and matched evaluator implemented; no completed comparison |
 | Native evolutionary campaign | Configured; not launched |
 | Fresh-randomness finalist / final 2010 comparison | Not executed |
 | Main empirical results / original appendix validation | Callers prepared; execution deferred |
 
 The authors’ published **PR-AUC 0.927**, **ROC-AUC 0.985**, and **spending RMSE 0.397** are reference values, not results obtained here or values inserted into the evaluator. The extension’s changed forecasting protocol need not reproduce them.
 
-## 5. Verification and scientific safeguards
+## 5. Preserved reconstruction evidence
+
+The following evidence predates this window and is retained without rerunning tests, audits or validation campaigns. Source parity establishes specified-input/effect agreement, not empirical reproduction. New grammar and Pareto code are separate from these historical results.
 
 | Check | Executed evidence |
 |---|---|
@@ -188,38 +210,38 @@ The leakage/composition check uses four native endpoints per condition with init
 
 ## 6. Native ShinkaEvolve
 
-The upstream engine is pinned to [`9912af1`](https://github.com/SakanaAI/ShinkaEvolve/tree/9912af12d423504b8d580f4179fd15f5f88b8c50). Evolution uses native machinery; the project does not provide a replacement evolution controller.
+The upstream engine is pinned to [`9912af1`](https://github.com/SakanaAI/ShinkaEvolve/tree/9912af12d423504b8d580f4179fd15f5f88b8c50). Native proposal generation, persistence and lineage remain in use; **Pareto database/sampling and cooperative numerical checkpoints are project extensions**.
 
-| Layer | Configuration and observed status |
+| Layer | Current configuration and observed activity |
 |---|---|
-| Population and variation | Two islands; archive and parent sampling; diff/full/crossover mutations; executable and top-performing inspirations — **configured** |
-| Adaptation | Migration, meta-recommendations and prompt co-evolution every three generations; text feedback enabled — **not observed in evolution** |
-| Novelty | Genuine local Model2Vec embeddings tested; native adjudication configured; mathematical novelty tracked separately |
-| Mutation route | Subscription-backed Astra, `ultra` requested/forwarded; two administrative route checks succeeded; achieved effort is not echoed |
-| Isolation | Protected files and past sessions hidden; separate network namespace; exact subscription-host egress; literal candidate interpreter |
-| Persistence and inspection | Native SQLite, resumption and WebUI configured; invalid-fixture ingestion and HTTP availability tested |
-| Accounting | **2 administrative model calls · 28,571 reported tokens · 0 evolutionary calls · no paid API fallback** |
+| Population and variation | Two islands; rank/diversity parents and executable inspirations; diff/full/crossover probabilities 0.5/0.3/0.2 — **implemented, no evolutionary draws yet** |
+| Adaptation | Migration, meta-recommendations and prompt evolution every three generations; text feedback enabled — **not observed** |
+| Novelty | Existing local Model2Vec embeddings retained; native adjudication configured; canonical mathematical identity tracked separately |
+| Mutation models | Subscription arms `gpt-5.6-luna`, `gpt-5.6-sol`, `gpt-5.6-terra`, each `effort=low`; UCB selection — **listed in local installation metadata, not used by this campaign yet** |
+| Supporting roles | Luna low for novelty, meta-recommendations and prompt evolution; Astra Ultra remains the requested builder |
+| Persistence | Native SQLite and resumable pending evaluator records; no campaign lineage or resumption event claimed yet |
+| WebUI | Existing native WebUI accompanies actual evolution; no browser/presentation checks this window |
+| Accounting | **0 evolutionary-role calls this window; no paid API fallback**. Two earlier administrative route calls are historical, not search evidence |
 
-A single authorized mutation model is configured, so no meaningful multi-model bandit comparison is claimed. The provisional 12-generation campaign requires accepted scientific gates and a finite budget derived from measured fitting cost. A synthetic prompt test does not establish an actual descendant, migration, meta event or evolved prompt.
+The [configuration](shinka/native_multiobjective_config.json) has **no overall generation ceiling**. Publication checkpoints occur roughly every 2–3 hours and do not stop scientific admission. There is no default session deadline. Measured fitting cost means several checkpoints may pass before a candidate completes. Explicit future admission windows remain available when requested. Cheaper mutation models reduce inference consumption, not RSiena cost; zero API dollars does not mean zero subscription consumption. Historical quota metadata indicated approximately 8% of the seven-day subscription allowance remained, without an absolute remaining-call estimate.
 
-**Evidence:** [full capability matrix](docs/SHINKA_CAPABILITIES.md) · [resolved native configuration](runs/evolution_native/resolved_config.json) · [adapter contract](docs/SHINKA_CONTRACT.md)
+The [capability matrix](docs/SHINKA_CAPABILITIES.md) distinguishes configured features from actual events. No migration, native descendant, bandit update, meta recommendation or evolved prompt has occurred this window. A capability-demonstration campaign and successful manually modified candidate are not prerequisites for native proposals.
 
 ## 7. Reproducibility and artifacts
 
-### Environment and verification
+### Resume the same scientific campaign
+
+On the existing checkout and pinned environment:
 
 ```bash
-git clone https://github.com/ReloadLightly/shinka-cooperation-network.git
-cd shinka-cooperation-network
-
-python3 scripts/fetch_sources.py
-bash scripts/bootstrap_environment.sh
-environment/run-r environment/verify.R
-environment/run-r R/audit_data.R
-python3 scripts/research.py audits
+.venv-shinka/bin/python scripts/run_shinka.py \
+  --config shinka/native_multiobjective_config.json \
+  --results-dir runs/evolution_multiobjective --execute
 ```
 
-The exact package lock, source checksums and session information are versioned. The host/compiler/OpenBLAS and some ancillary package builds differ from the authors’ environment; [environment notes](environment/README.md) record those differences.
+Run this after the active legacy evaluator reaches its completed checkpoint; do not start duplicate controllers. Native seed evaluation reuses unchanged baseline forecasts. Paused candidate fits retain their candidate, generation and lineage. The fixed evaluator supports the native program/results-directory invocation through [its multiobjective entry](scripts/multiobjective_evaluation.py); candidate programs cannot edit or execute the evaluator.
+
+The exact package lock, source checksums and session information are versioned. [Environment notes](environment/README.md) record compiler/OpenBLAS and ancillary-package differences. Existing preparation instructions remain in the runbook; this continuation does not rebuild the environment or repeat readiness checks.
 
 ### Resume original-source work
 
@@ -233,12 +255,12 @@ python3 scripts/research.py status
 python3 scripts/update_manifests.py
 ```
 
-Run large R jobs serially on a host with similar memory constraints. The original two-worker ABM needs local socket access. Automatic checkpoint reuse currently depends on the original ABM paths and unchanged empirical provenance files; a fresh clone or environment verification can trigger recomputation. See the [runbook caveat](docs/RUNBOOK.md#checkpoint-portability) before resuming. With an unchanged cache identity, the exhausted empirical v1 retry policy preserves its failure instead of adding attempts. Further predictive work requires a versioned fitting-policy revision applied equally to baseline and candidates before comparison.
+Run heavy R jobs serially. Original ABM drivers remain separate from the extension and reuse their saved cells; their two-worker execution needs local socket access. Full-period empirical Models 3 and 4 use 1990–2010, so newly obtained results involving 2010 must not enter evolutionary context before final selection is frozen. Completing every original figure is not a prerequisite for evolution.
 
 | Artifact | Contents |
 |---|---|
 | [Reproduction manifest](results/reproduction_manifest.json) | Coverage, completed cells, native specifications and process outcomes |
-| [Evolution manifest](results/evolution_manifest.json) | Baseline attempts, invalid evaluator result and unfulfilled launch gates |
+| [Evolution manifest](results/evolution_manifest.json) | Reference fits/forecasts, historical invalid result and completed objective vectors |
 | [Scientific result archive](results/) | RDS checkpoints and fits, endpoint data, figures, audits, stdout/stderr and resource logs |
 | [Publication inventory](docs/PUBLICATION.md) | Included artifacts, SHA256 inventory and packaging scope |
 | [Chronological research log](RESEARCH_LOG.md) | Commands, discoveries, failures, corrections and measured costs |
@@ -255,9 +277,11 @@ Installed runtimes, package caches, credentials and redundant working copies are
 
 ## 8. Limitations and remaining work
 
-The reproduction is partial, and the forecasting question remains unanswered. The first baseline’s convergence failure prevents a valid four-year comparison. Estimation must become acceptable under a newly recorded, consistently applied policy before the structural candidate and native campaign proceed. The next scientific stages are complete baseline validation, seed-zero verification, structural evolution, conventional search under a comparable budget, fresh Monte Carlo checks, and a sealed 2010 comparison.
+The reconstruction and reproduction are partial, and the evolutionary question remains unanswered. The immediate numerical task is the 2009 reference fit/forecast. Once the existing evaluator finishes, its results will be published and native multiobjective evolution can propose alternatives directly. Unchanged acceptance criteria can still invalidate a candidate; failed fits are not measured predictive losses. The expanded grammar, coefficient-transfer corrections and project Pareto integration are implemented but have not produced an evaluated descendant.
 
-Tie persistence may dominate overall AUC; formation and dissolution diagnostics remain necessary. One fresh simulation replicate measures limited Monte Carlo sensitivity, not coefficient uncertainty. Dependent dyads must not be treated as independent observations for a naïve significance test. Full Figures 5–7, the equilibrium curve, main empirical estimates and original validation are unfinished. The original 2010-based empirical callers are prepared but deferred until the reserved final comparison is complete.
+A sustained campaign must explore competing mechanisms and descendants across recoverable sessions. A same-space conventional search is implemented for an effort-accounted comparison; no superiority over conventional search is claimed without that experiment. Development Pareto representatives require fresh-randomness sensitivity, a frozen reporting set and then a reserved 2010 comparison. The legacy final-test command covers the historical PR-only workflow; multiobjective finalist-set execution must be adapted before use.
+
+Four adjacent development years provide limited temporal evidence. Dependent dyads are not independent experimental replications; one fresh simulation repetition is limited Monte Carlo sensitivity, not comprehensive uncertainty estimation. Overall tie metrics can be dominated by persistence; ordinal-spending RMSE measures predictive error, not expenditure savings or security efficiency. Full Figures 5–7, the equilibrium curve, empirical Models 3/4 and original appendix validation remain unfinished. Predictive gains would not independently reproduce the authors’ efficiency explanation.
 
 ## References and reuse
 

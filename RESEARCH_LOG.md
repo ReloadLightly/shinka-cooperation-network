@@ -186,3 +186,100 @@ Installed dependencies, redundant source/data working copies, credentials and
 private sessions remain excluded. Pattern scans reported no credential matches.
 Commands used include python3 scripts/publication_inventory.py, GitHub Markdown
 rendering, staged-diff review, and the authorized initial commit/push workflow.
+
+## 2026-09-20 — prespecified bounded scientific continuation (before execution)
+
+Policy v2 retains the original attempts1–3 (nsub3/n3=1000; seeds12345–12347),
+then allows exactly one prevAns continuation from attempt3 with nsub5/n3=3000,
+seed12348. Stop on first acceptable fit; all specifications/targets receive this
+same schedule. Main Model3 uses nsub5/n3=3000 in original
+scripts/00.estimateSAOMsMain. More stochastic-approximation effort and phase3
+simulations address the saved joint convergence obstacle (overall0.3237543663),
+while all acceptance criteria remain unchanged: individual |t|<0.1, overall<0.25,
+and existing native/identification requirements. Forecasts remain1000 endpoints.
+The saved three2006 fits are transferred unchanged into the versioned scientific
+run; no completed fitting is repeated. If the additional2006 continuation fails,
+this session stops empirical search. No tests/audits/readiness work is run.
+
+## 2026-09-20 18:06 UTC — accepted 2006 fit and actual forecast
+
+The sole added continuation passed: max|t|0.058829200542192574, overall
+0.1481894637949584, all native validity criteria satisfied. Runtime4162.92s;
+13,767 native iterations (10,767 estimation +3,000 phase3). Objective estimates
+changed little from attempt3 (largest change0.06265 prior standard errors).
+The fit/forecast process took4209s wall, peak551,236KB RSS. Saved under
+results/cache/8129f423ce5a8a407d8e5fe630fb02d145e209f6500ae34e57af32b4e4f2d829.
+
+The unconditional origin-only forecast returned exactly1000 endpoints in33.292s,
+seed2006001, before target scoring. On12,720 eligible unordered dyads (458ties),
+PRROC PR-AUC=.8853079445873959, ROC-AUC=.9764983806968522,
+Brier=.005488310220125786. Persistence PR-AUC=.8638806700371717 and
+Brier=.005424528301886792: ranking improves but Brier is slightly worse.
+Formation PR=.015180235117037194; dissolution ROC=.5194788441692466.
+Spending RMSE=.3712393627751295 ordinal categories. This is an accepted baseline
+forecast, not evolutionary improvement. 2010 remains reserved.
+
+Started the original-specification evaluate.py invocation in
+results/evolution_forecast/initial-v2. It reuses completed2006 predictions and
+fits2007–2009 serially under the same declared policy. Four-year fitness remains
+unavailable until all four years succeed. No new audit/test/model-route calls.
+
+## 2026-09-20 20:25–21:05 UTC — second baseline and revised scientific scope
+
+The 2007 reference completed four attempts (1174.327,1119.742,1033.407,
+4884.053 seconds). Attempt4 passed max|t|=.04937219026260515 and overall
+convergence=.14525483825642632; all original acceptance requirements remain.
+Fit/forecast walltime was2:17:47, peak744640KB RSS. Exactly1000 endpoints
+(seed2007001;44.986 seconds) gave PR-AUC=.9416616420083401,
+Brier=.004086563128930818 and spending RMSE=.36381803035381066 ordinal
+categories. Persistence PR=.9108377571720565 and Brier=.0037735849056603774:
+better ranking is accompanied by worse probability MSE. Formation PR=.0385171845
+and dissolution PR=.0226242552 remain separate diagnostics. The 2008 fit began
+20:25UTC in the same original evaluator; no duplicate numerical controller ran.
+
+User steering replaces the small specification-selection pilot with a continuing
+multiobjective-v1 scientific campaign. Withdrawn: four proposals, twelve
+generations as a research limit, fifteen subsets, three structural coefficients,
+blanket parameter/product bans and a manually successful changed-model gate.
+The fixed objectives are four-year means of PR improvement, Brier improvement
+and ordinal-spending RMSE improvement. Stable scalar credit is
+2+(J1+J2+J3/10)/3; strict Pareto retention/sampling is a project integration,
+not an upstream configuration feature. Model3 controls, spending structure,
+joint coefficient estimation, country sample and native update process remain.
+Models3/4 full-period reproduction stays separate; new2010-related results
+cannot enter development before finalist selection is frozen.
+
+The latest requested execution window began around20:44UTC. Its checkpoint is
+23:15UTC (01:15Berlin), not a campaign generation limit. New native work has a
+cooperative deadline before each fit, continuation and forecast; admitted native
+operations save to completion. The older running evaluator was launched without
+that hook and its files/settings are preserved until its completed checkpoint.
+
+Separate unused schema-v2/R/evaluator modules and Pareto selection hooks were
+implemented while that calculation continued. The native compatibility patch
+was applied to the pinned Shinka working source without running the engine or
+rebuilding its environment. It adds pending-candidate/adaptation resumption and
+deadline admission; installed RSiena and its C++ kernel are unchanged. Activation
+of multiobjective evaluation waits for publication of the existing evaluator
+checkpoint. No tests, audit/readiness campaigns, administrative model calls or
+browser checks were performed.
+
+Calculated descriptive ten-bin reliability from the existing committed2006/2007
+predictions only (results/evolution_forecast/baseline-calibration-2006-2007.json).
+The 2007 reference predicts875.948 triangles versus751 observed (native95%
+simulation envelope800–958);2006's727 triangles lie within700–812.025.
+This motivates investigating closure saturation across development years; it
+does not establish a successful alternative, causal efficiency or security.
+
+### 2026-09-20 21:25 UTC — third reference forecast completed
+
+- 2008 accepted at attempt 3: max|t|=0.09340243217279035, overall=0.2308423651716375, elapsed=1166.037 s. Attempts 1/2 failed overall convergence (0.4018111172554628/0.3212258013711868); total fitting time 3559.530 s. No threshold or policy change.
+- Exactly 1000 endpoints: PRROC integral=0.9145603775754418; Brier=0.004505291666666667; ordinal-spending RMSE=0.43959861050299553 (146 countries). Common tie mask: 12720 unordered pairs, 508 positive ties; 160 origin-inactive pairs excluded. Formation PR=0.022770206408522696, dissolution PR=0.030813282345479427. Persistence PR=0.9008736722460643, Brier=0.00440251572327044. Forecast elapsed35.717s; scoring9.211s.
+- The existing unchanged evaluator automatically began 2009 at21:25:33UTC. No new numerical controller or candidate was launched. The checkpoint remains23:15UTC; 2006/2007 were carried into this execution window, and 2008 is newly completed within it.
+- Scientific reporting now separates reconstruction from empirical reproduction, the authors' Model4 efficiency comparison from the Model3 forecasting extension, and overall agreement prediction from formation. New multiobjective feedback associates estimates/SEs with their actual native effect identity; legacy `initialValue` exports are not misreported as fitted estimates. No tests, validation campaigns, administrative model calls or final-year access were performed.
+
+### 2026-09-20T21:58:06.622249+00:00 — continuing admission authorized; numerical checkpoint publication
+
+- The user superseded the former2–3h stopping instruction. Roughly2–3h remains a reporting/publication interval, not a scientific admission limit. The new launcher now removes stale inherited session deadlines by default; native unlimited generation mode no longer requires a walltime window. Optional explicitly requested future windows and all numerical timeouts remain. No active evaluator file or setting was changed.
+- 2009 attempt1 completed in1314.003s and failed max|t|=0.11228053001026655, overall=0.3509443797466443. This diagnoses nonconvergence, not a software defect. The existing native continuation is active under unchanged v2 policy. If that policy is exhausted, inspect saved training-only numerical diagnostics before declaring a specific remedy.
+- Publishing completed2006–2008 fits/forecasts and the saved2009 attempt1, while labeling2009 ongoing. 2008 fit-and-forecast walltime1:00:07, peakRSS690224KiB. Cumulative accepted reference forecasts3; changed-model evaluations0; native proposals/role calls0. New scientific grammar/evaluator/Pareto code is implemented but unexecuted. No positive evolutionary finding or complete four-year objective vector is claimed.

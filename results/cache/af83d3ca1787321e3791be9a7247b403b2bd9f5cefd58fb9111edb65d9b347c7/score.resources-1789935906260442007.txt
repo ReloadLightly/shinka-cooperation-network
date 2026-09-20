@@ -1,0 +1,23 @@
+	Command being timed: "/home/roland/actir/shinka-cooperation-network/environment/run-r /home/roland/actir/shinka-cooperation-network/R/score.R /home/roland/actir/shinka-cooperation-network/results/cache/af83d3ca1787321e3791be9a7247b403b2bd9f5cefd58fb9111edb65d9b347c7/predictions.rds /home/roland/actir/shinka-cooperation-network/data/targets/2007.rds /home/roland/actir/shinka-cooperation-network/results/cache/af83d3ca1787321e3791be9a7247b403b2bd9f5cefd58fb9111edb65d9b347c7"
+	User time (seconds): 6.63
+	System time (seconds): 1.65
+	Percent of CPU this job got: 92%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:09.00
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 273060
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 170
+	Minor (reclaiming a frame) page faults: 84938
+	Voluntary context switches: 548
+	Involuntary context switches: 22
+	Swaps: 0
+	File system inputs: 59536
+	File system outputs: 656
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

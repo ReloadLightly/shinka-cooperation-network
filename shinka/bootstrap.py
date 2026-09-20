@@ -58,6 +58,9 @@ def main() -> None:
     local_runtime = source / "shinka/launch/local.py"
     if "Project compatibility patch: native Popen.kill" not in local_runtime.read_text():
         run("git", "apply", str(ROOT / "shinka/patches/local-evaluation-process-tree.patch"), cwd=source)
+    native_runner = source / "shinka/core/async_runner.py"
+    if "Project compatibility patch: native windows and pending evaluations" not in native_runner.read_text():
+        run("git", "apply", str(ROOT / "shinka/multiobjective_native.patch"), cwd=source)
     tools = ROOT / "shinka/tools"
     tools.mkdir(parents=True, exist_ok=True)
     deb = tools / "bubblewrap_0.6.1-1ubuntu0.3_amd64.deb"

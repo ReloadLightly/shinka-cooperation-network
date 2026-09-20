@@ -1,0 +1,145 @@
+{
+  "version": "rsiena-1.3.10-network-native-grammar-v2",
+  "schema_version": 2,
+  "engine": "RSiena 1.3.10",
+  "activation": "Separate multiobjective implementation; this catalog does not change an already running v1 experiment.",
+  "program_byte_limit": 32768,
+  "network_node_count": 161,
+  "network_node_count_rule": "The current training-packet universe contains 161 actors. The native adapter must check its actual node count when applying these sample-dependent truncation bounds; do not change the country sample to satisfy the catalog.",
+  "max_network_effects": null,
+  "complexity_policy": "No arbitrary number-of-effects cap or complexity fitness bonus. Native compatibility, finite numerical statistics, nonredundant moments and unchanged empirical convergence criteria constrain admissibility. Report term and interaction counts separately.",
+  "fixed_density": true,
+  "fixed_empirical_controls": true,
+  "fixed_behavior_objective": "Predictive Model 3 structure; every included network and spending coefficient is jointly re-estimated statistically.",
+  "effects": {
+    "degPlus": {
+      "role": "network", "interaction_type": "",
+      "parameter_rule": {"kind": "degree_root_switch"},
+      "meaning": "Native degree activity plus popularity: raw degrees at parameter 1, square-root degrees at every parameter >=2 (canonical 2). It combines ego activity and alter popularity in actor choice."
+    },
+    "inPop": {
+      "role": "network", "interaction_type": "",
+      "parameter_rule": {"kind": "choices", "values": [0]},
+      "meaning": "Uncentered raw degree popularity of the proposed alter. Distinct actor-choice mechanism from degPlus despite proportional global estimation moments."
+    },
+    "inPopSqrt": {
+      "role": "network", "interaction_type": "",
+      "parameter_rule": {"kind": "choices", "values": [0]},
+      "meaning": "Popularity based on square-root alter degree."
+    },
+    "outAct": {
+      "role": "network", "interaction_type": "",
+      "parameter_rule": {"kind": "choices", "values": [0]},
+      "meaning": "Uncentered raw ego-degree activity; native global statistic is a sum of squared degrees."
+    },
+    "outActSqrt": {
+      "role": "network", "interaction_type": "",
+      "parameter_rule": {"kind": "choices", "values": [0]},
+      "meaning": "Ego activity with a degree-to-the-three-halves native statistic."
+    },
+    "outTrunc": {
+      "role": "network", "interaction_type": "",
+      "parameter_rule": {"kind": "truncation_knot"},
+      "meaning": "Truncated ego-degree statistic with genuine integer knot 1<=k<160 for 161 actors. Different knots are separate native effect instances; outTrunc2 is the same operator alias. At k>=160 every feasible toggle has the density contribution and the global statistic is twice the symmetric density statistic; such constant-density factors are excluded in main terms and products."
+    },
+    "outInv": {
+      "role": "network", "interaction_type": "",
+      "parameter_rule": {"kind": "positive_integer"},
+      "meaning": "Native reciprocal-degree statistic 1/(degree+c), with integer c>=1."
+    },
+    "outSqInv": {
+      "role": "network", "interaction_type": "",
+      "parameter_rule": {"kind": "positive_integer"},
+      "meaning": "Native reciprocal product 1/((degree+c)(degree+1+c)), with integer c>=1."
+    },
+    "outInAss": {
+      "role": "network", "interaction_type": "",
+      "parameter_rule": {"kind": "choices", "values": [1, 2]},
+      "meaning": "Degree assortativity using raw degrees (1) or square-root degrees (2)."
+    },
+    "transTriads": {
+      "role": "network", "interaction_type": "",
+      "parameter_rule": {"kind": "choices", "values": [0]},
+      "meaning": "Native transitive-triad closure statistic of the symmetric network."
+    },
+    "transTies": {
+      "role": "network", "interaction_type": "",
+      "parameter_rule": {"kind": "choices", "values": [0]},
+      "meaning": "Number of ties supported by at least one transitive closure, distinguishing closure incidence from triangle counts. Native tie-change contribution includes critical in-stars representing changes to other ego ties' closure status. This differs from GWESP(0)'s direct closure indicator even though their estimation statistics coincide."
+    },
+    "gwesp": {
+      "role": "network", "interaction_type": "dyadic",
+      "parameter_rule": {"kind": "gwesp_integer", "minimum": 0},
+      "meaning": "Geometrically weighted edgewise shared partners. Native decay alpha=k/100 for integer k>=0; for m shared partners the weight is exp(alpha)*(1-(1-exp(-alpha))^m).",
+      "numerical_constraint": "The exact native double-precision exp(alpha) must be finite and 1-exp(-alpha) must remain below 1; otherwise native weights overflow or become identically zero."
+    },
+    "Jout": {
+      "role": "network", "interaction_type": "dyadic",
+      "parameter_rule": {"kind": "ignored", "canonical": 69},
+      "meaning": "Native Jaccard similarity of ego and alter neighbor sets. The symmetric allEffects row displays 69, but EffectFactory does not pass this parameter to OutJaccardFunction; canonical parameter is always 69."
+    },
+    "cycle4ND": {
+      "role": "network", "interaction_type": "",
+      "parameter_rule": {"kind": "choices", "values": [1, 2]},
+      "meaning": "Native four-cycle effect: raw count at 1 or square-root transformation at 2."
+    },
+    "nbrDist2": {
+      "role": "network", "interaction_type": "",
+      "parameter_rule": {"kind": "choices", "values": [0]},
+      "meaning": "Native number of actor pairs at network distance two."
+    },
+    "nbrDist2twice": {
+      "role": "network", "interaction_type": "",
+      "parameter_rule": {"kind": "choices", "values": [0]},
+      "meaning": "Native number of pairs with doubly achieved distance two."
+    },
+    "between": {
+      "role": "network", "interaction_type": "",
+      "parameter_rule": {"kind": "choices", "values": [0]},
+      "meaning": "Native betweenness count supported for symmetric networks."
+    },
+    "egoX": {
+      "role": "modifier", "interaction_type": "ego", "covariate_kind": "monadic",
+      "parameter_rule": {"kind": "choices", "values": [0]},
+      "meaning": "Native ego covariate factor, available only inside compatible two- or three-factor products."
+    },
+    "altX": {
+      "role": "modifier", "interaction_type": "dyadic", "covariate_kind": "monadic",
+      "parameter_rule": {"kind": "choices", "values": [0]},
+      "meaning": "Native alter covariate factor, available only inside compatible products; original alter main controls remain protected."
+    },
+    "X": {
+      "role": "modifier", "interaction_type": "dyadic", "covariate_kind": "dyadic",
+      "parameter_rule": {"kind": "choices", "values": [0]},
+      "meaning": "Native dyadic covariate factor, available only inside compatible products; original dyadic main controls remain protected."
+    }
+  },
+  "effect_aliases": {"outTrunc2": "outTrunc"},
+  "covariates": {
+    "monadic": ["beh.democracy_1", "beh.GDPgrowth_1", "beh.nato_1", "beh.allies_1", "beh.military_1", "beh.lnmids_1", "beh.lncinc_1", "beh.milexSpLag_1", "milex.beh"],
+    "dyadic": ["nets.ATOP_d", "nets.lndistance_d", "nets.absidealdiff_d", "nets.lntrade_d", "nets.NATO_d"]
+  },
+  "covariate_rules": "Existing empirical variables only. Exogenous covariates preserve training centering and origin-only carry-forward. milex.beh denotes the jointly evolving native behavior, initialized at the forecast origin; its native centering requires the trusted forecast adapter's exact reparameterization.",
+  "interaction_rules": {
+    "syntax": {"product": [{"effect": "egoX", "parameter": 0, "covariate": "beh.democracy_1"}, {"effect": "transTriads", "parameter": 0}]},
+    "factor_counts": [2, 3],
+    "two_factor": "At least one ego factor, or both factors dyadic.",
+    "three_factor": "At least two ego factors, or all three factors ego/dyadic.",
+    "repeated_factors": "Permitted when native compatibility allows them; they define powers inside native interactions, not repeated independently estimated terms. Repeated GWESP(0) factors canonicalize to one copy because their native tie-change contribution and tie statistic are both binary. A resulting single atom or two-factor product must still satisfy its native role and compatibility rules.",
+    "pure_covariate_products": "Permitted native interaction statistics; original main controls remain included.",
+    "nested_products": false,
+    "semantics": "Use actual RSiena unspInt interactions; do not replace native change-statistic semantics with arbitrary Python products or whole-objective multiplication.",
+    "source": "vendor/RSiena/R/initializeFRAN.r:2098"
+  },
+  "proportional_main_moment_groups": [
+    {"name": "raw-degree", "members": [{"effect": "degPlus", "parameter": 1}, {"effect": "inPop", "parameter": 0}, {"effect": "outAct", "parameter": 0}]},
+    {"name": "square-root-degree", "members": [{"effect": "degPlus", "parameter": 2}, {"effect": "inPopSqrt", "parameter": 0}, {"effect": "outActSqrt", "parameter": 0}]},
+    {"name": "closure-presence", "members": [{"effect": "gwesp", "parameter": 0}, {"effect": "transTies", "parameter": 0}]}
+  ],
+  "identification_policy": "Choose at most one separately estimated top-level atom from each proportional-moment group. Also reject GWESP(0) and transTies interactions with the same compatible ego covariate factors: their native per-ego statistics, and hence modified moments, coincide. Do not merge these actor-choice mechanisms into one identity. Other empirical identification failures remain invalid fits under the unchanged native convergence policy; catalog support alone does not guarantee identification.",
+  "baseline": {"schema_version": 2, "network_effects": [{"effect": "degPlus", "parameter": 1}, {"effect": "transTriads", "parameter": 0}]},
+  "canonicalization": "Sort terms and product factors; retain factor multiplicity except exact idempotent GWESP(0) repetitions; include explicit integer parameters and covariate identities; collapse outTrunc2 to outTrunc, degPlus parameters >=2 to 2, and ignored Jout parameters to 69. Repeated GWESP(0) factors reduce to one copy, including reduction to a single structural atom or a compatible two-factor product. Legacy schema-1 atoms normalize to the same schema-2 identity.",
+  "canonicalization_limits": "These are source-confirmed identities and identification exclusions, not a complete symbolic algebra for every native statistic or covariate realization. Distinct canonical hashes conservatively denote distinct represented specifications; they do not guarantee mathematical novelty under all possible identities.",
+  "scientific_scope": "A broader native specification grammar, not the original 15-subset pilot. No candidate-defined coefficient values, outcomes, objective weights, forecasting rules, fitness code, arbitrary utility functions or new compiled RSiena statistics are admitted.",
+  "sources": ["vendor/RSiena/data/allEffects.csv", "vendor/RSiena/src/model/effects/EffectFactory.cpp", "vendor/RSiena/src/model/effects/BothDegreesEffect.cpp", "vendor/RSiena/src/model/effects/generic/GwespFunction.cpp", "vendor/RSiena/src/model/effects/generic/GenericNetworkEffect.cpp", "vendor/RSiena/src/model/effects/TransitiveTiesEffect.cpp", "vendor/RSiena/src/model/effects/TruncatedOutdegreeEffect.cpp", "vendor/RSiena/src/model/effects/DensityEffect.cpp", "vendor/RSiena/src/model/effects/NetworkInteractionEffect.cpp", "vendor/RSiena/R/initializeFRAN.r"]
+}

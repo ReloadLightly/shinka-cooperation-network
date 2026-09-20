@@ -159,7 +159,8 @@ run_forecast <- function(specfile,target,outdir,settingsfile,pastfile=NULL,prepa
   fit_path<-file.path(outdir,"accepted_fit.rds")
   if(file.exists(fit_path)) {
     ans<-readRDS(fit_path)
-    if(!fit_diagnostics(ans$fit,settings$estimation$n3)$valid)stop("Cached fit is not acceptable")
+    accepted_attempt <- tail(ans$diagnostics,1)[[1]]$attempt
+    if(!fit_diagnostics(ans$fit,fit_schedule(settings,accepted_attempt)$n3)$valid)stop("Cached fit is not acceptable")
   } else {
     ans<-fit_model(train,effs,settings,outdir);saveRDS(ans,fit_path)
   }

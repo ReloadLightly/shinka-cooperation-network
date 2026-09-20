@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "status": "Declared routes for the separate multiobjective campaign; no economical-arm execution is claimed by this file.",
+  "billing_route": "Existing Headless Codex ChatGPT subscription adapter; paid API fallback is prohibited.",
+  "builder": {"model": "gpt-6-astra", "reasoning_effort": "ultra", "role": "Coding-session builder, separate from evolutionary mutation models"},
+  "mutation_models": ["headless/codex@gpt-5.6-luna?effort=low", "headless/codex@gpt-5.6-sol?effort=low", "headless/codex@gpt-5.6-terra?effort=low"],
+  "novelty_models": ["headless/codex@gpt-5.6-luna?effort=low"],
+  "meta_models": ["headless/codex@gpt-5.6-luna?effort=low"],
+  "prompt_models": ["headless/codex@gpt-5.6-luna?effort=low"],
+  "model_selection": "Preserve native UCB selection over distinct mutation model identifiers. The exact mathematical specification, not cosmetic program changes, is the scientific unit of novelty.",
+  "service_tier": "Headless's default service tier; fast mode is not requested.",
+  "local_catalog_evidence": {
+    "source": "Local Codex models_cache.json, selectively read without credentials or unrelated conversation content",
+    "fetched_at": "2026-09-20T19:47:50.575029631Z",
+    "codex_version": "0.155.1",
+    "models": [
+      {"model": "gpt-6-astra", "visibility": "list", "description": "Our most capable model for complex, demanding work.", "supported_reasoning": ["low", "medium", "high", "xhigh", "max", "ultra"]},
+      {"model": "gpt-5.6-luna", "visibility": "list", "description": "Fast and affordable agentic coding model.", "supported_reasoning": ["low", "medium", "high", "xhigh", "max"]},
+      {"model": "gpt-5.6-sol", "visibility": "list", "description": "Reliable agentic workhorse for everyday tasks.", "supported_reasoning": ["low", "medium", "high", "xhigh", "max", "ultra"]},
+      {"model": "gpt-5.6-terra", "visibility": "list", "description": "Balanced agentic coding model for everyday work.", "supported_reasoning": ["low", "medium", "high", "xhigh", "max", "ultra"]}
+    ],
+    "limits": "Metadata establishes listed identifiers and supported effort settings, not successful route execution or exact comparative subscription quota charges. Economical settings are an intended resource choice, not a measured price claim."
+  },
+  "cached_subscription_window": {
+    "timestamp": "2026-09-20T20:20:11.370Z",
+    "source": "Current session's cached token_count rate_limits fields; no new administrative call",
+    "limit_id": "codex",
+    "used_percent": 92.0,
+    "remaining_percent_derived": 8.0,
+    "window_minutes": 10080,
+    "resets_at_utc": "2026-09-24T20:06:55Z",
+    "secondary_limit": null,
+    "absolute_remaining_tokens": null,
+    "absolute_remaining_proposals": null,
+    "additional_credits_available": false,
+    "interpretation": "A historical account-wide allowance snapshot, not the campaign's consumption and not a guaranteed present capacity. No conversion into dollar charges or remaining proposals is supported."
+  },
+  "usage_accounting": "Report actual native scientific calls by mutation, novelty, meta, prompt and repair role, with returned model, requested effort, available tokens, duration and failures. Do not label configured routes as observed mechanisms or sum inherited session counters as independent campaign usage.",
+  "administrative_calls_authorized": false,
+  "paid_api_fallback_authorized": false
+}

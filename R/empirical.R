@@ -142,6 +142,12 @@ fit_diagnostics <- function(fit, expected_n3=1000L) {
        finite_identified=identified)
 }
 
+fit_schedule <- function(settings,attempt) {
+  stronger <- attempt > (settings$estimation$continuation_after_attempt %||% Inf)
+  list(nsub=if(stronger) settings$estimation$continuation_nsub else settings$estimation$nsub %||% 3L,
+       n3=if(stronger) settings$estimation$continuation_n3 else settings$estimation$n3 %||% 1000L)
+}
+
 fit_model <- function(netdata,effs,settings,outdir) {
   prev <- NULL; diagnostics <- list()
   prior_path <- file.path(outdir,"fit_diagnostics.json")
@@ -150,8 +156,9 @@ fit_model <- function(netdata,effs,settings,outdir) {
     path <- file.path(outdir,paste0("fit-attempt-",attempt,".rds"))
     if(!file.exists(path)) break
     cached <- readRDS(path)
-    diagnostics[[attempt]] <- if(length(prior)>=attempt) prior[[attempt]] else c(list(attempt=attempt),fit_diagnostics(cached,settings$estimation$n3 %||% 1000L))
-    current <- fit_diagnostics(cached,settings$estimation$n3 %||% 1000L)
+    schedule <- fit_schedule(settings,attempt)
+    diagnostics[[attempt]] <- if(length(prior)>=attempt) prior[[attempt]] else c(list(attempt=attempt),fit_diagnostics(cached,schedule$n3))
+    current <- fit_diagnostics(cached,schedule$n3)
     for(n in names(current)) diagnostics[[attempt]][[n]] <- current[[n]]
     diagnostics[[attempt]]$resumed <- TRUE
     if(isTRUE(diagnostics[[attempt]]$valid)) return(list(fit=cached,diagnostics=diagnostics))
@@ -160,14 +167,17 @@ fit_model <- function(netdata,effs,settings,outdir) {
   completed <- length(diagnostics)
   if(completed >= (settings$estimation$max_attempts %||% 3L)) stop("All fixed estimation attempts already failed; inspect archived diagnostics")
   for (attempt in seq.int(completed+1L,settings$estimation$max_attempts %||% 3L)) {
+    schedule <- fit_schedule(settings,attempt)
     alg <- sienaAlgorithmCreate(projname=file.path(outdir,paste0("fit-",attempt)),
-      nsub=settings$estimation$nsub %||% 3, n3=settings$estimation$n3 %||% 1000,
+      nsub=schedule$nsub, n3=schedule$n3,
       seed=(settings$estimation$seed %||% 12345) + attempt - 1L,
       modelType=c(dv.net=3),behModelType=c(milex.beh=1),cond=FALSE)
     started <- proc.time()
     fit <- siena07(alg,data=netdata,effects=effs,prevAns=prev,batch=TRUE,silent=TRUE,
                    useCluster=FALSE,returnDeps=FALSE)
-    diagnostics[[attempt]] <- c(list(attempt=attempt,elapsed_seconds=unname((proc.time()-started)[3])),fit_diagnostics(fit,settings$estimation$n3 %||% 1000L))
+    diagnostics[[attempt]] <- c(list(attempt=attempt,nsub=schedule$nsub,n3=schedule$n3,
+      seed=(settings$estimation$seed %||% 12345)+attempt-1L,
+      elapsed_seconds=unname((proc.time()-started)[3])),fit_diagnostics(fit,schedule$n3))
     checkpoint <- file.path(outdir,paste0("fit-attempt-",attempt,".rds"))
     saveRDS(fit,paste0(checkpoint,".pending"));file.rename(paste0(checkpoint,".pending"),checkpoint)
     write_json(diagnostics,file.path(outdir,"fit_diagnostics.json"),auto_unbox=TRUE,pretty=TRUE,na="null",digits=16)

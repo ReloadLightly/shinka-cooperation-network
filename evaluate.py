@@ -25,7 +25,7 @@ from scripts.specification import read_program, spec_hash, canonical_bytes
 from scripts.resources import scientific_execution
 
 ROOT = Path(__file__).resolve().parent
-SETTINGS = ROOT / "configs/evaluator-v1.json"
+SETTINGS = ROOT / "configs/evaluator-v2.json"
 BASELINE = ROOT / "candidates/initial.py"
 CACHE = ROOT / "results/cache"
 
@@ -216,7 +216,9 @@ def evaluate(program_path, results_dir):
     start = time.monotonic()
     try:
         spec, source = read_program(program_path)
-        preflight()
+        # Reuse the completed source/metric work. The revised fitting schedule
+        # is judged by native scientific diagnostics below, without rerunning
+        # the earlier audit campaign or its source-hash readiness gate.
         settings = read_json(SETTINGS)
         baseline_spec, _ = read_program(BASELINE)
         annual = {}

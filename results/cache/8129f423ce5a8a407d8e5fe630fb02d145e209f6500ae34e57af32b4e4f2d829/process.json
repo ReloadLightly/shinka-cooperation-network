@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-09-20T18:06:39.871702+00:00",
+  "stage": "score",
+  "command": [
+    "/home/roland/actir/shinka-cooperation-network/environment/run-r",
+    "/home/roland/actir/shinka-cooperation-network/R/score.R",
+    "/home/roland/actir/shinka-cooperation-network/results/cache/8129f423ce5a8a407d8e5fe630fb02d145e209f6500ae34e57af32b4e4f2d829/predictions.rds",
+    "/home/roland/actir/shinka-cooperation-network/data/targets/2006.rds",
+    "/home/roland/actir/shinka-cooperation-network/results/cache/8129f423ce5a8a407d8e5fe630fb02d145e209f6500ae34e57af32b4e4f2d829"
+  ],
+  "invocation_id": "1789927599871665482",
+  "resources_file": "/home/roland/actir/shinka-cooperation-network/results/cache/8129f423ce5a8a407d8e5fe630fb02d145e209f6500ae34e57af32b4e4f2d829/score.resources-1789927599871665482.txt",
+  "pid": 20,
+  "status": "completed",
+  "elapsed_seconds": 6.245205298007932,
+  "exit_code": 0
+}

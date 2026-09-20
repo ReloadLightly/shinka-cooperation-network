@@ -1,0 +1,556 @@
+--- a/shinka/core/config.py
++++ b/shinka/core/config.py
+@@ -21,7 +21,10 @@
+     task_sys_msg: Optional[str] = DEFAULT_TASK_SYS_MSG
+     patch_types: List[str] = field(default_factory=default_patch_types)
+     patch_type_probs: List[float] = field(default_factory=default_patch_type_probs)
+-    num_generations: int = 50
++    num_generations: Optional[int] = 50
++    # Project compatibility patch: resource windows of a continuing campaign.
++    # None means no research generation cap; execution windows are optional.
++    execution_window_seconds: Optional[float] = None
+     max_patch_resamples: int = 3
+     max_patch_attempts: int = 1
+     job_type: str = "local"
+--- a/shinka/core/async_runner.py
++++ b/shinka/core/async_runner.py
+@@ -4,6 +4,7 @@
+ """
+ 
+ import json
++import hashlib
+ import asyncio
+ import logging
+ import shutil
+@@ -369,13 +370,10 @@
+         self._configure_local_job_runtime(cpu_count)
+ 
+         if self.evo_config.num_generations is None:
+-            assert self.evo_config.max_api_costs is not None, (
+-                "Max API costs must be specified if num_generations is not specified"
+-            )
+-            logger.info(
+-                f"No target generations specified, running indefinitely until cost limit of ${self.evo_config.max_api_costs:.2f} is reached"
+-            )
+-            self.evo_config.num_generations = int(1e6)
++            # Arithmetic sentinel only, never a scored metric or finite research cap.
++            # Optional execution windows remain independent of generation allocation.
++            # Range-based diagnostics below use assigned generations in this mode.
++            self.evo_config.num_generations = math.inf
+ 
+         logger.info("=" * 80)
+         logger.info("ASYNC EVOLUTION RUN STARTED")
+@@ -607,10 +605,167 @@
+         self.max_stuck_detections = 3  # Allow 3 stuck detections before giving up
+         self.stuck_detection_timeout = 60.0  # 60 seconds without progress = stuck
+         self.cost_limit_reached = False  # Track if we've hit the cost limit
++        # Project compatibility patch: native windows and pending evaluations.
++        self.project_pause_requested = False
++        self.project_pause_reason = None
++        self._project_window_deadline = None
++        self._project_window_timer = None
++        self._project_window_managed = False
+ 
+         # Meta task logging state (to reduce verbosity)
+         self._last_meta_log_state: dict | None = None
+         self._last_meta_log_info_time: float | None = None
++
++    def request_pause(self, reason="paused_execution_window") -> None:
++        """Stop new proposals/evaluations; active evaluator checkpoints between R jobs."""
++        self.project_pause_requested = True
++        self.project_pause_reason = reason
++        self.slot_available.set()
++
++    def _project_prepare_window(self) -> None:
++        deadlines = []
++        seconds = self.evo_config.execution_window_seconds
++        if seconds is not None:
++            if isinstance(seconds, bool) or not math.isfinite(seconds) or seconds <= 0:
++                raise ValueError("execution_window_seconds must be positive and finite")
++            deadlines.append(time.time() + seconds)
++        absolute = os.environ.get("SHINKA_EXECUTION_DEADLINE")
++        if absolute:
++            deadline = float(absolute)
++            if not math.isfinite(deadline):
++                raise ValueError("SHINKA_EXECUTION_DEADLINE must be finite Unix seconds")
++            deadlines.append(deadline)
++        self._project_window_managed = bool(deadlines)
++        if deadlines:
++            self._project_window_deadline = min(deadlines)
++            os.environ["SHINKA_EXECUTION_DEADLINE"] = str(self._project_window_deadline)
++            self._project_window_timer = asyncio.get_running_loop().call_later(
++                max(0.0, self._project_window_deadline - time.time()), self.request_pause)
++
++    def _project_window_closed(self) -> bool:
++        if self._project_window_deadline is not None and time.time() >= self._project_window_deadline:
++            self.request_pause()
++        return self.project_pause_requested
++
++    def _project_pending_count(self) -> int:
++        return int(self.db.conn.execute("SELECT COUNT(*) FROM project_pending_evaluations").fetchone()[0])
++
++    def _project_save_window_state(self) -> None:
++        """Checkpoint native adaptation without assigning scientific fitness."""
++        allocation_ended = math.isfinite(self.evo_config.num_generations) and self.next_generation_to_submit >= self.evo_config.num_generations
++        state = {"schema_version": 1,
++            "status": self.project_pause_reason or ("paused_generation_allocation" if allocation_ended else "native_stopped_before_deadline"),
++            "next_generation_to_submit": self.next_generation_to_submit,
++            "completed_generations": self.completed_generations,
++            "prompt_evolution_counter": self.prompt_evolution_counter,
++            "prompt_api_cost": self.prompt_api_cost, "total_api_cost": self.total_api_cost,
++            "avg_proposal_cost": self.avg_proposal_cost,
++            "completed_proposal_costs": self.completed_proposal_costs,
++            "pending_evaluations": self._project_pending_count(),
++            "deadline": self._project_window_deadline, "saved_at": time.time()}
++        if self.meta_summarizer:
++            self.meta_summarizer.save_meta_state(str(Path(self.results_dir) / "project_meta_state.json"))
++        self.db._update_metadata_in_db("project_execution_window", json.dumps(state, allow_nan=False))
++        self._save_bandit_state()
++        logger.info("SCIENTIFIC_EXECUTION_WINDOW %s", json.dumps(state, sort_keys=True))
++
++    def _project_load_window_state(self) -> None:
++        row = self.db.conn.execute("SELECT value FROM metadata_store WHERE key='project_execution_window'").fetchone()
++        if row:
++            state = json.loads(row[0])
++            self.next_generation_to_submit = max(self.next_generation_to_submit, state["next_generation_to_submit"])
++            self.prompt_evolution_counter = state.get("prompt_evolution_counter", 0)
++            self.prompt_api_cost = state.get("prompt_api_cost", 0.0)
++            self.total_api_cost = max(self.total_api_cost, state.get("total_api_cost", 0.0))
++            self.avg_proposal_cost = state.get("avg_proposal_cost", 0.0)
++            self.completed_proposal_costs = state.get("completed_proposal_costs", [])
++            meta_path = Path(self.results_dir) / "project_meta_state.json"
++            if self.meta_summarizer and meta_path.exists():
++                if not self.meta_summarizer.load_meta_state(str(meta_path)):
++                    raise RuntimeError("Native meta state could not be restored")
++        attempted = self.db.conn.execute("SELECT MAX(generation) FROM attempt_log").fetchone()[0]
++        pending = self.db.conn.execute("SELECT MAX(generation) FROM project_pending_evaluations").fetchone()[0]
++        self.next_generation_to_submit = max(self.next_generation_to_submit, (attempted or 0) + 1, (pending or 0) + 1)
++
++    async def _project_save_pending(self, job: AsyncRunningJob, reason: str) -> None:
++        """Pending work is separate from successful/failed population rows."""
++        payload = {name: getattr(job, name) for name in job.__dataclass_fields__ if name != "job_id"}
++        payload["job_id"] = None
++        payload["exec_sha256"] = hashlib.sha256(Path(job.exec_fname).read_bytes()).hexdigest()
++        payload["pending_reason"] = reason
++        previous = self.db.conn.execute("SELECT payload FROM project_pending_evaluations WHERE generation=?", (job.generation,)).fetchone()
++        history = json.loads(previous[0]).get("window_history", []) if previous else []
++        history.append({"paused_at": time.time(), "reason": reason, "results_dir": job.results_dir})
++        payload["window_history"] = history
++        with self.db.conn:
++            self.db.conn.execute("INSERT OR REPLACE INTO project_pending_evaluations (generation,payload,updated_at) VALUES (?,?,?)",
++                                 (job.generation, json.dumps(payload, allow_nan=False), time.time()))
++        self.request_pause()
++        await self._record_generation_event(generation=job.generation, status="paused_execution_window",
++            details={"pending": True, "parent_id": job.parent_id, "exec_sha256": payload["exec_sha256"],
++                     "archive_inspiration_ids": job.archive_insp_ids, "top_k_inspiration_ids": job.top_k_insp_ids,
++                     "reason": reason, "scientific_score": None})
++
++    @staticmethod
++    def _project_results_paused(results) -> bool:
++        if not isinstance(results, dict):
++            return False
++        metrics = results.get("metrics", {})
++        public = metrics.get("public", {})
++        return (isinstance(public, dict) and public.get("protocol") == "multiobjective-v1"
++                and public.get("status") == "paused_execution_window" and public.get("valid") is False
++                and all(public.get(key) is None for key in ("J1", "J2", "J3"))
++                and metrics.get("combined_score") is None
++                and results.get("correct", {}).get("correct") is False)
++
++    async def _project_resume_pending(self) -> None:
++        """Resume one queued candidate through native scheduler; no new proposal."""
++        if self._project_window_closed() or self.running_jobs or self.active_proposal_tasks or self._has_persistence_work_in_progress():
++            return
++        row = self.db.conn.execute("SELECT generation,payload FROM project_pending_evaluations WHERE generation>0 ORDER BY generation LIMIT 1").fetchone()
++        if row is None:
++            return
++        payload = json.loads(row[1])
++        if hashlib.sha256(Path(payload["exec_fname"]).read_bytes()).hexdigest() != payload["exec_sha256"]:
++            raise RuntimeError("Pending candidate source changed; refusing a different model")
++        data = {key: value for key, value in payload.items() if key in AsyncRunningJob.__dataclass_fields__}
++        job = AsyncRunningJob(**data)
++        existing = self.db.conn.execute("SELECT * FROM programs WHERE generation=? ORDER BY timestamp LIMIT 1", (job.generation,)).fetchone()
++        if existing:
++            program = self.db._program_from_row(existing)
++            if not (program.metadata or {}).get("postprocess_side_effects_applied"):
++                event = self._make_persisted_event(job=job, program=program,
++                    evaluation_finished_at=time.time(), postprocess_started_at=time.time(), postprocess_finished_at=time.time())
++                await self._apply_persisted_program_side_effects(event)
++            with self.db.conn:
++                self.db.conn.execute("DELETE FROM project_pending_evaluations WHERE generation=?", (job.generation,))
++            return
++        if job.generation >= self.evo_config.num_generations:
++            raise ValueError("Increase current generation allocation to include pending evaluation")
++        checkpoint_dir = Path(job.results_dir) / "execution_windows" / str(time.time_ns())
++        checkpoint_dir.mkdir(parents=True, exist_ok=False)
++        for filename in ("metrics.json", "correct.json", "job_log.out", "job_log.err"):
++            source = Path(job.results_dir) / filename
++            if source.exists():
++                shutil.copy2(source, checkpoint_dir / filename)
++                if filename in ("metrics.json", "correct.json"):
++                    source.unlink()
++        job_id, worker, submitted_at, started_at, count = await self._submit_evaluation_job_with_slot(job.exec_fname, job.results_dir, None)
++        if job_id is None:
++            return
++        job.job_id, job.evaluation_worker_id = job_id, worker
++        job.evaluation_submitted_at, job.evaluation_started_at = submitted_at, started_at
++        job.results_retrieved_at = job.completion_detected_at = None
++        job.evaluation_slot_released = False
++        job.db_retry_count = 0
++        job.running_eval_jobs_at_submit = count
++        job.meta_patch_data = dict(job.meta_patch_data or {})
++        job.meta_patch_data["execution_window_resumption_count"] = len(payload.get("window_history", []))
++        self.running_jobs.append(job)
++        self.submitted_jobs[str(job_id)] = job
++        await self._record_generation_event(generation=job.generation, status="resumed_evaluation",
++            details={"same_candidate": True, "exec_sha256": payload["exec_sha256"], "new_proposal": False})
++        self.slot_available.set()
+ 
+     def _save_bandit_state(self) -> None:
+         """Save the LLM selection bandit state to disk."""
+@@ -1027,10 +1182,14 @@
+         self.start_time = time.time()
+         self.last_progress_time = self.start_time  # Initialize progress tracking
+         tasks = []  # Initialize tasks list to avoid UnboundLocalError
++        self._project_prepare_window()
+ 
+         try:
+             # Setup initial program (results_dir now set)
+             await self._setup_async()
++            if self._project_window_closed() and not self.running_jobs:
++                self._project_save_window_state()
++                return
+ 
+             # Ensure database is ready for sampling before starting proposal
+             await self._verify_database_ready()
+@@ -1113,8 +1272,8 @@
+                         "   Evolution results are still valid, embeddings just not updated"
+                     )
+ 
+-            # Perform final meta summary for any remaining unprocessed programs
+-            if self.meta_summarizer:
++            # An execution window is not the end of the scientific campaign.
++            if self.meta_summarizer and not self._project_window_managed and not self.project_pause_requested:
+                 try:
+                     if self.verbose:
+                         logger.info("Starting final meta summary generation...")
+@@ -1162,8 +1321,8 @@
+             # Small delay to ensure all final operations are fully complete
+             await asyncio.sleep(0.5)
+ 
+-            # Save final bandit state
+-            self._save_bandit_state()
++            # Persist adaptation and pending work for the continuing campaign.
++            self._project_save_window_state()
+ 
+             if self.verbose:
+                 logger.info(
+@@ -1174,6 +1333,8 @@
+             logger.error(f"Error in async evolution run: {e}")
+             raise
+         finally:
++            if self._project_window_timer is not None:
++                self._project_window_timer.cancel()
+             await self._cancel_completed_job_batches()
+             await self._cancel_background_side_effect_worker()
+             # Ensure all tasks are cancelled on exit
+@@ -1183,8 +1344,10 @@
+                 await asyncio.gather(*tasks, return_exceptions=True)
+             await self._cleanup_async()
+ 
+-        # Print final summary
+-        await self._print_final_summary()
++        if self._project_window_managed or self.project_pause_requested:
++            logger.info("Continuing campaign paused; native SQLite and pending evaluations are resumable.")
++        else:
++            await self._print_final_summary()
+ 
+     async def _setup_async(self):
+         """Setup initial program (results directory already created)."""
+@@ -1205,6 +1368,9 @@
+             max_workers=self.max_db_workers,
+             enable_deadlock_debugging=self.enable_deadlock_debugging,
+         )
++
++        self.db.conn.execute("CREATE TABLE IF NOT EXISTS project_pending_evaluations (generation INTEGER PRIMARY KEY, payload TEXT NOT NULL, updated_at REAL NOT NULL)")
++        self.db.conn.commit()
+ 
+         # Initialize prompt evolution database if enabled
+         if self.evo_config.evolve_prompts:
+@@ -1220,7 +1386,7 @@
+             )
+ 
+         # Check if we're resuming from an existing database
+-        resuming_run = db_path.exists() and self.db.last_iteration > 0
++        resuming_run = await self.async_db.get_total_program_count_async() > 0
+ 
+         # Load bandit state if resuming
+         if resuming_run:
+@@ -1241,7 +1407,19 @@
+ 
+             # Update state for resuming
+             await self._restore_resume_progress()
++            self._project_load_window_state()
+         else:
++            pending_seed = self.db.conn.execute("SELECT payload FROM project_pending_evaluations WHERE generation=0").fetchone()
++            if pending_seed:
++                self._project_load_window_state()
++                seed = json.loads(pending_seed[0])
++                seed_code = Path(seed["exec_fname"]).read_text()
++                if hashlib.sha256(seed_code.encode()).hexdigest() != seed["exec_sha256"]:
++                    raise RuntimeError("Pending seed source changed")
++                metadata = seed.get("meta_patch_data") or {}
++                await self._setup_initial_program_with_metadata(seed_code, metadata.get("patch_name"),
++                    metadata.get("patch_description"), metadata.get("api_costs", 0.0), metadata.get("initial_llm_metadata"))
++                return
+             # Generate or copy initial program only if NOT resuming
+             if (
+                 self.evo_config.init_program_path
+@@ -1285,7 +1463,7 @@
+         self.prompt_db = SystemPromptDatabase(prompt_config)
+ 
+         # Check if we're resuming from existing prompt database
+-        if prompt_db_path.exists() and self.prompt_db.last_generation > 0:
++        if self.prompt_db._count_prompts_in_db() > 0:
+             logger.info(
+                 f"Resuming prompt evolution from generation "
+                 f"{self.prompt_db.last_generation}"
+@@ -1510,6 +1688,8 @@
+             return
+ 
+         self.prompt_evolution_counter += 1
++        if self._project_window_closed():
++            return  # Keep the counter for the continuing cadence.
+ 
+         if self.prompt_evolution_counter < interval:
+             return
+@@ -1602,6 +1782,14 @@
+         exec_fname = f"{gen_dir}/main.{self.lang_ext}"
+         await write_file_async(exec_fname, code)
+ 
++        initial_pending_job = AsyncRunningJob(job_id=None, exec_fname=exec_fname, results_dir=results_dir,
++            start_time=pipeline_started_at, proposal_started_at=pipeline_started_at,
++            evaluation_submitted_at=pipeline_started_at, generation=0,
++            meta_patch_data={"patch_name": patch_name, "patch_description": patch_description,
++                             "api_costs": api_cost, "initial_llm_metadata": llm_metadata})
++        if self._project_window_closed():
++            await self._project_save_pending(initial_pending_job, "deadline_before_seed_evaluation")
++            return
+         # Run initial evaluation to get proper metrics
+         try:
+             if self.verbose:
+@@ -1619,6 +1807,9 @@
+             if self.verbose:
+                 logger.info(f"Initial program evaluation completed in {rtime:.2f}s")
+ 
++            if self._project_results_paused(results):
++                await self._project_save_pending(initial_pending_job, "seed_evaluator_checkpoint")
++                return
+             # Get code embedding for initial program
+             code_embedding, e_cost = await self._get_code_embedding_async(exec_fname)
+             if self.verbose and code_embedding:
+@@ -1767,6 +1958,8 @@
+ 
+         # Add to database
+         await self.async_db.add_program_async(initial_program, verbose=self.verbose)
++        with self.db.conn:
++            self.db.conn.execute("DELETE FROM project_pending_evaluations WHERE generation=0")
+ 
+         # Add initial program costs to in-memory total for accurate budget tracking
+         initial_api_cost = (initial_program.metadata or {}).get("api_costs", 0.0)
+@@ -1781,9 +1974,9 @@
+             self.meta_summarizer.add_evaluated_program(initial_program)
+ 
+             # Check if we should update meta memory after adding this program
+-            if self.meta_summarizer.should_update_meta(
++            if (not self._project_window_closed() and self.meta_summarizer.should_update_meta(
+                 self.evo_config.meta_rec_interval
+-            ):
++            )):
+                 logger.info(
+                     f"Updating meta memory after processing "
+                     f"{len(self.meta_summarizer.evaluated_since_last_meta)} programs..."
+@@ -2040,6 +2233,8 @@
+ 
+         while not self.should_stop.is_set():
+             try:
++                self._project_window_closed()
++                await self._project_resume_pending()
+                 completed_jobs = []
+                 if not self.running_jobs:
+                     logger.debug(
+@@ -2244,6 +2439,15 @@
+                     except Exception as e:
+                         logger.error(f"Error retrying failed DB jobs: {e}")
+ 
++                if self.project_pause_requested:
++                    if self._get_in_flight_work_count() == 0:
++                        self.should_stop.set()
++                        self.slot_available.set()
++                        self.finalization_complete.set()
++                        break
++                    await asyncio.sleep(0.1)
++                    continue
++
+                 # Check if we've exceeded the API cost limit
+                 # Use committed cost for early detection, actual cost for final check
+                 if self.evo_config.max_api_costs is not None:
+@@ -2431,6 +2635,7 @@
+                 if (
+                     proposal_slots_remaining == 0
+                     and self._get_in_flight_work_count() == 0
++                    and not self._project_pending_count()
+                     and self.completed_generations < self.evo_config.num_generations
+                 ):
+                     missing_generations = await self._get_missing_persisted_generations()
+@@ -2439,7 +2644,8 @@
+                         status="stopped_generation_budget_exhausted",
+                         details={
+                             "completed_generations": self.completed_generations,
+-                            "target_generations": self.evo_config.num_generations,
++                            "target_generations": (self.evo_config.num_generations
++                                if math.isfinite(self.evo_config.num_generations) else None),
+                             "next_generation_to_submit": self.next_generation_to_submit,
+                             "missing_generations": missing_generations,
+                         },
+@@ -2460,7 +2666,8 @@
+                 # Check if cost limit has been reached using committed cost
+                 # Committed cost = actual cost + estimated cost of in-flight proposals
+                 # This prevents overshoot by stopping new proposals proactively
+-                should_generate_proposals = not self.cost_limit_reached
++                should_generate_proposals = (not self.cost_limit_reached
++                    and not self._project_window_closed() and not self._project_pending_count())
+                 if (
+                     not self.cost_limit_reached
+                     and self.evo_config.max_api_costs is not None
+@@ -2547,6 +2754,8 @@
+         oversample more proposal generations than the configured budget.
+         """
+         for _ in range(num_proposals):
++            if self._project_window_closed() or self._project_pending_count():
++                break
+             # Only stop if we've reached max proposal concurrency
+             if len(self.active_proposal_tasks) >= self.max_proposal_jobs:
+                 break
+@@ -2972,6 +3181,10 @@
+ 
+                 # Update average proposal cost for in-flight estimation
+                 self._update_avg_proposal_cost(proposal_total_cost)
++
++                if job_id is None:
++                    await self._project_save_pending(running_job, "deadline_before_evaluation_submission")
++                    return None
+ 
+                 # Track job in both running list and submitted registry
+                 self.running_jobs.append(running_job)
+@@ -4114,6 +4327,9 @@
+                     source_job_id=job.job_id,
+                 )
+                 return CompletedJobPersistResult(job=job, success=False)
++            if self._project_results_paused(results):
++                await self._project_save_pending(job, "evaluator_checkpoint")
++                return CompletedJobPersistResult(job=job, success=True)
+             await self._release_evaluation_slot_once(job)
+             postprocess_worker_id = await self.postprocess_slot_pool.acquire()
+             db_workers_in_use_at_postprocess_start = self.postprocess_slot_pool.in_use
+@@ -4449,9 +4665,9 @@
+                     async with meta_lock:
+                         self.meta_summarizer.add_evaluated_program(program)
+ 
+-                        if self.meta_summarizer.should_update_meta(
++                        if (not self._project_window_closed() and self.meta_summarizer.should_update_meta(
+                             self.evo_config.meta_rec_interval
+-                        ):
++                        )):
+                             logger.info("Updating meta memory...")
+                             best_program = await self.async_db.get_best_program_async()
+                             # Use async meta summarizer for non-blocking meta analysis
+@@ -4923,6 +5139,8 @@
+             return True
+ 
+         await self._apply_persisted_program_side_effects(persist_result.persisted_event)
++        with self.db.conn:
++            self.db.conn.execute("DELETE FROM project_pending_evaluations WHERE generation=?", (job.generation,))
+         return True
+ 
+     async def _process_completed_jobs(self, completed_jobs: List[AsyncRunningJob]):
+@@ -5012,7 +5230,10 @@
+     async def _get_missing_persisted_generations(self) -> List[int]:
+         """Return budgeted generations that do not yet have persisted rows."""
+         persisted_generations = await self.async_db.get_persisted_generation_ids_async()
+-        budgeted_generations = set(range(self.evo_config.num_generations))
++        limit = self.evo_config.num_generations
++        if not math.isfinite(limit):
++            limit = self.next_generation_to_submit
++        budgeted_generations = set(range(limit))
+         return sorted(budgeted_generations - set(persisted_generations))
+ 
+     async def _restore_resume_progress(self) -> None:
+@@ -5108,8 +5329,13 @@
+         if sampling_worker_id is not None:
+             await self.sampling_slot_pool.release(sampling_worker_id)
+ 
++        if self._project_window_closed():
++            return (None, None, time.time(), time.time(), 0)
+         evaluation_worker_id = await self.evaluation_slot_pool.acquire()
+         try:
++            if self._project_window_closed():
++                await self.evaluation_slot_pool.release(evaluation_worker_id)
++                return (None, None, time.time(), time.time(), 0)
+             job_id = await self.scheduler.submit_async_nonblocking(
+                 exec_fname, results_dir
+             )
+@@ -5314,6 +5540,8 @@
+         - Not waiting for cost-limited jobs to complete AND
+         - Still have uncompleted work (completed < target)
+         """
++        if self._project_window_closed() or self._project_pending_count():
++            return False
+         running_eval_jobs = len(self.running_jobs)
+         running_proposal_jobs = len(self.active_proposal_tasks)
+         should_stop = self.should_stop.is_set()
+--- a/shinka/prompts/prompts_base.py
++++ b/shinka/prompts/prompts_base.py
+@@ -1,4 +1,5 @@
+ from typing import List, Dict
++import json
+ from shinka.database import Program
+ 
+ 
+@@ -11,13 +12,12 @@
+ 
+ 
+ def perf_str(combined_score: float, public_metrics: Dict[str, float]) -> str:
+-    perf_str = f"Combined score to maximize: {combined_score:.2f}\n"
+-    for key, value in public_metrics.items():
+-        if isinstance(value, float):
+-            perf_str += f"{key}: {value:.2f}; "
+-        else:
+-            perf_str += f"{key}: {value}; "
+-    return perf_str[:-2]
++    # Preserve small scientific differences; scalar credit is not Pareto selection.
++    label = ("Auxiliary bandit/prompt score (not Pareto selection)"
++             if public_metrics.get("protocol") == "multiobjective-v1"
++             else "Combined score to maximize")
++    score = "unavailable" if combined_score is None else format(combined_score, ".15g")
++    return f"{label}: {score}\n" + json.dumps(public_metrics, sort_keys=True, default=str)
+ 
+ 
+ def format_text_feedback_section(text_feedback) -> str:
+--- a/shinka/prompts/prompts_prompt_evo.py
++++ b/shinka/prompts/prompts_prompt_evo.py
+@@ -171,11 +171,12 @@
+     for i, prog in enumerate(programs, 1):
+         program_str = f"## Program {i}\n\n"
+         program_str += f"```{language}\n{prog.code}\n```\n\n"
+-        program_str += f"**Score**: {prog.combined_score:.4f}\n"
++        score = "unavailable" if prog.combined_score is None else format(prog.combined_score, ".15g")
++        program_str += f"**Auxiliary prompt-credit score**: {score}\n"
+ 
+         if prog.public_metrics:
+             metrics_str = ", ".join(
+-                f"{k}={v:.4f}" if isinstance(v, float) else f"{k}={v}"
++                f"{k}={v:.15g}" if isinstance(v, float) else f"{k}={v}"
+                 for k, v in prog.public_metrics.items()
+             )
+             program_str += f"**Metrics**: {metrics_str}\n"

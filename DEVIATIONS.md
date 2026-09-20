@@ -102,3 +102,51 @@ Software/version differences and measured costs will be appended as verified.
   verification can cause safe cache misses and recomputation. Published native
   result objects remain inspectable; automatic reuse is guaranteed only with
   unchanged provenance and paths. This limitation is documented in the runbook.
+
+* Session scientific policy v2 adds exactly one stronger continuation after the
+  three original attempts, using the authors' main-estimation nsub5/n3=3000 and
+  seed12348. Thresholds, Model3 effects/controls, sample, temporal design, and
+  1000 forecast endpoints are unchanged. Every candidate/baseline receives the
+  same rule. At the user's direction, estimation-only code changes rely on
+  saved scientific reconstruction evidence; automatic source-hash audit gates
+  are not rerun. Native fit acceptance and prediction/scoring checks remain.
+
+* User-directed multiobjective-v1 replaces future PR-only selection with equal
+  annual means of PR-AUC, Brier and ordinal-spending RMSE improvement. Existing
+  PR-only results retain their original protocol. Scalar credit
+  2+(J1+J2+J3/10)/3 is an explicit operational preference for native bandit/prompt
+  adaptation; it is neither the authors' formula nor Pareto selection. The new
+  three-objective evaluator reuses unchanged baseline forecasts and scores.
+* The new search grammar removes the fifteen-subset/three-effect restriction.
+  It includes native integer functional parameters and compatible two/three-way
+  products. Exact aliases are canonicalized; proportional symmetric degree
+  moments cannot be stacked. GWESP(0) and transTies have identical estimation
+  statistics but distinct native choice contributions, so they remain different
+  alternative models with incompatible joint estimating equations. Truncation
+  knots160 or greater collapse to density for161actors and are excluded for
+  that mathematical reason. Unknown algebraic equivalences may remain; code
+  embedding novelty is not a guarantee of mathematical novelty.
+* Pinned native updateTheta omits internal parameters from its matching key.
+  The structured adapter uses scoped copies of native R entry functions with
+  parameter/operand-aware matching, exact derivative-order agreement and
+  provenance for adopted unchanged legacy fits. The installed RSiena namespace,
+  native kernel and original-source reproduction path are unchanged. Dynamic
+  spending products receive algebraic centering corrections, including fixed
+  lower-order forecast terms; these are not additional estimated coefficients.
+* Pareto retention, objective-space parent/inspiration sampling and migration
+  are project extensions to pinned Shinka. Native generation and SQLite remain.
+  A separate compatibility patch permits deadline-bounded sessions with no
+  overall generation ceiling and saves incomplete candidates without a fitness
+  value or bandit/prompt credit. The older running PR-only evaluator predates
+  this cooperative hook; its files and declared numerical policy are preserved.
+* Source/effect parity establishes reconstruction, not reproduction of fitted
+  empirical estimates or the efficiency/free-riding conclusion. The authors
+  favor efficiency in their Model4 comparison; retaining Model3's spending
+  structure cannot independently reproduce that comparison. All spending
+  coefficients are nevertheless reestimated jointly for every candidate.
+  Original full-period Models3/4 remain on the reproduction agenda with new
+  2010-dependent results separated from development until final selection locks.
+
+### Continuing campaign authorization (2026-09-20)
+
+The latest user instruction supersedes the former session deadline. Periodic publication checkpoints no longer stop admission. The new native launcher has no default time window or overall generation ceiling and clears stale inherited session deadlines. Optional explicit future windows retain cooperative checkpoint behavior; scientific fit timeouts, finite retry policies, serial R work, strict convergence and subscription-only access remain. This change affects scheduling, not the scientific objectives, sample, accepted-fit reuse or simulation budget.

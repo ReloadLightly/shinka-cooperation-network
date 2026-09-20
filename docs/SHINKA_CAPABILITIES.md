@@ -1,48 +1,34 @@
 # Shinka capability matrix
 
-Recorded 2026-09-20. Infrastructure is installed and checked; **no native
-evolutionary campaign or mutation call has run**. Two public-arithmetic subscription
-route checks ran, including one through the final network namespace. A configuration is not execution
-evidence. See [contract and commands](SHINKA_CONTRACT.md) and
-`shinka/provenance.json` for exact source and artifact pins.
+Updated 2026-09-20 for **multiobjective-v1**. The expanded scientific integration is implemented; the existing PR-only evaluator is completing its fourth reference year. **No native evolutionary proposal or evolutionary-role model call has occurred in this window.** Historical setup checks in commit `13021e2` are not evidence that the revised campaign ran. They were not repeated.
 
-| Capability | Configured | Observed in execution | Status / evidence or limitation |
+| Capability | Configured / implemented | Observed in this scientific campaign | Limitation or evidence |
 |---|---|---|---|
-| Pinned native runner | Yes | Import and dataclass resolution | Shinka 0.0.7, commit 9912af1; `.venv-shinka`, `runs/evolution_native/resolved_config.json` |
-| Evaluator files and CLI | Yes | **Yes**, native scheduler invoked actual evaluator with rejected candidate | Null score and actionable invalidity were loaded; no candidate execution, R, or model call; scientific campaign still gated |
-| Population/archive | Yes | No population created | Two islands, archive 12; deferred until scientific readiness |
-| Weighted parent sampling | Yes | Source inspected | MAD-scaled sigmoid; actual draws deferred |
-| Executable archive/top-k inspirations | Yes | Synthetic native prompt check only | One each; real descendant evidence absent |
-| Diff/full/crossover mutation | Yes | No | Probabilities 0.5/0.3/0.2; actual operator counts must be reported |
-| Nonzero migration | Yes | No | Two islands; every 3 generations, rate 0.25; no migration claimed |
-| Local embedding backend | Yes | **Yes** | Native EmbeddingClient received 256-dimensional genuine pretrained vectors over loopback |
-| Native novelty adjudication | Yes | No | Subscription route configured; LLM adjudication calls deferred, threshold 0.98 |
-| Mathematical specification novelty | Yes in trusted evaluator | Initial/candidate canonicalization separate | Native code novelty does not guarantee mathematical novelty |
-| Model-selection bandit | UCB selected | No | Only one explicitly selected model; multi-model comparison deferred. No claim of a meaningful one-arm bandit experiment |
-| `use_text_feedback=True` | Yes | Synthetic native prompt check only | Fine precision feedback preserved; real descendant prompt absent |
-| Meta-recommendations | Every 3 generations | No | Native path configured; no meta call claimed |
-| Prompt co-evolution | Every 3 generations | No | Archive 6, top-k 2; no evolved prompt claimed |
-| SQLite lineage/resumption | Native | Invalid fixture ingested; no campaign lineage | Native DB preserved null score and excluded invalid fixture from archive/best. Campaign resumption still unobserved |
-| Native WebUI | Launcher-managed | Own loopback port returned HTTP 200 | Browser visual check aborted to release memory; no campaign evidence; temporary server stopped |
-| Subscription authentication | Yes | **Yes** | `codex login status` reports ChatGPT inside isolated namespace |
-| Astra Ultra mutation route | Yes with disclosed patch | Two public-arithmetic subscription route checks | Final check ran through isolated egress; returned model gpt-6-astra; ultra requested/forwarded, achieved effort not echoed. Not evolution |
-| Requested coding-session model | Astra Ultra requested | Not independently verified | Do not infer active effort from local defaults or mutation config |
-| Candidate filesystem isolation | Yes | **Yes** | Bubblewrap hides protected research checkout and prior Codex sessions; real login/access self-check passed |
-| Candidate network isolation | Yes | **Yes**, socket tests and actual subscription smoke | Separate network namespace; host loopback/direct networking denied; only exact subscription-host CONNECT through a mounted Unix socket. Implementation hashes bound in `shinka/security_review.json` |
-| Restricted candidate execution | Trusted AST interface | Owned by evaluator | Literal specification only; no import/exec of candidate source |
-| Mutation/novelty/meta/prompt/repair accounting | Native metadata + complete adapter logs | Zero such calls; two route smoke calls | `runs/shinka_adapter_logs/calls.jsonl` includes admin checks; distinguish checks from model calls |
-| Paid API/embedding fallback | Forbidden | Zero | Launcher rejects paid routes and removes API keys; local embeddings only |
-| Measured finite campaign | Gate implemented | Not yet | Provisional 12-generation config cannot launch before measured baseline/candidate cost |
-| Explicit per-evaluation timeout | Readiness-derived | Harmless native runtime-method check | Overrides cached-seed EWMA; current scientific upper cap 96h20m plus declared margin, not an expected runtime |
-| Detached evaluator-child cleanup | Versioned native patch | **Yes**, harmless separate-session child | Stops owned descendants even across sessions; no scientific run was interrupted by this test |
-| Cumulative campaign walltime | Thin lifecycle supervisor | **Yes**, harmless subprocess tests | Accumulates clean resumptions; deadline stops descendants; exhausted budget launches nothing; native evolution logic unchanged |
-| Actual descendant prompt audit | Required | No | Synthetic prompt exercise is explicitly not a real descendant |
+| Pinned native runner | Shinka 0.0.7, commit `9912af1` | Not yet launched | Native proposal generation, SQLite and persistence retained; project patches versioned |
+| Fixed three-objective evaluator | `scripts/multiobjective_evaluation.py`, `configs/multiobjective-v1.json` | Three original reference forecasts saved; no full objective vector yet | Same forecasts supply all objectives; all four years required |
+| Pareto population/archive | Project database hooks; preserve all canonical nondominated alternatives | No population yet | Rank and objective-space diversity; archive quota is soft for nondominated models; not an upstream-native feature |
+| Parent selection | Project rank/crowding tournaments within native sampler | No draws | Scalar compatibility score does not replace Pareto selection |
+| Executable inspirations | Diverse Pareto archive alternatives; native executable prompt inclusion | No real descendant prompt | One archive and one top inspiration configured; no synthetic demonstration claimed |
+| Diff/full/crossover | Native probabilities 0.5/0.3/0.2 | None | Actual operator counts will be reported from lineage |
+| Islands/migration | Two islands; every three generations, rate 0.25 | None | Same objective definitions; project migration retains scientific trade-offs |
+| Local embeddings | Existing Model2Vec potion-base-8M, 256 dimensions | No new campaign embedding | Earlier native embedding execution remains historical evidence; no paid embedding fallback |
+| Novelty adjudication | Native threshold 0.98; Luna low | No calls | Code novelty and canonical mathematical identity are separate |
+| Mathematical identity | Parameter/operand grammar and confirmed native aliases | Reference identity preserved in implementation | Proportional symmetric moments excluded from joint estimation; not a claim of exhaustive equivalence detection |
+| Adaptive mutation-model choice | Native UCB; Luna/Sol/Terra low as distinct arms | No arm draw or credit update | Identifiers come from local Codex installation metadata; actual routed model/effort must be reported after calls |
+| Scientific text feedback | Annual objective deltas at 12 decimals, diagnostics, fitted native coefficients/SEs | Saved reference scores; no descendant receiving feedback | Failed fits have invalid fitness; no partial-year average |
+| Meta-recommendations | Native, every three generations; Luna low | None | No extra calls to demonstrate capability |
+| Prompt co-evolution | Native, every three generations; archive six; Luna low | None | No evolved prompt claimed |
+| SQLite lineage/resumption | Native storage plus project pending-evaluation records | No campaign lineage yet | Pending numerical work retains its candidate and generation; paused work receives no bandit credit |
+| Native WebUI | Existing launcher-managed service for actual evolution | Not started this window | No browser checks or redesign |
+| Subscription routing | Exact headless Codex route; local identifiers recorded | Zero scientific calls | Prior two administrative checks used Astra; they do not verify new arms in execution |
+| Requested builder | Astra Ultra | Requested session role | Do not infer actual mutation effort from builder identity |
+| Role accounting | Existing adapter/native call logs | Zero mutation/novelty/meta/prompt/repair calls this window | API-dollar zero does not mean zero subscription consumption; historical account quota is not campaign usage |
+| Paid fallback | Forbidden | None | Paid API keys removed by existing launcher; local embeddings retained |
+| Restricted candidate interface | Literal AST data; existing isolated subscription route | New decoder implemented | No arbitrary candidate execution or access to reserved outcomes |
+| Publication and numerical checkpoints | Continuing admission, no default session deadline or overall generation cap | Current legacy evaluation preserved unchanged | Former stopping instruction superseded; optional future explicit windows retain resumable native/R hooks. Actual scientific timeouts remain |
+| Same-space conventional search | Existing search adapted to native grammar and three objectives | No conventional candidate evaluated | Match distinct evaluation attempts and report cache reuse/failures/runtime; no Shinka superiority claim |
+| Finalist reporting | Development Pareto J1/J2/J3/aux champions, exact tie rule, dedup + reference | No finalists selected; 2010 unopened | Fresh development repetition then frozen set; legacy final-test execution still needs multiobjective-set adaptation |
 
-At this review, `runs/evolution_forecast/readiness.json` reports source-reference,
-independent bridge parity, exact PRROC, leakage, frozen catalog/convergence, and
-final-year reservation gates passed. Remaining scientific gates are seed-zero
-evidence, all four accepted temporal baselines, a valid structural candidate, and
-a measured finite campaign budget. The native configuration enables the available
-requested machinery, but real migration, meta/prompt evolution, lineage
-resumption, descendant prompts, and multi-model bandit execution remain unobserved.
-The matrix must be updated from native database/log evidence after execution.
+Current configuration: [`native_multiobjective_config.json`](../shinka/native_multiobjective_config.json). Scientific operators and interpretation: [`task_prompt_multiobjective.md`](../shinka/task_prompt_multiobjective.md), [`effect-catalog-v2.json`](../configs/effect-catalog-v2.json). Project extensions: [`pareto_selection.py`](../shinka/pareto_selection.py), [`multiobjective_native.patch`](../shinka/multiobjective_native.patch).
+
+The four-proposal pilot, fifteen-specification catalog, three-effect cap and twelve-generation overall limit are withdrawn. A manual successful modified model is not a precondition for native proposals. The unresolved numerical dependency is the complete reference comparison. This campaign remains recoverable across execution windows; setup completion alone is not a substantive evolutionary result.

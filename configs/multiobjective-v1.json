@@ -1,0 +1,63 @@
+{
+  "version": "multiobjective-v1",
+  "mode": "evolution_forecast",
+  "prediction_settings": "configs/evaluator-v2.json",
+  "effect_catalog": "configs/effect-catalog-v2.json",
+  "adapter_semantics": "native-effect-instances-and-products-v1",
+  "search_space": {
+    "schema_version": 2,
+    "definition": "Native structural atoms with integer functional parameters and compatible two/three-factor products; original empirical controls and spending structure retained.",
+    "maximum_mutable_effects": null,
+    "program_resource_limit_bytes": 32768,
+    "legacy_settings_fields": "prediction_settings retains the unchanged legacy cache provenance. Its complexity.max_network_effects and PR-only fitness fields do not govern multiobjective-v1; this protocol and the schema-v2 decoder do.",
+    "scientific_constraints": "Native compatibility, canonical aliases, proportional symmetric estimation-moment exclusions, complete forecast reparameterization and the unchanged estimation acceptance criteria."
+  },
+  "research_question": "Can ShinkaEvolve discover interpretable alternative network-selection specifications that improve forecasts of defense-cooperation agreements and defense spending relative to Kinne and Kang's Model 3?",
+  "objectives": {
+    "J1": "mean(candidate PRROC auc.integral - reference PRROC auc.integral)",
+    "J2": "mean(reference tie Brier score - candidate tie Brier score)",
+    "J3": "mean(reference ordinal-spending RMSE - candidate ordinal-spending RMSE)",
+    "direction": "maximize all three",
+    "target_years": [2006, 2007, 2008, 2009],
+    "year_weights": [0.25, 0.25, 0.25, 0.25],
+    "require_every_year_valid": true,
+    "reference_vector": [0, 0, 0],
+    "failure_policy": "Invalid evaluation; no fabricated objective vector, scalar fitness or partial-year mean."
+  },
+  "auxiliary_score": {
+    "formula": "2 + (J1 + J2 + J3 / 10) / 3",
+    "reference_score": 2,
+    "purpose": "Stable operational preference for native scalar bandit and prompt credit; never a replacement for Pareto population selection.",
+    "scaling": "Ten is the range of the eleven ordinal spending categories. Equal theoretical ranges do not establish equal practical influence."
+  },
+  "selection": {
+    "dominance": "No worse on all three objectives and strictly better on at least one.",
+    "retention": "Preserve every valid canonical nondominated model; use nondominated rank and objective-space diversity for active retention and parent selection.",
+    "islands": "The same objectives and Pareto rule apply to every island; migration preserves scientific trade-offs.",
+    "complexity_reward": 0,
+    "runtime_reward": 0
+  },
+  "finalist_selection": {
+    "source": "Valid, distinct mathematical specifications on the development Pareto frontier.",
+    "champions": ["J1", "J2", "J3", "combined_score"],
+    "exact_tie_breakers": ["fewer free structural coefficients", "lexicographically smaller canonical SHA256"],
+    "deduplicate_selected_specifications": true,
+    "include_original_reference": true,
+    "fresh_development_randomness": "Reforecast the provisional representatives and reference with the existing target_year * 1000 + 2 seed schedule, reusing accepted fits and 1000 endpoints per target.",
+    "sensitivity_changes_membership": false,
+    "sensitivity_interpretation": "One additional simulation repetition assesses Monte Carlo sensitivity; it is not comprehensive uncertainty estimation.",
+    "lock_before_final_outcomes": true,
+    "final_target": 2010,
+    "report_every_locked_finalist": true,
+    "final_feedback_to_evolution": false,
+    "campaign_boundary": "A session or execution-window boundary does not itself end the scientific campaign or trigger final-year access."
+  },
+  "reproduction": {
+    "reference": "Original predictive Model 3, with its controls, spending-equation structure and native joint estimation retained.",
+    "coefficients": "All coefficients, including spending coefficients, are statistically reestimated for each candidate.",
+    "original_empirical_period": [1990, 2010],
+    "models_on_reproduction_agenda": [3, 4],
+    "reserved_outcome_ordering": "New full-period Model 3/4 reproduction results involving 2010 must not enter mutation, selection or evaluator redesign before final selection is frozen.",
+    "interpretation": "The authors favor efficiency in their Model 4 comparison. Predictive gains in this Model 3-based extension do not independently establish efficiency, greater security or optimal partnership policy."
+  }
+}

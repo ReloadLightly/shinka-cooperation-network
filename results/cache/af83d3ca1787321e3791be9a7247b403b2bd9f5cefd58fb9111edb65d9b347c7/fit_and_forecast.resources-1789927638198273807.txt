@@ -1,0 +1,23 @@
+	Command being timed: "/home/roland/actir/shinka-cooperation-network/environment/run-r /home/roland/actir/shinka-cooperation-network/R/forecast.R --spec /home/roland/actir/shinka-cooperation-network/results/cache/af83d3ca1787321e3791be9a7247b403b2bd9f5cefd58fb9111edb65d9b347c7/specification.json --target 2007 --output /home/roland/actir/shinka-cooperation-network/results/cache/af83d3ca1787321e3791be9a7247b403b2bd9f5cefd58fb9111edb65d9b347c7 --settings /home/roland/actir/shinka-cooperation-network/results/cache/af83d3ca1787321e3791be9a7247b403b2bd9f5cefd58fb9111edb65d9b347c7/settings.json"
+	User time (seconds): 8254.42
+	System time (seconds): 12.60
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:17:47
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 744640
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 97
+	Minor (reclaiming a frame) page faults: 243751
+	Voluntary context switches: 211
+	Involuntary context switches: 12791
+	Swaps: 0
+	File system inputs: 21896
+	File system outputs: 86112
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

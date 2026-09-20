@@ -32,16 +32,28 @@ def main():
             "accepted_training_fit_present":(folder/"accepted_fit.rds").exists(),
             "forecast_audit":optional(folder/"forecast_audit.json"),
             "baseline_primary_metrics":score.get("primary") if score else None,
+            "baseline_spending_metrics":score.get("spending") if score else None,
+            "baseline_formation_metrics":score.get("formation") if score else None,
+            "baseline_dissolution_metrics":score.get("dissolution") if score else None,
+            "persistence_metrics":score.get("persistence") if score else None,
         }
     evolution={"updated_utc":stamp,"mode":"evolution_forecast",
         "protocol":str(SETTINGS.relative_to(ROOT)),"baseline_years":years,
-        "initial_evaluator_correctness":optional(ROOT/"results/evolution_forecast/initial/correct.json"),
-        "initial_evaluator_metrics":optional(ROOT/"results/evolution_forecast/initial/metrics.json"),
+        "initial_evaluator_correctness":optional(ROOT/"results/evolution_forecast/initial-v2/correct.json"),
+        "initial_evaluator_metrics":optional(ROOT/"results/evolution_forecast/initial-v2/metrics.json"),
+        "historical_initial_v1":"results/evolution_forecast/initial",
         "readiness":optional(ROOT/"runs/evolution_forecast/readiness.json"),
         "native_capability_matrix":"docs/SHINKA_CAPABILITIES.md",
         "baseline_convergence_figure":optional(ROOT/"results/evolution_forecast/convergence/baseline_convergence_manifest.json"),
         "final_test_comparison":optional(ROOT/"results/final_test/comparison.json"),
-        "interpretation":"Fit completion is not convergence; partial annual results are not fitness. Refer to validated evaluator metrics for any scientific improvement claim."}
+        "multiobjective_protocol":"configs/multiobjective-v1.json",
+        "multiobjective_completed_evaluations":[{
+            "canonical_sha256":metrics["public"]["canonical_sha256"],
+            "objectives":{key:metrics["public"][key] for key in ("J1","J2","J3")},
+            "combined_score":metrics["combined_score"],"metrics_path":str(path.relative_to(ROOT))}
+            for path in sorted((ROOT/"results/evaluations/multiobjective-v1").glob("*/metrics.json"))
+            for metrics in [read_json(path)] if metrics.get("public",{}).get("valid") is True],
+        "interpretation":"Fit completion is not convergence; partial annual results are not fitness. Reconstruction is not full empirical reproduction. Report all objectives and trade-offs for any scientific improvement claim."}
     save_json(ROOT/"results/evolution_manifest.json",evolution)
     reproduction_path=ROOT/"results/reproduction_manifest.json"
     reproduction=read_json(reproduction_path)

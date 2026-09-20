@@ -1,0 +1,316 @@
+{
+  "updated_utc": "2026-09-20T21:57:26.498916+00:00",
+  "protocol": "evaluator-v2 (PR-only; multiobjective-v1 not activated yet)",
+  "complete_four_year_fitness": false,
+  "years": {
+    "2006": {
+      "cache_directory": "results/cache/8129f423ce5a8a407d8e5fe630fb02d145e209f6500ae34e57af32b4e4f2d829",
+      "process": {
+        "timestamp": "2026-09-20T18:06:39.871702+00:00",
+        "stage": "score",
+        "command": [
+          "/home/roland/actir/shinka-cooperation-network/environment/run-r",
+          "/home/roland/actir/shinka-cooperation-network/R/score.R",
+          "/home/roland/actir/shinka-cooperation-network/results/cache/8129f423ce5a8a407d8e5fe630fb02d145e209f6500ae34e57af32b4e4f2d829/predictions.rds",
+          "/home/roland/actir/shinka-cooperation-network/data/targets/2006.rds",
+          "/home/roland/actir/shinka-cooperation-network/results/cache/8129f423ce5a8a407d8e5fe630fb02d145e209f6500ae34e57af32b4e4f2d829"
+        ],
+        "invocation_id": "1789927599871665482",
+        "resources_file": "/home/roland/actir/shinka-cooperation-network/results/cache/8129f423ce5a8a407d8e5fe630fb02d145e209f6500ae34e57af32b4e4f2d829/score.resources-1789927599871665482.txt",
+        "pid": 20,
+        "status": "completed",
+        "elapsed_seconds": 6.245205298007932,
+        "exit_code": 0
+      },
+      "completed_fit_attempts": [
+        {
+          "attempt": 1,
+          "elapsed_seconds": 664.205,
+          "valid": false,
+          "maximum_absolute_t_ratio": 0.25819839414531087,
+          "overall_maximum_convergence": 0.5610633217433724
+        },
+        {
+          "attempt": 2,
+          "elapsed_seconds": 597.301,
+          "valid": false,
+          "maximum_absolute_t_ratio": 0.1021251243339253,
+          "overall_maximum_convergence": 0.2974892947516044
+        },
+        {
+          "attempt": 3,
+          "elapsed_seconds": 618.16,
+          "valid": false,
+          "maximum_absolute_t_ratio": 0.09444758531255996,
+          "overall_maximum_convergence": 0.3237543662931759
+        },
+        {
+          "attempt": 4,
+          "elapsed_seconds": 4162.92,
+          "valid": true,
+          "maximum_absolute_t_ratio": 0.058829200542192574,
+          "overall_maximum_convergence": 0.1481894637949584
+        }
+      ],
+      "accepted_training_fit_present": true,
+      "baseline_primary_metrics": {
+        "n": 12720,
+        "positives": 458,
+        "negatives": 12262,
+        "pr_auc": 0.8853079445873959,
+        "roc_auc": 0.9764983806968522,
+        "brier": 0.005488310220125786,
+        "limitation": null
+      },
+      "baseline_spending_metrics": {
+        "n": 152,
+        "units": "ordinal categories 1-11",
+        "rmse": 0.3712393627751295
+      },
+      "baseline_formation_metrics": {
+        "n": 12293,
+        "positives": 50,
+        "negatives": 12243,
+        "pr_auc": 0.015180235117037194,
+        "roc_auc": 0.792028097688475,
+        "brier": 0.004142449361425202,
+        "limitation": null
+      },
+      "baseline_dissolution_metrics": {
+        "n": 427,
+        "positives": 19,
+        "negatives": 408,
+        "pr_auc": 0.09834985871290293,
+        "roc_auc": 0.5194788441692466,
+        "brier": 0.04423460421545668,
+        "limitation": null
+      },
+      "persistence_metrics": {
+        "n": 12720,
+        "positives": 458,
+        "negatives": 12262,
+        "pr_auc": 0.8638806700371717,
+        "roc_auc": 0.9446400958975041,
+        "brier": 0.005424528301886792,
+        "limitation": null
+      }
+    },
+    "2007": {
+      "cache_directory": "results/cache/af83d3ca1787321e3791be9a7247b403b2bd9f5cefd58fb9111edb65d9b347c7",
+      "process": {
+        "timestamp": "2026-09-20T20:25:06.260757+00:00",
+        "stage": "score",
+        "command": [
+          "/home/roland/actir/shinka-cooperation-network/environment/run-r",
+          "/home/roland/actir/shinka-cooperation-network/R/score.R",
+          "/home/roland/actir/shinka-cooperation-network/results/cache/af83d3ca1787321e3791be9a7247b403b2bd9f5cefd58fb9111edb65d9b347c7/predictions.rds",
+          "/home/roland/actir/shinka-cooperation-network/data/targets/2007.rds",
+          "/home/roland/actir/shinka-cooperation-network/results/cache/af83d3ca1787321e3791be9a7247b403b2bd9f5cefd58fb9111edb65d9b347c7"
+        ],
+        "invocation_id": "1789935906260442007",
+        "resources_file": "/home/roland/actir/shinka-cooperation-network/results/cache/af83d3ca1787321e3791be9a7247b403b2bd9f5cefd58fb9111edb65d9b347c7/score.resources-1789935906260442007.txt",
+        "pid": 19,
+        "status": "completed",
+        "elapsed_seconds": 9.02571060199989,
+        "exit_code": 0
+      },
+      "completed_fit_attempts": [
+        {
+          "attempt": 1,
+          "elapsed_seconds": 1174.327,
+          "valid": false,
+          "maximum_absolute_t_ratio": 0.15899972020739414,
+          "overall_maximum_convergence": 0.5053559668130471
+        },
+        {
+          "attempt": 2,
+          "elapsed_seconds": 1119.742,
+          "valid": false,
+          "maximum_absolute_t_ratio": 0.09813617020303197,
+          "overall_maximum_convergence": 0.3599128478211375
+        },
+        {
+          "attempt": 3,
+          "elapsed_seconds": 1033.4070000000002,
+          "valid": false,
+          "maximum_absolute_t_ratio": 0.089802348335324,
+          "overall_maximum_convergence": 0.29433179048907554
+        },
+        {
+          "attempt": 4,
+          "elapsed_seconds": 4884.053,
+          "valid": true,
+          "maximum_absolute_t_ratio": 0.04937219026260515,
+          "overall_maximum_convergence": 0.14525483825642632
+        }
+      ],
+      "accepted_training_fit_present": true,
+      "baseline_primary_metrics": {
+        "n": 12720,
+        "positives": 484,
+        "negatives": 12236,
+        "pr_auc": 0.9416616420083401,
+        "roc_auc": 0.9864587188866886,
+        "brier": 0.004086563128930818,
+        "limitation": null
+      },
+      "baseline_spending_metrics": {
+        "n": 152,
+        "units": "ordinal categories 1-11",
+        "rmse": 0.36381803035381066
+      },
+      "baseline_formation_metrics": {
+        "n": 12262,
+        "positives": 37,
+        "negatives": 12225,
+        "pr_auc": 0.03851718450654261,
+        "roc_auc": 0.8288774664234787,
+        "brier": 0.0031156398629913554,
+        "limitation": null
+      },
+      "baseline_dissolution_metrics": {
+        "n": 458,
+        "positives": 11,
+        "negatives": 447,
+        "pr_auc": 0.022624255212066784,
+        "roc_auc": 0.515863331299573,
+        "brier": 0.030081019650655023,
+        "limitation": null
+      },
+      "persistence_metrics": {
+        "n": 12720,
+        "positives": 484,
+        "negatives": 12236,
+        "pr_auc": 0.9108377571720565,
+        "roc_auc": 0.9613273662056687,
+        "brier": 0.0037735849056603774,
+        "limitation": null
+      }
+    },
+    "2008": {
+      "cache_directory": "results/cache/bc0aa83f0001d4466c7e675ab88c95734eca049097860e828dc1799cf4cb1139",
+      "process": {
+        "timestamp": "2026-09-20T21:25:23.064213+00:00",
+        "stage": "score",
+        "command": [
+          "/home/roland/actir/shinka-cooperation-network/environment/run-r",
+          "/home/roland/actir/shinka-cooperation-network/R/score.R",
+          "/home/roland/actir/shinka-cooperation-network/results/cache/bc0aa83f0001d4466c7e675ab88c95734eca049097860e828dc1799cf4cb1139/predictions.rds",
+          "/home/roland/actir/shinka-cooperation-network/data/targets/2008.rds",
+          "/home/roland/actir/shinka-cooperation-network/results/cache/bc0aa83f0001d4466c7e675ab88c95734eca049097860e828dc1799cf4cb1139"
+        ],
+        "invocation_id": "1789939523063577180",
+        "resources_file": "/home/roland/actir/shinka-cooperation-network/results/cache/bc0aa83f0001d4466c7e675ab88c95734eca049097860e828dc1799cf4cb1139/score.resources-1789939523063577180.txt",
+        "pid": 52,
+        "status": "completed",
+        "elapsed_seconds": 9.211122672000783,
+        "exit_code": 0
+      },
+      "completed_fit_attempts": [
+        {
+          "attempt": 1,
+          "elapsed_seconds": 1276.254,
+          "valid": false,
+          "maximum_absolute_t_ratio": 0.17042972312478413,
+          "overall_maximum_convergence": 0.4018111172554628
+        },
+        {
+          "attempt": 2,
+          "elapsed_seconds": 1117.2390000000003,
+          "valid": false,
+          "maximum_absolute_t_ratio": 0.09129586396180758,
+          "overall_maximum_convergence": 0.3212258013711868
+        },
+        {
+          "attempt": 3,
+          "elapsed_seconds": 1166.0369999999998,
+          "valid": true,
+          "maximum_absolute_t_ratio": 0.09340243217279035,
+          "overall_maximum_convergence": 0.2308423651716375
+        }
+      ],
+      "accepted_training_fit_present": true,
+      "baseline_primary_metrics": {
+        "n": 12720,
+        "positives": 508,
+        "negatives": 12212,
+        "pr_auc": 0.9145603775754418,
+        "roc_auc": 0.9792375383964655,
+        "brier": 0.004505291666666667,
+        "limitation": null
+      },
+      "baseline_spending_metrics": {
+        "n": 146,
+        "units": "ordinal categories 1-11",
+        "rmse": 0.43959861050299553
+      },
+      "baseline_formation_metrics": {
+        "n": 12236,
+        "positives": 40,
+        "negatives": 12196,
+        "pr_auc": 0.022770206408522696,
+        "roc_auc": 0.7455589947523779,
+        "brier": 0.003302414024190912,
+        "limitation": null
+      },
+      "baseline_dissolution_metrics": {
+        "n": 484,
+        "positives": 16,
+        "negatives": 468,
+        "pr_auc": 0.030813282345479427,
+        "roc_auc": 0.460803952991453,
+        "brier": 0.034915231404958676,
+        "limitation": null
+      },
+      "persistence_metrics": {
+        "n": 12720,
+        "positives": 508,
+        "negatives": 12212,
+        "pr_auc": 0.9008736722460643,
+        "roc_auc": 0.9599748279090401,
+        "brier": 0.00440251572327044,
+        "limitation": null
+      }
+    },
+    "2009": {
+      "cache_directory": "results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99",
+      "process": {
+        "timestamp": "2026-09-20T21:25:33.184939+00:00",
+        "stage": "fit_and_forecast",
+        "command": [
+          "/home/roland/actir/shinka-cooperation-network/environment/run-r",
+          "/home/roland/actir/shinka-cooperation-network/R/forecast.R",
+          "--spec",
+          "/home/roland/actir/shinka-cooperation-network/results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99/specification.json",
+          "--target",
+          "2009",
+          "--output",
+          "/home/roland/actir/shinka-cooperation-network/results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99",
+          "--settings",
+          "/home/roland/actir/shinka-cooperation-network/results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99/settings.json"
+        ],
+        "invocation_id": "1789939533184717901",
+        "resources_file": "/home/roland/actir/shinka-cooperation-network/results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99/fit_and_forecast.resources-1789939533184717901.txt",
+        "pid": 69,
+        "status": "running"
+      },
+      "completed_fit_attempts": [
+        {
+          "attempt": 1,
+          "elapsed_seconds": 1314.003,
+          "valid": false,
+          "maximum_absolute_t_ratio": 0.11228053001026655,
+          "overall_maximum_convergence": 0.3509443797466443
+        }
+      ],
+      "accepted_training_fit_present": false,
+      "baseline_primary_metrics": null,
+      "baseline_spending_metrics": null,
+      "baseline_formation_metrics": null,
+      "baseline_dissolution_metrics": null,
+      "persistence_metrics": null
+    }
+  },
+  "native_evolutionary_proposals": 0,
+  "next_step": "Complete the unchanged 2009 reference stage, then activate the multiobjective native campaign. The former session admission deadline is superseded."
+}

@@ -1,5 +1,40 @@
 # Conventional search, finalist sensitivity and reserved final test
 
+## Current continuing campaign: multiobjective-v1
+
+The three-objective protocol in [multiobjective-v1.json](../configs/multiobjective-v1.json)
+supersedes the small PR-only pilot for future discovery. The instructions below
+this section describe the preserved historical PR-only tooling; its fifteen-model
+catalog, scalar winner and old preflight commands do **not** govern the current
+campaign. No final-year result has been obtained.
+
+Before any reserved outcomes are opened, select from the development Pareto
+frontier the unique champions of J1, J2, J3 and the fixed auxiliary score
+`2 + (J1 + J2 + J3/10)/3`. Resolve exact ties by fewer free structural
+coefficients, then lexicographically smaller canonical SHA256. Deduplicate the
+selected structures and include original Model3. The rule is fixed before final
+access; it is not a proposal or generation limit.
+
+Use the existing fresh-randomness design on these representatives and the
+reference: reuse their accepted training fits, forecast1000 endpoints with seed
+`target_year*1000+2` for each development year, and report all three objectives.
+This additional repetition assesses Monte Carlo sensitivity and does not change
+membership of the prespecified representative set. It is not comprehensive
+uncertainty estimation. Lock all selected specifications and the reporting rule
+before2010; report every locked finalist, including losses and trade-offs, and
+never return final outcomes to evolution. The legacy single-finalist lock/final
+commands below require adaptation before use with this multiobjective set.
+
+Session deadlines preserve the population and pending numerical checkpoints;
+they do not finish the research campaign or trigger finalist selection. Four
+adjacent development years provide limited temporal evidence, and dependent
+dyads are not independent experimental replications. A claim that Shinka improves
+on conventional search additionally requires an executed comparison in the same
+scientific grammar/evaluator with distinct specifications, failures, cache reuse
+and fitting effort accounted for.
+
+## Historical PR-only protocol
+
 These entry points are implemented but have not produced a conventional-search,
 fresh-finalist or final-year scientific result at this checkpoint. They refuse
 to substitute partial-year results, failed fits or reduced simulation budgets.

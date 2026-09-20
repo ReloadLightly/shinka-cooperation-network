@@ -1,0 +1,16 @@
+{
+  "timestamp_utc": "2026-09-20T14:27:52.565419+00:00",
+  "source_cache": "/home/roland/actir/shinka-cooperation-network/results/cache/bd50dea604f941be46d56131a1f8dcf7f2ba9a2b730e3ab51dbd15edcd9890eb",
+  "destination_cache": "/home/roland/actir/shinka-cooperation-network/results/cache/7e68932cdb5e36c240411e968554f4cdc211ddc6bd453fb6a8b9fc47ebe8be4d",
+  "purpose": "Training-only checkpoint reuse across forecast-only differences",
+  "training_identity_sha256": "f7d738a42657b4cb7a34b36bcd54e7fbceead4c126eacc3f8e94d3fcead42233",
+  "copied_artifact_sha256": {
+    "fit_diagnostics.json": "205ae4dc2b6b93a14a7d34607bad366dfaebcb0d36659bd3aecb75834f6f1f6d",
+    "fit-attempt-1.rds": "e56242a767771dcde6966c33684f07cfae0b4a88011a359efc960d2252cb3394",
+    "fit-1.txt": "fa3d51f63fb729feed03fac869d055ed8b95513fc577f3f6b162c1ff09206592",
+    "fit-attempt-2.rds": "dcca749ce79b28b23f3a93a47e619b7317982bb7c1a2bd84a98d731d5d38facc",
+    "fit-2.txt": "e19154b4eb3bec7450627ac080095134ba8c112d8f1add7359ebbf40169b0b45"
+  },
+  "predictions_or_scores_copied": false,
+  "completed_attempts": 2
+}

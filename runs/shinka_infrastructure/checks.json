@@ -1,0 +1,24 @@
+{
+  "native_import": true,
+  "native_local_embedding": {
+    "dimension": 256,
+    "recorded_cost": 0.0
+  },
+  "native_prompt_synthetic_check": true,
+  "actual_descendant_prompt_observed": false,
+  "adapter_accepts_requested_model": {
+    "agent": "codex",
+    "agent_model": "gpt-6-astra",
+    "effort": "ultra"
+  },
+  "mutation_calls": 0,
+  "scientific_results": false,
+  "subscription_route_smoke": true,
+  "route_smoke_calls": 2,
+  "returned_model": "gpt-6-astra",
+  "requested_effort": "ultra",
+  "achieved_reasoning_effort_echoed": false,
+  "native_webui_http_200": true,
+  "native_webui_browser_rendering_verified": false,
+  "strict_network_namespace_smoke_passed": true
+}

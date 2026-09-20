@@ -1,0 +1,24 @@
+{
+  "source_reference_executed": true,
+  "bridge_parity_passed": true,
+  "baseline_zero_passed": false,
+  "metric_correctness_passed": true,
+  "target_leakage_passed": true,
+  "all_development_baselines_valid": false,
+  "structural_candidate_valid": false,
+  "final_year_reserved": true,
+  "catalog_frozen": true,
+  "convergence_policy_frozen": true,
+  "measured_campaign_budget_fixed": false,
+  "native_evaluation_timeout_seconds": 347400,
+  "native_evaluation_timeout_margin_seconds": 600,
+  "evaluator_settings_sha256": "5bd88a552c204a84d0ed4dd3a67d834f0dc4bf81407c994a2e2885ea06ac8552",
+  "protocol_sha256": "5bd88a552c204a84d0ed4dd3a67d834f0dc4bf81407c994a2e2885ea06ac8552",
+  "catalog_sha256": "7674e896dbe8a17f53fcc317a042bc8164f4351f24e6935bae8f854c085265f0",
+  "structural_candidate_sha256": "37780f5f0a037d9a12d13f2e4b71c40cd1ff3d24be2cc28e038856b5789d43e0",
+  "errors": {
+    "all_development_baselines_valid": "Complete development evidence required for 911465fe4639a825ddc4be42f36ba1809be3010635e5fa0f72b9edcc3390f0ff / 2006: missing ['accepted_fit.rds', 'predictions.rds', 'forecast_audit.json', 'prediction_commit.json', 'scores.json', 'score_provenance.json', 'eligibility_mask.rds']",
+    "structural_candidate_valid": "Complete development evidence required for 37780f5f0a037d9a12d13f2e4b71c40cd1ff3d24be2cc28e038856b5789d43e0 / 2006: missing ['provenance.json', 'specification.json', 'settings.json', 'accepted_fit.rds', 'fit_diagnostics.json', 'predictions.rds', 'forecast_audit.json', 'prediction_commit.json', 'scores.json', 'score_provenance.json', 'eligibility_mask.rds']"
+  },
+  "ready": false
+}

@@ -1,0 +1,18 @@
+{
+  "started_utc": "2026-09-20T14:41:37.162341+00:00",
+  "command": [
+    "environment/run-r",
+    "R/summarize_abm_checkpoints.R",
+    "results/paper_reproduction/abm-full-equilibria"
+  ],
+  "invocation_id": "1789915297162287430",
+  "resources_file": "/home/roland/actir/shinka-cooperation-network/results/paper_reproduction/equilibrium-summary/resources-1789915297162287430.txt",
+  "cwd": "/home/roland/actir/shinka-cooperation-network",
+  "status": "completed",
+  "orchestrator_pid": 3,
+  "revision": "uncommitted initial reconstruction",
+  "pid": 5,
+  "exit_code": 0,
+  "elapsed_seconds": 1.939427777993842,
+  "finished_utc": "2026-09-20T14:41:39.108705+00:00"
+}

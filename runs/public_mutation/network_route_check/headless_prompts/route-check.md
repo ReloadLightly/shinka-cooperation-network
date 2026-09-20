@@ -1,0 +1,1 @@
+This is an administrative subscription adapter verification under a new network namespace, not scientific evolution. Do not access files, call tools, search, or delegate. No empirical data are supplied. Reply exactly NETWORK_ROUTE_CHECK_OK: the mean of 1, 2, 3, 4 is 2.5.

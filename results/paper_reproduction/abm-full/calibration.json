@@ -1,0 +1,11 @@
+{
+  "profile": "full",
+  "stage": "all",
+  "actors": 159,
+  "seed": 12345,
+  "calibration_years": [2000, 2001],
+  "full_requested_calls": 665,
+  "full_requested_endpoints": 21260,
+  "stage_requested_calls": 665,
+  "country_sample_reduced": false
+}

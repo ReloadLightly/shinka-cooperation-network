@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-09-20T14:40:37.876830+00:00",
+  "stage": "fit_and_forecast",
+  "command": [
+    "/home/roland/actir/shinka-cooperation-network/environment/run-r",
+    "/home/roland/actir/shinka-cooperation-network/R/forecast.R",
+    "--spec",
+    "/home/roland/actir/shinka-cooperation-network/results/cache/7e68932cdb5e36c240411e968554f4cdc211ddc6bd453fb6a8b9fc47ebe8be4d/specification.json",
+    "--target",
+    "2006",
+    "--output",
+    "/home/roland/actir/shinka-cooperation-network/results/cache/7e68932cdb5e36c240411e968554f4cdc211ddc6bd453fb6a8b9fc47ebe8be4d",
+    "--settings",
+    "/home/roland/actir/shinka-cooperation-network/results/cache/7e68932cdb5e36c240411e968554f4cdc211ddc6bd453fb6a8b9fc47ebe8be4d/settings.json"
+  ],
+  "invocation_id": "1789915237875754667",
+  "resources_file": "/home/roland/actir/shinka-cooperation-network/results/cache/7e68932cdb5e36c240411e968554f4cdc211ddc6bd453fb6a8b9fc47ebe8be4d/fit_and_forecast.resources-1789915237875754667.txt",
+  "pid": 3,
+  "status": "failed",
+  "elapsed_seconds": 3.5394919170066714,
+  "exit_code": 1
+}

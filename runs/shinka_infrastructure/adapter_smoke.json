@@ -1,0 +1,121 @@
+{
+  "calls": [
+    {
+      "call_id": "1789911084322276215",
+      "started_unix": 1789911083.82229,
+      "runtime_seconds": 0.5004053115844727,
+      "returncode": 0,
+      "argv": [
+        "--self-check"
+      ],
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "billing_route": "ChatGPT subscription; no API keys passed",
+      "call_kind": "administrative_isolation_check"
+    },
+    {
+      "call_id": "1789911625093436187",
+      "started_unix": 1789911597.048772,
+      "runtime_seconds": 28.04683232307434,
+      "returncode": 0,
+      "argv": [
+        "codex",
+        "--prompt-file",
+        "/work/headless_prompts/route-check.md",
+        "--work-dir",
+        "/work",
+        "--allow",
+        "read-only",
+        "--usage",
+        "--model",
+        "gpt-6-astra",
+        "--reasoning-effort",
+        "ultra"
+      ],
+      "stdout_sha256": "de03962bf303b66b158899d6f1506a61a0bfa806524d67dfa448749aadf2aa2b",
+      "billing_route": "ChatGPT subscription; no API keys passed",
+      "call_kind": "route_smoke",
+      "requested_model": "gpt-6-astra",
+      "requested_effort": "ultra",
+      "achieved_reasoning_effort_echoed": false,
+      "usage": {
+        "agent": "codex",
+        "provider": "openai",
+        "model": "gpt-6-astra",
+        "inputTokens": 2087,
+        "cacheReadTokens": 12160,
+        "cacheWriteTokens": 0,
+        "outputTokens": 46,
+        "reasoningOutputTokens": 15,
+        "totalTokens": 14293,
+        "usageStatus": "reported",
+        "cost": {
+          "input": 0.02087,
+          "cacheRead": 0.01216,
+          "cacheWrite": 0,
+          "output": 0.0023,
+          "total": 0.03533
+        },
+        "costBasis": "api-list-price-estimate",
+        "pricingSource": "models.dev",
+        "pricingStatus": "priced"
+      },
+      "scientific_mutation": false,
+      "paid_api_charge": false
+    },
+    {
+      "call_id": "1789914470614049347",
+      "started_unix": 1789914470.6140246,
+      "runtime_seconds": 9.281831741333008,
+      "returncode": 0,
+      "argv": [
+        "codex",
+        "--prompt-file",
+        "/work/headless_prompts/route-check.md",
+        "--work-dir",
+        "/work",
+        "--allow",
+        "read-only",
+        "--usage",
+        "--model",
+        "gpt-6-astra",
+        "--reasoning-effort",
+        "ultra"
+      ],
+      "stdout_sha256": "e47c39a0e1ab0a213ebc5abc61ea856e4e5659c4ebd1e320c9cea0c6b2beaeff",
+      "billing_route": "ChatGPT subscription; no API keys passed",
+      "call_kind": "administrative_network_namespace_route_smoke",
+      "requested_model": "gpt-6-astra",
+      "requested_effort": "ultra",
+      "achieved_reasoning_effort_echoed": false,
+      "usage": {
+        "agent": "codex",
+        "provider": "openai",
+        "model": "gpt-6-astra",
+        "inputTokens": 2063,
+        "cacheReadTokens": 12160,
+        "cacheWriteTokens": 0,
+        "outputTokens": 55,
+        "reasoningOutputTokens": 24,
+        "totalTokens": 14278,
+        "usageStatus": "reported",
+        "cost": null,
+        "costBasis": null,
+        "pricingSource": null,
+        "pricingStatus": "missing"
+      },
+      "scientific_mutation": false,
+      "paid_api_charge": false,
+      "network_namespace": true,
+      "public_prompt": "runs/public_mutation/network_route_check/headless_prompts/route-check.md"
+    }
+  ],
+  "route_smoke_calls": 2,
+  "evolutionary_mutation_calls": 0,
+  "novelty_calls": 0,
+  "meta_calls": 0,
+  "prompt_evolution_calls": 0,
+  "repair_calls": 0,
+  "returned_model": "gpt-6-astra",
+  "achieved_effort_not_echoed": true,
+  "strict_network_namespace_smoke_passed": true
+}

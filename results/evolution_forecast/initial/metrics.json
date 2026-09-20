@@ -1,0 +1,10 @@
+{
+  "combined_score": null,
+  "public": {
+    "valid": false,
+    "raw_F": null,
+    "runtime_seconds": 12.732384219998494
+  },
+  "private": {},
+  "text_feedback": "INVALID evaluation; no scientific fitness. RuntimeError: fit_and_forecast failed (exit 1); diagnostics: /home/roland/actir/shinka-cooperation-network/results/cache/7e68932cdb5e36c240411e968554f4cdc211ddc6bd453fb6a8b9fc47ebe8be4d. Warning message:\npackage \u2018jsonlite\u2019 was built under R version 4.2.3 \nError in fit_model(train, effs, settings, outdir) : \n  Estimation did not meet predeclared convergence/identification thresholds after fixed attempts; inspect fit_diagnostics.json\nCalls: run_forecast -> fit_model\nExecution halted\nWarning message:\npackage \u2018jsonlite\u2019 was built under R version 4.2.3 \nError in fit_model(train, effs, settings, outdir) : \n  All fixed estimation attempts already failed; inspect archived diagnostics\nCalls: run_forecast -> fit_model\nExecution halted\n"
+}

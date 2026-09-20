@@ -1,0 +1,68 @@
+{
+  "passed": true,
+  "simulations_per_condition": 4,
+  "target": 2006,
+  "seed": 2006001,
+  "predicted_endpoints_identical": true,
+  "endpoint_changes": [
+    {
+      "formations": 153,
+      "dissolutions": 6,
+      "spending_up": 30,
+      "spending_down": 6
+    },
+    {
+      "formations": 147,
+      "dissolutions": 7,
+      "spending_up": 26,
+      "spending_down": 5
+    },
+    {
+      "formations": 166,
+      "dissolutions": 10,
+      "spending_up": 35,
+      "spending_down": 9
+    },
+    {
+      "formations": 158,
+      "dissolutions": 12,
+      "spending_up": 33,
+      "spending_down": 6
+    }
+  ],
+  "maximum_reparameterization_error": 8.8817841970012523e-16,
+  "fitted_model": false,
+  "ranking_eligible": false,
+  "diagnostic": "Real native engine with original-specification initial coefficients; two altered inaccessible synthetic target files; training past fixed",
+  "audit": {
+    "forecast_schema_version": "training-only-v2-fixed-origin-membership",
+    "native_origin_active": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+    "native_composition_events": 0,
+    "origin_membership_native_verified": true,
+    "inactive_dyads_native_structural_zero": 160,
+    "active_dyads_have_no_structural_constraints": true,
+    "network_missing_at_origin": 320,
+    "behavior_missing_at_origin": 7,
+    "inactive_at_origin": 260,
+    "support": [1, 11],
+    "placeholder": "duplicate origin network; origin behavior with two historical boundary values",
+    "conditional": false,
+    "simOnly": true,
+    "allowOnly": false,
+    "training_behavior_mean": 1.8730579658481392,
+    "forward_behavior_mean": 1.4751552795031055,
+    "covariate_centering": "training means preserved; missing origin values last known then training mean"
+  },
+  "rates": {
+    "dv.net": {
+      "value": 1.0150302649162801,
+      "training_period": "15",
+      "duration_adjustment": 1
+    },
+    "milex.beh": {
+      "value": 0.63205298013245037,
+      "training_period": "15",
+      "duration_adjustment": 1
+    }
+  }
+}

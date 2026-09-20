@@ -1,0 +1,5 @@
+Using Python 3.13.5 environment at: .venv-shinka
+Resolved 1 package in 865ms
+Prepared 1 package in 299ms
+Installed 1 package in 55ms
+ + pypdf==5.9.0

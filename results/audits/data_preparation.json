@@ -1,0 +1,516 @@
+{
+  "years": [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010],
+  "preprocessing_version": "model3-bridge-v1",
+  "targets": {
+    "2006": {
+      "training_years": [1990, 2005],
+      "actors": 161,
+      "actors_present_at_origin": 160,
+      "training_network_missing": 14204,
+      "training_behavior_missing": 159,
+      "training_behavior_range": [1, 11],
+      "composition_changes": {
+        "255": {
+          "ccode": 255,
+          "presence_waves": [2, 16]
+        },
+        "260": {
+          "ccode": 260,
+          "presence_waves": [1, 1]
+        },
+        "316": {
+          "ccode": 316,
+          "presence_waves": [4, 16]
+        },
+        "317": {
+          "ccode": 317,
+          "presence_waves": [4, 16]
+        },
+        "343": {
+          "ccode": 343,
+          "presence_waves": [4, 16]
+        },
+        "344": {
+          "ccode": 344,
+          "presence_waves": [3, 16]
+        },
+        "346": {
+          "ccode": 346,
+          "presence_waves": [3, 16]
+        },
+        "349": {
+          "ccode": 349,
+          "presence_waves": [3, 16]
+        },
+        "359": {
+          "ccode": 359,
+          "presence_waves": [2, 16]
+        },
+        "366": {
+          "ccode": 366,
+          "presence_waves": [2, 16]
+        },
+        "367": {
+          "ccode": 367,
+          "presence_waves": [2, 16]
+        },
+        "368": {
+          "ccode": 368,
+          "presence_waves": [2, 16]
+        },
+        "369": {
+          "ccode": 369,
+          "presence_waves": [2, 16]
+        },
+        "370": {
+          "ccode": 370,
+          "presence_waves": [2, 16]
+        },
+        "371": {
+          "ccode": 371,
+          "presence_waves": [2, 16]
+        },
+        "372": {
+          "ccode": 372,
+          "presence_waves": [2, 16]
+        },
+        "373": {
+          "ccode": 373,
+          "presence_waves": [2, 16]
+        },
+        "679": {
+          "ccode": 679,
+          "presence_waves": [2, 16]
+        },
+        "701": {
+          "ccode": 701,
+          "presence_waves": [2, 16]
+        },
+        "702": {
+          "ccode": 702,
+          "presence_waves": [2, 16]
+        },
+        "703": {
+          "ccode": 703,
+          "presence_waves": [2, 16]
+        },
+        "704": {
+          "ccode": 704,
+          "presence_waves": [2, 16]
+        },
+        "705": {
+          "ccode": 705,
+          "presence_waves": [2, 16]
+        }
+      }
+    },
+    "2007": {
+      "training_years": [1990, 2006],
+      "actors": 161,
+      "actors_present_at_origin": 160,
+      "training_network_missing": 14524,
+      "training_behavior_missing": 168,
+      "training_behavior_range": [1, 11],
+      "composition_changes": {
+        "255": {
+          "ccode": 255,
+          "presence_waves": [2, 17]
+        },
+        "260": {
+          "ccode": 260,
+          "presence_waves": [1, 1]
+        },
+        "316": {
+          "ccode": 316,
+          "presence_waves": [4, 17]
+        },
+        "317": {
+          "ccode": 317,
+          "presence_waves": [4, 17]
+        },
+        "343": {
+          "ccode": 343,
+          "presence_waves": [4, 17]
+        },
+        "344": {
+          "ccode": 344,
+          "presence_waves": [3, 17]
+        },
+        "346": {
+          "ccode": 346,
+          "presence_waves": [3, 17]
+        },
+        "349": {
+          "ccode": 349,
+          "presence_waves": [3, 17]
+        },
+        "359": {
+          "ccode": 359,
+          "presence_waves": [2, 17]
+        },
+        "366": {
+          "ccode": 366,
+          "presence_waves": [2, 17]
+        },
+        "367": {
+          "ccode": 367,
+          "presence_waves": [2, 17]
+        },
+        "368": {
+          "ccode": 368,
+          "presence_waves": [2, 17]
+        },
+        "369": {
+          "ccode": 369,
+          "presence_waves": [2, 17]
+        },
+        "370": {
+          "ccode": 370,
+          "presence_waves": [2, 17]
+        },
+        "371": {
+          "ccode": 371,
+          "presence_waves": [2, 17]
+        },
+        "372": {
+          "ccode": 372,
+          "presence_waves": [2, 17]
+        },
+        "373": {
+          "ccode": 373,
+          "presence_waves": [2, 17]
+        },
+        "679": {
+          "ccode": 679,
+          "presence_waves": [2, 17]
+        },
+        "701": {
+          "ccode": 701,
+          "presence_waves": [2, 17]
+        },
+        "702": {
+          "ccode": 702,
+          "presence_waves": [2, 17]
+        },
+        "703": {
+          "ccode": 703,
+          "presence_waves": [2, 17]
+        },
+        "704": {
+          "ccode": 704,
+          "presence_waves": [2, 17]
+        },
+        "705": {
+          "ccode": 705,
+          "presence_waves": [2, 17]
+        }
+      }
+    },
+    "2008": {
+      "training_years": [1990, 2007],
+      "actors": 161,
+      "actors_present_at_origin": 160,
+      "training_network_missing": 14844,
+      "training_behavior_missing": 177,
+      "training_behavior_range": [1, 11],
+      "composition_changes": {
+        "255": {
+          "ccode": 255,
+          "presence_waves": [2, 18]
+        },
+        "260": {
+          "ccode": 260,
+          "presence_waves": [1, 1]
+        },
+        "316": {
+          "ccode": 316,
+          "presence_waves": [4, 18]
+        },
+        "317": {
+          "ccode": 317,
+          "presence_waves": [4, 18]
+        },
+        "343": {
+          "ccode": 343,
+          "presence_waves": [4, 18]
+        },
+        "344": {
+          "ccode": 344,
+          "presence_waves": [3, 18]
+        },
+        "346": {
+          "ccode": 346,
+          "presence_waves": [3, 18]
+        },
+        "349": {
+          "ccode": 349,
+          "presence_waves": [3, 18]
+        },
+        "359": {
+          "ccode": 359,
+          "presence_waves": [2, 18]
+        },
+        "366": {
+          "ccode": 366,
+          "presence_waves": [2, 18]
+        },
+        "367": {
+          "ccode": 367,
+          "presence_waves": [2, 18]
+        },
+        "368": {
+          "ccode": 368,
+          "presence_waves": [2, 18]
+        },
+        "369": {
+          "ccode": 369,
+          "presence_waves": [2, 18]
+        },
+        "370": {
+          "ccode": 370,
+          "presence_waves": [2, 18]
+        },
+        "371": {
+          "ccode": 371,
+          "presence_waves": [2, 18]
+        },
+        "372": {
+          "ccode": 372,
+          "presence_waves": [2, 18]
+        },
+        "373": {
+          "ccode": 373,
+          "presence_waves": [2, 18]
+        },
+        "679": {
+          "ccode": 679,
+          "presence_waves": [2, 18]
+        },
+        "701": {
+          "ccode": 701,
+          "presence_waves": [2, 18]
+        },
+        "702": {
+          "ccode": 702,
+          "presence_waves": [2, 18]
+        },
+        "703": {
+          "ccode": 703,
+          "presence_waves": [2, 18]
+        },
+        "704": {
+          "ccode": 704,
+          "presence_waves": [2, 18]
+        },
+        "705": {
+          "ccode": 705,
+          "presence_waves": [2, 18]
+        }
+      }
+    },
+    "2009": {
+      "training_years": [1990, 2008],
+      "actors": 161,
+      "actors_present_at_origin": 160,
+      "training_network_missing": 15164,
+      "training_behavior_missing": 192,
+      "training_behavior_range": [1, 11],
+      "composition_changes": {
+        "255": {
+          "ccode": 255,
+          "presence_waves": [2, 19]
+        },
+        "260": {
+          "ccode": 260,
+          "presence_waves": [1, 1]
+        },
+        "316": {
+          "ccode": 316,
+          "presence_waves": [4, 19]
+        },
+        "317": {
+          "ccode": 317,
+          "presence_waves": [4, 19]
+        },
+        "343": {
+          "ccode": 343,
+          "presence_waves": [4, 19]
+        },
+        "344": {
+          "ccode": 344,
+          "presence_waves": [3, 19]
+        },
+        "346": {
+          "ccode": 346,
+          "presence_waves": [3, 19]
+        },
+        "349": {
+          "ccode": 349,
+          "presence_waves": [3, 19]
+        },
+        "359": {
+          "ccode": 359,
+          "presence_waves": [2, 19]
+        },
+        "366": {
+          "ccode": 366,
+          "presence_waves": [2, 19]
+        },
+        "367": {
+          "ccode": 367,
+          "presence_waves": [2, 19]
+        },
+        "368": {
+          "ccode": 368,
+          "presence_waves": [2, 19]
+        },
+        "369": {
+          "ccode": 369,
+          "presence_waves": [2, 19]
+        },
+        "370": {
+          "ccode": 370,
+          "presence_waves": [2, 19]
+        },
+        "371": {
+          "ccode": 371,
+          "presence_waves": [2, 19]
+        },
+        "372": {
+          "ccode": 372,
+          "presence_waves": [2, 19]
+        },
+        "373": {
+          "ccode": 373,
+          "presence_waves": [2, 19]
+        },
+        "679": {
+          "ccode": 679,
+          "presence_waves": [2, 19]
+        },
+        "701": {
+          "ccode": 701,
+          "presence_waves": [2, 19]
+        },
+        "702": {
+          "ccode": 702,
+          "presence_waves": [2, 19]
+        },
+        "703": {
+          "ccode": 703,
+          "presence_waves": [2, 19]
+        },
+        "704": {
+          "ccode": 704,
+          "presence_waves": [2, 19]
+        },
+        "705": {
+          "ccode": 705,
+          "presence_waves": [2, 19]
+        }
+      }
+    },
+    "2010": {
+      "training_years": [1990, 2009],
+      "actors": 161,
+      "actors_present_at_origin": 160,
+      "training_network_missing": 15484,
+      "training_behavior_missing": 202,
+      "training_behavior_range": [1, 11],
+      "composition_changes": {
+        "255": {
+          "ccode": 255,
+          "presence_waves": [2, 20]
+        },
+        "260": {
+          "ccode": 260,
+          "presence_waves": [1, 1]
+        },
+        "316": {
+          "ccode": 316,
+          "presence_waves": [4, 20]
+        },
+        "317": {
+          "ccode": 317,
+          "presence_waves": [4, 20]
+        },
+        "343": {
+          "ccode": 343,
+          "presence_waves": [4, 20]
+        },
+        "344": {
+          "ccode": 344,
+          "presence_waves": [3, 20]
+        },
+        "346": {
+          "ccode": 346,
+          "presence_waves": [3, 20]
+        },
+        "349": {
+          "ccode": 349,
+          "presence_waves": [3, 20]
+        },
+        "359": {
+          "ccode": 359,
+          "presence_waves": [2, 20]
+        },
+        "366": {
+          "ccode": 366,
+          "presence_waves": [2, 20]
+        },
+        "367": {
+          "ccode": 367,
+          "presence_waves": [2, 20]
+        },
+        "368": {
+          "ccode": 368,
+          "presence_waves": [2, 20]
+        },
+        "369": {
+          "ccode": 369,
+          "presence_waves": [2, 20]
+        },
+        "370": {
+          "ccode": 370,
+          "presence_waves": [2, 20]
+        },
+        "371": {
+          "ccode": 371,
+          "presence_waves": [2, 20]
+        },
+        "372": {
+          "ccode": 372,
+          "presence_waves": [2, 20]
+        },
+        "373": {
+          "ccode": 373,
+          "presence_waves": [2, 20]
+        },
+        "679": {
+          "ccode": 679,
+          "presence_waves": [2, 20]
+        },
+        "701": {
+          "ccode": 701,
+          "presence_waves": [2, 20]
+        },
+        "702": {
+          "ccode": 702,
+          "presence_waves": [2, 20]
+        },
+        "703": {
+          "ccode": 703,
+          "presence_waves": [2, 20]
+        },
+        "704": {
+          "ccode": 704,
+          "presence_waves": [2, 20]
+        },
+        "705": {
+          "ccode": 705,
+          "presence_waves": [2, 20]
+        }
+      }
+    }
+  }
+}

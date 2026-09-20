@@ -1,0 +1,2 @@
+ROUTE_CHECK_OK: the mean of 1, 2, 3, 4 is 2.5.
+{"usage":{"agent":"codex","provider":"openai","model":"gpt-6-astra","inputTokens":2087,"cacheReadTokens":12160,"cacheWriteTokens":0,"outputTokens":46,"reasoningOutputTokens":15,"totalTokens":14293,"usageStatus":"reported","cost":{"input":0.02087,"cacheRead":0.01216,"cacheWrite":0,"output":0.0023,"total":0.03533},"costBasis":"api-list-price-estimate","pricingSource":"models.dev","pricingStatus":"priced"}}

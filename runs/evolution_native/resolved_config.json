@@ -1,0 +1,204 @@
+{
+  "evolution": {
+    "task_sys_msg": "You are modifying an interpretable statistical model specification for the\nKinne\u2013Kang defense cooperation network. You are not optimizing countries'\nstrategies, national security, or policy. The countries' network objective is\nf_i^net(x,z)=sum_k beta_k s_ik(x,z), with continuous-time RSiena stochastic\nactor-oriented dynamics and partner confirmation. Only the supported endogenous\nnetwork statistics s_ik may change; beta_k are statistically estimated using\ntraining observations, not supplied by you. The defense-spending objective and\noriginal empirical controls are immutable.\n\nReturn a Python program containing build_network_spec(allowed_schema) with a\nliteral return dictionary: {\"schema_version\": 1, \"network_effects\": [...]}. The\ntrusted evaluator AST-interprets that literal and never executes candidate Python.\nImports, calls, external files, coefficient values, evaluator changes, data access,\nand arbitrary Python utilities are unsupported. The catalog and limit in the\nallowed schema are authoritative. Initial endogenous mechanisms are degPlus and\ntransTriads. At most three supported endogenous structural effects are allowed.\nKeep EVOLVE-BLOCK markers intact. Explain each structural change in code comments.\n\nFixed scientific fitness (never redefine it): for each development target\nt in {2006,2007,2008,2009}, coefficients are fitted only on 1990..t-1; an\nunconditional annual RSiena forecast starts from the observed t-1 state. For\nS=1000 endpoint networks, p_C(i,j,t)=sum_s A_C,s(i,j,t)/S. Binary ties are averaged\nbefore scoring. Eligible undirected dyads are scored once, i<j, using the pinned\nR PRROC integral. B_t is the original empirical predictive specification refitted\non the identical training observations/settings. delta_t=PR_AUC(C,t)-PR_AUC(B_t,t).\nF(C)=(delta_2006+delta_2007+delta_2008+delta_2009)/4. Shinka combined_score=1+F\nsolely avoids the pinned engine's exact-zero sorting bug; raw F is reported.\nThere is no complexity reward, runtime reward, spending reward, or LLM judgment\nin this fitness. Negative improvements remain negative. A failed fit, incomplete\nyear set, nonfinite result, invalid forecast, or timeout is invalid execution,\nnot a scientific loss. Uncertainty and the same fixed random schedule matter.\n\nUse parent, executable archive/top-performing inspirations, detailed development\nfeedback, and native meta-recommendations to propose mathematically meaningful\nstructural changes. Cosmetic source changes are not new mathematical models;\ncanonical model novelty is independently tracked. Source-code embedding novelty\nis a heuristic, never a guarantee of model novelty. No final-year results or\noutcomes may enter mutation, novelty, prompt evolution, inspirations, or selection.\nDo not access files or use tools: all authorized task context is in this prompt.\n\n\n# Allowed schema and executable effect catalog\n{\n  \"version\": \"rsiena-1.3.10-network-v1\",\n  \"schema_version\": 1,\n  \"max_network_effects\": 3,\n  \"fixed_density\": true,\n  \"fixed_empirical_controls\": true,\n  \"fixed_behavior_objective\": \"predictive Model 3\",\n  \"effects\": {\n    \"degPlus\": {\"shortName\": \"degPlus\", \"parameter\": 1, \"meaning\": \"Untransformed total degree / degree plus popularity, the empirical default. The illustrative ABM instead uses parameter 2 (square roots).\"},\n    \"transTriads\": {\"shortName\": \"transTriads\", \"meaning\": \"Transitive triads / closure in the symmetric network.\"},\n    \"inPop\": {\"shortName\": \"inPop\", \"meaning\": \"Degree popularity / preferential attachment, as used in the illustrative alternative ABM.\"},\n    \"gwesp\": {\"shortName\": \"gwesp\", \"parameter\": 69, \"meaning\": \"Geometrically weighted edgewise shared partners; RSiena internal decay parameter 69.\"}\n  },\n  \"baseline\": [\"degPlus\", \"transTriads\"],\n  \"validation_required\": \"Compare catalog against installed 1.3.10 effects and native effects construction before launch. No arbitrary statistics or interactions.\"\n}\n",
+    "patch_types": [
+      "diff",
+      "full",
+      "cross"
+    ],
+    "patch_type_probs": [
+      0.5,
+      0.3,
+      0.2
+    ],
+    "num_generations": 12,
+    "max_patch_resamples": 2,
+    "max_patch_attempts": 2,
+    "job_type": "local",
+    "language": "python",
+    "llm_models": [
+      "headless/codex@gpt-6-astra?effort=ultra"
+    ],
+    "llm_dynamic_selection": "ucb",
+    "llm_dynamic_selection_kwargs": {
+      "cost_aware_coef": 0.0
+    },
+    "llm_kwargs": {
+      "temperatures": [
+        0.0
+      ],
+      "max_tokens": 8192,
+      "headless_work_dir": "/home/roland/actir/shinka-cooperation-network/runs/public_mutation/evolution_native"
+    },
+    "meta_rec_interval": 3,
+    "meta_llm_models": [
+      "headless/codex@gpt-6-astra?effort=ultra"
+    ],
+    "meta_llm_kwargs": {
+      "headless_work_dir": "/home/roland/actir/shinka-cooperation-network/runs/public_mutation/evolution_native"
+    },
+    "meta_max_recommendations": 3,
+    "sample_single_meta_rec": true,
+    "embedding_model": "local/potion-base-8M@http://127.0.0.1:8766/v1",
+    "init_program_path": "/home/roland/actir/shinka-cooperation-network/candidates/initial.py",
+    "results_dir": "/home/roland/actir/shinka-cooperation-network/runs/evolution_native",
+    "enable_wandb_logging": false,
+    "wandb_project": "shinka-evolve",
+    "wandb_entity": null,
+    "wandb_group": null,
+    "wandb_name": null,
+    "wandb_mode": null,
+    "wandb_tags": [],
+    "wandb_notes": null,
+    "wandb_dir": null,
+    "wandb_run_id": null,
+    "wandb_resume": "allow",
+    "wandb_config": {},
+    "max_novelty_attempts": 2,
+    "code_embed_sim_threshold": 0.98,
+    "novelty_llm_models": [
+      "headless/codex@gpt-6-astra?effort=ultra"
+    ],
+    "novelty_llm_kwargs": {
+      "headless_work_dir": "/home/roland/actir/shinka-cooperation-network/runs/public_mutation/evolution_native"
+    },
+    "use_text_feedback": true,
+    "max_api_costs": null,
+    "inspiration_sort_order": "ascending",
+    "enable_controlled_oversubscription": false,
+    "proposal_target_mode": "adaptive",
+    "proposal_target_min_samples": 5,
+    "proposal_target_ratio_cap": 2.0,
+    "proposal_buffer_max": 2,
+    "proposal_target_hard_cap": null,
+    "proposal_target_ewma_alpha": 0.3,
+    "evolve_prompts": true,
+    "prompt_patch_types": [
+      "diff",
+      "full"
+    ],
+    "prompt_patch_type_probs": [
+      0.7,
+      0.3
+    ],
+    "prompt_evolution_interval": 3,
+    "prompt_archive_size": 6,
+    "prompt_llm_models": [
+      "headless/codex@gpt-6-astra?effort=ultra"
+    ],
+    "prompt_llm_kwargs": {
+      "headless_work_dir": "/home/roland/actir/shinka-cooperation-network/runs/public_mutation/evolution_native"
+    },
+    "prompt_ucb_exploration_constant": 1.0,
+    "prompt_epsilon": 0.1,
+    "prompt_evo_top_k_programs": 2,
+    "prompt_percentile_recompute_interval": 3
+  },
+  "database": {
+    "db_path": "/home/roland/actir/shinka-cooperation-network/runs/evolution_native/evolution_db.sqlite",
+    "num_islands": 2,
+    "archive_size": 12,
+    "max_stdout_log_chars": null,
+    "elite_selection_ratio": 0.3,
+    "num_archive_inspirations": 1,
+    "num_top_k_inspirations": 1,
+    "migration_interval": 3,
+    "migration_rate": 0.25,
+    "island_elitism": true,
+    "enforce_island_separation": true,
+    "island_selection_strategy": "equal",
+    "enable_dynamic_islands": false,
+    "stagnation_threshold": 100,
+    "island_spawn_strategy": "initial",
+    "island_spawn_subtree_size": 1,
+    "parent_selection_strategy": "weighted",
+    "exploitation_alpha": 1.0,
+    "exploitation_ratio": 0.2,
+    "parent_selection_lambda": 10.0,
+    "num_beams": 5,
+    "archive_selection_strategy": "fitness",
+    "archive_criteria": {
+      "combined_score": 1.0
+    }
+  },
+  "job": {
+    "eval_program_path": "/home/roland/actir/shinka-cooperation-network/evaluate.py",
+    "extra_cmd_args": {},
+    "eval_verbose": true,
+    "numeric_threads_per_job": 1,
+    "time": "96:30:00",
+    "conda_env": null,
+    "activate_script": null,
+    "python_executable": "/home/roland/actir/shinka-cooperation-network/.venv-shinka/bin/python"
+  },
+  "runner": {
+    "max_evaluation_jobs": 1,
+    "max_proposal_jobs": 1,
+    "max_db_workers": 1
+  },
+  "scientific_readiness": {
+    "source_reference_executed": true,
+    "bridge_parity_passed": true,
+    "baseline_zero_passed": false,
+    "metric_correctness_passed": true,
+    "target_leakage_passed": true,
+    "all_development_baselines_valid": false,
+    "structural_candidate_valid": false,
+    "final_year_reserved": true,
+    "catalog_frozen": true,
+    "convergence_policy_frozen": true,
+    "measured_campaign_budget_fixed": false,
+    "native_evaluation_timeout_seconds": 347400,
+    "native_evaluation_timeout_margin_seconds": 600,
+    "evaluator_settings_sha256": "5bd88a552c204a84d0ed4dd3a67d834f0dc4bf81407c994a2e2885ea06ac8552",
+    "protocol_sha256": "5bd88a552c204a84d0ed4dd3a67d834f0dc4bf81407c994a2e2885ea06ac8552",
+    "catalog_sha256": "7674e896dbe8a17f53fcc317a042bc8164f4351f24e6935bae8f854c085265f0",
+    "structural_candidate_sha256": "37780f5f0a037d9a12d13f2e4b71c40cd1ff3d24be2cc28e038856b5789d43e0",
+    "errors": {
+      "all_development_baselines_valid": "Complete development evidence required for 911465fe4639a825ddc4be42f36ba1809be3010635e5fa0f72b9edcc3390f0ff / 2006: missing ['accepted_fit.rds', 'fit_diagnostics.json', 'predictions.rds', 'forecast_audit.json', 'prediction_commit.json', 'scores.json', 'score_provenance.json', 'eligibility_mask.rds']",
+      "structural_candidate_valid": "Complete development evidence required for 37780f5f0a037d9a12d13f2e4b71c40cd1ff3d24be2cc28e038856b5789d43e0 / 2006: missing ['provenance.json', 'accepted_fit.rds', 'fit_diagnostics.json', 'predictions.rds', 'forecast_audit.json', 'prediction_commit.json', 'scores.json', 'score_provenance.json', 'eligibility_mask.rds']"
+    },
+    "ready": false
+  },
+  "unmet_gates": [
+    "baseline_zero_passed",
+    "all_development_baselines_valid",
+    "structural_candidate_valid",
+    "measured_campaign_budget_fixed",
+    "positive measured_seconds_per_candidate is required",
+    "positive campaign_walltime_budget_seconds is required"
+  ],
+  "infrastructure_readiness": {
+    "mutation_network_isolation_verified": true,
+    "review": "Executed socket, DNS guard, public HTTPS, protected-path and subscription-login checks; no model call",
+    "evidence": "runs/shinka_network_checks/1789914751082127201/checks.json",
+    "bound_files_sha256": {
+      "shinka/headless_isolated.py": "d0619d40cf59f36a2a1687767b38daca9ce03a4706561bbdae5a01d49380eae9",
+      "shinka/network_proxy.py": "f8d0678b8613d6262bbd4ae4a31977604a045c4f1e50dbf36c365fe7c319f078",
+      "shinka/network_bridge.py": "07d9ae2919cbd9a6cc7a42c3ca9c80436634421cba48ca0040e57245bcc2d455",
+      "shinka/check_network_isolation.py": "0654de24487c960a033824f4ac02f6966944aa1e0172f667f058a077a4c64a49",
+      "shinka/headless/node_modules/@roberttlange/headless/dist/agents.js": "c076044edd7b850e6111ddbd53c3a0cb3662e8dedf82611df024be384953720f"
+    },
+    "limitations": [
+      "This socket check makes no model call; actual route-smoke evidence is recorded separately in runs/shinka_infrastructure/adapter_smoke.json.",
+      "Subscription hosts are permitted for TLS CONNECT; application paths and encrypted content are not inspected."
+    ]
+  },
+  "evaluation_timeout_policy": {
+    "scientific_upper_bound_seconds": 346800,
+    "annual_upper_bound_seconds": 86700,
+    "requested_timeout_seconds": 347400,
+    "requested_margin_seconds": 600,
+    "basis": "four uncached candidate years; all development baselines must already be cached",
+    "settings_sha256": "5bd88a552c204a84d0ed4dd3a67d834f0dc4bf81407c994a2e2885ea06ac8552"
+  },
+  "campaign_supervisor": {
+    "cleanup_grace_seconds": 20,
+    "heartbeat_seconds": 5
+  },
+  "upstream_commit": "9912af12d423504b8d580f4179fd15f5f88b8c50",
+  "adapter_patch_sha256": "3849dda3022d87d5dc7365121d73db24ce4bf76d469ac85b699b7610e9b7ea59",
+  "process_cleanup_patch_sha256": "2310d521e0bfa1449d989786ca7fa26c4bffaac2da0d7aebbb94a404b8fa16df",
+  "subscription_only": true,
+  "multimodel_bandit": false
+}

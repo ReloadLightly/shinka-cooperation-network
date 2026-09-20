@@ -1,0 +1,4 @@
+{
+  "correct": false,
+  "error": "RuntimeError: Scientific launch gate incomplete: results/audits/source_parity.json must report passed=true."
+}

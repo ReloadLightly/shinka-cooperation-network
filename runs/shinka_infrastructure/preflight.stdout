@@ -1,0 +1,11 @@
+{
+  "resolved_config": "/home/roland/actir/shinka-cooperation-network/runs/evolution_native/resolved_config.json",
+  "unmet_gates": [
+    "baseline_zero_passed",
+    "all_development_baselines_valid",
+    "structural_candidate_valid",
+    "measured_campaign_budget_fixed",
+    "positive measured_seconds_per_candidate is required",
+    "positive campaign_walltime_budget_seconds is required"
+  ]
+}

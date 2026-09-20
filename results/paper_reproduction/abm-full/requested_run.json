@@ -1,0 +1,9 @@
+{
+  "mode": "paper_reproduction",
+  "profile": "full",
+  "stage": "all",
+  "max_new_calls": 1,
+  "source": "sources/original/IO_Final",
+  "country_sample_reduced": false,
+  "notes": "Full retains original grid and settings; bounded calls pause with exit75. Reduced grids and S=4 are diagnostic only."
+}

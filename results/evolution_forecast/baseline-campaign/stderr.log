@@ -1,0 +1,32 @@
+Traceback (most recent call last):
+  File "/home/roland/actir/shinka-cooperation-network/scripts/research.py", line 59, in <module>
+    raise SystemExit(main())
+  File "/home/roland/actir/shinka-cooperation-network/scripts/research.py", line 53, in main
+    summary[str(target)]=forecast_year(spec,target,settings)
+  File "/home/roland/actir/shinka-cooperation-network/evaluate.py", line 113, in forecast_year
+    
+  File "/home/roland/actir/shinka-cooperation-network/evaluate.py", line 98, in run_r
+    status="completed" if returncode==0 else "failed")
+RuntimeError: fit_and_forecast failed (exit -15); diagnostics: /home/roland/actir/shinka-cooperation-network/results/cache/bd50dea604f941be46d56131a1f8dcf7f2ba9a2b730e3ab51dbd15edcd9890eb. Warning message:
+package ‘jsonlite’ was built under R version 4.2.3 
+
+Traceback (most recent call last):
+  File "/home/roland/actir/shinka-cooperation-network/scripts/research.py", line 59, in <module>
+    raise SystemExit(main())
+  File "/home/roland/actir/shinka-cooperation-network/scripts/research.py", line 53, in main
+    summary[str(target)]=forecast_year(spec,target,settings)
+  File "/home/roland/actir/shinka-cooperation-network/evaluate.py", line 147, in forecast_year
+    return _forecast_year_locked(spec,year,settings)
+  File "/home/roland/actir/shinka-cooperation-network/evaluate.py", line 162, in _forecast_year_locked
+    run_r([ROOT/"R/forecast.R", "--spec", folder/"specification.json",
+  File "/home/roland/actir/shinka-cooperation-network/evaluate.py", line 68, in run_r
+    return _run_r_locked(arguments,folder,stage,timeout)
+  File "/home/roland/actir/shinka-cooperation-network/evaluate.py", line 140, in _run_r_locked
+    raise RuntimeError(f"{stage} failed (exit {returncode}); diagnostics: {folder}. {tail}")
+RuntimeError: fit_and_forecast failed (exit 1); diagnostics: /home/roland/actir/shinka-cooperation-network/results/cache/7e68932cdb5e36c240411e968554f4cdc211ddc6bd453fb6a8b9fc47ebe8be4d. Warning message:
+package ‘jsonlite’ was built under R version 4.2.3 
+Error in fit_model(train, effs, settings, outdir) : 
+  Estimation did not meet predeclared convergence/identification thresholds after fixed attempts; inspect fit_diagnostics.json
+Calls: run_forecast -> fit_model
+Execution halted
+

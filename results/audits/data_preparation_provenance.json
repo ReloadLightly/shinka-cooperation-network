@@ -1,0 +1,11 @@
+{
+  "coverage": "R/audit_data.R emits training-only missingness/composition and annual coverage, with no target labels or tie counts.",
+  "file": {
+    "published_path": "results/audits/data_preparation.json",
+    "sha256": "222135b50b2afabbb9bacfb284324b73f8842ddeb9dcfc807e540ff38624e5a1",
+    "size_bytes": 11783,
+    "source_mtime_ns": 1789911206798422302,
+    "source_path": "data/preparation_audit.json"
+  },
+  "schema_version": 1
+}

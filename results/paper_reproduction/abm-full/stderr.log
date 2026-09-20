@@ -1,0 +1,299 @@
+Warning message:
+package ‘reshape2’ was built under R version 4.2.3 
+Error in library(viridis) : there is no package called ‘viridis’
+Execution halted
+Warning message:
+package ‘reshape2’ was built under R version 4.2.3 
+Loading required package: statnet.common
+
+Attaching package: ‘statnet.common’
+
+The following objects are masked from ‘package:base’:
+
+    attr, order
+
+Loading required package: network
+
+‘network’ 1.18.2 (2023-12-04), part of the Statnet Project
+* ‘news(package="network")’ for changes since last version
+* ‘citation("network")’ for citation information
+* ‘https://statnet.org’ for help, support, and other information
+
+sna: Tools for Social Network Analysis
+Version 2.7-2 created on 2023-12-05.
+copyright (c) 2005, Carter T. Butts, University of California-Irvine
+ For citation information, type citation("sna").
+ Type help(package="sna") to get started.
+
+Warning messages:
+1: package ‘sna’ was built under R version 4.2.3 
+2: package ‘statnet.common’ was built under R version 4.2.3 
+3: package ‘network’ was built under R version 4.2.3 
+
+Attaching package: ‘igraph’
+
+The following objects are masked from ‘package:sna’:
+
+    betweenness, bonpow, closeness, components, degree, dyad.census,
+    evcent, hierarchy, is.connected, neighborhood, triad.census
+
+The following objects are masked from ‘package:network’:
+
+    %c%, %s%, add.edges, add.vertices, delete.edges, delete.vertices,
+    get.edge.attribute, get.edges, get.vertex.attribute, is.bipartite,
+    is.directed, list.edge.attributes, list.vertex.attributes,
+    set.edge.attribute, set.vertex.attribute
+
+The following objects are masked from ‘package:stats’:
+
+    decompose, spectrum
+
+The following object is masked from ‘package:base’:
+
+    union
+
+Warning message:
+package ‘igraph’ was built under R version 4.2.3 
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:igraph’:
+
+    as_data_frame, groups, union
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+Warning message:
+package ‘dplyr’ was built under R version 4.2.3 
+
+Attaching package: ‘tidyr’
+
+The following object is masked from ‘package:igraph’:
+
+    crossing
+
+The following object is masked from ‘package:reshape2’:
+
+    smiths
+
+Warning message:
+package ‘tidyr’ was built under R version 4.2.3 
+Warning message:
+package ‘ggplot2’ was built under R version 4.2.3 
+Warning message:
+package ‘jsonlite’ was built under R version 4.2.3 
+Building spatial lag term
+Discretizing behavior variable
+Getting monadic covariates
+Getting dyadic covariates
+Done building dataset
+Simulating ABM Models 1 and 2
+Error in serverSocket(port = port) : 
+  creation of server socket failed: port 11963 cannot be opened
+Calls: source ... robmon -> makeCluster -> makePSOCKcluster -> serverSocket
+Execution halted
+Warning message:
+package ‘reshape2’ was built under R version 4.2.3 
+Loading required package: statnet.common
+
+Attaching package: ‘statnet.common’
+
+The following objects are masked from ‘package:base’:
+
+    attr, order
+
+Loading required package: network
+
+‘network’ 1.18.2 (2023-12-04), part of the Statnet Project
+* ‘news(package="network")’ for changes since last version
+* ‘citation("network")’ for citation information
+* ‘https://statnet.org’ for help, support, and other information
+
+sna: Tools for Social Network Analysis
+Version 2.7-2 created on 2023-12-05.
+copyright (c) 2005, Carter T. Butts, University of California-Irvine
+ For citation information, type citation("sna").
+ Type help(package="sna") to get started.
+
+Warning messages:
+1: package ‘sna’ was built under R version 4.2.3 
+2: package ‘statnet.common’ was built under R version 4.2.3 
+3: package ‘network’ was built under R version 4.2.3 
+
+Attaching package: ‘igraph’
+
+The following objects are masked from ‘package:sna’:
+
+    betweenness, bonpow, closeness, components, degree, dyad.census,
+    evcent, hierarchy, is.connected, neighborhood, triad.census
+
+The following objects are masked from ‘package:network’:
+
+    %c%, %s%, add.edges, add.vertices, delete.edges, delete.vertices,
+    get.edge.attribute, get.edges, get.vertex.attribute, is.bipartite,
+    is.directed, list.edge.attributes, list.vertex.attributes,
+    set.edge.attribute, set.vertex.attribute
+
+The following objects are masked from ‘package:stats’:
+
+    decompose, spectrum
+
+The following object is masked from ‘package:base’:
+
+    union
+
+Warning message:
+package ‘igraph’ was built under R version 4.2.3 
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:igraph’:
+
+    as_data_frame, groups, union
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+Warning message:
+package ‘dplyr’ was built under R version 4.2.3 
+
+Attaching package: ‘tidyr’
+
+The following object is masked from ‘package:igraph’:
+
+    crossing
+
+The following object is masked from ‘package:reshape2’:
+
+    smiths
+
+Warning message:
+package ‘tidyr’ was built under R version 4.2.3 
+Warning message:
+package ‘ggplot2’ was built under R version 4.2.3 
+Warning message:
+package ‘jsonlite’ was built under R version 4.2.3 
+Warning message:
+In file.copy(file.path(src, "data/data_raw.RData"), file.path(run_dir,  :
+  problem copying /home/roland/actir/shinka-cooperation-network/sources/original/IO_Final/data/data_raw.RData to /home/roland/actir/shinka-cooperation-network/results/paper_reproduction/abm-full/work/data/data_raw.RData: Permission denied
+Warning message:
+In file.copy(file.path(src, "scripts/00.buildDataset"), file.path(run_dir,  :
+  problem copying /home/roland/actir/shinka-cooperation-network/sources/original/IO_Final/scripts/00.buildDataset to /home/roland/actir/shinka-cooperation-network/results/paper_reproduction/abm-full/work/scripts/00.buildDataset: Permission denied
+Warning messages:
+1: In file.copy(file.path(src, "scripts/ABM", f), file.path(run_dir,  :
+  problem copying /home/roland/actir/shinka-cooperation-network/sources/original/IO_Final/scripts/ABM/00.getData to /home/roland/actir/shinka-cooperation-network/results/paper_reproduction/abm-full/work/scripts/ABM/00.getData: Permission denied
+2: In file.copy(file.path(src, "scripts/ABM", f), file.path(run_dir,  :
+  problem copying /home/roland/actir/shinka-cooperation-network/sources/original/IO_Final/scripts/ABM/00.simulate to /home/roland/actir/shinka-cooperation-network/results/paper_reproduction/abm-full/work/scripts/ABM/00.simulate: Permission denied
+3: In file.copy(file.path(src, "scripts/ABM", f), file.path(run_dir,  :
+  problem copying /home/roland/actir/shinka-cooperation-network/sources/original/IO_Final/scripts/ABM/00.equilibria to /home/roland/actir/shinka-cooperation-network/results/paper_reproduction/abm-full/work/scripts/ABM/00.equilibria: Permission denied
+4: In file.copy(file.path(src, "scripts/ABM", f), file.path(run_dir,  :
+  problem copying /home/roland/actir/shinka-cooperation-network/sources/original/IO_Final/scripts/ABM/00.makeFigures to /home/roland/actir/shinka-cooperation-network/results/paper_reproduction/abm-full/work/scripts/ABM/00.makeFigures: Permission denied
+Building spatial lag term
+Discretizing behavior variable
+Getting monadic covariates
+Getting dyadic covariates
+Done building dataset
+Simulating ABM Models 1 and 2
+Warning message:
+package ‘reshape2’ was built under R version 4.2.3 
+Loading required package: statnet.common
+
+Attaching package: ‘statnet.common’
+
+The following objects are masked from ‘package:base’:
+
+    attr, order
+
+Loading required package: network
+
+‘network’ 1.18.2 (2023-12-04), part of the Statnet Project
+* ‘news(package="network")’ for changes since last version
+* ‘citation("network")’ for citation information
+* ‘https://statnet.org’ for help, support, and other information
+
+sna: Tools for Social Network Analysis
+Version 2.7-2 created on 2023-12-05.
+copyright (c) 2005, Carter T. Butts, University of California-Irvine
+ For citation information, type citation("sna").
+ Type help(package="sna") to get started.
+
+Warning messages:
+1: package ‘sna’ was built under R version 4.2.3 
+2: package ‘statnet.common’ was built under R version 4.2.3 
+3: package ‘network’ was built under R version 4.2.3 
+
+Attaching package: ‘igraph’
+
+The following objects are masked from ‘package:sna’:
+
+    betweenness, bonpow, closeness, components, degree, dyad.census,
+    evcent, hierarchy, is.connected, neighborhood, triad.census
+
+The following objects are masked from ‘package:network’:
+
+    %c%, %s%, add.edges, add.vertices, delete.edges, delete.vertices,
+    get.edge.attribute, get.edges, get.vertex.attribute, is.bipartite,
+    is.directed, list.edge.attributes, list.vertex.attributes,
+    set.edge.attribute, set.vertex.attribute
+
+The following objects are masked from ‘package:stats’:
+
+    decompose, spectrum
+
+The following object is masked from ‘package:base’:
+
+    union
+
+Warning message:
+package ‘igraph’ was built under R version 4.2.3 
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:igraph’:
+
+    as_data_frame, groups, union
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+Warning message:
+package ‘dplyr’ was built under R version 4.2.3 
+
+Attaching package: ‘tidyr’
+
+The following object is masked from ‘package:igraph’:
+
+    crossing
+
+The following object is masked from ‘package:reshape2’:
+
+    smiths
+
+Warning message:
+package ‘tidyr’ was built under R version 4.2.3 
+Warning message:
+package ‘ggplot2’ was built under R version 4.2.3 
+Warning message:
+package ‘jsonlite’ was built under R version 4.2.3 
+Building spatial lag term
+Discretizing behavior variable
+Getting monadic covariates
+Getting dyadic covariates
+Done building dataset
+Simulating ABM Models 1 and 2

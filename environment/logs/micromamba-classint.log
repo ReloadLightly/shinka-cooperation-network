@@ -1,0 +1,65 @@
+Using Cached Shard Index for conda-forge/linux-64                                                   ✔ Done
+Using Cached Shard Index for conda-forge/noarch                                                     ✔ Done
+Fetching and Parsing Packages' Shards                                                           ⧖ Starting
+Fetching and Parsing Packages' Shards                                                     ✔ Done (1.3 sec)
+
+Resolving Environment                                                                           ⧖ Starting
+Resolving Environment                                                                     ✔ Done (3.2 sec)
+
+Transaction
+
+  Prefix: /home/roland/actir/shinka-cooperation-network/environment/runtime
+
+  Updating specs:
+
+   - r-base=4.2.1
+   - r-prroc=1.3.1
+   - r-classint
+
+
+  Package       Version  Build          Channel          Size
+───────────────────────────────────────────────────────────────
+  Install:
+───────────────────────────────────────────────────────────────
+
+  + r-classint   0.4_10  r42h61816a4_0  conda-forge     493kB
+
+  Summary:
+
+  Install: 1 packages
+
+  Total download: 493kB
+
+───────────────────────────────────────────────────────────────
+
+
+warning  libmamba Security Warning: This transaction includes executing package scripts (pre/post-link/unlink) if present. These scripts can contain arbitrary code. Please ensure you trust the package sources.
+
+Transaction starting
+Linking r-classint-0.4_10-r42h61816a4_0
+
+Transaction finished
+
+	Command being timed: "environment/bin/micromamba install --yes --prefix /home/roland/actir/shinka-cooperation-network/environment/runtime --channel conda-forge --override-channels r-base=4.2.1 r-prroc=1.3.1 r-classint"
+	User time (seconds): 4.26
+	System time (seconds): 1.19
+	Percent of CPU this job got: 75%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:07.24
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 650776
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 245
+	Minor (reclaiming a frame) page faults: 236664
+	Voluntary context switches: 2388
+	Involuntary context switches: 19
+	Swaps: 0
+	File system inputs: 89608
+	File system outputs: 2912
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

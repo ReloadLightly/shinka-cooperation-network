@@ -1,0 +1,23 @@
+countrycode 1.6.0 loaded
+gdata 3.0.0 loaded
+reshape2 1.4.4 loaded
+texreg 1.39.3 loaded
+maps 3.4.2 loaded
+RColorBrewer 1.1.3 loaded
+viridis 0.6.5 loaded
+grid 4.2.1 loaded
+patchwork 1.2.0 loaded
+igraph 1.4.2 loaded
+HiveR 0.3.63 loaded
+RSiena 1.3.10 loaded
+plyr 1.8.9 loaded
+dplyr 1.1.4 loaded
+Failed to connect to bus: Operation not permitted (consider using --machine=<user>@.host --user to connect to bus of other user)
+tidyverse 1.3.2 loaded
+xtable 1.8.4 loaded
+PRROC 1.3.1 loaded
+Metrics 0.1.4 loaded
+Error: package or namespace load failed for ‘hydroGOF’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+ there is no package called ‘classInt’
+In addition: There were 29 warnings (use warnings() to see them)
+Execution halted

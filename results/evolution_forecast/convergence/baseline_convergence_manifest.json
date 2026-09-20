@@ -1,0 +1,14 @@
+{
+  "kind": "estimation diagnostic, not predictive results",
+  "target": 2006,
+  "training_years": [1990, 2005],
+  "diagnostics_source": "/home/roland/actir/shinka-cooperation-network/results/cache/7e68932cdb5e36c240411e968554f4cdc211ddc6bd453fb6a8b9fc47ebe8be4d/fit_diagnostics.json",
+  "diagnostics_md5": "bf48bfc15a10b11966c62ba22d89901e",
+  "settings_md5": "ab40407612d79470068b399c122968a9",
+  "complete_attempts": 3,
+  "accepted_fits": 0,
+  "maximum_absolute_t_threshold": 0.10000000000000001,
+  "overall_convergence_threshold": 0.25,
+  "comparison": "strictly less than",
+  "outputs": ["baseline_convergence.png", "baseline_convergence.pdf", "baseline_convergence_plot_data.csv"]
+}

@@ -1,0 +1,5 @@
+{"call":1,"key":"974bf14eec3faf052339817aaa3337b4","profile":"full","timestamp":"2026-09-20 13:34:13 UTC","requested_n3":25,"status":"started"} 
+{"call":1,"key":"974bf14eec3faf052339817aaa3337b4","profile":"full","timestamp":"2026-09-20 13:36:40 UTC","requested_n3":25,"status":"started"} 
+{"call":1,"key":"2b9d4a152a9f5f12761c35d3f6326b9f","profile":"full","timestamp":"2026-09-20 14:42:42 UTC","requested_n3":25,"status":"started"} 
+{"call":1,"key":"2b9d4a152a9f5f12761c35d3f6326b9f","profile":"full","timestamp":"2026-09-20 14:42:42 UTC","requested_n3":25,"status":"completed","elapsed_seconds":626.613,"returned_simulations":26,"result_bytes":5953256,"memory":["VmPeak:\t  863948 kB","VmHWM:\t  436048 kB","VmRSS:\t  430920 kB"]} 
+{"call":2,"key":"17a1d62648633c4adadf69f71bc67106","profile":"full","timestamp":"2026-09-20 14:53:09 UTC","requested_n3":25,"status":"paused_at_declared_call_budget"} 

@@ -1,0 +1,22 @@
+{
+  "started_utc": "2026-09-20T14:40:08.470985+00:00",
+  "command": [
+    "/home/roland/actir/shinka-cooperation-network/environment/run-r",
+    "/home/roland/actir/shinka-cooperation-network/R/paper_abm.R",
+    "/home/roland/actir/shinka-cooperation-network",
+    "/home/roland/actir/shinka-cooperation-network/results/paper_reproduction/abm-full-equilibria",
+    "full",
+    "4",
+    "equilibria"
+  ],
+  "invocation_id": "1789915208470747448",
+  "resources_file": "/home/roland/actir/shinka-cooperation-network/results/paper_reproduction/abm-full-equilibria/resources-1789915208470747448.txt",
+  "cwd": "/home/roland/actir/shinka-cooperation-network",
+  "status": "resumable",
+  "orchestrator_pid": 695686,
+  "revision": "uncommitted initial reconstruction",
+  "pid": 695688,
+  "exit_code": 75,
+  "elapsed_seconds": 29.384634835005272,
+  "finished_utc": "2026-09-20T14:40:37.859737+00:00"
+}

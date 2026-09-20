@@ -1,0 +1,16 @@
+{
+  "version": "rsiena-1.3.10-network-v1",
+  "schema_version": 1,
+  "max_network_effects": 3,
+  "fixed_density": true,
+  "fixed_empirical_controls": true,
+  "fixed_behavior_objective": "predictive Model 3",
+  "effects": {
+    "degPlus": {"shortName": "degPlus", "parameter": 1, "meaning": "Untransformed total degree / degree plus popularity, the empirical default. The illustrative ABM instead uses parameter 2 (square roots)."},
+    "transTriads": {"shortName": "transTriads", "meaning": "Transitive triads / closure in the symmetric network."},
+    "inPop": {"shortName": "inPop", "meaning": "Degree popularity / preferential attachment, as used in the illustrative alternative ABM."},
+    "gwesp": {"shortName": "gwesp", "parameter": 69, "meaning": "Geometrically weighted edgewise shared partners; RSiena internal decay parameter 69."}
+  },
+  "baseline": ["degPlus", "transTriads"],
+  "validation_required": "Compare catalog against installed 1.3.10 effects and native effects construction before launch. No arbitrary statistics or interactions."
+}

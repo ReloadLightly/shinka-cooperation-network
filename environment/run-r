@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+PROJECT_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+export R_LIBS_USER="$PROJECT_ROOT/environment/R-library"
+export OPENBLAS_NUM_THREADS="${OPENBLAS_NUM_THREADS:-1}"
+export OMP_NUM_THREADS="${OMP_NUM_THREADS:-1}"
+exec "$PROJECT_ROOT/environment/runtime/bin/Rscript" --vanilla "$@"

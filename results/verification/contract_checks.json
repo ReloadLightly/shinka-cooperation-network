@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "malicious_or_invalid_cases": {
+    "imports": "rejected",
+    "file_access": "rejected",
+    "decorator": "rejected",
+    "default_evaluation": "rejected",
+    "fitness_redefinition": "rejected",
+    "unsupported_effect": "rejected",
+    "complexity_limit": "rejected",
+    "duplicate_terms": "rejected"
+  },
+  "canonical_cosmetic_identity": true,
+  "structural_candidate_distinct": true,
+  "candidate_code_execution": "none; restricted literal AST interpretation"
+}

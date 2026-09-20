@@ -1,0 +1,59 @@
+Warning: package ‘countrycode’ was built under R version 4.2.3
+countrycode 1.6.0 loaded
+Warning: package ‘gdata’ was built under R version 4.2.3
+gdata 3.0.0 loaded
+Warning: package ‘reshape2’ was built under R version 4.2.3
+reshape2 1.4.4 loaded
+Warning: package ‘texreg’ was built under R version 4.2.3
+texreg 1.39.3 loaded
+Warning: package ‘maps’ was built under R version 4.2.3
+maps 3.4.2 loaded
+Warning: package ‘RColorBrewer’ was built under R version 4.2.3
+RColorBrewer 1.1.3 loaded
+Warning: package ‘viridis’ was built under R version 4.2.3
+Warning: package ‘viridisLite’ was built under R version 4.2.3
+viridis 0.6.5 loaded
+grid 4.2.1 loaded
+Warning: package ‘patchwork’ was built under R version 4.2.3
+patchwork 1.2.0 loaded
+Warning: package ‘igraph’ was built under R version 4.2.3
+igraph 1.4.2 loaded
+Warning: package ‘HiveR’ was built under R version 4.2.3
+Warning: 'rgl.init' failed, running with 'rgl.useNULL = TRUE'.
+Warning in fun(libname, pkgname) : couldn't connect to display ":0"
+HiveR 0.3.63 loaded
+RSiena 1.3.10 loaded
+Warning: package ‘plyr’ was built under R version 4.2.3
+plyr 1.8.9 loaded
+Warning: package ‘dplyr’ was built under R version 4.2.3
+dplyr 1.1.4 loaded
+Failed to connect to bus: Operation not permitted (consider using --machine=<user>@.host --user to connect to bus of other user)
+Warning in system("timedatectl", intern = TRUE) :
+  running command 'timedatectl' had status 1
+Warning: package ‘ggplot2’ was built under R version 4.2.3
+Warning: package ‘tibble’ was built under R version 4.2.3
+Warning: package ‘tidyr’ was built under R version 4.2.3
+Warning: package ‘readr’ was built under R version 4.2.3
+Warning: package ‘purrr’ was built under R version 4.2.3
+Warning: package ‘stringr’ was built under R version 4.2.3
+Warning: package ‘forcats’ was built under R version 4.2.3
+tidyverse 1.3.2 loaded
+Warning: package ‘xtable’ was built under R version 4.2.3
+xtable 1.8.4 loaded
+Warning: package ‘PRROC’ was built under R version 4.2.3
+PRROC 1.3.1 loaded
+Warning: package ‘Metrics’ was built under R version 4.2.3
+Metrics 0.1.4 loaded
+Warning: package ‘hydroGOF’ was built under R version 4.2.3
+Warning: package ‘zoo’ was built under R version 4.2.3
+hydroGOF 0.6.0 loaded
+Warning: package ‘rms’ was built under R version 4.2.3
+Warning: package ‘Hmisc’ was built under R version 4.2.3
+rms 6.8.1 loaded
+Warning: package ‘geepack’ was built under R version 4.2.3
+geepack 1.3.11 loaded
+Warning: package ‘sna’ was built under R version 4.2.3
+Warning: package ‘statnet.common’ was built under R version 4.2.3
+Warning: package ‘network’ was built under R version 4.2.3
+sna 2.7.2 loaded
+Every package imported by 01.mainPaper.R, 02.appendix.R and 03.ABM.R loaded.

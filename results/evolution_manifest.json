@@ -1,0 +1,144 @@
+{
+  "updated_utc": "2026-09-20T16:23:30.929039+00:00",
+  "mode": "evolution_forecast",
+  "protocol": "configs/evaluator-v1.json",
+  "baseline_years": {
+    "2006": {
+      "cache_directory": "results/cache/7e68932cdb5e36c240411e968554f4cdc211ddc6bd453fb6a8b9fc47ebe8be4d",
+      "process": {
+        "timestamp": "2026-09-20T14:40:37.876830+00:00",
+        "stage": "fit_and_forecast",
+        "command": [
+          "/home/roland/actir/shinka-cooperation-network/environment/run-r",
+          "/home/roland/actir/shinka-cooperation-network/R/forecast.R",
+          "--spec",
+          "/home/roland/actir/shinka-cooperation-network/results/cache/7e68932cdb5e36c240411e968554f4cdc211ddc6bd453fb6a8b9fc47ebe8be4d/specification.json",
+          "--target",
+          "2006",
+          "--output",
+          "/home/roland/actir/shinka-cooperation-network/results/cache/7e68932cdb5e36c240411e968554f4cdc211ddc6bd453fb6a8b9fc47ebe8be4d",
+          "--settings",
+          "/home/roland/actir/shinka-cooperation-network/results/cache/7e68932cdb5e36c240411e968554f4cdc211ddc6bd453fb6a8b9fc47ebe8be4d/settings.json"
+        ],
+        "invocation_id": "1789915237875754667",
+        "resources_file": "/home/roland/actir/shinka-cooperation-network/results/cache/7e68932cdb5e36c240411e968554f4cdc211ddc6bd453fb6a8b9fc47ebe8be4d/fit_and_forecast.resources-1789915237875754667.txt",
+        "pid": 3,
+        "status": "failed",
+        "elapsed_seconds": 3.5394919170066714,
+        "exit_code": 1
+      },
+      "completed_fit_attempts": [
+        {
+          "attempt": 1,
+          "elapsed_seconds": 664.205,
+          "valid": false,
+          "maximum_absolute_t_ratio": 0.25819839414531087,
+          "overall_maximum_convergence": 0.5610633217433724
+        },
+        {
+          "attempt": 2,
+          "elapsed_seconds": 597.301,
+          "valid": false,
+          "maximum_absolute_t_ratio": 0.1021251243339253,
+          "overall_maximum_convergence": 0.2974892947516044
+        },
+        {
+          "attempt": 3,
+          "elapsed_seconds": 618.16,
+          "valid": false,
+          "maximum_absolute_t_ratio": 0.09444758531255996,
+          "overall_maximum_convergence": 0.3237543662931759
+        }
+      ],
+      "accepted_training_fit_present": false,
+      "forecast_audit": null,
+      "baseline_primary_metrics": null
+    },
+    "2007": {
+      "cache_directory": "results/cache/a26d0f9f97c1140a35b4e5e91254bbebb7d068b3a189124d9b42b50264137cec",
+      "process": null,
+      "completed_fit_attempts": [],
+      "accepted_training_fit_present": false,
+      "forecast_audit": null,
+      "baseline_primary_metrics": null
+    },
+    "2008": {
+      "cache_directory": "results/cache/994114d6dffaad96850f026c8834b11a6335a21def08a9b6ea846b30db994546",
+      "process": null,
+      "completed_fit_attempts": [],
+      "accepted_training_fit_present": false,
+      "forecast_audit": null,
+      "baseline_primary_metrics": null
+    },
+    "2009": {
+      "cache_directory": "results/cache/97b166f7b26f1a38948a9ce174877de10d6f56b10344260bd2a9321fa4bab76e",
+      "process": null,
+      "completed_fit_attempts": [],
+      "accepted_training_fit_present": false,
+      "forecast_audit": null,
+      "baseline_primary_metrics": null
+    }
+  },
+  "initial_evaluator_correctness": {
+    "correct": false,
+    "error": "RuntimeError: fit_and_forecast failed (exit 1); diagnostics: /home/roland/actir/shinka-cooperation-network/results/cache/7e68932cdb5e36c240411e968554f4cdc211ddc6bd453fb6a8b9fc47ebe8be4d. Warning message:\npackage \u2018jsonlite\u2019 was built under R version 4.2.3 \nError in fit_model(train, effs, settings, outdir) : \n  Estimation did not meet predeclared convergence/identification thresholds after fixed attempts; inspect fit_diagnostics.json\nCalls: run_forecast -> fit_model\nExecution halted\nWarning message:\npackage \u2018jsonlite\u2019 was built under R version 4.2.3 \nError in fit_model(train, effs, settings, outdir) : \n  All fixed estimation attempts already failed; inspect archived diagnostics\nCalls: run_forecast -> fit_model\nExecution halted\n"
+  },
+  "initial_evaluator_metrics": {
+    "combined_score": null,
+    "public": {
+      "valid": false,
+      "raw_F": null,
+      "runtime_seconds": 12.732384219998494
+    },
+    "private": {},
+    "text_feedback": "INVALID evaluation; no scientific fitness. RuntimeError: fit_and_forecast failed (exit 1); diagnostics: /home/roland/actir/shinka-cooperation-network/results/cache/7e68932cdb5e36c240411e968554f4cdc211ddc6bd453fb6a8b9fc47ebe8be4d. Warning message:\npackage \u2018jsonlite\u2019 was built under R version 4.2.3 \nError in fit_model(train, effs, settings, outdir) : \n  Estimation did not meet predeclared convergence/identification thresholds after fixed attempts; inspect fit_diagnostics.json\nCalls: run_forecast -> fit_model\nExecution halted\nWarning message:\npackage \u2018jsonlite\u2019 was built under R version 4.2.3 \nError in fit_model(train, effs, settings, outdir) : \n  All fixed estimation attempts already failed; inspect archived diagnostics\nCalls: run_forecast -> fit_model\nExecution halted\n"
+  },
+  "readiness": {
+    "source_reference_executed": true,
+    "bridge_parity_passed": true,
+    "baseline_zero_passed": false,
+    "metric_correctness_passed": true,
+    "target_leakage_passed": true,
+    "all_development_baselines_valid": false,
+    "structural_candidate_valid": false,
+    "final_year_reserved": true,
+    "catalog_frozen": true,
+    "convergence_policy_frozen": true,
+    "measured_campaign_budget_fixed": false,
+    "native_evaluation_timeout_seconds": 347400,
+    "native_evaluation_timeout_margin_seconds": 600,
+    "evaluator_settings_sha256": "5bd88a552c204a84d0ed4dd3a67d834f0dc4bf81407c994a2e2885ea06ac8552",
+    "protocol_sha256": "5bd88a552c204a84d0ed4dd3a67d834f0dc4bf81407c994a2e2885ea06ac8552",
+    "catalog_sha256": "7674e896dbe8a17f53fcc317a042bc8164f4351f24e6935bae8f854c085265f0",
+    "structural_candidate_sha256": "37780f5f0a037d9a12d13f2e4b71c40cd1ff3d24be2cc28e038856b5789d43e0",
+    "errors": {
+      "all_development_baselines_valid": "Complete development evidence required for 911465fe4639a825ddc4be42f36ba1809be3010635e5fa0f72b9edcc3390f0ff / 2006: missing ['accepted_fit.rds', 'predictions.rds', 'forecast_audit.json', 'prediction_commit.json', 'scores.json', 'score_provenance.json', 'eligibility_mask.rds']",
+      "structural_candidate_valid": "Complete development evidence required for 37780f5f0a037d9a12d13f2e4b71c40cd1ff3d24be2cc28e038856b5789d43e0 / 2006: missing ['provenance.json', 'specification.json', 'settings.json', 'accepted_fit.rds', 'fit_diagnostics.json', 'predictions.rds', 'forecast_audit.json', 'prediction_commit.json', 'scores.json', 'score_provenance.json', 'eligibility_mask.rds']"
+    },
+    "ready": false
+  },
+  "native_capability_matrix": "docs/SHINKA_CAPABILITIES.md",
+  "baseline_convergence_figure": {
+    "kind": "estimation diagnostic, not predictive results",
+    "target": 2006,
+    "training_years": [
+      1990,
+      2005
+    ],
+    "diagnostics_source": "/home/roland/actir/shinka-cooperation-network/results/cache/7e68932cdb5e36c240411e968554f4cdc211ddc6bd453fb6a8b9fc47ebe8be4d/fit_diagnostics.json",
+    "diagnostics_md5": "bf48bfc15a10b11966c62ba22d89901e",
+    "settings_md5": "ab40407612d79470068b399c122968a9",
+    "complete_attempts": 3,
+    "accepted_fits": 0,
+    "maximum_absolute_t_threshold": 0.1,
+    "overall_convergence_threshold": 0.25,
+    "comparison": "strictly less than",
+    "outputs": [
+      "baseline_convergence.png",
+      "baseline_convergence.pdf",
+      "baseline_convergence_plot_data.csv"
+    ]
+  },
+  "final_test_comparison": null,
+  "interpretation": "Fit completion is not convergence; partial annual results are not fitness. Refer to validated evaluator metrics for any scientific improvement claim."
+}

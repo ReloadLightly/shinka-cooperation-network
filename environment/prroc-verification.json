@@ -1,0 +1,14 @@
+{
+  "package": "PRROC",
+  "version": "1.3.1",
+  "positive_class_argument": "scores.class0",
+  "negative_class_argument": "scores.class1",
+  "curve": false,
+  "field": "auc.integral",
+  "perfect_ranking_auc": 1,
+  "interleaved": {
+    "positive": [0.80000000000000004, 0.40000000000000002],
+    "negative": [0.59999999999999998, 0.20000000000000001],
+    "auc": 0.79726744594591781
+  }
+}

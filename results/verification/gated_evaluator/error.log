@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/home/roland/actir/shinka-cooperation-network/evaluate.py", line 138, in evaluate
+    preflight()
+  File "/home/roland/actir/shinka-cooperation-network/evaluate.py", line 124, in preflight
+    raise RuntimeError(f"Scientific launch gate incomplete: {path.relative_to(ROOT)} must report {field}=true.")
+RuntimeError: Scientific launch gate incomplete: results/audits/source_parity.json must report passed=true.

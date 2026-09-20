@@ -1,0 +1,18 @@
+{"call":1,"key":"67d42fa25d1712eb094def1dc528dd2f","profile":"full","timestamp":"2026-09-20 13:53:11 UTC","requested_n3":10,"status":"started"} 
+{"call":1,"key":"67d42fa25d1712eb094def1dc528dd2f","profile":"full","timestamp":"2026-09-20 13:53:11 UTC","requested_n3":10,"status":"completed","elapsed_seconds":2.167,"returned_simulations":10,"result_bytes":2133640,"memory":["VmPeak:\t  863944 kB","VmHWM:\t  436168 kB","VmRSS:\t  431220 kB"]} 
+{"call":2,"key":"8c8652405d0963e8b21be990c2464960","profile":"full","timestamp":"2026-09-20 13:53:14 UTC","requested_n3":10,"status":"paused_at_declared_call_budget"} 
+{"call":1,"key":"67d42fa25d1712eb094def1dc528dd2f","profile":"full","timestamp":"2026-09-20 14:23:49 UTC","requested_n3":10,"status":"resumed_from_checkpoint"} 
+{"call":2,"key":"8c8652405d0963e8b21be990c2464960","profile":"full","timestamp":"2026-09-20 14:23:49 UTC","requested_n3":10,"status":"started"} 
+{"call":2,"key":"8c8652405d0963e8b21be990c2464960","profile":"full","timestamp":"2026-09-20 14:23:49 UTC","requested_n3":10,"status":"completed","elapsed_seconds":2.808,"returned_simulations":10,"result_bytes":2268184,"memory":["VmPeak:\t  863948 kB","VmHWM:\t  436296 kB","VmRSS:\t  431304 kB"]} 
+{"call":3,"key":"6b4be4cdb93e8c20fa8079c8d762395b","profile":"full","timestamp":"2026-09-20 14:23:52 UTC","requested_n3":10,"status":"paused_at_declared_call_budget"} 
+{"call":1,"key":"67d42fa25d1712eb094def1dc528dd2f","profile":"full","timestamp":"2026-09-20 14:40:12 UTC","requested_n3":10,"status":"resumed_from_checkpoint"} 
+{"call":2,"key":"8c8652405d0963e8b21be990c2464960","profile":"full","timestamp":"2026-09-20 14:40:13 UTC","requested_n3":10,"status":"resumed_from_checkpoint"} 
+{"call":3,"key":"6b4be4cdb93e8c20fa8079c8d762395b","profile":"full","timestamp":"2026-09-20 14:40:13 UTC","requested_n3":10,"status":"started"} 
+{"call":3,"key":"6b4be4cdb93e8c20fa8079c8d762395b","profile":"full","timestamp":"2026-09-20 14:40:13 UTC","requested_n3":10,"status":"completed","elapsed_seconds":3.414,"returned_simulations":10,"result_bytes":2415856,"memory":["VmPeak:\t  863952 kB","VmHWM:\t  436040 kB","VmRSS:\t  430988 kB"]} 
+{"call":4,"key":"23fc345267d36272756b8ec59e23a7b5","profile":"full","timestamp":"2026-09-20 14:40:16 UTC","requested_n3":10,"status":"started"} 
+{"call":4,"key":"23fc345267d36272756b8ec59e23a7b5","profile":"full","timestamp":"2026-09-20 14:40:16 UTC","requested_n3":10,"status":"completed","elapsed_seconds":5.044,"returned_simulations":10,"result_bytes":2544808,"memory":["VmPeak:\t  863952 kB","VmHWM:\t  436040 kB","VmRSS:\t  431004 kB"]} 
+{"call":5,"key":"9bc908f7edd6cc9bd7eec382523182bc","profile":"full","timestamp":"2026-09-20 14:40:21 UTC","requested_n3":10,"status":"started"} 
+{"call":5,"key":"9bc908f7edd6cc9bd7eec382523182bc","profile":"full","timestamp":"2026-09-20 14:40:21 UTC","requested_n3":10,"status":"completed","elapsed_seconds":6.639,"returned_simulations":10,"result_bytes":2657968,"memory":["VmPeak:\t  863952 kB","VmHWM:\t  436040 kB","VmRSS:\t  431004 kB"]} 
+{"call":6,"key":"e906da3b352dac04d7ec82deddf6ae72","profile":"full","timestamp":"2026-09-20 14:40:28 UTC","requested_n3":10,"status":"started"} 
+{"call":6,"key":"e906da3b352dac04d7ec82deddf6ae72","profile":"full","timestamp":"2026-09-20 14:40:28 UTC","requested_n3":10,"status":"completed","elapsed_seconds":9.591,"returned_simulations":10,"result_bytes":2757496,"memory":["VmPeak:\t  863952 kB","VmHWM:\t  436040 kB","VmRSS:\t  431004 kB"]} 
+{"call":7,"key":"8b0179e8c10e33d1d11cc2bde7f36275","profile":"full","timestamp":"2026-09-20 14:40:37 UTC","requested_n3":10,"status":"paused_at_declared_call_budget"} 

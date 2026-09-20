@@ -1,0 +1,22 @@
+{
+  "files": [
+    {
+      "published_path": "results/paper_reproduction/abm-full/source_outputs/cluster.out",
+      "sha256": "ddf01293f90ed0cacb351b0d46686e1d2cf4f01aecce38b41be552ed1afc7339",
+      "size_bytes": 124,
+      "source_mtime_ns": 1789915362730701907,
+      "source_path": "results/paper_reproduction/abm-full/work/cluster.out"
+    },
+    {
+      "published_path": "results/paper_reproduction/abm-full/source_outputs/output/abm/ABM_sims.txt",
+      "sha256": "8f90f7c0845845b8c2a0f3956d33670f80272b0457723113e4a923bcb8db1713",
+      "size_bytes": 511907,
+      "source_mtime_ns": 1789915988844523783,
+      "source_path": "results/paper_reproduction/abm-full/work/output/abm/ABM_sims.txt"
+    }
+  ],
+  "purpose": "Publication copies of generated original-source outputs; raw inputs and copied source remain excluded.",
+  "schema_version": 1,
+  "snapshot_utc": "2026-09-20T16:25:45.890205+00:00",
+  "source_run": "results/paper_reproduction/abm-full"
+}

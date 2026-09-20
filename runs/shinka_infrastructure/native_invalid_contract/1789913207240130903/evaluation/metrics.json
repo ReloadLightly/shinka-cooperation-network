@@ -1,0 +1,10 @@
+{
+  "combined_score": null,
+  "public": {
+    "valid": false,
+    "raw_F": null,
+    "runtime_seconds": 0.0002952030044980347
+  },
+  "private": {},
+  "text_feedback": "INVALID evaluation; no scientific fitness. InvalidSpecification: Only build_network_spec(allowed_schema) is allowed; no imports or top-level executable statements."
+}

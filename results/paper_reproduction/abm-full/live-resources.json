@@ -1,0 +1,52 @@
+{
+  "observed_utc": "2026-09-20T14:46:29.352810+00:00",
+  "mode": "paper_reproduction",
+  "stage": "first full-settings Figure 5 cell",
+  "native_parent_pid": 696648,
+  "worker_pids": [
+    696681,
+    696682
+  ],
+  "parent_rss_kb": 430668,
+  "worker_rss_kb": [
+    156240,
+    156100
+  ],
+  "aggregate_rss_kb": 743008,
+  "sampling_note": "RSS snapshot, not aggregate peak; parent and workers observed live via host ps",
+  "requested_endpoint_count": 25,
+  "expected_native_rounded_count": 26,
+  "returned_endpoint_count": null,
+  "call_budget": 1,
+  "status_at_observation": "running",
+  "resumption": "Completed native calls are checkpointed; interrupted calls restart from their beginning.",
+  "processes": [
+    {
+      "pid": 696648,
+      "parent_pid": 696647,
+      "elapsed_seconds": 231,
+      "cpu_time": "00:00:04",
+      "rss_kb": 430668,
+      "status": "Sl",
+      "command": "R"
+    },
+    {
+      "pid": 696681,
+      "parent_pid": 519,
+      "elapsed_seconds": 227,
+      "cpu_time": "00:03:45",
+      "rss_kb": 156240,
+      "status": "R",
+      "command": "R"
+    },
+    {
+      "pid": 696682,
+      "parent_pid": 519,
+      "elapsed_seconds": 227,
+      "cpu_time": "00:03:45",
+      "rss_kb": 156100,
+      "status": "R",
+      "command": "R"
+    }
+  ]
+}

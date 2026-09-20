@@ -1,0 +1,7 @@
+Warning message:
+package ‘jsonlite’ was built under R version 4.2.3 
+[1] 161   1  11
+Error in `[.data.frame`(x, , c("name", "effectName", "include", "fix",  : 
+  undefined columns selected
+Calls: print ... print.sienaEffects -> as.data.frame -> [ -> [.data.frame
+Execution halted

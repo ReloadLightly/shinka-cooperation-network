@@ -1,0 +1,20 @@
+{
+  "started_utc": "2026-09-20T16:23:28.319993+00:00",
+  "command": [
+    "environment/run-r",
+    "R/plot_baseline_convergence.R",
+    "results/cache/7e68932cdb5e36c240411e968554f4cdc211ddc6bd453fb6a8b9fc47ebe8be4d/fit_diagnostics.json",
+    "configs/evaluator-v1.json",
+    "results/evolution_forecast/convergence"
+  ],
+  "invocation_id": "1789921408319459662",
+  "resources_file": "/home/roland/actir/shinka-cooperation-network/results/evolution_forecast/convergence-figure/resources-1789921408319459662.txt",
+  "cwd": "/home/roland/actir/shinka-cooperation-network",
+  "status": "completed",
+  "orchestrator_pid": 4,
+  "revision": "uncommitted initial reconstruction",
+  "pid": 6,
+  "exit_code": 0,
+  "elapsed_seconds": 2.53173096300452,
+  "finished_utc": "2026-09-20T16:23:30.856496+00:00"
+}

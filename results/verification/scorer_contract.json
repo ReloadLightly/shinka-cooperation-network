@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "scientific_result": false,
+  "synthetic_endpoint_count": 1000,
+  "unordered_pair_count": 6,
+  "pr_auc": 0.79726744594591781,
+  "no_class_dissolution_auc_unavailable": true,
+  "invalid_behavior_rejected": true,
+  "wrong_target_year_rejected": true,
+  "obsolete_forecast_rejected": true,
+  "inactive_actor_ties_rejected": true,
+  "native_simulation_shape_scored": true
+}

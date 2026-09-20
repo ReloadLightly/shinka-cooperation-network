@@ -1,0 +1,24 @@
+{
+  "budget_seconds": 0.8,
+  "accumulated_walltime_seconds": 0.8297448960074689,
+  "invocations": [
+    {
+      "command": [
+        "/home/roland/actir/shinka-cooperation-network/.venv-shinka/bin/python",
+        "-c",
+        "import subprocess,sys,time,json,os; from pathlib import Path; p=subprocess.Popen([sys.executable,'-c','import time; time.sleep(60)'],start_new_session=True); Path(sys.argv[1]).write_text(json.dumps({'pid':p.pid,'sid':os.getsid(p.pid),'parent_sid':os.getsid(0)})); p.wait()",
+        "/home/roland/actir/shinka-cooperation-network/runs/shinka_runtime_checks/1789912994322696843/supervised-child.json"
+      ],
+      "started_unix": 1789912994.404486,
+      "status": "campaign_walltime_exhausted",
+      "pid": 5,
+      "interrupted_evaluation_is_invalid": true,
+      "elapsed_seconds": 0.8297448960074689,
+      "stopped_unix": 1789912995.2342346,
+      "native_exit_code": 0
+    }
+  ],
+  "status": "campaign_walltime_exhausted",
+  "native_worker_pid": null,
+  "cleanup_grace_seconds": 1.0
+}

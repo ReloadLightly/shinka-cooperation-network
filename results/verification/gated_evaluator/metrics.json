@@ -1,0 +1,10 @@
+{
+  "combined_score": null,
+  "public": {
+    "valid": false,
+    "raw_F": null,
+    "runtime_seconds": 0.0010889519908232614
+  },
+  "private": {},
+  "text_feedback": "INVALID evaluation; no scientific fitness. RuntimeError: Scientific launch gate incomplete: results/audits/source_parity.json must report passed=true."
+}

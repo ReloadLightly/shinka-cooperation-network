@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import subprocess,sys,time,json,os; from pathlib import Path; p=subprocess.Popen([sys.executable,'-c','import time; time.sleep(60)'],start_new_session=True); Path(sys.argv[1]).write_text(json.dumps({'pid':p.pid,'sid':os.getsid(p.pid),'parent_sid':os.getsid(0)})); p.wait()
+                                                                                                                                                                                                                                                                            ~~~~~~^^
+  File "/home/roland/.local/share/uv/python/cpython-3.13-linux-x86_64-gnu/lib/python3.13/subprocess.py", line 1280, in wait
+    return self._wait(timeout=timeout)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/roland/.local/share/uv/python/cpython-3.13-linux-x86_64-gnu/lib/python3.13/subprocess.py", line 2066, in _wait
+    (pid, sts) = self._try_wait(0)
+                 ~~~~~~~~~~~~~~^^^
+  File "/home/roland/.local/share/uv/python/cpython-3.13-linux-x86_64-gnu/lib/python3.13/subprocess.py", line 2024, in _try_wait
+    (pid, sts) = os.waitpid(self.pid, wait_flags)
+                 ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

@@ -1,0 +1,16 @@
+{
+  "mutation_network_isolation_verified": true,
+  "review": "Executed socket, DNS guard, public HTTPS, protected-path and subscription-login checks; no model call",
+  "evidence": "runs/shinka_network_checks/1789914751082127201/checks.json",
+  "bound_files_sha256": {
+    "shinka/headless_isolated.py": "d0619d40cf59f36a2a1687767b38daca9ce03a4706561bbdae5a01d49380eae9",
+    "shinka/network_proxy.py": "f8d0678b8613d6262bbd4ae4a31977604a045c4f1e50dbf36c365fe7c319f078",
+    "shinka/network_bridge.py": "07d9ae2919cbd9a6cc7a42c3ca9c80436634421cba48ca0040e57245bcc2d455",
+    "shinka/check_network_isolation.py": "0654de24487c960a033824f4ac02f6966944aa1e0172f667f058a077a4c64a49",
+    "shinka/headless/node_modules/@roberttlange/headless/dist/agents.js": "c076044edd7b850e6111ddbd53c3a0cb3662e8dedf82611df024be384953720f"
+  },
+  "limitations": [
+    "This socket check makes no model call; actual route-smoke evidence is recorded separately in runs/shinka_infrastructure/adapter_smoke.json.",
+    "Subscription hosts are permitted for TLS CONNECT; application paths and encrypted content are not inspected."
+  ]
+}

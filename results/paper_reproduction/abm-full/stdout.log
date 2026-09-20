@@ -1,0 +1,119 @@
+[1] TRUE
+[1] TRUE
+  effectName                  include fix   test  initialValue parm
+1 basic rate parameter dv.net TRUE    FALSE FALSE        200   0   
+  effectName              include fix   test  initialValue parm
+1 rate milex.beh period 1 TRUE    FALSE FALSE        200   0   
+  effectName       include fix   test  initialValue parm
+1 degree (density) TRUE    FALSE FALSE          0   0   
+  effectName             include fix   test  initialValue parm
+1 milex.beh linear shape TRUE    FALSE FALSE       -0.5   0   
+[1] effectName   include      fix          test         initialValue
+[6] parm        
+<0 rows> (or 0-length row.names)
+  effectName     include fix   test  initialValue parm
+1 degree act+pop TRUE    FALSE FALSE          0   2   
+  effectName        include fix   test  initialValue parm
+1 transitive triads TRUE    FALSE FALSE          0   0   
+  effectName      include fix   test  initialValue parm
+1 milex.beh alter TRUE    FALSE FALSE          0   0   
+  effectName       include fix   test  initialValue parm
+1 threat.cov alter TRUE    FALSE FALSE          0   0   
+  effectName include fix   test  initialValue parm
+1 dyad.cov   TRUE    FALSE FALSE          0   0   
+  effectName       include fix   test  initialValue parm
+1 milex.beh degree TRUE    FALSE FALSE          0   0   
+  effectName             include fix   test  initialValue parm
+1 milex.beh dense triads TRUE    FALSE FALSE          0   6   
+  effectName                        include fix   test  initialValue parm
+1 milex.beh: effect from threat.cov TRUE    FALSE FALSE       0.75   0   
+If you use this algorithm object, siena07 will create/use an output file output/abm/ABM_sims.txt .
+  effectName       include fix   test  initialValue parm
+1 milex.beh degree TRUE    FALSE FALSE          0   0   
+  effectName       include fix   test  initialValue parm
+1 milex.beh degree TRUE    FALSE FALSE      -0.05   0   
+[1] FALSE
+[1] FALSE
+  effectName                  include fix   test  initialValue parm
+1 basic rate parameter dv.net TRUE    FALSE FALSE        200   0   
+  effectName              include fix   test  initialValue parm
+1 rate milex.beh period 1 TRUE    FALSE FALSE        200   0   
+  effectName       include fix   test  initialValue parm
+1 degree (density) TRUE    FALSE FALSE          0   0   
+  effectName             include fix   test  initialValue parm
+1 milex.beh linear shape TRUE    FALSE FALSE       -0.5   0   
+[1] effectName   include      fix          test         initialValue
+[6] parm        
+<0 rows> (or 0-length row.names)
+  effectName     include fix   test  initialValue parm
+1 degree act+pop TRUE    FALSE FALSE          0   2   
+  effectName        include fix   test  initialValue parm
+1 transitive triads TRUE    FALSE FALSE          0   0   
+  effectName      include fix   test  initialValue parm
+1 milex.beh alter TRUE    FALSE FALSE          0   0   
+  effectName       include fix   test  initialValue parm
+1 threat.cov alter TRUE    FALSE FALSE          0   0   
+  effectName include fix   test  initialValue parm
+1 dyad.cov   TRUE    FALSE FALSE          0   0   
+  effectName       include fix   test  initialValue parm
+1 milex.beh degree TRUE    FALSE FALSE          0   0   
+  effectName             include fix   test  initialValue parm
+1 milex.beh dense triads TRUE    FALSE FALSE          0   6   
+  effectName                        include fix   test  initialValue parm
+1 milex.beh: effect from threat.cov TRUE    FALSE FALSE       0.75   0   
+If you use this algorithm object, siena07 will create/use an output file output/abm/ABM_sims.txt .
+  effectName       include fix   test  initialValue parm
+1 milex.beh degree TRUE    FALSE FALSE          0   0   
+  effectName       include fix   test  initialValue parm
+1 milex.beh degree TRUE    FALSE FALSE      -0.05   0   
+
+Start phase 0 
+theta: 200.00   0.00   0.00   0.00   0.00   0.00   0.00 200.00  -0.50  -0.05   0.00   0.75 
+
+Start phase 3 
+Phase 3 Iteration 1 Progress 97%
+[1] TRUE
+[1] TRUE
+          used  (Mb) gc trigger  (Mb) max used  (Mb)
+Ncells 1946023 104.0    3797838 202.9  3797838 202.9
+Vcells 3771859  28.8   19947817 152.2 31165062 237.8
+  effectName                  include fix   test  initialValue parm
+1 basic rate parameter dv.net TRUE    FALSE FALSE        200   0   
+  effectName              include fix   test  initialValue parm
+1 rate milex.beh period 1 TRUE    FALSE FALSE        200   0   
+  effectName       include fix   test  initialValue parm
+1 degree (density) TRUE    FALSE FALSE          0   0   
+  effectName             include fix   test  initialValue parm
+1 milex.beh linear shape TRUE    FALSE FALSE       -0.5   0   
+[1] effectName   include      fix          test         initialValue
+[6] parm        
+<0 rows> (or 0-length row.names)
+  effectName     include fix   test  initialValue parm
+1 degree act+pop TRUE    FALSE FALSE          0   2   
+  effectName        include fix   test  initialValue parm
+1 transitive triads TRUE    FALSE FALSE          0   0   
+  effectName      include fix   test  initialValue parm
+1 milex.beh alter TRUE    FALSE FALSE          0   0   
+  effectName       include fix   test  initialValue parm
+1 threat.cov alter TRUE    FALSE FALSE          0   0   
+  effectName include fix   test  initialValue parm
+1 dyad.cov   TRUE    FALSE FALSE          0   0   
+  effectName       include fix   test  initialValue parm
+1 milex.beh degree TRUE    FALSE FALSE          0   0   
+  effectName             include fix   test  initialValue parm
+1 milex.beh dense triads TRUE    FALSE FALSE          0   6   
+  effectName                        include fix   test  initialValue parm
+1 milex.beh: effect from threat.cov TRUE    FALSE FALSE       0.75   0   
+If you use this algorithm object, siena07 will create/use an output file output/abm/ABM_sims.txt .
+  effectName       include fix   test  initialValue parm
+1 milex.beh degree TRUE    FALSE FALSE          0   0   
+  effectName       include fix   test  initialValue parm
+1 milex.beh degree TRUE    FALSE FALSE      -0.05   0   
+
+Start phase 0 
+theta: 200.00   0.00   0.00   0.00   0.00   0.00   0.00 200.00  -0.50  -0.05   0.00   0.75 
+
+Start phase 3 
+Phase 3 Iteration 1 Progress 97%
+  effectName       include fix   test  initialValue parm
+1 milex.beh degree TRUE    FALSE FALSE    -0.0475   0   

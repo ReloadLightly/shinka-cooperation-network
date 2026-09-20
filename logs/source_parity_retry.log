@@ -1,0 +1,85 @@
+Warning messages:
+1: package ‘dplyr’ was built under R version 4.2.3 
+2: package ‘tidyr’ was built under R version 4.2.3 
+3: package ‘reshape2’ was built under R version 4.2.3 
+4: package ‘igraph’ was built under R version 4.2.3 
+5: package ‘sna’ was built under R version 4.2.3 
+6: package ‘statnet.common’ was built under R version 4.2.3 
+7: package ‘network’ was built under R version 4.2.3 
+Warning message:
+package ‘jsonlite’ was built under R version 4.2.3 
+Building spatial lag term
+Calculating contiguity-based alliance spillin
+Calculating UNGA-weighted DCA triangles
+Discretizing behavior variable
+Getting monadic covariates
+Getting dyadic covariates
+Done building dataset
+          used (Mb) gc trigger  (Mb) max used  (Mb)
+Ncells 1867528 99.8    5386357 287.7  5386357 287.7
+Vcells 5946576 45.4   23137922 176.6 28922402 220.7
+  effectName  include fix   test  initialValue parm
+1 nets.ATOP_d TRUE    FALSE FALSE          0   0   
+  effectName        include fix   test  initialValue parm
+1 nets.lndistance_d TRUE    FALSE FALSE          0   0   
+  effectName          include fix   test  initialValue parm
+1 nets.absidealdiff_d TRUE    FALSE FALSE          0   0   
+  effectName     include fix   test  initialValue parm
+1 nets.lntrade_d TRUE    FALSE FALSE          0   0   
+  effectName  include fix   test  initialValue parm
+1 nets.NATO_d TRUE    FALSE FALSE          0   0   
+  effectName            include fix   test  initialValue parm
+1 beh.democracy_1 alter TRUE    FALSE FALSE          0   0   
+  effectName         include fix   test  initialValue parm
+1 beh.lncinc_1 alter TRUE    FALSE FALSE          0   0   
+  effectName      include fix   test  initialValue parm
+1 milex.beh alter TRUE    FALSE FALSE          0   0   
+  effectName     include fix   test  initialValue parm
+1 degree act+pop TRUE    FALSE FALSE          0   1   
+  effectName        include fix   test  initialValue parm
+1 transitive triads TRUE    FALSE FALSE          0   0   
+  effectName                             include fix   test  initialValue parm
+1 milex.beh: effect from beh.democracy_1 TRUE    FALSE FALSE          0   0   
+  effectName                             include fix   test  initialValue parm
+1 milex.beh: effect from beh.GDPgrowth_1 TRUE    FALSE FALSE          0   0   
+  effectName                        include fix   test  initialValue parm
+1 milex.beh: effect from beh.nato_1 TRUE    FALSE FALSE          0   0   
+  effectName                          include fix   test  initialValue parm
+1 milex.beh: effect from beh.allies_1 TRUE    FALSE FALSE          0   0   
+  effectName                            include fix   test  initialValue parm
+1 milex.beh: effect from beh.military_1 TRUE    FALSE FALSE          0   0   
+  effectName                          include fix   test  initialValue parm
+1 milex.beh: effect from beh.lnmids_1 TRUE    FALSE FALSE          0   0   
+  effectName                              include fix   test  initialValue parm
+1 milex.beh: effect from beh.milexSpLag_1 TRUE    FALSE FALSE          0   0   
+  effectName       include fix   test  initialValue parm
+1 milex.beh degree TRUE    FALSE FALSE          0   0   
+  effectName             include fix   test  initialValue parm
+1 milex.beh dense triads TRUE    FALSE FALSE          0   6   
+          used  (Mb) gc trigger  (Mb) max used  (Mb)
+Ncells 1927953 103.0    5386357 287.7  5386357 287.7
+Vcells 6187502  47.3   23276920 177.6 28922402 220.7
+Source preparation and predictive Model 3 effects match independent bridge.
+	Command being timed: "environment/run-r R/source_parity.R"
+	User time (seconds): 23.61
+	System time (seconds): 11.00
+	Percent of CPU this job got: 98%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:35.15
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 612504
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 130
+	Minor (reclaiming a frame) page faults: 224794
+	Voluntary context switches: 565
+	Involuntary context switches: 58
+	Swaps: 0
+	File system inputs: 69568
+	File system outputs: 72
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

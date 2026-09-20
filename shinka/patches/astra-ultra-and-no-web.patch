@@ -1,0 +1,66 @@
+--- a/vendor/ShinkaEvolve/shinka/llm/providers/headless.py
++++ b/vendor/ShinkaEvolve/shinka/llm/providers/headless.py
+@@ -23,7 +23,7 @@
+ HEADLESS_COMMAND_ENV = "SHINKA_HEADLESS_COMMAND"
+ HEADLESS_TIMEOUT_ENV = "SHINKA_HEADLESS_TIMEOUT"
+ 
+-_VALID_EFFORTS = {"low", "medium", "high", "xhigh"}
++_VALID_EFFORTS = {"low", "medium", "high", "xhigh", "max", "ultra"}
+ _THREAD_LOCK = threading.Lock()
+ _CLAUDE_TRANSIENT_RETRIES = 2
+ _CLAUDE_TRANSIENT_BACKOFF_SECONDS = 3.0
+--- a/shinka/headless/node_modules/@roberttlange/headless/dist/cli.js
++++ b/shinka/headless/node_modules/@roberttlange/headless/dist/cli.js
+@@ -508,7 +508,7 @@
+     }
+ }
+ function parseReasoningEffort(value) {
+-    if (value === "low" || value === "medium" || value === "high" || value === "xhigh") {
++    if (value === "low" || value === "medium" || value === "high" || value === "xhigh" || value === "max" || value === "ultra") {
+         return value;
+     }
+     throw new CliError(`unsupported reasoning effort: ${value}`);
+--- a/shinka/headless/node_modules/@roberttlange/headless/dist/config.js
++++ b/shinka/headless/node_modules/@roberttlange/headless/dist/config.js
+@@ -173,7 +173,7 @@
+     throw new Error(`unsupported headless config role at line ${lineNumber}: ${value}`);
+ }
+ function parseConfigReasoningEffort(value, lineNumber) {
+-    if (value === "low" || value === "medium" || value === "high" || value === "xhigh") {
++    if (value === "low" || value === "medium" || value === "high" || value === "xhigh" || value === "max" || value === "ultra") {
+         return value;
+     }
+     throw new Error(`unsupported headless config reasoning_effort at line ${lineNumber}: ${value}`);
+--- a/shinka/headless/node_modules/@roberttlange/headless/dist/agents.js
++++ b/shinka/headless/node_modules/@roberttlange/headless/dist/agents.js
+@@ -268,7 +268,7 @@
+     const model = codexModel(options, env);
+     const args = [
+         ...(options.allow === "read-only"
+-            ? ["--sandbox", "read-only", "--ask-for-approval", "never", "--search"]
++            ? ["--sandbox", "read-only", "--ask-for-approval", "never", "-c", 'web_search="disabled"', "-c", "features.shell_tool=false"]
+             : ["--dangerously-bypass-approvals-and-sandbox"]),
+         ...(options.profile ? ["--profile", options.profile] : []),
+         "exec",
+@@ -292,7 +292,7 @@
+ function buildInteractiveCodex(options, env) {
+     const model = codexModel(options, env);
+     const args = options.allow === "read-only"
+-        ? ["--sandbox", "read-only", "--ask-for-approval", "never", "--search"]
++        ? ["--sandbox", "read-only", "--ask-for-approval", "never", "-c", 'web_search="disabled"', "-c", "features.shell_tool=false"]
+         : options.allow === "yolo" || options.allow === undefined
+             ? ["--dangerously-bypass-approvals-and-sandbox"]
+             : [];
+--- a/vendor/ShinkaEvolve/shinka/webui/visualization.py
++++ b/vendor/ShinkaEvolve/shinka/webui/visualization.py
+@@ -1737,8 +1737,8 @@
+     class ReusableTCPServer(socketserver.TCPServer):
+         allow_reuse_address = True
+ 
+-    with ReusableTCPServer(("", port), handler_factory) as httpd:
+-        msg = f"\n[*] Serving http://0.0.0.0:{port}  (Ctrl+C to stop)"
++    with ReusableTCPServer(("127.0.0.1", port), handler_factory) as httpd:
++        msg = f"\n[*] Serving http://127.0.0.1:{port}  (Ctrl+C to stop)"
+         print(msg)
+         httpd.serve_forever()
+ 

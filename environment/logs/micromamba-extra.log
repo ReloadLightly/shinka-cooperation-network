@@ -1,0 +1,74 @@
+Using Cached Shard Index for conda-forge/linux-64                                                   ✔ Done
+Using Cached Shard Index for conda-forge/noarch                                                     ✔ Done
+Fetching and Parsing Packages' Shards                                                           ⧖ Starting
+Fetching and Parsing Packages' Shards                                                     ✔ Done (3.1 sec)
+
+Resolving Environment                                                                           ⧖ Starting
+Resolving Environment                                                                     ✔ Done (0.6 sec)
+
+Transaction
+
+  Prefix: /home/roland/actir/shinka-cooperation-network/environment/runtime
+
+  Updating specs:
+
+   - r-base=4.2.1
+   - r-prroc=1.3.1
+   - r-dplyr
+   - r-tidyr
+
+
+  Package         Version  Build          Channel          Size
+─────────────────────────────────────────────────────────────────
+  Install:
+─────────────────────────────────────────────────────────────────
+
+  + r-dplyr         1.1.4  r42ha503ecb_0  conda-forge       1MB
+  + r-generics      0.1.3  r42hc72bb7e_2  conda-forge      91kB
+  + r-purrr         1.0.2  r42h57805ef_0  conda-forge     486kB
+  + r-tidyr         1.3.1  r42ha503ecb_0  conda-forge       1MB
+  + r-tidyselect    1.2.1  r42hc72bb7e_0  conda-forge     216kB
+
+  Summary:
+
+  Install: 5 packages
+
+  Total download: 3MB
+
+─────────────────────────────────────────────────────────────────
+
+
+warning  libmamba Security Warning: This transaction includes executing package scripts (pre/post-link/unlink) if present. These scripts can contain arbitrary code. Please ensure you trust the package sources.
+
+Transaction starting
+Linking r-tidyselect-1.2.1-r42hc72bb7e_0
+Linking r-generics-0.1.3-r42hc72bb7e_2
+Linking r-purrr-1.0.2-r42h57805ef_0
+Linking r-dplyr-1.1.4-r42ha503ecb_0
+Linking r-tidyr-1.3.1-r42ha503ecb_0
+
+Transaction finished
+
+	Command being timed: "environment/bin/micromamba install --yes --prefix /home/roland/actir/shinka-cooperation-network/environment/runtime --channel conda-forge --override-channels r-base=4.2.1 r-prroc=1.3.1 r-dplyr r-tidyr"
+	User time (seconds): 1.74
+	System time (seconds): 0.54
+	Percent of CPU this job got: 25%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:09.04
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 211908
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 54
+	Minor (reclaiming a frame) page faults: 88546
+	Voluntary context switches: 1962
+	Involuntary context switches: 12
+	Swaps: 0
+	File system inputs: 17096
+	File system outputs: 18600
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

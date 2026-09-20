@@ -1,0 +1,2 @@
+NETWORK_ROUTE_CHECK_OK: the mean of 1, 2, 3, 4 is 2.5.
+{"usage":{"agent":"codex","provider":"openai","model":"gpt-6-astra","inputTokens":2063,"cacheReadTokens":12160,"cacheWriteTokens":0,"outputTokens":55,"reasoningOutputTokens":24,"totalTokens":14278,"usageStatus":"reported","cost":null,"costBasis":null,"pricingSource":null,"pricingStatus":"missing"}}

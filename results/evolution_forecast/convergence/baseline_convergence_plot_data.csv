@@ -1,0 +1,7 @@
+"attempt","metric","value","threshold","threshold_met","accepted_fit","elapsed_seconds","status"
+1,"A  Maximum absolute convergence t",0.258198394145311,0.1,FALSE,FALSE,664.205,"Threshold not met"
+2,"A  Maximum absolute convergence t",0.102125124333925,0.1,FALSE,FALSE,597.301,"Threshold not met"
+3,"A  Maximum absolute convergence t",0.09444758531256,0.1,TRUE,FALSE,618.16,"Threshold met"
+1,"B  Overall convergence ratio",0.561063321743372,0.25,FALSE,FALSE,664.205,"Threshold not met"
+2,"B  Overall convergence ratio",0.297489294751604,0.25,FALSE,FALSE,597.301,"Threshold not met"
+3,"B  Overall convergence ratio",0.323754366293176,0.25,FALSE,FALSE,618.16,"Threshold not met"

@@ -1,0 +1,43 @@
+{
+  "recorded_unix": 1789914661.742754,
+  "scope": "Final source and evidence review; no empirical fitness/evolution claim",
+  "protected_filesystem": "verified by executed namespace checks",
+  "protected_host_network": "verified by actual live-host-listener denial, direct-network denial, fixed CONNECT proxy tests",
+  "strict_subscription_route": "one actual public arithmetic smoke under current boundary; two administrative smoke calls in total",
+  "native_validity_contract": "actual malicious AST candidate rejected and ingested with SQL NULL score; finite scientific score requires all four development years",
+  "native_evaluation_timeout": "96:30:00",
+  "native_campaign_budget": "finite cumulative supervisor; scientific cost gates currently unmet",
+  "remaining_native_launch_gates": [
+    "baseline_zero_passed",
+    "all_development_baselines_valid",
+    "structural_candidate_valid",
+    "measured_campaign_budget_fixed",
+    "positive measured_seconds_per_candidate is required",
+    "positive campaign_walltime_budget_seconds is required"
+  ],
+  "configured_machinery": "population, archive, weighted sampling, diff/full/cross, 2 islands, migration, local embeddings, novelty, feedback, meta, prompt coevolution, SQLite, managed WebUI",
+  "unobserved_machinery": [
+    "scientific population",
+    "evolutionary mutation",
+    "migration",
+    "novelty adjudication",
+    "meta recommendations",
+    "prompt coevolution",
+    "real descendant prompt",
+    "campaign lineage/resumption",
+    "meaningful multi-model bandit"
+  ],
+  "limitations": [
+    "Only one mutation model route is selected; UCB has one arm.",
+    "Backend reports requested model but does not echo achieved reasoning effort.",
+    "SIGKILL of the supervisor requires process inspection before resumption; cleanup checks cover live owned process trees.",
+    "TLS CONNECT permits subscription hosts; application paths and encrypted content are not inspected."
+  ],
+  "scientific_native_campaign_started": false,
+  "new_model_calls_this_final_review": 1,
+  "new_R_calls_this_final_review": 0,
+  "persistent_services_left_running": false,
+  "final_wrapper_durable_logging_selfcheck_call_id": "1789914762992680420",
+  "latest_network_checks": "runs/shinka_network_checks/1789914751082127201/checks.json",
+  "native_parser_token_limitation": "Raw Headless JSON includes cache-read usage omitted by native query parser; missing prices map to native zero"
+}

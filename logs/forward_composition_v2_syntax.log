@@ -1,0 +1,487 @@
+expression(source("R/empirical.R"), FORWARD_SCHEMA <- "training-only-v2-fixed-origin-membership", 
+    carry_last <- function(x, fallback) {
+        apply(x, 1, function(z) {
+            good <- which(is.finite(z))
+            if (length(good)) 
+                z[max(good)]
+            else fallback
+        })
+    }, cpp_behavior_mean <- function(x) mean(colMeans(x, na.rm = TRUE)), 
+    make_forward_data <- function(packet, train) {
+        d <- packet$data
+        T <- length(packet$years)
+        N <- length(packet$nms)
+        origin_network <- d[[NET_DV]][, , T]
+        origin_behavior <- d[[BEH_DV]][, T]
+        active <- packet$present[, T]
+        start <- origin_network
+        miss <- which(!is.finite(start), arr.ind = TRUE)
+        if (nrow(miss)) 
+            for (k in seq_len(nrow(miss))) {
+                ij <- miss[k, ]
+                z <- d[[NET_DV]][ij[1], ij[2], ]
+                good <- which(is.finite(z))
+                start[ij[1], ij[2]] <- if (length(good)) 
+                  z[max(good)]
+                else 0
+            }
+        start[!active, ] <- 0
+        start[, !active] <- 0
+        diag(start) <- 0
+        if (!isSymmetric(start) || any(!start %in% c(0, 1))) 
+            stop("Invalid origin network after declared training-only imputation")
+        modeb <- as.numeric(names(which.max(table(d[[BEH_DV]]))))
+        start_b <- carry_last(d[[BEH_DV]], modeb)
+        placeholder_b <- start_b
+        support <- range(train$depvars$milex.beh, na.rm = TRUE)
+        placeholder_b[1:2] <- support
+        args <- list(dv.net = sienaDependent(array(c(start, start), 
+            c(N, N, 2)), type = "oneMode", allowOnly = FALSE), 
+            milex.beh = sienaDependent(cbind(start_b, placeholder_b), 
+                type = "behavior", allowOnly = FALSE))
+        for (v in MONADIC) {
+            old <- train$vCovars[[paste0("beh.", v)]]
+            mu <- attr(old, "mean")
+            x <- carry_last(d[[paste0("m.", v)]], mu)
+            args[[paste0("beh.", v)]] <- coCovar(x - mu, centered = FALSE)
+        }
+        for (v in DYADIC) {
+            old <- if (v == "lndistance_d") 
+                train$dycCovars[[paste0("nets.", v)]]
+            else train$dyvCovars[[paste0("nets.", v)]]
+            mu <- attr(old, "mean")
+            a <- d[[paste0("d.", v)]]
+            x <- a[, , T]
+            missing <- which(!is.finite(x), arr.ind = TRUE)
+            if (nrow(missing)) 
+                for (k in seq_len(nrow(missing))) {
+                  ij <- missing[k, ]
+                  z <- a[ij[1], ij[2], ]
+                  good <- which(is.finite(z))
+                  x[ij[1], ij[2]] <- if (length(good)) 
+                    z[max(good)]
+                  else mu
+                }
+            x <- x - mu
+            diag(x) <- 0
+            args[[paste0("nets.", v)]] <- coDyadCovar(x, centered = FALSE)
+        }
+        args$cc <- sienaCompositionChange(rep(list(c(1, 2)), 
+            N))
+        net <- do.call(sienaDataCreate, args)
+        cc <- net$compositionChange[[1]]
+        activity <- matrix(rep(active, 2), nrow = N, ncol = 2)
+        actions <- matrix(0L, nrow = N, ncol = 2)
+        actions[!active, ] <- 1L
+        attr(cc, "activeStart") <- activity
+        attr(cc, "action") <- actions
+        attr(cc, "events") <- attr(cc, "events")[FALSE, , drop = FALSE]
+        net$compositionChange[[1]] <- cc
+        native_composition <- RSiena:::unpackCompositionChange(cc)
+        stopifnot(identical(native_composition$activeStart, activity), 
+            nrow(native_composition$events) == 0L, !any(native_composition$activeStart[!active, 
+                , drop = FALSE]))
+        stopifnot(!any(attr(net$depvars$dv.net, "uponly")), !any(attr(net$depvars$dv.net, 
+            "downonly")), !any(attr(net$depvars$milex.beh, "uponly")), 
+            !any(attr(net$depvars$milex.beh, "downonly")))
+        if (!identical(as.numeric(range(net$depvars$milex.beh, 
+            na.rm = TRUE)), as.numeric(support))) 
+            stop("Native forward behavior support differs from training")
+        list(netdata = net, origin_network = origin_network, 
+            origin_behavior = origin_behavior, origin_active = active, 
+            start_network = start, start_behavior = start_b, 
+            audit = list(forecast_schema_version = FORWARD_SCHEMA, 
+                native_origin_active = as.logical(native_composition$activeStart[, 
+                  1]), native_composition_events = nrow(native_composition$events), 
+                origin_membership_native_verified = TRUE, network_missing_at_origin = nrow(miss), 
+                behavior_missing_at_origin = sum(!is.finite(origin_behavior)), 
+                inactive_at_origin = packet$nms[!active], support = support, 
+                placeholder = "duplicate origin network; origin behavior with two historical boundary values", 
+                conditional = FALSE, simOnly = TRUE, allowOnly = FALSE, 
+                training_behavior_mean = cpp_behavior_mean(train$depvars$milex.beh[, 
+                  1, ]), forward_behavior_mean = cpp_behavior_mean(net$depvars$milex.beh[, 
+                  1, ]), covariate_centering = "training means preserved; missing origin values last known then training mean"))
+    }, forward_effects <- function(forward, train, fit, terms) {
+        eff <- model_effects(forward$netdata, terms)
+        fitted <- fit$requestedEffects
+        if (nrow(fitted) != length(fit$theta)) 
+            stop("Native fitted-effect mapping has unexpected shape")
+        fitted$estimate <- fit$theta
+        idx <- which(eff$include)
+        rates <- list()
+        for (i in idx) {
+            if (eff$type[i] == "rate") {
+                rows <- which(fitted$name == eff$name[i] & fitted$type == 
+                  "rate" & fitted$shortName == eff$shortName[i])
+                rows <- rows[is.finite(fitted$estimate[rows])]
+                if (!length(rows)) 
+                  stop("No estimable training rate for ", eff$name[i])
+                row <- rows[which.max(as.numeric(fitted$period[rows]))]
+                value <- fitted$estimate[row]
+                if (value <= 0) 
+                  stop("Nonpositive carried rate")
+                eff$initialValue[i] <- value
+                rates[[eff$name[i]]] <- list(value = value, training_period = fitted$period[row], 
+                  duration_adjustment = 1)
+            }
+            else {
+                rows <- which(effect_key(fitted) == effect_key(eff)[i])
+                if (length(rows) != 1) 
+                  stop("Ambiguous fitted effect mapping: ", effect_key(eff)[i])
+                eff$initialValue[i] <- fitted$estimate[rows]
+            }
+        }
+        shift <- forward$audit$forward_behavior_mean - forward$audit$training_behavior_mean
+        one <- function(name, short, interaction = "") {
+            k <- which(eff$include & eff$name == name & eff$shortName == 
+                short & eff$interaction1 == interaction)
+            if (length(k) != 1) 
+                stop("Missing centering correction effect ", 
+                  name, "/", short)
+            k
+        }
+        density <- one("dv.net", "density")
+        alt <- one("dv.net", "altX", "milex.beh")
+        linear <- one("milex.beh", "linear")
+        quadratic <- one("milex.beh", "quad")
+        corrections <- c(density = eff$initialValue[alt] * shift, 
+            linear = 2 * eff$initialValue[quadratic] * shift)
+        eff$initialValue[density] <- eff$initialValue[density] + 
+            corrections["density"]
+        eff$initialValue[linear] <- eff$initialValue[linear] + 
+            corrections["linear"]
+        eff$fix[eff$include] <- TRUE
+        list(effects = eff, rates = rates, centering_corrections = as.list(corrections), 
+            mean_shift = shift)
+    }, run_forecast <- function(specfile, target, outdir, settingsfile, 
+        pastfile = NULL, prepare_only = FALSE) {
+        dir.create(outdir, recursive = TRUE, showWarnings = FALSE)
+        spec <- read_json(specfile, simplifyVector = TRUE)
+        terms <- validate_spec(spec)
+        settings <- read_json(settingsfile, simplifyVector = TRUE)
+        stopifnot(as.character(packageVersion("RSiena")) == settings$software$RSiena)
+        packet <- readRDS(pastfile %||% file.path("data/past", 
+            paste0(target, ".rds")))
+        stopifnot(identical(as.integer(packet$years), 1990:(as.integer(target) - 
+            1L)))
+        train <- make_training_data(packet)
+        effs <- model_effects(train, terms)
+        write.csv(effect_table(effs[effs$include, ]), file.path(outdir, 
+            "training_effects.csv"), row.names = FALSE)
+        forward <- make_forward_data(packet, train)
+        write_json(forward$audit, file.path(outdir, "preflight_audit.json"), 
+            auto_unbox = TRUE, pretty = TRUE, digits = 16)
+        if (prepare_only) {
+            saveRDS(list(train = train, effects = effs, forward = forward), 
+                file.path(outdir, "prepared.rds"))
+            return(invisible(TRUE))
+        }
+        fit_path <- file.path(outdir, "accepted_fit.rds")
+        if (file.exists(fit_path)) {
+            ans <- readRDS(fit_path)
+            if (!fit_diagnostics(ans$fit, settings$estimation$n3)$valid) 
+                stop("Cached fit is not acceptable")
+        }
+        else {
+            ans <- fit_model(train, effs, settings, outdir)
+            saveRDS(ans, fit_path)
+        }
+        fwd <- forward_effects(forward, train, ans$fit, terms)
+        seed <- as.integer(target) * 1000L + 1L
+        if (!is.null(settings$forecast$seed_override)) 
+            seed <- settings$forecast$seed_override
+        budget <- as.integer(settings$forecast$simulations)
+        alg <- sienaAlgorithmCreate(projname = file.path(outdir, 
+            "forecast"), cond = FALSE, useStdInits = FALSE, nsub = 0, 
+            n3 = budget, seed = seed, modelType = c(dv.net = 3), 
+            behModelType = c(milex.beh = 1), simOnly = TRUE)
+        started <- proc.time()
+        sim <- siena07(alg, data = forward$netdata, effects = fwd$effects, 
+            batch = TRUE, silent = TRUE, useCluster = FALSE, 
+            returnDeps = TRUE)
+        S <- length(sim$sims)
+        if (S != budget) 
+            stop("Returned endpoint count ", S, " differs from fixed budget ", 
+                budget)
+        N <- length(packet$nms)
+        sum_network <- matrix(0, N, N)
+        sum_behavior <- numeric(N)
+        for (s in seq_len(S)) {
+            edges <- sim$sims[[s]][[1]][["dv.net"]][[1]]
+            a <- matrix(0, N, N)
+            if (length(edges)) 
+                a[edges[, 1:2, drop = FALSE]] <- edges[, 3]
+            if (!isSymmetric(a) || any(!a %in% c(0, 1))) 
+                stop("Malformed simulated network")
+            if (any(a[!forward$origin_active, , drop = FALSE] != 
+                0) || any(a[, !forward$origin_active, drop = FALSE] != 
+                0)) 
+                stop("Native forecast created or retained ties to an origin-inactive actor")
+            b <- as.numeric(sim$sims[[s]][[1]][["milex.beh"]][[1]])
+            if (length(b) != N || any(!is.finite(b))) 
+                stop("Malformed behavior forecast")
+            sum_network <- sum_network + a
+            sum_behavior <- sum_behavior + b
+        }
+        probabilities <- sum_network/S
+        dimnames(probabilities) <- list(as.character(packet$nms), 
+            as.character(packet$nms))
+        prediction <- list(nms = packet$nms, probabilities = probabilities, 
+            behavior_mean = sum_behavior/S, origin_network = forward$origin_network, 
+            origin_behavior = forward$origin_behavior, origin_active = forward$origin_active, 
+            target = target, simulations = S, seed = seed, forecast_schema_version = FORWARD_SCHEMA, 
+            native_origin_active = as.logical(forward$audit$native_origin_active))
+        saveRDS(prediction, file.path(outdir, "predictions.pending.rds"))
+        file.rename(file.path(outdir, "predictions.pending.rds"), 
+            file.path(outdir, "predictions.rds"))
+        ij <- which(upper.tri(probabilities), arr.ind = TRUE)
+        write.csv(data.frame(ccode1 = packet$nms[ij[, 1]], ccode2 = packet$nms[ij[, 
+            2]], probability = probabilities[ij], origin = forward$origin_network[ij]), 
+            file.path(outdir, "predictions.csv"), row.names = FALSE)
+        write.csv(data.frame(ccode = packet$nms, prediction = sum_behavior/S), 
+            file.path(outdir, "behavior_predictions.csv"), row.names = FALSE)
+        saveRDS(sim, file.path(outdir, "simulations.rds"))
+        audit <- c(forward$audit, list(rates = fwd$rates, centering_corrections = fwd$centering_corrections, 
+            mean_shift = fwd$mean_shift, seed = seed, requested_simulations = budget, 
+            returned_simulations = S, elapsed_seconds = unname((proc.time() - 
+                started)[3]), target_outcomes_accessed = FALSE))
+        write_json(audit, file.path(outdir, "forecast_audit.json"), 
+            auto_unbox = TRUE, pretty = TRUE, digits = 16)
+        write.csv(effect_table(fwd$effects[fwd$effects$include, 
+            ]), file.path(outdir, "forecast_effects.csv"), row.names = FALSE)
+        invisible(prediction)
+    }, if (sys.nframe() == 0L) {
+        args <- commandArgs(trailingOnly = TRUE)
+        flag <- function(key, default = NULL) {
+            i <- match(key, args)
+            if (is.na(i)) 
+                default
+            else args[i + 1]
+        }
+        run_forecast(flag("--spec"), as.integer(flag("--target")), 
+            flag("--output"), flag("--settings", "configs/evaluator-v1.json"), 
+            flag("--past"), "--prepare" %in% args)
+    })
+expression(suppressPackageStartupMessages(library(PRROC)), suppressPackageStartupMessages(library(jsonlite)), 
+    stopifnot(as.character(packageVersion("PRROC")) == "1.3.1"), 
+    curve_metrics <- function(p, y) {
+        stopifnot(length(p) == length(y), all(is.finite(p)), 
+            all(p >= 0 & p <= 1), all(y %in% c(0, 1)))
+        both <- length(unique(y)) == 2L
+        list(n = length(y), positives = sum(y == 1), negatives = sum(y == 
+            0), pr_auc = if (both) PRROC::pr.curve(scores.class0 = p[y == 
+            1], scores.class1 = p[y == 0], curve = FALSE)$auc.integral else NULL, 
+            roc_auc = if (both) PRROC::roc.curve(scores.class0 = p[y == 
+                1], scores.class1 = p[y == 0], curve = FALSE)$auc else NULL, 
+            brier = if (length(y)) mean((p - y)^2) else NULL, 
+            limitation = if (!both) "AUC unavailable: subset lacks both outcome classes" else NULL)
+    }, network_predictive_checks <- function(simulation_path, 
+        eligible, observed, expected_count) {
+        if (!file.exists(simulation_path)) 
+            stop("Native simulations missing for structural predictive checks")
+        sims <- readRDS(simulation_path)$sims
+        stopifnot(length(sims) == expected_count)
+        mask <- eligible | t(eligible)
+        summarize <- function(a) {
+            a[!mask] <- 0
+            graph <- igraph::graph_from_adjacency_matrix(a, mode = "undirected", 
+                diag = FALSE)
+            c(ties = sum(a[eligible]), triangles = sum(igraph::count_triangles(graph))/3, 
+                clustering = igraph::transitivity(graph, type = "globalundirected"), 
+                degree_variance = var(rowSums(a)))
+        }
+        empirical <- summarize(observed)
+        draws <- vapply(sims, function(sim) {
+            edges <- sim[[1]][["dv.net"]][[1]]
+            a <- matrix(0, nrow(observed), nrow(observed))
+            if (length(edges)) 
+                a[edges[, 1:2, drop = FALSE]] <- edges[, 3]
+            stopifnot(all(a %in% c(0, 1)), isSymmetric(a))
+            summarize(a)
+        }, numeric(4))
+        list(scope = "Network restricted to the common eligible dyad mask; inactive and invalid edges absent in both observed and simulated graphs", 
+            interpretation = "Descriptive predictive envelopes, not independent-dyad significance tests or coefficient uncertainty", 
+            observed = as.list(empirical), simulated = lapply(seq_along(empirical), 
+                function(i) list(statistic = names(empirical)[i], 
+                  finite_simulations = sum(is.finite(draws[i, 
+                    ])), mean = if (any(is.finite(draws[i, ]))) mean(draws[i, 
+                    ], na.rm = TRUE) else NULL, quantiles_025_50_975 = if (any(is.finite(draws[i, 
+                    ]))) unname(quantile(draws[i, ], c(0.025, 
+                    0.5, 0.975), na.rm = TRUE)) else NULL)))
+    }, score_forecast <- function(prediction_path, target_path, 
+        output_dir) {
+        pred <- readRDS(prediction_path)
+        truth <- readRDS(target_path)
+        required <- c("nms", "probabilities", "behavior_mean", 
+            "origin_network", "origin_behavior", "origin_active", 
+            "target", "simulations", "seed", "forecast_schema_version", 
+            "native_origin_active")
+        stopifnot(all(required %in% names(pred)), pred$simulations == 
+            1000L, identical(pred$forecast_schema_version, "training-only-v2-fixed-origin-membership"), 
+            identical(as.logical(pred$native_origin_active), 
+                as.logical(pred$origin_active)))
+        ids <- as.character(pred$nms)
+        n <- length(ids)
+        stopifnot(!anyDuplicated(ids), identical(dim(pred$probabilities), 
+            c(n, n)), identical(dim(pred$origin_network), c(n, 
+            n)), length(pred$origin_active) == n, isTRUE(all.equal(pred$probabilities, 
+            t(pred$probabilities))), all(is.finite(pred$probabilities)), 
+            all(pred$probabilities >= 0 & pred$probabilities <= 
+                1), max(abs(pred$probabilities * pred$simulations - 
+                round(pred$probabilities * pred$simulations))) < 
+                1e-08, all(diag(pred$probabilities) == 0), length(pred$behavior_mean) == 
+                n, all(is.finite(pred$behavior_mean)), all(pred$behavior_mean >= 
+                1 & pred$behavior_mean <= 11), max(abs(pred$behavior_mean * 
+                pred$simulations - round(pred$behavior_mean * 
+                pred$simulations))) < 1e-08, length(pred$origin_behavior) == 
+                n)
+        target_ids <- as.character(truth$nms)
+        stopifnot(pred$target == truth$target, !anyDuplicated(target_ids), 
+            length(truth$present) == length(target_ids), identical(dim(truth$network), 
+                c(length(target_ids), length(target_ids))), isTRUE(all.equal(truth$network, 
+                t(truth$network))), length(truth$behavior) == 
+                length(target_ids))
+        ix <- match(ids, target_ids)
+        present <- !is.na(ix)
+        present[present] <- as.logical(truth$present[ix[present]])
+        y <- matrix(NA_real_, n, n)
+        behavior <- rep(NA_real_, n)
+        available <- which(!is.na(ix))
+        y[available, available] <- truth$network[ix[available], 
+            ix[available]]
+        behavior[available] <- truth$behavior[ix[available]]
+        upper <- upper.tri(y)
+        origin_active <- as.logical(pred$origin_active)
+        stopifnot(!anyNA(origin_active), !anyNA(present), all(pred$probabilities[!origin_active, 
+            , drop = FALSE] == 0), all(pred$probabilities[, !origin_active, 
+            drop = FALSE] == 0))
+        active_pairs <- outer(origin_active & present, origin_active & 
+            present, "&")
+        valid_target <- is.finite(y) & (y == 0 | y == 1)
+        valid_origin <- is.finite(pred$origin_network) & (pred$origin_network == 
+            0 | pred$origin_network == 1)
+        eligible <- upper & active_pairs & valid_target & valid_origin
+        p <- pred$probabilities[eligible]
+        labels <- y[eligible]
+        origin <- pred$origin_network[eligible]
+        primary <- curve_metrics(p, labels)
+        if (is.null(primary$pr_auc) || !is.finite(primary$pr_auc)) 
+            stop("Target does not have two eligible outcome classes; no valid fitness.")
+        formation <- origin == 0
+        dissolution <- origin == 1
+        bmask <- origin_active & present & is.finite(behavior) & 
+            is.finite(pred$behavior_mean)
+        stopifnot(all(behavior[bmask] %in% 1:11), all(pred$behavior_mean[bmask] >= 
+            1 & pred$behavior_mean[bmask] <= 11))
+        netdiag <- list(expected_ties = sum(p), observed_ties = sum(labels), 
+            expected_density = mean(p), observed_density = mean(labels), 
+            degree_rmse = sqrt(mean((rowSums(replace(pred$probabilities, 
+                !(eligible | t(eligible)), 0)) - rowSums(replace(y, 
+                !(eligible | t(eligible)), 0)))^2)))
+        predictive_checks <- network_predictive_checks(file.path(dirname(prediction_path), 
+            "simulations.rds"), eligible, y, pred$simulations)
+        scored <- list(target = pred$target, simulations = pred$simulations, 
+            seed = pred$seed, primary = primary, formation = curve_metrics(p[formation], 
+                labels[formation]), dissolution = curve_metrics(1 - 
+                p[dissolution], 1 - labels[dissolution]), persistence = curve_metrics(origin, 
+                labels), spending = list(n = sum(bmask), units = "ordinal categories 1-11", 
+                rmse = if (any(bmask)) sqrt(mean((pred$behavior_mean[bmask] - 
+                  behavior[bmask])^2)) else NULL), network_diagnostics = netdiag, 
+            structural_predictive_checks = predictive_checks, 
+            eligibility = list(total_unordered_pairs = sum(upper), 
+                eligible = sum(eligible), excluded_inactive = sum(upper & 
+                  !active_pairs), excluded_target_missing_or_structural = sum(upper & 
+                  active_pairs & !valid_target), excluded_origin_missing_or_structural = sum(upper & 
+                  active_pairs & valid_target & !valid_origin), 
+                origin_actors = sum(origin_active), target_present_in_sample = sum(present), 
+                entered_since_origin_in_training_sample = ids[present & 
+                  !origin_active], left_since_origin_in_training_sample = ids[!present & 
+                  origin_active], target_actors_outside_training_sample = setdiff(target_ids[truth$present], 
+                  ids)))
+        dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
+        pairs <- which(upper, arr.ind = TRUE)
+        write.csv(data.frame(ccode1 = ids[pairs[, 1]], ccode2 = ids[pairs[, 
+            2]], eligible = eligible[upper], origin = pred$origin_network[upper], 
+            label = y[upper], probability = pred$probabilities[upper]), 
+            file.path(output_dir, "eligibility_and_scores.csv"), 
+            row.names = FALSE)
+        saveRDS(eligible, file.path(output_dir, "eligibility_mask.rds"))
+        write_json(scored, file.path(output_dir, "scores.json"), 
+            pretty = TRUE, auto_unbox = TRUE, digits = 16, null = "null", 
+            na = "null")
+        scored
+    }, if (sys.nframe() == 0L) {
+        args <- commandArgs(trailingOnly = TRUE)
+        if (length(args) != 3L) 
+            stop("Usage: R/score.R predictions.rds target.rds output_dir")
+        score_forecast(args[[1]], args[[2]], args[[3]])
+    })
+expression(source("R/forecast.R"), dir.create("results/audits/forward-leakage", 
+    recursive = TRUE, showWarnings = FALSE), past <- readRDS("data/past/2006.rds"), 
+    train <- make_training_data(past), eff <- model_effects(train), 
+    fakefit <- list(theta = eff$initialValue[eff$include], requestedEffects = eff[eff$include, 
+        ]), forward <- make_forward_data(past, train), fwd <- forward_effects(forward, 
+        train, fakefit, c("degPlus", "transTriads")), b <- fakefit$requestedEffects, 
+    b$value <- fakefit$theta, coef <- function(name, short, i = "") b$value[b$name == 
+        name & b$shortName == short & b$interaction1 == i], mu0 <- forward$audit$training_behavior_mean, 
+    mu1 <- forward$audit$forward_behavior_mean, density <- -2.3, 
+    alt <- 0.37, linear <- 0.19, quad <- -0.23, errors <- numeric(), 
+    for (z in 1:11) {
+        errors <- c(errors, (density + alt * (z - mu0)) - (density + 
+            alt * (mu1 - mu0) + alt * (z - mu1)))
+        for (d in c(-1, 1)) if (z + d >= 1 && z + d <= 11) 
+            errors <- c(errors, linear * d + quad * (2 * (z - 
+                mu0) + d) * d - ((linear + 2 * quad * (mu1 - 
+                mu0)) * d + quad * (2 * (z - mu1) + d) * d))
+    }, stopifnot(max(abs(errors)) < 1e-12), scratch <- tempfile("outcome-leakage-"), 
+    dir.create(scratch), saveRDS(list(network = matrix(0, 161, 
+        161), behavior = rep(1, 161)), file.path(scratch, "target.rds")), 
+    simulate <- function(label) {
+        rebuilt <- make_forward_data(past, train)
+        fixed <- forward_effects(rebuilt, train, fakefit, c("degPlus", 
+            "transTriads"))
+        alg <- sienaAlgorithmCreate(projname = file.path("results/audits/forward-leakage", 
+            label), cond = FALSE, useStdInits = FALSE, nsub = 0, 
+            n3 = 4, seed = 2006001, modelType = c(dv.net = 3), 
+            behModelType = c(milex.beh = 1), simOnly = TRUE)
+        siena07(alg, data = rebuilt$netdata, effects = fixed$effects, 
+            batch = TRUE, silent = TRUE, useCluster = FALSE, 
+            returnDeps = TRUE)$sims
+    }, a <- simulate("all-zero-target"), saveRDS(list(network = matrix(1, 
+        161, 161), behavior = rep(11, 161)), file.path(scratch, 
+        "target.rds")), b <- simulate("all-one-target"), changes <- lapply(a, 
+        function(sim) {
+            edges <- sim[[1]][["dv.net"]][[1]]
+            adj <- matrix(0, length(past$nms), length(past$nms))
+            if (length(edges)) 
+                adj[edges[, 1:2, drop = FALSE]] <- edges[, 3]
+            stopifnot(all(adj[!forward$origin_active, , drop = FALSE] == 
+                0), all(adj[, !forward$origin_active, drop = FALSE] == 
+                0))
+            eligible <- upper.tri(adj) & outer(forward$origin_active, 
+                forward$origin_active, "&")
+            behavior <- as.numeric(sim[[1]][["milex.beh"]][[1]])
+            list(formations = sum(eligible & adj == 1 & forward$start_network == 
+                0), dissolutions = sum(eligible & adj == 0 & 
+                forward$start_network == 1), spending_up = sum(behavior[forward$origin_active] > 
+                forward$start_behavior[forward$origin_active]), 
+                spending_down = sum(behavior[forward$origin_active] < 
+                  forward$start_behavior[forward$origin_active]))
+        }), passed <- identical(a, b) && length(a) == 4L, saveRDS(list(first = a, 
+        second = b), "results/audits/forward-leakage/simulations.rds"), 
+    write_json(list(passed = passed, simulations_per_condition = length(a), 
+        target = 2006, seed = 2006001, predicted_endpoints_identical = identical(a, 
+            b), endpoint_changes = changes, maximum_reparameterization_error = max(abs(errors)), 
+        fitted_model = FALSE, ranking_eligible = FALSE, diagnostic = "Real native engine with original-specification initial coefficients; two altered inaccessible synthetic target files; training past fixed", 
+        audit = forward$audit, rates = fwd$rates), "results/audits/forward-leakage/audit.json", 
+        auto_unbox = TRUE, pretty = TRUE, digits = 16), if (!passed) stop("Native endpoint leakage/determinism audit failed"), 
+    files <- c("R/empirical.R", "R/forecast.R", "R/audit_forward.R", 
+        "R/score.R", "configs/evaluator-v1.json", "configs/effect-catalog-v1.json", 
+        "data/past/2006.rds"), verification <- list(passed = TRUE, 
+        engine = "RSiena1.3.10", diagnostic_only = TRUE, ranking_eligible = FALSE, 
+        source = "results/audits/forward-leakage/audit.json", 
+        forecast_schema_version = FORWARD_SCHEMA, origin_membership_native_verified = TRUE, 
+        inactive_endpoint_ties_zero = TRUE, bound_file_md5 = as.list(tools::md5sum(files)), 
+        modified_inaccessible_outcomes = TRUE, simulations_per_condition = length(a)), 
+    write_json(verification, "results/audits/forward_verification.json", 
+        auto_unbox = TRUE, pretty = TRUE), cat("Real-native forward leakage audit passed; reduced, unfitted, not a scientific fitness result.\n"))

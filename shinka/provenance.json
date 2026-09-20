@@ -1,0 +1,140 @@
+{
+  "recorded_utc": "2026-09-20T13:35:37.092166+00:00",
+  "shinka": {
+    "url": "https://github.com/SakanaAI/ShinkaEvolve",
+    "commit": "9912af12d423504b8d580f4179fd15f5f88b8c50",
+    "package_version": "0.0.7",
+    "license": "Apache-2.0",
+    "modified": true,
+    "patch": "shinka/patches/astra-ultra-and-no-web.patch",
+    "patches": [
+      "shinka/patches/astra-ultra-and-no-web.patch",
+      "shinka/patches/local-evaluation-process-tree.patch"
+    ]
+  },
+  "headless": {
+    "url": "https://github.com/RobertTLange/headless-cli",
+    "npm_version": "0.6.1",
+    "license": "Apache-2.0",
+    "initial_source": "existing npm cache; complete local copy; original archived; npm lock includes distribution integrity",
+    "modified": true,
+    "registry_integrity_verified": "sha512-WMOnLdfWSjQM1vXGUL4Oopq8f/MQL/ibUKM7YFtHfBfPgoFr1zCxgQ1SXqusqAK8gEPMoVZlAVzSbNF7p8DmNg==",
+    "cached_original_adapter_files_equal_registry": true
+  },
+  "embedding": {
+    "repository": "minishlab/potion-base-8M",
+    "revision": "bf8b056651a2c21b8d2565580b8569da283cab23",
+    "license": "MIT",
+    "model2vec_version": "0.7.0",
+    "paid_api_calls": 0
+  },
+  "bubblewrap": {
+    "version": "0.6.1-1ubuntu0.3",
+    "source": "Ubuntu jammy-updates/main amd64",
+    "license_file": "shinka/tools/bubblewrap/usr/share/doc/bubblewrap/copyright"
+  },
+  "codex": {
+    "cli_version": "0.155.1",
+    "login_status": "Logged in using ChatGPT",
+    "requested_coding_session_model": "GPT-6 Astra Ultra",
+    "actual_session_effort": "not independently observable from local configuration",
+    "configured_mutation_model": "headless/codex@gpt-6-astra?effort=ultra",
+    "actual_mutation_calls": 0,
+    "actual_route_smoke_calls": 2,
+    "route_smoke_returned_model": "gpt-6-astra",
+    "route_smoke_effort": "ultra requested and forwarded; backend does not echo achieved effort",
+    "strict_network_namespace_route_smoke": true,
+    "latest_route_smoke_reported_tokens": 14278,
+    "latest_route_smoke_usage_cost": null
+  },
+  "artifacts": {
+    "shinka/ShinkaEvolve-9912af1.tar": {
+      "sha256": "62b3bb5860296a9bd0e5e18635eba9ea289713e29e0351999b96d58fe2ac3cc4",
+      "bytes": 13516800
+    },
+    "shinka/headless-0.6.1-unmodified.tar.gz": {
+      "sha256": "e8a81c22d5332400bc9955463a1223392e3549a84ca6fc252290402f6070009b",
+      "bytes": 4425392
+    },
+    "shinka/models/potion-base-8M/README.md": {
+      "sha256": "de8ec91bf63c5f4c0e20751c227b2d049953e1cab5f8d5d44211c59a44795bdd",
+      "bytes": 5203
+    },
+    "shinka/models/potion-base-8M/model.safetensors": {
+      "sha256": "f65d0f325faadc1e121c319e2faa41170d3fa07d8c89abd48ca5358d9a223de2",
+      "bytes": 30236760
+    },
+    "shinka/models/potion-base-8M/config.json": {
+      "sha256": "2a6ac0e9aaa356a68a5688070db78fc3a464fefe85d2f06a1905ce3718687553",
+      "bytes": 202
+    },
+    "shinka/models/potion-base-8M/tokenizer.json": {
+      "sha256": "e67e803f624fb4d67dea1c730d06e1067e1b14d830e2c2202569e3ef0f70bb50",
+      "bytes": 683666
+    },
+    "shinka/tools/bubblewrap_0.6.1-1ubuntu0.3_amd64.deb": {
+      "sha256": "706763714e5d19fc7ab2572a6418506e3a4a5d5960e99309707b58117e6b40cb",
+      "bytes": 46314
+    },
+    "shinka/patches/astra-ultra-and-no-web.patch": {
+      "sha256": "3849dda3022d87d5dc7365121d73db24ce4bf76d469ac85b699b7610e9b7ea59",
+      "bytes": 3406
+    },
+    "shinka/requirements.lock": {
+      "sha256": "e3128a44dc18b9f344dc2212702c9367458076fc2572b6cc6ef14cd4a9c8f321",
+      "bytes": 1960
+    },
+    "shinka/headless/roberttlange-headless-0.6.1.tgz": {
+      "sha256": "ca9fb08da17e62512aa468c0085ff97273307b83b6255ac959ee702fcbfcdfad",
+      "bytes": 124963
+    },
+    "shinka/patches/local-evaluation-process-tree.patch": {
+      "sha256": "2310d521e0bfa1449d989786ca7fa26c4bffaac2da0d7aebbb94a404b8fa16df",
+      "bytes": 1708
+    },
+    "shinka/network_proxy.py": {
+      "sha256": "f8d0678b8613d6262bbd4ae4a31977604a045c4f1e50dbf36c365fe7c319f078",
+      "bytes": 4738
+    },
+    "shinka/network_bridge.py": {
+      "sha256": "07d9ae2919cbd9a6cc7a42c3ca9c80436634421cba48ca0040e57245bcc2d455",
+      "bytes": 1956
+    },
+    "shinka/headless_isolated.py": {
+      "sha256": "d0619d40cf59f36a2a1687767b38daca9ce03a4706561bbdae5a01d49380eae9",
+      "bytes": 5837
+    },
+    "shinka/check_network_isolation.py": {
+      "sha256": "0654de24487c960a033824f4ac02f6966944aa1e0172f667f058a077a4c64a49",
+      "bytes": 5963
+    },
+    "shinka/security_review.json": {
+      "sha256": "ee7c076728d9ca9ad1640ecc20f7f85b1fc9ed11d017d177a745c553c8d4285b",
+      "bytes": 1112
+    },
+    "shinka/licenses/ShinkaEvolve-Apache-2.0.txt": {
+      "sha256": "c3e5b1c26607caf7208d5a105c113fe240630bb873fdb8ca5b4c2e32c721ddaf",
+      "bytes": 10237
+    },
+    "shinka/licenses/Headless-Apache-2.0.txt": {
+      "sha256": "77e35c4cc7f73109da4c43220ed074644b400ef9240150de468fc39277d2b4b5",
+      "bytes": 11344
+    },
+    "shinka/THIRD_PARTY_NOTICES.md": {
+      "sha256": "fcef17ec357fe6401ee3199fce2bc593a3518070f96a9759a1071589431081e5",
+      "bytes": 1935
+    }
+  },
+  "network_isolation": {
+    "implementation": "bubblewrap network namespace + exact-host CONNECT Unix proxy",
+    "allowed_hosts": [
+      "chatgpt.com:443",
+      "auth.openai.com:443"
+    ],
+    "review": "shinka/security_review.json",
+    "socket_test": "runs/shinka_network_checks/1789914751082127201/checks.json",
+    "actual_subscription_smoke_call_id": "1789914470614049347",
+    "paid_fallback": false
+  },
+  "published_third_party_notices": "shinka/THIRD_PARTY_NOTICES.md"
+}

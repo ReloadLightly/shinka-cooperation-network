@@ -1,0 +1,41 @@
+# Synthetic integration test of trusted scoring, never a scientific result.
+source("R/score.R")
+directory<-tempfile("scorer-fixture-");dir.create(directory)
+n<-4L;ids<-as.character(1:4)
+prob<-matrix(0,n,n,dimnames=list(ids,ids));prob[upper.tri(prob)]<-c(.8,.6,.4,.2,.1,.05)
+prob<-prob+t(prob)
+truth<-matrix(NA_real_,n,n,dimnames=list(ids,ids));truth[upper.tri(truth)]<-c(1,0,1,0,0,0)
+truth[lower.tri(truth)]<-t(truth)[lower.tri(truth)]
+origin<-matrix(0,n,n);origin[1,2]<-origin[2,1]<-1
+pred<-list(nms=ids,probabilities=prob,behavior_mean=c(1.2,2,3,1.5),origin_network=origin,
+           origin_behavior=c(1,2,3,1),origin_active=rep(TRUE,n),target=2006L,simulations=1000L,seed=2006001L,
+           forecast_schema_version="training-only-v2-fixed-origin-membership",native_origin_active=rep(TRUE,n))
+target<-list(nms=ids,network=truth,behavior=c(1,2,4,2),present=rep(TRUE,n),target=2006L)
+sims<-lapply(1:1000,function(s) {
+    a<-prob*1000>=s;diag(a)<-FALSE;edges<-which(a,arr.ind=TRUE)
+    list(list(dv.net=list(cbind(edges,value=rep(1,nrow(edges)))),milex.beh=list(c(1+as.integer(s<=200),2,3,1+as.integer(s<=500)))))
+})
+saveRDS(list(sims=sims),file.path(directory,"simulations.rds"))
+saveRDS(pred,file.path(directory,"predictions.rds"));saveRDS(target,file.path(directory,"target.rds"))
+result<-score_forecast(file.path(directory,"predictions.rds"),file.path(directory,"target.rds"),file.path(directory,"scores"))
+stopifnot(result$eligibility$eligible==6L,result$primary$positives==2L,
+          abs(result$primary$pr_auc-0.79726744594591781)<1e-12,
+          is.null(result$dissolution$pr_auc),
+          abs(result$spending$rmse-sqrt(1.29/4))<1e-12)
+bad<-pred;bad$behavior_mean[1]<-NaN;saveRDS(bad,file.path(directory,"predictions.rds"))
+bad_behavior<-inherits(try(score_forecast(file.path(directory,"predictions.rds"),file.path(directory,"target.rds"),file.path(directory,"bad")),silent=TRUE),"try-error")
+bad<-pred;bad$forecast_schema_version<-NULL;saveRDS(bad,file.path(directory,"predictions.rds"))
+obsolete_forecast<-inherits(try(score_forecast(file.path(directory,"predictions.rds"),file.path(directory,"target.rds"),file.path(directory,"bad")),silent=TRUE),"try-error")
+bad<-pred;bad$origin_active[4]<-FALSE;bad$native_origin_active[4]<-FALSE;saveRDS(bad,file.path(directory,"predictions.rds"))
+inactive_ties<-inherits(try(score_forecast(file.path(directory,"predictions.rds"),file.path(directory,"target.rds"),file.path(directory,"bad")),silent=TRUE),"try-error")
+saveRDS(pred,file.path(directory,"predictions.rds"));target$target<-1999L;saveRDS(target,file.path(directory,"target.rds"))
+bad_year<-inherits(try(score_forecast(file.path(directory,"predictions.rds"),file.path(directory,"target.rds"),file.path(directory,"bad")),silent=TRUE),"try-error")
+stopifnot(bad_behavior,bad_year,obsolete_forecast,inactive_ties)
+write_json(list(status="passed",scientific_result=FALSE,synthetic_endpoint_count=1000,
+                unordered_pair_count=6,pr_auc=result$primary$pr_auc,
+                no_class_dissolution_auc_unavailable=TRUE,
+                invalid_behavior_rejected=bad_behavior,wrong_target_year_rejected=bad_year,
+                obsolete_forecast_rejected=obsolete_forecast,inactive_actor_ties_rejected=inactive_ties,
+                native_simulation_shape_scored=TRUE),"results/verification/scorer_contract.json",auto_unbox=TRUE,pretty=TRUE,digits=16)
+unlink(directory,recursive=TRUE)
+cat("Synthetic scoring integration, mask, aggregation, secondary metrics, malformed-input checks passed.\n")

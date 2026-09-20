@@ -1,0 +1,18 @@
+{
+  "started_utc": "2026-09-20T14:27:52.660976+00:00",
+  "command": [
+    "python3",
+    "scripts/research.py",
+    "baselines"
+  ],
+  "invocation_id": "1789914472660756014",
+  "resources_file": "/home/roland/actir/shinka-cooperation-network/results/evolution_forecast/baseline-campaign/resources-1789914472660756014.txt",
+  "cwd": "/home/roland/actir/shinka-cooperation-network",
+  "status": "failed",
+  "orchestrator_pid": 2,
+  "revision": "uncommitted initial reconstruction",
+  "pid": 5,
+  "exit_code": 1,
+  "elapsed_seconds": 622.6516142899927,
+  "finished_utc": "2026-09-20T14:38:15.316609+00:00"
+}

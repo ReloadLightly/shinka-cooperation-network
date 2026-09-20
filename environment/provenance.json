@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-09-20T13:31:29.524221+00:00",
+  "RSiena": {
+    "version": "1.3.10",
+    "release_date": "2022-04-28",
+    "tag": "v1.3.10",
+    "commit": "c13ddd4af204cdcfb743ebab6217a68fad333f5a",
+    "source_url": "https://github.com/stocnet/rsiena/archive/refs/tags/v1.3.10.tar.gz",
+    "declared_license": "GPL-2 | GPL-3 | file LICENSE",
+    "license_file": "vendor/RSiena/LICENSE",
+    "source_modified": false,
+    "build_generated_files_in_source_directory": true,
+    "source_integrity_checked_files": 795,
+    "compile_elapsed_seconds": 150.73,
+    "compile_max_rss_kb": 219508
+  },
+  "R": {
+    "version": "4.2.1",
+    "conda_build": "h7880091_2",
+    "provider": "conda-forge",
+    "exact_author_version": true
+  },
+  "PRROC": {
+    "version": "1.3.1",
+    "provider": "conda-forge",
+    "conda_build": "r42hc72bb7e_1005",
+    "pin_choice": "Project pin; original authors PRROC version unverified",
+    "license": "GPL-3"
+  },
+  "micromamba": {
+    "version": "2.9.0",
+    "source_url": "https://micro.mamba.pm/api/micromamba/linux-64/2.9.0"
+  },
+  "compiler_note": "Conda GCC/G++ 15.3.0 with R-prescribed -std=gnu++14; original study compiler version is not supplied. All transitive binaries are pinned in conda-linux-64.explicit.txt.",
+  "artifacts": [
+    {
+      "path": "environment/downloads/RSiena-v1.3.10.tar.gz",
+      "bytes": 2269117,
+      "sha256": "c7e0fc358f064e6b5d753ceb675a2eb00ea08cd6d58934ebabef31055302a1d5"
+    },
+    {
+      "path": "environment/downloads/micromamba.tar.bz2",
+      "bytes": 6988090,
+      "sha256": "8761c382127e6363bd9e0a2451aa3ef90d071a79133f736e2f759a3bf13040dd"
+    },
+    {
+      "path": "environment/conda-linux-64.explicit.txt",
+      "bytes": 36612,
+      "sha256": "f6aafee5d35cfe19066dde4ba704b8ab271c70930387108e09b1a8b934e8d2ba"
+    }
+  ],
+  "conda_package_count": 314,
+  "binary_package_build_note": "Most conda R packages built under R4.2.3; all original imports successfully loaded under R4.2.1. Warnings preserved."
+}

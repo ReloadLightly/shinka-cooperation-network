@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "engine": "RSiena1.3.10",
+  "diagnostic_only": true,
+  "ranking_eligible": false,
+  "source": "results/audits/forward-leakage/audit.json",
+  "forecast_schema_version": "training-only-v2-fixed-origin-membership",
+  "origin_membership_native_verified": true,
+  "inactive_endpoint_ties_zero": true,
+  "inactive_behavior_unchanged": true,
+  "bound_file_md5": {
+    "R/empirical.R": "29b991a6db214544630d1255711b1fd6",
+    "R/forecast.R": "1529e0d1552a454c58d831648d48643d",
+    "R/audit_forward.R": "7f17acc1c97f349475bd1cab1a1b820b",
+    "R/score.R": "69ff51296f92a195fbb084b90018c28a",
+    "configs/evaluator-v1.json": "ab40407612d79470068b399c122968a9",
+    "configs/effect-catalog-v1.json": "66705e955a4c3a36eb19124f66ceacfb",
+    "data/past/2006.rds": "24cdfd824a1544b1ce89f33a657c1533"
+  },
+  "modified_inaccessible_outcomes": true,
+  "simulations_per_condition": 4
+}

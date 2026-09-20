@@ -1,0 +1,44 @@
+diff --git a/shinka/launch/local.py b/shinka/launch/local.py
+index be77619..5d98b22 100644
+--- a/shinka/launch/local.py
++++ b/shinka/launch/local.py
+@@ -35,6 +35,39 @@ class ProcessWithLogging:
+         """Return a detailed string representation."""
+         return f"ProcessWithLogging(PID: {self.process.pid}, returncode: {self.process.returncode})"
+ 
++    def kill(self):
++        """Stop owned descendants, including evaluator children in new sessions.
++
++        Project compatibility patch: native Popen.kill only stops the evaluator
++        parent, leaving detached R process groups alive. Snapshot descendants
++        before signaling so reparenting cannot hide them from cleanup.
++        """
++        import psutil
++
++        if self.process.poll() is not None:
++            return
++        try:
++            descendants = psutil.Process(self.process.pid).children(recursive=True)
++        except psutil.NoSuchProcess:
++            return
++        for child in reversed(descendants):
++            try:
++                child.terminate()
++            except psutil.NoSuchProcess:
++                pass
++        _, alive = psutil.wait_procs(descendants, timeout=10)
++        for child in alive:
++            try:
++                child.kill()
++            except psutil.NoSuchProcess:
++                pass
++        # Give the trusted evaluator a chance to write its invalidity diagnostics.
++        try:
++            self.process.wait(timeout=10)
++        except subprocess.TimeoutExpired:
++            self.process.kill()
++            self.process.wait(timeout=10)
++
+     def cleanup_logging(self):
+         """Clean up logging threads and files."""
+         # Wait for logging threads to finish

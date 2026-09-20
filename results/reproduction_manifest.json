@@ -1,0 +1,1466 @@
+{
+  "updated_utc": "2026-09-20T16:23:30.929039+00:00",
+  "mode": "paper_reproduction",
+  "archive_sha256": "2f4c2c02e3969437976c505098848e0ef7333466aeba3cccd807b3b44ba75308",
+  "original_source_untouched": true,
+  "original_engine": {
+    "R": "4.2.1",
+    "RSiena": "1.3.10"
+  },
+  "coverage": {
+    "archive_and_source_audit": "complete",
+    "data_and_predictive_Model3_effect_parity": "passed",
+    "equilibrium_rate_1_cell": "complete_original_settings_10_endpoints",
+    "equilibrium_full_curve": "not_complete",
+    "figures_5_6_7": "not_complete",
+    "original_main_empirical_models": "not_executed",
+    "original_appendix_predictive_validation": "not_executed_reserved_2010_kept_out_of_search",
+    "equilibrium_rate_5_cell": "complete_original_settings_10_endpoints",
+    "equilibrium_rate_10_cell": "complete_original_settings_10_endpoints",
+    "equilibrium_rate_15_cell": "complete_original_settings_10_endpoints",
+    "equilibrium_rate_20_cell": "complete_original_settings_10_endpoints",
+    "equilibrium_rate_25_cell": "complete_original_settings_10_endpoints",
+    "figure_5_first_cell": "complete_original_settings_26_returned_endpoints_from_n3_25_two_workers"
+  },
+  "completed_cell_summary": {
+    "coverage": "Completed checkpoint subset only; not full figure or equilibrium reproduction",
+    "checkpoints": 6,
+    "results": {
+      "call-0001-67d42fa25d1712eb094def1dc528dd2f.rds": {
+        "simulations": 10,
+        "countries": 159,
+        "mean_spending_category": {
+          "mean": 1.859119496855346,
+          "sd": 0.05024453561071778,
+          "min": 1.7924528301886793,
+          "max": 1.9433962264150944,
+          "ci99": [
+            1.8074837788236133,
+            1.9107552148870786
+          ]
+        },
+        "density": {
+          "mean": 0.03787914974922379,
+          "sd": 0.000967642718473865,
+          "min": 0.03686012260170369,
+          "max": 0.03988535944590399,
+          "ci99": [
+            0.03688471471346803,
+            0.03887358478497955
+          ]
+        },
+        "clustering": {
+          "mean": 0.2670243323080991,
+          "sd": 0.008092860465765515,
+          "min": 0.25548263166319835,
+          "max": 0.282876064333018,
+          "ci99": [
+            0.2587073948341803,
+            0.27534126978201784
+          ]
+        },
+        "centralization": {
+          "mean": 0.8540422693807982,
+          "sd": 0.003419349947567929,
+          "min": 0.847953687613098,
+          "max": 0.8588579428843817,
+          "ci99": [
+            0.8505282436743535,
+            0.857556295087243
+          ]
+        },
+        "ties": {
+          "mean": 475.8,
+          "sd": 12.15456018675021,
+          "min": 463,
+          "max": 501,
+          "ci99": [
+            463.3089015158719,
+            488.2910984841281
+          ]
+        }
+      },
+      "call-0002-8c8652405d0963e8b21be990c2464960.rds": {
+        "simulations": 10,
+        "countries": 159,
+        "mean_spending_category": {
+          "mean": 2.1836477987421383,
+          "sd": 0.08457762030017388,
+          "min": 2.0817610062893084,
+          "max": 2.3207547169811322,
+          "ci99": [
+            2.0967283735642264,
+            2.2705672239200503
+          ]
+        },
+        "density": {
+          "mean": 0.08250935435076825,
+          "sd": 0.0014276896279888473,
+          "min": 0.08032799936310804,
+          "max": 0.08478624313350848,
+          "ci99": [
+            0.08104213451936562,
+            0.0839765741821709
+          ]
+        },
+        "clustering": {
+          "mean": 0.1668827780762312,
+          "sd": 0.00788833859214522,
+          "min": 0.15866229354574207,
+          "max": 0.18375264519162943,
+          "ci99": [
+            0.15877602532527216,
+            0.17498953082719024
+          ]
+        },
+        "centralization": {
+          "mean": 0.7594780895963467,
+          "sd": 0.01617431019504967,
+          "min": 0.7377081756982039,
+          "max": 0.7857611536108903,
+          "ci99": [
+            0.7428559413281236,
+            0.7761002378645696
+          ]
+        },
+        "ties": {
+          "mean": 1036.4,
+          "sd": 17.933209417167916,
+          "min": 1009,
+          "max": 1065,
+          "ci99": [
+            1017.9702516977516,
+            1054.8297483022488
+          ]
+        }
+      },
+      "call-0003-6b4be4cdb93e8c20fa8079c8d762395b.rds": {
+        "simulations": 10,
+        "countries": 159,
+        "mean_spending_category": {
+          "mean": 2.5339622641509436,
+          "sd": 0.0743244979121675,
+          "min": 2.3710691823899372,
+          "max": 2.610062893081761,
+          "ci99": [
+            2.4575798522051535,
+            2.610344676096734
+          ]
+        },
+        "density": {
+          "mean": 0.13149430777804313,
+          "sd": 0.001769871764405662,
+          "min": 0.1290502348539129,
+          "max": 0.13430459358331343,
+          "ci99": [
+            0.12967543139142007,
+            0.1333131841646662
+          ]
+        },
+        "clustering": {
+          "mean": 0.1652735632717286,
+          "sd": 0.00507485228018934,
+          "min": 0.1590897062715004,
+          "max": 0.17659644502962477,
+          "ci99": [
+            0.16005819729794785,
+            0.17048892924550932
+          ]
+        },
+        "centralization": {
+          "mean": 0.6117670666279055,
+          "sd": 0.02726574117903543,
+          "min": 0.5596566787290777,
+          "max": 0.6499189965235416,
+          "ci99": [
+            0.583746385247649,
+            0.639787748008162
+          ]
+        },
+        "ties": {
+          "mean": 1651.7,
+          "sd": 22.2313592326995,
+          "min": 1621,
+          "max": 1687,
+          "ci99": [
+            1628.8530937076277,
+            1674.5469062923721
+          ]
+        }
+      },
+      "call-0004-23fc345267d36272756b8ec59e23a7b5.rds": {
+        "simulations": 10,
+        "countries": 159,
+        "mean_spending_category": {
+          "mean": 2.8069182389937106,
+          "sd": 0.12533286596159693,
+          "min": 2.5849056603773586,
+          "max": 2.9748427672955975,
+          "ci99": [
+            2.6781151274067567,
+            2.9357213505806645
+          ]
+        },
+        "density": {
+          "mean": 0.17426956452511744,
+          "sd": 0.0030326767247112235,
+          "min": 0.16861714831621685,
+          "max": 0.17936470026271792,
+          "ci99": [
+            0.1711529183399115,
+            0.17738621071032337
+          ]
+        },
+        "clustering": {
+          "mean": 0.1907005704278126,
+          "sd": 0.00482118271704417,
+          "min": 0.18153647964068728,
+          "max": 0.19918124664944686,
+          "ci99": [
+            0.18574589767920724,
+            0.195655243176418
+          ]
+        },
+        "centralization": {
+          "mean": 0.49594709865372044,
+          "sd": 0.03967577346778758,
+          "min": 0.41088443342196856,
+          "max": 0.5460648587136214,
+          "ci99": [
+            0.45517277311618737,
+            0.5367214241912536
+          ]
+        },
+        "ties": {
+          "mean": 2189,
+          "sd": 38.09345233909774,
+          "min": 2118,
+          "max": 2253,
+          "ci99": [
+            2149.851807267628,
+            2228.1481927323716
+          ]
+        }
+      },
+      "call-0005-9bc908f7edd6cc9bd7eec382523182bc.rds": {
+        "simulations": 10,
+        "countries": 159,
+        "mean_spending_category": {
+          "mean": 2.9955974842767294,
+          "sd": 0.08795292607571017,
+          "min": 2.8742138364779874,
+          "max": 3.1446540880503147,
+          "ci99": [
+            2.9052092970697125,
+            3.0859856714837464
+          ]
+        },
+        "density": {
+          "mean": 0.21180638484197117,
+          "sd": 0.0033936977869943345,
+          "min": 0.20651222036462064,
+          "max": 0.21662288034392166,
+          "ci99": [
+            0.20831872155910514,
+            0.21529404812483718
+          ]
+        },
+        "clustering": {
+          "mean": 0.22187840952307014,
+          "sd": 0.004438419906589561,
+          "min": 0.21297481359713497,
+          "max": 0.2279613884804705,
+          "ci99": [
+            0.21731709761089077,
+            0.2264397214352495
+          ]
+        },
+        "centralization": {
+          "mean": 0.4146038490537698,
+          "sd": 0.03631001229007207,
+          "min": 0.36535376284678356,
+          "max": 0.4833443259016294,
+          "ci99": [
+            0.37728847667447024,
+            0.45191922143306934
+          ]
+        },
+        "ties": {
+          "mean": 2660.5,
+          "sd": 42.62823790243583,
+          "min": 2594,
+          "max": 2721,
+          "ci99": [
+            2616.69146150392,
+            2704.30853849608
+          ]
+        }
+      },
+      "call-0006-e906da3b352dac04d7ec82deddf6ae72.rds": {
+        "simulations": 10,
+        "countries": 159,
+        "mean_spending_category": {
+          "mean": 3.1937106918238993,
+          "sd": 0.07499265625419826,
+          "min": 3.0817610062893084,
+          "max": 3.2767295597484276,
+          "ci99": [
+            3.1166416214120627,
+            3.2707797622357355
+          ]
+        },
+        "density": {
+          "mean": 0.2448212721917045,
+          "sd": 0.004711793081117707,
+          "min": 0.2389140991959239,
+          "max": 0.2527664994825253,
+          "ci99": [
+            0.23997901788477916,
+            0.24966352649862986
+          ]
+        },
+        "clustering": {
+          "mean": 0.2510509374147416,
+          "sd": 0.004796435911463216,
+          "min": 0.24400105708245243,
+          "max": 0.25905508628703067,
+          "ci99": [
+            0.24612169666704203,
+            0.2559801781624411
+          ]
+        },
+        "centralization": {
+          "mean": 0.3749183413468268,
+          "sd": 0.030268554241755133,
+          "min": 0.33647573653605706,
+          "max": 0.44507224869429396,
+          "ci99": [
+            0.34381170431539443,
+            0.4060249783782591
+          ]
+        },
+        "ties": {
+          "mean": 3075.2,
+          "sd": 59.18483289191957,
+          "min": 3001,
+          "max": 3175,
+          "ci99": [
+            3014.37644365071,
+            3136.023556349289
+          ]
+        }
+      }
+    },
+    "specifications": {
+      "call-0001-67d42fa25d1712eb094def1dc528dd2f.rds": {
+        "effects": [
+          {
+            "name": "dv.net",
+            "shortName": "Rate",
+            "type": "rate",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 1,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "density",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "transTriads",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "degPlus",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 2,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "X",
+            "type": "eval",
+            "interaction1": "dyad.cov",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "altX",
+            "type": "eval",
+            "interaction1": "threat.cov",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "altX",
+            "type": "eval",
+            "interaction1": "milex.beh",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "Rate",
+            "type": "rate",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 1,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "linear",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": -0.5,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "outdeg",
+            "type": "eval",
+            "interaction1": "dv.net",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0.01,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "behDenseTriads",
+            "type": "eval",
+            "interaction1": "dv.net",
+            "interaction2": "",
+            "parm": 6,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "effFrom",
+            "type": "eval",
+            "interaction1": "threat.cov",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0.75,
+            "fix": false
+          }
+        ],
+        "native_theta": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          -0.5,
+          0.01,
+          0,
+          0.75
+        ],
+        "returned_simulations": 10
+      },
+      "call-0002-8c8652405d0963e8b21be990c2464960.rds": {
+        "effects": [
+          {
+            "name": "dv.net",
+            "shortName": "Rate",
+            "type": "rate",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 5,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "density",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "transTriads",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "degPlus",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 2,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "X",
+            "type": "eval",
+            "interaction1": "dyad.cov",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "altX",
+            "type": "eval",
+            "interaction1": "threat.cov",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "altX",
+            "type": "eval",
+            "interaction1": "milex.beh",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "Rate",
+            "type": "rate",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 5,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "linear",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": -0.5,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "outdeg",
+            "type": "eval",
+            "interaction1": "dv.net",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0.01,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "behDenseTriads",
+            "type": "eval",
+            "interaction1": "dv.net",
+            "interaction2": "",
+            "parm": 6,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "effFrom",
+            "type": "eval",
+            "interaction1": "threat.cov",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0.75,
+            "fix": false
+          }
+        ],
+        "native_theta": [
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          -0.5,
+          0.01,
+          0,
+          0.75
+        ],
+        "returned_simulations": 10
+      },
+      "call-0003-6b4be4cdb93e8c20fa8079c8d762395b.rds": {
+        "effects": [
+          {
+            "name": "dv.net",
+            "shortName": "Rate",
+            "type": "rate",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 10,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "density",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "transTriads",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "degPlus",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 2,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "X",
+            "type": "eval",
+            "interaction1": "dyad.cov",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "altX",
+            "type": "eval",
+            "interaction1": "threat.cov",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "altX",
+            "type": "eval",
+            "interaction1": "milex.beh",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "Rate",
+            "type": "rate",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 10,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "linear",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": -0.5,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "outdeg",
+            "type": "eval",
+            "interaction1": "dv.net",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0.01,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "behDenseTriads",
+            "type": "eval",
+            "interaction1": "dv.net",
+            "interaction2": "",
+            "parm": 6,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "effFrom",
+            "type": "eval",
+            "interaction1": "threat.cov",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0.75,
+            "fix": false
+          }
+        ],
+        "native_theta": [
+          10,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          10,
+          -0.5,
+          0.01,
+          0,
+          0.75
+        ],
+        "returned_simulations": 10
+      },
+      "call-0004-23fc345267d36272756b8ec59e23a7b5.rds": {
+        "effects": [
+          {
+            "name": "dv.net",
+            "shortName": "Rate",
+            "type": "rate",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 15,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "density",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "transTriads",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "degPlus",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 2,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "X",
+            "type": "eval",
+            "interaction1": "dyad.cov",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "altX",
+            "type": "eval",
+            "interaction1": "threat.cov",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "altX",
+            "type": "eval",
+            "interaction1": "milex.beh",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "Rate",
+            "type": "rate",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 15,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "linear",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": -0.5,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "outdeg",
+            "type": "eval",
+            "interaction1": "dv.net",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0.01,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "behDenseTriads",
+            "type": "eval",
+            "interaction1": "dv.net",
+            "interaction2": "",
+            "parm": 6,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "effFrom",
+            "type": "eval",
+            "interaction1": "threat.cov",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0.75,
+            "fix": false
+          }
+        ],
+        "native_theta": [
+          15,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          15,
+          -0.5,
+          0.01,
+          0,
+          0.75
+        ],
+        "returned_simulations": 10
+      },
+      "call-0005-9bc908f7edd6cc9bd7eec382523182bc.rds": {
+        "effects": [
+          {
+            "name": "dv.net",
+            "shortName": "Rate",
+            "type": "rate",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 20,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "density",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "transTriads",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "degPlus",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 2,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "X",
+            "type": "eval",
+            "interaction1": "dyad.cov",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "altX",
+            "type": "eval",
+            "interaction1": "threat.cov",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "altX",
+            "type": "eval",
+            "interaction1": "milex.beh",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "Rate",
+            "type": "rate",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 20,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "linear",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": -0.5,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "outdeg",
+            "type": "eval",
+            "interaction1": "dv.net",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0.01,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "behDenseTriads",
+            "type": "eval",
+            "interaction1": "dv.net",
+            "interaction2": "",
+            "parm": 6,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "effFrom",
+            "type": "eval",
+            "interaction1": "threat.cov",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0.75,
+            "fix": false
+          }
+        ],
+        "native_theta": [
+          20,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          20,
+          -0.5,
+          0.01,
+          0,
+          0.75
+        ],
+        "returned_simulations": 10
+      },
+      "call-0006-e906da3b352dac04d7ec82deddf6ae72.rds": {
+        "effects": [
+          {
+            "name": "dv.net",
+            "shortName": "Rate",
+            "type": "rate",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 25,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "density",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "transTriads",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "degPlus",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 2,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "X",
+            "type": "eval",
+            "interaction1": "dyad.cov",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "altX",
+            "type": "eval",
+            "interaction1": "threat.cov",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "altX",
+            "type": "eval",
+            "interaction1": "milex.beh",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "Rate",
+            "type": "rate",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 25,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "linear",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": -0.5,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "outdeg",
+            "type": "eval",
+            "interaction1": "dv.net",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0.01,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "behDenseTriads",
+            "type": "eval",
+            "interaction1": "dv.net",
+            "interaction2": "",
+            "parm": 6,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "effFrom",
+            "type": "eval",
+            "interaction1": "threat.cov",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0.75,
+            "fix": false
+          }
+        ],
+        "native_theta": [
+          25,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          25,
+          -0.5,
+          0.01,
+          0,
+          0.75
+        ],
+        "returned_simulations": 10
+      }
+    }
+  },
+  "high_rate_abm_pilot": {
+    "elapsed_seconds": 899.03,
+    "status": "terminated_for_resource_scheduling_without_completed_native_call",
+    "requested_endpoints": 25,
+    "returned_endpoint_count": null
+  },
+  "published_metrics_reproduced": false,
+  "latest_equilibrium_process": {
+    "started_utc": "2026-09-20T14:40:08.470985+00:00",
+    "command": [
+      "/home/roland/actir/shinka-cooperation-network/environment/run-r",
+      "/home/roland/actir/shinka-cooperation-network/R/paper_abm.R",
+      "/home/roland/actir/shinka-cooperation-network",
+      "/home/roland/actir/shinka-cooperation-network/results/paper_reproduction/abm-full-equilibria",
+      "full",
+      "4",
+      "equilibria"
+    ],
+    "invocation_id": "1789915208470747448",
+    "resources_file": "/home/roland/actir/shinka-cooperation-network/results/paper_reproduction/abm-full-equilibria/resources-1789915208470747448.txt",
+    "cwd": "/home/roland/actir/shinka-cooperation-network",
+    "status": "resumable",
+    "orchestrator_pid": 695686,
+    "revision": "uncommitted initial reconstruction",
+    "pid": 695688,
+    "exit_code": 75,
+    "elapsed_seconds": 29.384634835005272,
+    "finished_utc": "2026-09-20T14:40:37.859737+00:00"
+  },
+  "latest_figures_5_7_process": {
+    "started_utc": "2026-09-20T14:42:38.057974+00:00",
+    "command": [
+      "/home/roland/actir/shinka-cooperation-network/environment/run-r",
+      "/home/roland/actir/shinka-cooperation-network/R/paper_abm.R",
+      "/home/roland/actir/shinka-cooperation-network",
+      "/home/roland/actir/shinka-cooperation-network/results/paper_reproduction/abm-full",
+      "full",
+      "1",
+      "all"
+    ],
+    "invocation_id": "1789915358057698697",
+    "resources_file": "/home/roland/actir/shinka-cooperation-network/results/paper_reproduction/abm-full/resources-1789915358057698697.txt",
+    "cwd": "/home/roland/actir/shinka-cooperation-network",
+    "status": "resumable",
+    "orchestrator_pid": 696645,
+    "revision": "uncommitted initial reconstruction",
+    "pid": 696647,
+    "exit_code": 75,
+    "elapsed_seconds": 630.5414840940066,
+    "finished_utc": "2026-09-20T14:53:09.045136+00:00"
+  },
+  "equilibrium_completed_settings": 6,
+  "equilibrium_full_settings": 101,
+  "partial_equilibrium_figure": "results/paper_reproduction/abm-full-equilibria/partial_equilibrium.pdf",
+  "figures_5_7_completed_cell_summary": {
+    "coverage": "Completed checkpoint subset only; not full figure or equilibrium reproduction",
+    "checkpoints": 1,
+    "results": {
+      "call-0001-2b9d4a152a9f5f12761c35d3f6326b9f.rds": {
+        "simulations": 26,
+        "countries": 159,
+        "mean_spending_category": {
+          "mean": 1.0234639574262216,
+          "sd": 0.013259280807612475,
+          "min": 1,
+          "max": 1.0566037735849056,
+          "ci99": [
+            1.0162156238812698,
+            1.0307122909711735
+          ]
+        },
+        "density": {
+          "mean": 0.4968645318537843,
+          "sd": 0.0045038061518156884,
+          "min": 0.48451556404744844,
+          "max": 0.5029854310962504,
+          "ci99": [
+            0.4944024760542402,
+            0.4993265876533285
+          ]
+        },
+        "clustering": {
+          "mean": 0.4965182274262099,
+          "sd": 0.0047907498821537905,
+          "min": 0.4834806142565628,
+          "max": 0.5033611557883675,
+          "ci99": [
+            0.4938993106402893,
+            0.49913714421213035
+          ]
+        },
+        "centralization": {
+          "mean": 0.17386121891756698,
+          "sd": 0.019822039000729774,
+          "min": 0.13798980284518236,
+          "max": 0.21543202108644566,
+          "ci99": [
+            0.16302528050559478,
+            0.18469715732953917
+          ]
+        },
+        "ties": {
+          "mean": 6241.115384615385,
+          "sd": 56.572309072956834,
+          "min": 6086,
+          "max": 6318,
+          "ci99": [
+            6210.189501717311,
+            6272.0412675134585
+          ]
+        }
+      }
+    },
+    "specifications": {
+      "call-0001-2b9d4a152a9f5f12761c35d3f6326b9f.rds": {
+        "effects": [
+          {
+            "name": "dv.net",
+            "shortName": "Rate",
+            "type": "rate",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 200,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "density",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "transTriads",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "degPlus",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 2,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "X",
+            "type": "eval",
+            "interaction1": "dyad.cov",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "altX",
+            "type": "eval",
+            "interaction1": "threat.cov",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "dv.net",
+            "shortName": "altX",
+            "type": "eval",
+            "interaction1": "milex.beh",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "Rate",
+            "type": "rate",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 200,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "linear",
+            "type": "eval",
+            "interaction1": "",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": -0.5,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "outdeg",
+            "type": "eval",
+            "interaction1": "dv.net",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": -0.05,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "behDenseTriads",
+            "type": "eval",
+            "interaction1": "dv.net",
+            "interaction2": "",
+            "parm": 6,
+            "initialValue": 0,
+            "fix": false
+          },
+          {
+            "name": "milex.beh",
+            "shortName": "effFrom",
+            "type": "eval",
+            "interaction1": "threat.cov",
+            "interaction2": "",
+            "parm": 0,
+            "initialValue": 0.75,
+            "fix": false
+          }
+        ],
+        "native_theta": [
+          200,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          200,
+          -0.5,
+          -0.05,
+          0,
+          0.75
+        ],
+        "returned_simulations": 26
+      }
+    }
+  },
+  "figures_5_7_completed_native_calls": [
+    {
+      "call": 1,
+      "key": "2b9d4a152a9f5f12761c35d3f6326b9f",
+      "profile": "full",
+      "timestamp": "2026-09-20 14:42:42 UTC",
+      "requested_n3": 25,
+      "status": "completed",
+      "elapsed_seconds": 626.613,
+      "returned_simulations": 26,
+      "result_bytes": 5953256,
+      "memory": [
+        "VmPeak:\t  863948 kB",
+        "VmHWM:\t  436048 kB",
+        "VmRSS:\t  430920 kB"
+      ]
+    }
+  ],
+  "figures_5_7_completed_settings": 1,
+  "figures_5_7_full_settings": 564
+}

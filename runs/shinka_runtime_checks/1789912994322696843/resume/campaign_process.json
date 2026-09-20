@@ -1,0 +1,35 @@
+{
+  "budget_seconds": 5,
+  "accumulated_walltime_seconds": 0.11936861099093221,
+  "invocations": [
+    {
+      "command": [
+        "/home/roland/actir/shinka-cooperation-network/.venv-shinka/bin/python",
+        "-c",
+        "import time;time.sleep(0.03)"
+      ],
+      "started_unix": 1789912995.2357528,
+      "status": "native_runner_exited",
+      "pid": 7,
+      "elapsed_seconds": 0.0599016229971312,
+      "stopped_unix": 1789912995.2956576,
+      "native_exit_code": 0
+    },
+    {
+      "command": [
+        "/home/roland/actir/shinka-cooperation-network/.venv-shinka/bin/python",
+        "-c",
+        "import time;time.sleep(0.03)"
+      ],
+      "started_unix": 1789912995.2963197,
+      "status": "native_runner_exited",
+      "pid": 8,
+      "elapsed_seconds": 0.05946698799380101,
+      "stopped_unix": 1789912995.3557882,
+      "native_exit_code": 0
+    }
+  ],
+  "status": "native_runner_exited",
+  "native_worker_pid": null,
+  "cleanup_grace_seconds": 1
+}

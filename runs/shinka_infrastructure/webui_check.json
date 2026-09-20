@@ -1,0 +1,8 @@
+{
+  "own_port": 8899,
+  "browser_visual_check": false,
+  "reason": "browser navigation aborted; memory contention; stopped to preserve scientific workload",
+  "http_status": 200,
+  "html_bytes": 37684,
+  "native_title_present": true
+}

@@ -1,0 +1,12 @@
+Warning message:
+package ‘jsonlite’ was built under R version 4.2.3 
+Error in fit_model(train, effs, settings, outdir) : 
+  Estimation did not meet predeclared convergence/identification thresholds after fixed attempts; inspect fit_diagnostics.json
+Calls: run_forecast -> fit_model
+Execution halted
+Warning message:
+package ‘jsonlite’ was built under R version 4.2.3 
+Error in fit_model(train, effs, settings, outdir) : 
+  All fixed estimation attempts already failed; inspect archived diagnostics
+Calls: run_forecast -> fit_model
+Execution halted

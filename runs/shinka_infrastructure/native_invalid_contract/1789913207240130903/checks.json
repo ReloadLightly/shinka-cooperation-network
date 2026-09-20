@@ -1,0 +1,14 @@
+{
+  "native_local_scheduler_executed_actual_evaluate_py": true,
+  "generation_directory_cwd": "/home/roland/actir/shinka-cooperation-network/runs/shinka_infrastructure/native_invalid_contract/1789913207240130903",
+  "evaluator_path_absolute": true,
+  "candidate_python_never_executed": true,
+  "correct": false,
+  "combined_score": null,
+  "raw_F": null,
+  "native_SQLite_null_preserved": true,
+  "invalid_excluded_from_archive_and_best": true,
+  "runtime_seconds": 0.502354621887207,
+  "no_R_or_model_calls": true,
+  "error": "InvalidSpecification: Only build_network_spec(allowed_schema) is allowed; no imports or top-level executable statements."
+}

@@ -1,0 +1,22 @@
+{
+  "files": [
+    {
+      "published_path": "results/paper_reproduction/abm-full-equilibria/source_outputs/cluster.out",
+      "sha256": "7ce720a87c1e26cf3eb5e18353bf81868423885bda2d7385a43bb71a19717aa0",
+      "size_bytes": 124,
+      "source_mtime_ns": 1789915228553640876,
+      "source_path": "results/paper_reproduction/abm-full-equilibria/work/cluster.out"
+    },
+    {
+      "published_path": "results/paper_reproduction/abm-full-equilibria/source_outputs/output/abm/equilibriaModels.txt",
+      "sha256": "7b3f2f12f0bbfa1e661357cf8230083b773d8999e159f5090f4f76ec39591e9f",
+      "size_bytes": 1015190,
+      "source_mtime_ns": 1789915237732168467,
+      "source_path": "results/paper_reproduction/abm-full-equilibria/work/output/abm/equilibriaModels.txt"
+    }
+  ],
+  "purpose": "Publication copies of generated original-source outputs; raw inputs and copied source remain excluded.",
+  "schema_version": 1,
+  "snapshot_utc": "2026-09-20T16:25:45.897972+00:00",
+  "source_run": "results/paper_reproduction/abm-full-equilibria"
+}

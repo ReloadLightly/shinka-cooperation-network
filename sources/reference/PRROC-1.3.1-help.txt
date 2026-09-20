@@ -1,0 +1,214 @@
+_P_R _c_u_r_v_e
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     Computes the area under the precision-recall (PR) curve for
+     weighted and unweighted data.  In contrast to other
+     implementations, the interpolation between points of the PR curve
+     is done by a non-linear piecewise function.  In addition to the
+     area under the curve, the curve itself can be obtained by setting
+     argument ‘curve’ to ‘TRUE’.
+
+_U_s_a_g_e:
+
+     pr.curve( scores.class0, scores.class1=scores.class0, weights.class0=NULL, 
+         weights.class1 = {if(is.null(weights.class0)){NULL}else{1-weights.class0}}, 
+         sorted = FALSE, curve = FALSE, 
+         minStepSize=min(1,ifelse(is.null(weights.class0),1,sum(weights.class0)/100)),
+         max.compute=F, min.compute=F, rand.compute=F,dg.compute=T)
+     
+_A_r_g_u_m_e_n_t_s:
+
+scores.class0: the classification scores of i) all data points or ii)
+          only the data points belonging to the positive class.
+
+          In the first case, scores.class1 should not be assigned an
+          explicit value, but left at the default
+          (scores.class1=scores.class0).  In addition, weights.class0
+          needs to contain the class labels of the data points (1 for
+          positive class, 0 for negative class) or the soft-labels for
+          the positive class, i.e., the probability for each data point
+          to belong to the positive class.  Accordingly, weights.class1
+          should be left at the default value (1-weights.class0).
+
+          In the second case, the scores for the negative data points
+          need to be provided in scores.class1. In this case,
+          weights.class0 and weights.class1 need to be provided only
+          for soft-labelling and should be of the same length as
+          scores.class0 and scores.class1, respectively.
+
+scores.class1: the scores of the negative class if provided separately
+          (see scores.class0)
+
+weights.class0: the weights for the data points of the positive class
+          in same ordering as ‘scores.class0’ (optional)
+
+weights.class1: the weights for the data points of the negative class
+          in same ordering as ‘scores.class1’ (optional)
+
+  sorted: ‘TRUE’ if the scores are already sorted
+
+   curve: ‘TRUE’ if the curve should also be returned, ‘FALSE’
+          otherwise
+
+minStepSize: the minimum step size between intermediate points of the
+          curve, does not affect the computation of AUC-PR
+
+max.compute: ‘TRUE’ if the maximum PR curve given the supplied weights
+          should be computed
+
+min.compute: ‘TRUE’ if the minimum PR curve given the supplied weights
+          should be computed
+
+rand.compute: ‘TRUE’ if the PR curve of a random classifier given the
+          supplied weights should be computed
+
+dg.compute: ‘TRUE’ if the area under the curve according to the
+          interpolation of Davis and Goadrich should be computed.
+          Reduces runtime if switched off.
+
+_D_e_t_a_i_l_s:
+
+     This function computes the area under a precision-recall curve
+     and, optionally, the curve itself and returns it as a ‘PRROC’
+     object (see below). It can be used under different scenarios:
+
+     1. Standard, hard-labeled classification problems:
+
+     Each data point is uniquely assigned to one out of two possible
+     classes. In this case, the classification scores may be either
+     provided separately for the data points of each of the classes,
+     i.e., as ‘scores.class0’ for the data points from the
+     positive/foreground class and as ‘scores.class1’ for the data
+     points of the negative/background class; or the classification
+     scores for all data points are provided as ‘scores.class0’ and the
+     labels are provided as numerical values (‘1’ for the positive
+     class, ‘0’ for the negative class) as ‘weights.class0’.
+
+     2. Weighted, hard-labeled classification problems:
+
+     Each data point is uniquely assigned to one out of two possible
+     classes, where each data points additionally has a weight
+     assigned, for instance multiplicities in the original data set. In
+     this case, the classification scores need to be provided
+     separately for the data points of each of the classes, i.e., as
+     ‘scores.class0’ for the data points from the positive/foreground
+     class and as ‘scores.class1’ for the data points of the
+     negative/background class. In addition, the weights for the data
+     points must be provided as ‘weights.class0’ and ‘weights.class1’,
+     respectively.
+
+     3. Soft-labeled classification problems:
+
+     Each data point belongs to both of the two classes with a certain
+     probability, where for each data point, these two probabilities
+     add up to 1. In this case, the classification scores for all data
+     points need to be provided only once as ‘scores.class0’ and only
+     the positive/foreground weights for each data point need to be
+     provided in ‘weights.class0’, while the converse probability for
+     the negative class is automatically set to
+     ‘weights.class1=1.0-weights.class0’.
+
+_V_a_l_u_e:
+
+    type: always ‘"PR"’
+
+auc.integral: area under the curve computed by integration of the
+          piecewise function
+
+auc.davis.goadrich: area under the curve computed using the
+          interpolation of Davis & Goadrich (2006). Is ‘NA’ if weights
+          are provided and different from ‘1’.
+
+   curve: the PR curve as a matrix, where the first column contains
+          recall, the second contains precision, and the third contains
+          the corresponding threshold on the scores.
+
+     max: the maximum PR curve (if ‘max.compute=TRUE’)
+
+     min: the minimum PR curve (if ‘min.compute=TRUE’)
+
+    rand: the PR curve of a random classifier (if ‘rand.compute=TRUE’)
+
+_A_u_t_h_o_r(_s):
+
+     Jan Grau and Jens Keilwagen
+
+_R_e_f_e_r_e_n_c_e_s:
+
+     J. Davis and M. Goadrich. The relationship between
+     precision-recall and ROC curves. In _Proceedings of the 23rd
+     International Conference on Machine Learning_, pages 233-240, New
+     York, NY, USA, 2006. ACM.
+
+     J. Keilwagen, I. Grosse, and J. Grau. Area under precision-recall
+     curves for weighted and unweighted data, PLOS ONE (9) 3, 2014.
+
+     J. Grau, I. Grosse, and J. Keilwagen. PRROC: computing and
+     visualizing precision-recall and receiver operating characteristic
+     curves in R. Bioinformatics, 31(15):2595-2597, 2015.
+
+_S_e_e _A_l_s_o:
+
+     ‘roc.curve’
+
+     ‘plot.PRROC’
+
+_E_x_a_m_p_l_e_s:
+
+     # create artificial scores as random numbers
+     x <- rnorm( 1000 );
+     y <- rnorm( 1000, -1 );
+     # compute area under PR curve for the hard-labeled case
+     pr <- pr.curve( x, y );
+     print( pr );
+     
+     # compute PR curve and area under curve
+     pr <- pr.curve( x, y, curve = TRUE );
+     # plot curve
+     plot(pr);
+     
+     # create artificial weights
+     x.weights <- runif( 1000 );
+     y.weights <- runif( 1000 );
+     
+     # compute PR curve and area under curve for weighted, hard-labeled data
+     pr <- pr.curve( x, y, x.weights, y.weights, curve = TRUE );
+     # and plot the curve
+     plot(pr);
+     
+     
+     # compute PR curve and area under curve,
+     # and maximum, minimum, and random PR curve for weighted, hard-labeled data
+     pr <- pr.curve(x, y, x.weights, y.weights, curve = TRUE, max.compute = TRUE, 
+       min.compute = TRUE, rand.compute = TRUE);
+     # plot all three curves
+     plot(pr, max.plot = TRUE, min.plot = TRUE, rand.plot = TRUE, fill.area = TRUE)
+     
+     
+     # concatenate the drawn scores
+     scores<-c(x,y);
+     # and create artificial soft-labels
+     weights<-c(runif(1000, min = 0.5, max = 1), runif(1000, min = 0, max = 0.5))
+     
+     # compute PR curve and area under curve,
+     # and maximum, minimum, and random PR curve for soft-labeled data
+     pr<-pr.curve(scores.class0 = scores, weights.class0 = weights, curve = TRUE, 
+       max.compute = TRUE, min.compute = TRUE, rand.compute = TRUE);
+     # plot all three curves
+     plot(pr, max.plot = TRUE, min.plot = TRUE, rand.plot = TRUE, fill.area = TRUE)
+     
+     # print the areas under the curves
+     print(pr);
+     
+     
+     # generate classification scores of a second classifier
+     scores.2<-c(rnorm( 1000 ),rnorm( 1000, -2 ));
+     # and compute the PR curve
+     pr.2<-pr.curve(scores.class0 = scores.2, weights.class0 = weights, curve = TRUE)
+     # plot all three curves for the first classifier in red
+     plot(pr, max.plot = TRUE, min.plot = TRUE, rand.plot = TRUE, fill.area = TRUE, 
+       color="red", auc.main=FALSE)
+     # and add the curve for the second classifier
+     plot(pr.2, add=TRUE, color="green")
+     

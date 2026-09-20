@@ -1,0 +1,13 @@
+{
+  "network_missing_at_origin": 320,
+  "behavior_missing_at_origin": 7,
+  "inactive_at_origin": 260,
+  "support": [1, 11],
+  "placeholder": "duplicate origin network; origin behavior with two historical boundary values",
+  "conditional": false,
+  "simOnly": true,
+  "allowOnly": false,
+  "training_behavior_mean": 1.8730579658481392,
+  "forward_behavior_mean": 1.4751552795031055,
+  "covariate_centering": "training means preserved; missing origin values last known then training mean"
+}

@@ -1,0 +1,12 @@
+{
+  "native_detached_descendant_cleanup": true,
+  "supervisor_detached_descendant_cleanup": true,
+  "cumulative_resume_accounting": true,
+  "exhausted_budget_launches_nothing": true,
+  "explicit_timeout_overrides_cached_seed_ewma": true,
+  "short_timeout_rejected": true,
+  "scientific_upper_bound_seconds": 346800,
+  "test_timeout_format": "96:22:00",
+  "no_R_or_model_calls": true,
+  "output_directory": "/home/roland/actir/shinka-cooperation-network/runs/shinka_runtime_checks/1789912994322696843"
+}

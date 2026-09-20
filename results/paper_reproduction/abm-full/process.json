@@ -1,0 +1,22 @@
+{
+  "started_utc": "2026-09-20T14:42:38.057974+00:00",
+  "command": [
+    "/home/roland/actir/shinka-cooperation-network/environment/run-r",
+    "/home/roland/actir/shinka-cooperation-network/R/paper_abm.R",
+    "/home/roland/actir/shinka-cooperation-network",
+    "/home/roland/actir/shinka-cooperation-network/results/paper_reproduction/abm-full",
+    "full",
+    "1",
+    "all"
+  ],
+  "invocation_id": "1789915358057698697",
+  "resources_file": "/home/roland/actir/shinka-cooperation-network/results/paper_reproduction/abm-full/resources-1789915358057698697.txt",
+  "cwd": "/home/roland/actir/shinka-cooperation-network",
+  "status": "resumable",
+  "orchestrator_pid": 696645,
+  "revision": "uncommitted initial reconstruction",
+  "pid": 696647,
+  "exit_code": 75,
+  "elapsed_seconds": 630.5414840940066,
+  "finished_utc": "2026-09-20T14:53:09.045136+00:00"
+}

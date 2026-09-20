@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "training_years": [1990, 2005],
+  "checks": {
+    "dcaGeneralV1_d": true,
+    "milexPerGDP_1": true,
+    "milexPerGDP_1.orig": true,
+    "m.democracy_1": true,
+    "m.GDPgrowth_1": true,
+    "m.nato_1": true,
+    "m.allies_1": true,
+    "m.military_1": true,
+    "m.lnmids_1": true,
+    "m.lncinc_1": true,
+    "m.milexSpLag_1": true,
+    "d.ATOP_d": true,
+    "d.lndistance_d": true,
+    "d.absidealdiff_d": true,
+    "d.lntrade_d": true,
+    "d.NATO_d": true,
+    "composition": true,
+    "effect_specification": true
+  },
+  "reference": "untouched 00.buildDataset and 00.gof.predict prefix through Model 3 effect construction",
+  "note": "Original source builder/effect code unchanged; harness load wrapper drops unused raw columns immediately after base::load to reduce memory, retaining all source rows and used values. Reference audit only, no candidate access."
+}

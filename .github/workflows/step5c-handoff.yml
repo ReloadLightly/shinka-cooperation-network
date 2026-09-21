@@ -1,0 +1,180 @@
+name: Step 5C - bounded handoff validation
+on:
+  push:
+    branches: [execution/step5c-handoff-20260922]
+    paths: [.github/workflows/step5c-handoff.yml]
+permissions:
+  contents: write
+concurrency:
+  group: step5c-handoff-validation
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 25
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      R_GC_MEM_GROW: '0'
+      SHINKA_PRICING_MODE: offline
+      PYTHON_DOTENV_DISABLED: '1'
+      SHINKA_REPLICATED_EVIDENCE_ROOT: /tmp/step5c-evidence
+      STEP5A_PAST_DIR: /tmp/step5c-past
+      STEP5A_NATIVE_REPORT: results/diagnostics/step5c-handoff-v1/native-r.json
+      STEP5A_NATIVE_PY_OUT: results/diagnostics/step5c-handoff-v1/native-shinka
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.13.5'
+      - name: Reproduce the original failure-replay regression and apply exact-base repair
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = execution/step5c-handoff-20260922
+          OUT=results/diagnostics/step5c-handoff-v1
+          mkdir -p "$OUT"
+          if python -m unittest discover -s tests -p test_step5c_handoff.py -k test_terminal_policy_failure_replays_as_invalid_without_native_call -v > "$OUT/before-repair.log" 2>&1; then
+            echo 'Expected baseline regression was not reproduced'; exit 1
+          fi
+          grep -F '75 != 1' "$OUT/before-repair.log"
+          python sources/step5c-prepared/apply.py > "$OUT/assembly.log"
+          python -m compileall -q scripts tests
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/replicated_evaluation.py scripts/run_shinka_replicated.py README.md docs/RUNBOOK.md docs/REPLICATED_SHINKA_PROTOCOL.md
+          git diff --cached --check
+          git commit -m 'Repair terminal failure replay and add bounded host/service launch checks'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+      - name: Hydrate existing Step 4 evidence, without refits
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/hydrate_replicated_evidence.py --destination /tmp/step5c-evidence --fetch
+          python - <<'PY'
+          from pathlib import Path
+          from scripts.precision_fit import packet_bytes
+          past=Path('/tmp/step5c-past');past.mkdir()
+          for y in (2006,2007,2008,2009): (past/f'{y}.rds').write_bytes(packet_bytes(Path.cwd(),y))
+          PY
+      - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            environment/runtime
+            environment/R-library
+            environment/bin
+            environment/downloads
+            vendor/RSiena
+          key: step3b-native-r421-rsiena1310-6db791b62070759c2fb953aa07540b5feada3bf0602804ed6b38fac4c16a6b01
+          fail-on-cache-miss: true
+      - name: Install the pinned native Python runtime without model authentication
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --filter=blob:none --no-checkout https://github.com/SakanaAI/ShinkaEvolve.git vendor/ShinkaEvolve
+          git -C vendor/ShinkaEvolve checkout 9912af12d423504b8d580f4179fd15f5f88b8c50
+          git -C vendor/ShinkaEvolve apply "$PWD/shinka/patches/local-evaluation-process-tree.patch"
+          git -C vendor/ShinkaEvolve apply "$PWD/shinka/multiobjective_native.patch"
+          python scripts/check_native_patch.py
+          python - <<'PY'
+          from pathlib import Path
+          lines=Path('shinka/requirements.lock').read_text().splitlines()
+          assert [x for x in lines if x.startswith('-e ')]==['-e file:///home/roland/actir/shinka-cooperation-network/vendor/ShinkaEvolve']
+          Path('/tmp/step5c-python.lock').write_text('\n'.join(x for x in lines if not x.startswith('-e '))+'\n')
+          PY
+          python -m pip install --no-deps -r /tmp/step5c-python.lock > /tmp/step5c-pip.log 2>&1
+          python -m pip install --no-deps -e vendor/ShinkaEvolve >> /tmp/step5c-pip.log 2>&1
+          python -m pip check
+      - name: Full Python regressions and saved-receipt native R checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=results/diagnostics/step5c-handoff-v1
+          python -m unittest discover -s tests -v > "$OUT/python-tests.log" 2>&1
+          tail -22 "$OUT/python-tests.log"
+          python scripts/update_readme_status.py --check
+          /usr/bin/time -v -o "$OUT/native-r-resources.txt" environment/run-r R/test_replicated_evaluation.R > "$OUT/native-r.log" 2>&1
+          cat "$OUT/native-r.log"
+      - name: Native scheduler and persistence replay, plus actual host inventory
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=results/diagnostics/step5c-handoff-v1
+          /usr/bin/time -v -o "$OUT/native-shinka-resources.txt" python scripts/verify_replicated_native.py > "$OUT/native-shinka.log" 2>&1
+          tail -85 "$OUT/native-shinka.log"
+          set +e
+          python scripts/replicated_host.py --check-runtime --check-isolation > "$OUT/github-host.json" 2> "$OUT/github-host.stderr"
+          CODE=$?
+          set -e
+          test "$CODE" = 75
+          python scripts/run_shinka_replicated.py --results-dir /tmp/step5c-not-created > "$OUT/dry-resolution.json"
+          test ! -e /tmp/step5c-not-created
+          python - <<'PY'
+          import os,re,json,hashlib,subprocess
+          from pathlib import Path
+          from scripts import replicated_evaluation as e
+          out=Path('results/diagnostics/step5c-handoff-v1')
+          native=e.read(out/'native-shinka/verification.json'); r=e.read(out/'native-r.json')
+          host=e.read(out/'github-host.json'); log=(out/'python-tests.log').read_text()
+          assert native['status']==r['status']=='passed' and re.search(r'^OK$',log,re.M)
+          assert all(native[k]==r[k]==0 for k in ('new_fits','new_forecasts','new_simulations'))
+          assert native['llm_calls']==native['new_evolutionary_proposals']==0
+          assert host['saved_evidence']['verified'] and host['saved_evidence']['cells']==8
+          assert host['r_versions_checked'] is True
+          assert host['model_inference_verified'] is False and not host['local_prerequisites_passed']
+          old=e.read(Path('results/diagnostics/replicated-replay-v1/native-shinka/job-gwesp69/metrics.json'))
+          new=e.read(out/'native-shinka/job-gwesp69/metrics.json')
+          for key in ('J1','J2','J3','years','delete_one_vectors','mc_standard_errors','mc_intervals','selection_scales','reference_identity'):
+              assert old['public'][key]==new['public'][key],key
+          assert old['combined_score']==new['combined_score']
+          total=0
+          for entry in e.read(Path(e.REGISTRY))['specifications'].values():
+              for y in e.YEARS:
+                  cell=e.evidence_root()/e.RESULT_SUBDIR/entry['label']/str(y)
+                  total+=len(e.verify_manifest(cell,'cell-commitment.json',entry['cells'][str(y)],'step4-closure-comparison-v1')['files'])
+          base='e2945debef7171cd3d15aff8973930730a386770'
+          subprocess.run(['git','diff','--exit-code',base,'--','R','configs','shinka','candidates','environment','evaluate.py','scripts/precision_fit.py','scripts/replicated_metrics.py','scripts/step4_compare.py','scripts/network_specification_v2.py'],check=True)
+          record={'status':'verified','workflow_run':os.environ['GITHUB_RUN_ID'],
+            'tested_source_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
+            'baseline_failure_regression_reproduced':True,'python_tests':int(re.search(r'Ran (\d+) tests',log).group(1)),
+            'native_r_checks':r['checks'],'native_shinka_checks':native['check_count'],
+            'original_step4_files_verified':total,'corrected_saved_metrics_unchanged':True,
+            'scientific_sources_and_configurations_unchanged':True,'new_fits':0,'new_forecasts':0,'new_simulations':0,
+            'llm_calls':0,'new_proposals':0,'full_live_evolution_loop_tested':False,
+            'model_authentication_tested':False,'github_host_ready_for_live_proposals':False,
+            'user_wsl_host_checked':False,'dry_run_created_campaign':False,
+            'scientific_fingerprint':e.identity()['sha256'],
+            'scope':'Bounded operational repair, actual saved-evidence native replay, no live inference or experimental launch.'}
+          (out/'execution.json').write_text(json.dumps(record,indent=2)+'\n')
+          print(json.dumps(record,indent=2))
+          PY
+      - name: Preserve this validation outcome, including failure evidence
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=results/diagnostics/step5c-handoff-v1
+          mkdir -p "$OUT"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          python - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          out=Path('results/diagnostics/step5c-handoff-v1')
+          if not (out/'execution.json').exists():
+              (out/'execution.json').write_text(json.dumps({'status':'incomplete_or_failed','workflow_run':os.environ['GITHUB_RUN_ID'],'live_evolution_started':False},indent=2)+'\n')
+          files={str(p.relative_to(out)):hashlib.sha256(p.read_bytes()).hexdigest() for p in out.rglob('*') if p.is_file() and p.name!='commitment.json'}
+          (out/'commitment.json').write_text(json.dumps({'version':'step5c-handoff-validation-v1','files':files},indent=2)+'\n')
+          PY
+          git add "$OUT"
+          if ! git diff --cached --quiet; then
+            git commit -m 'Preserve Step 5C validation evidence; distinguish saved replay from live execution'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: step5c-handoff-validation
+          path: results/diagnostics/step5c-handoff-v1
+          retention-days: 7
+          if-no-files-found: ignore

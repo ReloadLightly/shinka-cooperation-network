@@ -1,0 +1,52 @@
+{
+  "plan_sha256": "0f0b987240b0880148791531eea7e1bd1484e60009c5836b0891369d5fa91214",
+  "original_inputs": {
+    "status": "inputs_verified",
+    "policy_sha256": "b84a567d4b2235af2ca180d49c1de7c7136f8b71b3238b81e0cbd56463a99483",
+    "files": {
+      "results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99/fit-attempt-3.rds": "5c122ed7a1e061d8d23f50c73a22baa4b80884ad74be49ab7a56bdb80dfe0e5c",
+      "R/empirical.R": "7642d0642261ac56a8bacd4c8280ea7b835c18f42c83e8073280b9f6fef68985",
+      "environment/versions.json": "c6dfe4c4d7625899b0af6fc728e07ef43ec64ad398260a52f6ff4c17c13b8683",
+      "environment/conda-linux-64.explicit.txt": "f6aafee5d35cfe19066dde4ba704b8ab271c70930387108e09b1a8b934e8d2ba",
+      "configs/evaluator-v2.json": "23d4a55f5fbc676d0924cfc79816a38c47d87436248faf9304d81e00d77374a5",
+      "vendor/RSiena/R/siena07.r": "a36f6105ab37ee067a01f587382cb8b08ac9117e1b5c1652608327a4c87b030d",
+      "vendor/RSiena/R/robmon.r": "917037f767c28cab1e104d7fa79cdabc45d6bbd7198d87c98f5be76723f57b6e",
+      "vendor/RSiena/R/initializeFRAN.r": "1b6beff3442beb9e8add1131213564c64c8cf5499201f3e0d4de9919b24b8991",
+      "vendor/RSiena/R/phase1.r": "b8516ab545f1a8a5e570351c81f2457223e5494a63592bd994f42111917285e7",
+      "vendor/RSiena/R/phase2.r": "51300e097a328a0f2ccc4d1d811581c0116e9a2e7f61afec8daa8d542994ef65",
+      "vendor/RSiena/R/phase3.r": "5052965c866878935f9a6445e8875dbb2ab2a2594fa9d8c452606c378d41ee92",
+      "vendor/RSiena/R/simstatsc.r": "37799c6ebf06ca46102b08559a405730b5c7de50a3b90fff20230a4cc5b94e92",
+      "vendor/RSiena/R/terminateFRAN.r": "daeeb42a936e544324c6f3edb5ab9ece7a0cbc1aa155d85af96ec9fb24ee7be0",
+      "vendor/RSiena/R/sienaModelCreate.r": "3fd470423038c4bbe2f86cc8d4672a17064ea1ec44af946344b5d0b35cc778c1",
+      "vendor/RSiena/man/siena07.Rd": "c3bbdd113c914d9f8faab1e8749450cd4e8843fcb3648d08b75b3fd3984068ad",
+      "vendor/RSiena/man/sienaAlgorithmCreate.Rd": "234a2e74089f22be7a19f6c6452874d81a7b593fa55e07687b61334f666e4163",
+      "vendor/RSiena/DESCRIPTION": "a9ee3ced896fd3087c0cb508af331405b27975d5f399184dea0db8fcd6d6fd66",
+      "vendor/RSiena/NAMESPACE": "e89903586d8b29ca49faf2b13c3088d55be98ec55a48d41c994c1f80f71ff352"
+    },
+    "implementation": {
+      "scripts/convergence_preflight.py": "20da8e65111828766792024d4f82a21372e0ff58a2aea6ef8d379f7fc425cace",
+      "R/convergence_preflight.R": "b9deaf332852e108eaafe2123271303faf70f1638ea2198e6063929825a550e8"
+    },
+    "packet_member": "data/past/2009.rds",
+    "packet_sha256": "f8aea6ff84f4a82c43cce7cd6bc12fcd0a4fc36e0db0f6aeb4618381fc1771e4",
+    "native_source_bytes_checked": true,
+    "target_packets_decompressed": 0,
+    "raw_archives_opened": 0,
+    "simulations": 0,
+    "fits": 0
+  },
+  "fit_hashes": {
+    "attempt3": "5c122ed7a1e061d8d23f50c73a22baa4b80884ad74be49ab7a56bdb80dfe0e5c",
+    "attempt4": "94b2c9e916989f0f869d7050118829a907aabbf3e5e2d729274708bfac990b68"
+  },
+  "implementation": {
+    "R/convergence_repeatability.R": "3fa062de219a1dcdff14cffa88f3def80898ade1f7cacae16a27ab1fc2f15b8b",
+    "scripts/convergence_repeatability.py": "1a362dbd9dd999c04593602df770f25edc26153d3eccb9e1bc1c62ffad65ac68",
+    "configs/convergence-repeatability-v1.json": "0f0b987240b0880148791531eea7e1bd1484e60009c5836b0891369d5fa91214"
+  },
+  "pilot_commitment": "b48fda4f6074bd8fc63be6e361d02ce03d3502d23fb351291a5747a470216a6a",
+  "fit": "attempt4",
+  "seed": 2009403,
+  "created_utc": "2026-09-21T14:57:19.265938+00:00",
+  "mode": "simulate"
+}

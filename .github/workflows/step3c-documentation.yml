@@ -1,0 +1,175 @@
+name: Step 3C - publish reviewed documentation
+'on':
+  push:
+    branches: [repairs/step3c-convergence-repeatability-20260921]
+    paths: [.github/workflows/step3c-documentation.yml]
+permissions:
+  contents: write
+jobs:
+  document:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    steps:
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+    - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+      with:
+        python-version: '3.11'
+    - name: Publish the completed study without invoking R or numerical workers
+      run: |
+        set -euo pipefail
+        python - <<'PYDOC'
+        from pathlib import Path
+        import json
+        from scripts import convergence_repeatability as r
+        root=Path.cwd();out=root/r.OUT
+        r.inspect(root,native=False)
+        s=json.loads((out/'summary.json').read_text())
+        review=json.loads((out/'evidence-review.json').read_text())
+        assert s['status']=='complete' and s['new_completed_cells']==9 and s['reused_pilot_cells']==1
+        assert review['status']=='verified' and review['all_ten_native_vectors_match_original_fits']
+        for k in ('attempt3_new_only','attempt3_including_seen_pilot','attempt4_new_only'):
+            assert s[k]['prefix1000']['joint_threshold_passes']==0
+            assert s[k]['full3000']['joint_threshold_passes']==s[k]['n']
+            assert s[k]['full_native_valid']==s[k]['n']
+        independent={
+          'scope':'read-only independent NumPy/CSV review; no simulations or refitting',
+          'basis_commit':'4f5d409f5386d36f8cdb41d9dc8fbbcd3a57d045',
+          'numpy_version':'2.3.5','commitment_members_verified_locally':102,
+          'all_ten_moment_matrices_reconstructed':True,
+          'same_vector_csv_coefficients_identical_across_seeds':True,
+          'between_vector_coefficients_distinct':True,
+          'max_overall_reconstruction_error':1.0547118733938987e-15,
+          'comparison_tolerance':1e-12,
+          'all_descriptive_summaries_independently_recomputed':True,
+          'local_binary_scope':'The compact download omits new RDS files. Available native evidence members were hash-checked locally; all new binary commitments and exact original coefficients were checked separately by the repository read-only native review.',
+          'status':'verified','new_simulations':0,'new_refits':0,
+          'new_guarded_seconds':7109.280000000001,'new_maximum_rss_kib':675316}
+        (out/'independent-moment-review.json').write_text(json.dumps(independent,indent=2)+'\n')
+        interpretation='''# Reviewed interpretation of Steps 3B and 3C
+
+        ## What the repeated evidence establishes
+
+        All nine newly declared diagnostics completed, with 27,000 new draws and no
+        refitting. The earlier 3,000-draw pilot is reused, not rerun. Every 1,000-draw
+        prefix failed the overall cutoff of 0.25; every complete 3,000-draw assessment
+        passed both unchanged ratio cutoffs and the existing native-validity checks.
+        This applies separately to the four new third-vector repetitions and the five
+        new fourth-vector repetitions. All coefficient vectors stayed exactly equal to
+        their own saved original values, with no optimization phase entered.
+
+        For these two fixed historical vectors, diagnostic simulation budget therefore
+        changed the observed pass/fail classification without coefficient adjustment.
+        The concern that a 1,000-draw gate can exclude near-solution vectors is supported
+        by actual repeated simulation, not only a square-root noise heuristic.
+
+        ## What it does not establish
+
+        The four new third-vector full diagnostics average 0.203803089; the five
+        fourth-vector diagnostics average 0.152850276. The fourth vector has lower
+        observed ratios here. The study does NOT establish that the two vectors have
+        the same true residual, that optimization was useless, or that every past
+        continuation was unnecessary. It does not test the 2008 vector or every model
+        in the search grammar. It does not establish an exact moment root or strong
+        global identification.
+
+        The first 1,000 and full 3,000 draws are nested and correlated. Five seeds are
+        a small descriptive sample. Do not interpret 5/5 as a guaranteed pass rate,
+        combine coordinates/periods as independent replications, or apply an arbitrary
+        new threshold inferred from favorable outcomes. The already-seen pilot is
+        excluded from the four-new-repetition third-vector summary. The decision to
+        continue was informed by the pilot and is disclosed in the frozen design.
+
+        These are training-diagnostic measurements, not forecast scores. No candidate
+        signal-to-noise ratio, prediction improvement, causal burden-sharing effect,
+        or ShinkaEvolve advantage has been measured. Step 2's forecast Monte Carlo
+        uncertainty and later selection-uncertainty questions remain distinct.
+
+        ## Verification and operational record
+
+        The frozen plan was committed before new simulations. All 153 Python contracts
+        and 13 deterministic R guard tests passed after the envelope-reader repair.
+        The initial attempt stopped before simulation because the accepted fourth-fit
+        file wraps the native fit in list(fit, diagnostics). The reader now verifies
+        that exact envelope and extracts the unchanged fit. The error, its cause and
+        the unchanged plan hash remain in prior-attempts/fit-envelope.json. No numerical
+        run, seed, failed result or threshold was replaced.
+
+        A separate read-only job verified all nine full cell commitments and the prior
+        pilot, all ten raw moment/score arrays, exact original coefficients and targets,
+        native parameter ordering/flags, and CSV/native diagnostic agreement. NumPy
+        independently reconstructed every prefix/full ratio and all descriptive
+        summaries, with maximum overall-ratio discrepancy below 1.1e-15.
+
+        The nine guarded intervals sum to 7,109.280 seconds (118.488 minutes). Individual
+        intervals range from 471.937 to 943.658 seconds; maximum observed RSS is
+        675,316 KiB (about 660 MiB). Parallel scheduling on separate standard hosted
+        runners reduces wall time, not aggregate computation. These timings include
+        guarded native processing and evidence handling, not full workflow setup.
+        No warning was captured during any of the nine guarded native calls; the
+        existing jsonlite-built-under-R-4.2.3 load warning remains visible in logs.
+
+        Standard public-repository runner compute is free under GitHub's documented
+        policy; storage remains separate. This workflow restored rather than expanded
+        runtime caches, publishes compressed full scientific evidence to Git, and uses
+        one-day retention for compact or fallback Actions artifacts. Account billing
+        settings were not inspected or changed.
+
+        ## Recommended next decision (not executed)
+
+        Before sustained search, prospectively specify a precision-aware convergence
+        assessment: retain the substantive 0.1/0.25 criteria and consider a fixed
+        3,000-draw diagnostic at unchanged theta before paying for another optimization
+        continuation. It must be a versioned rule, applied consistently to reference
+        and candidates, not seed shopping or retroactive relabelling. These two-vector
+        results motivate that rule; they do not certify it for every specification.
+
+        Then proceed to Step 4's bounded comparison of an actual interpretable changed
+        specification, preserving a meaningful forecast-uncertainty assessment. Do not
+        spend another open-ended cycle merely repeating reference checks. Production
+        estimation/fitness settings remain untouched in this commit; no Step 4,
+        refitting campaign, forecast scoring, or ShinkaEvolve launch has begun.
+
+        Evidence: REPORT.md, summary.json, cell_metrics.csv, evidence-review.json,
+        native-evidence-verification.json, independent-moment-review.json and the
+        per-fit/per-seed folders. Study and review commitments remain unchanged.
+        '''
+        import textwrap
+        interpretation='\n'.join(line[8:] if line.startswith('        ') else line for line in interpretation.splitlines())+'\n'
+        (out/'INTERPRETATION.md').write_text(interpretation)
+        readme=root/'README.md';text=readme.read_text()
+        old='No changed specification or evolutionary improvement is established; native multiobjective evolution is the next operation.'
+        assert text.count(old)==1
+        text=text.replace(old,'No changed specification or evolutionary improvement is established. Fixed-coefficient numerical audits are reported separately; a bounded changed-model comparison and uncertainty-aware selection remain outstanding.')
+        rows=['### 4.4 Fixed-coefficient numerical audits: Steps 2–3C','',
+          'Step 2 measured forecast variability (four-year PR-AUC sample SD **0.001075374**). Steps 3B–3C separately assessed convergence-diagnostic precision for two unchanged 2009 training-fit vectors. **Nine new 3,000-draw diagnostics plus the reused pilot completed, with zero refits.**','',
+          '| Fixed vector | Repetitions | Overall ratio: first 1,000, mean (SD) | Overall ratio: all 3,000, mean (SD) | Joint-threshold passes: first / full |',
+          '|---|---:|---:|---:|---:|']
+        names={'attempt3_new_only':'Third attempt: new only','attempt3_including_seen_pilot':'Third attempt: including seen pilot','attempt4_new_only':'Fourth attempt: new only'}
+        for k,name in names.items():
+            d=s[k];a=d['prefix1000']['overall'];b=d['full3000']['overall']
+            rows.append(f"| {name} | {d['n']} | {a['mean']:.6f} ({a['sample_sd']:.6f}) | {b['mean']:.6f} ({b['sample_sd']:.6f}) | 0/{d['n']} / {d['n']}/{d['n']} |")
+        rows+=['','All full assessments also passed native-validity checks. Prefix and full samples are **nested**, not independent. The small seed sets do not prove a universal pass rate, equivalence of the two coefficient vectors, or prediction improvement. Historical acceptance decisions and production criteria remain unchanged.',
+          '', '[All seed results](results/diagnostics/convergence-repeatability-v1/REPORT.md) · [Reviewed interpretation and next decision](results/diagnostics/convergence-repeatability-v1/INTERPRETATION.md) · [Frozen study design](docs/CONVERGENCE_REPEATABILITY.md)','']
+        assert text.count('## 5. Preserved reconstruction evidence')==1
+        text=text.replace('## 5. Preserved reconstruction evidence','\n'.join(rows)+'\n## 5. Preserved reconstruction evidence')
+        readme.write_text(text)
+        path=root/'docs/REPAIR_STEPS.md';text=path.read_text();start=text.index('| Step |')
+        text='# Bounded repairs after the external review\n\nSteps **1, 2, 3A, 3B and 3C are complete**. The nine new Step 3C diagnostics and the reused pilot have been fully reviewed. No production convergence policy, historical acceptance decision, forecast fitness or evolutionary archive was changed. Step 4 has not started.\n\nSee [the complete repeatability results](../results/diagnostics/convergence-repeatability-v1/REPORT.md) and [reviewed interpretation](../results/diagnostics/convergence-repeatability-v1/INTERPRETATION.md).\n\n'+text[start:]
+        text=text.replace('| 3B–3C. Convergence diagnostic precision | Does a more precise diagnostic resolve borderline convergence without more optimization? | One separately authorized 3,000-draw pilot first; measure actual resources before a finite repetition study. Preserve thresholds and prior accept/reject records. |','| **3B. Fixed-vector pilot completed** | Can phase 3 execute without coefficient optimization? | One 3,000-draw pilot completed with unchanged theta; no refit. |\n| **3C. Repeatability completed** | Does diagnostic precision affect classification at fixed theta across seeds? | Nine new diagnostics, one reused pilot; all ten 1,000-draw prefixes fail the overall cutoff, all ten full 3,000-draw assessments pass. Report new-only groups separately. Preserve historical records and production policy. |')
+        text=text.replace('The next decision is Step 3B,\nnot an automatic continuation into the larger repetition study.','That was the historical Step 3A stopping point. The subsequently authorized Steps 3B and 3C are now complete; see the current results linked above.')
+        path.write_text(text)
+        path=root/'docs/CONVERGENCE_PREFLIGHT.md';text=path.read_text()
+        text=text.replace('**Status: complete; Step 3B has not run.**','**Historical Step 3A record: complete. Steps 3B and 3C subsequently completed; see [current repair status](REPAIR_STEPS.md).**')
+        text=text.replace('## Next step, separately authorized','## Historical next-step design (subsequently executed as Steps 3B and 3C)')
+        path.write_text(text)
+        path=root/'docs/CONVERGENCE_PILOT_PLAN.md';text=path.read_text()
+        path.write_text('> **Current status:** Step 3B completed in workflow `35609438242`; Step 3C reused it without rerunning it. See [current repair status](REPAIR_STEPS.md). The original authoring-session handoff below is retained as historical context.\n\n'+text)
+        PYDOC
+        python -m unittest discover -s tests -q
+        python scripts/update_readme_status.py --check
+        git diff --check
+        git config user.name 'github-actions[bot]'
+        git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+        git add -- README.md docs/REPAIR_STEPS.md docs/CONVERGENCE_PREFLIGHT.md docs/CONVERGENCE_PILOT_PLAN.md results/diagnostics/convergence-repeatability-v1/INTERPRETATION.md results/diagnostics/convergence-repeatability-v1/independent-moment-review.json
+        git commit -m 'Document reviewed Step 3C evidence and limits; no production-policy change'
+        git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"

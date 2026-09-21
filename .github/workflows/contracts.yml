@@ -1,0 +1,46 @@
+name: Scientific contracts
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  python-contracts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compile trusted Python sources
+        run: python -m compileall -q evaluate.py scripts shinka
+      - name: Run source-only regression tests
+        run: |
+          python -m unittest discover -s tests -v
+          python scripts/update_readme_status.py --check
+      - name: Package auditable source snapshot (no data or fitted results)
+        if: always()
+        run: |
+          python - <<'PY'
+          import pathlib, subprocess, zipfile
+          names = subprocess.check_output(['git', 'ls-files'], text=True).splitlines()
+          roots = {'R', 'scripts', 'shinka', 'configs', 'candidates', 'docs', 'environment', 'tests', '.github'}
+          extra = {'README.md', 'evaluate.py', 'DEVIATIONS.md', 'RESEARCH_LOG.md', '.gitignore', 'results/evolution_manifest.json', 'results/reproduction_manifest.json'}
+          with zipfile.ZipFile('/tmp/source-contracts.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
+              for name in names:
+                  path = pathlib.Path(name)
+                  if name in extra or (path.parts[0] in roots and path.suffix in {'.py', '.R', '.r', '.json', '.md', '.yml', '.yaml', '.txt', '.patch', '.lock', '.sh'}):
+                      archive.write(path, name)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: source-contracts
+          path: /tmp/source-contracts.zip
+          retention-days: 3

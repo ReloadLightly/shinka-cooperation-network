@@ -27,6 +27,11 @@ from scripts.network_specification_v2 import (
     read_program, validate_spec, spec_hash, legacy_specification, complexity,
 )
 from scripts.resources import scientific_execution
+from scripts.scientific_contract import (
+    prediction_layers, scientific_identity, require_expected_fingerprint, require_search_open,
+    immutable_json,
+)
+from scripts.evaluation_feedback import failure_summary, failure_text, hypothesis_record
 
 ROOT = legacy.ROOT
 PROTOCOL = ROOT / "configs/multiobjective-v1.json"
@@ -65,6 +70,9 @@ def prediction_identity(spec, year, settings, protocol):
                        if key not in ("policy_revision", "covariance_eigenvalues")},
         "forecast": settings["forecast"],
     }
+    layers = prediction_layers(ROOT, validate_spec(spec), year, settings, protocol)
+    value["implementation_binding"] = {"fit_sha256": layers["fit_sha256"],
+                                       "forecast_sha256": layers["forecast_sha256"]}
     key = hashlib.sha256(json.dumps(value, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
     return key, value
 
@@ -77,6 +85,43 @@ def legacy_folder(spec, year, settings):
     folder = legacy.CACHE / key
     path = folder / "provenance.json"
     return folder if path.exists() and read_json(path) == expected else None
+
+
+def previous_structured_folder(spec, year, settings, protocol):
+    """Explicit compatibility import of the pre-contract structured cache.
+
+    Both scientific provenance and all recorded native implementation hashes
+    must match. A version-string claim alone never permits reuse.
+    """
+    _, current = prediction_identity(spec, year, settings, protocol)
+    previous = {key: value for key, value in current.items() if key != "implementation_binding"}
+    key = hashlib.sha256(json.dumps(previous, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+    folder = ROOT / "results/cache" / key
+    provenance = folder / "provenance.json"
+    implementation = folder / "implementation_provenance.json"
+    if not provenance.exists() or not implementation.exists() or read_json(provenance) != previous:
+        return None
+    hashes = read_json(implementation).get("files", {})
+    required = ("R/empirical.R", "R/forecast.R", "R/network_specification_v2.R",
+                "R/forecast_multiobjective.R", "configs/effect-catalog-v2.json")
+    if set(hashes) != set(required) or any(sha(ROOT / name) != hashes[name] for name in required):
+        return None
+    return folder
+
+
+def saved_forecast_folder(spec, year, settings, protocol):
+    """Locate compatible complete saved predictions without running R."""
+    old = legacy_folder(spec, year, settings)
+    key, expected = prediction_identity(spec, year, settings, protocol)
+    current = ROOT / "results/cache" / key
+    candidates = [old, current, previous_structured_folder(spec, year, settings, protocol)]
+    for folder in candidates:
+        if folder is None or not all((folder / name).is_file() for name in ("predictions.rds", "forecast_audit.json", "accepted_fit.rds", "prediction_commit.json")):
+            continue
+        if folder == current and read_json(folder / "provenance.json") != expected:
+            raise RuntimeError("Saved structured prediction identity differs from current inputs")
+        return folder
+    raise RuntimeError(f"Complete compatible saved development forecast is required for {year}; no implicit fitting in selection")
 
 
 def fit_summary(diagnostics):
@@ -266,6 +311,26 @@ def score_saved(folder, year, settings, spec):
 
 
 def forecast_year(spec, year, settings, protocol):
+    try:
+        return _forecast_year_bound(spec, year, settings, protocol)
+    except ExecutionWindowPaused:
+        raise
+    except Exception as exc:
+        # The mutation process cannot read private caches. Export allowlisted
+        # diagnostics rather than sending it an inaccessible filesystem path.
+        try:
+            key, _ = prediction_identity(spec, year, settings, protocol)
+            folder = ROOT / "results/cache" / key
+            old = legacy_folder(spec, year, settings)
+            if not folder.exists() and old is not None:
+                folder = old
+            exc.development_failure = failure_summary(folder, year, exc)
+        except Exception:
+            pass  # Preserve the original error if even provenance is unavailable.
+        raise
+
+
+def _forecast_year_bound(spec, year, settings, protocol):
     if year not in YEARS or settings["development_years"] != list(YEARS):
         raise ValueError("The four development years are fixed; final outcomes remain reserved.")
     with scientific_execution():
@@ -274,12 +339,19 @@ def forecast_year(spec, year, settings, protocol):
             with (old / "evaluation.lock").open("a") as lock:
                 fcntl.flock(lock, fcntl.LOCK_EX)
                 return score_saved(old, year, settings, spec)
+        previous = previous_structured_folder(spec, year, settings, protocol)
+        if previous is not None and (previous / "predictions.rds").exists() and (previous / "forecast_audit.json").exists():
+            with (previous / "evaluation.lock").open("a") as lock:
+                fcntl.flock(lock, fcntl.LOCK_EX)
+                return score_saved(previous, year, settings, spec)
+        if old is None:
+            old = previous
         key, provenance = prediction_identity(spec, year, settings, protocol)
         folder = ROOT / "results/cache" / key
         folder.mkdir(parents=True, exist_ok=True)
         with (folder / "evaluation.lock").open("a") as lock:
             fcntl.flock(lock, fcntl.LOCK_EX)
-            save_json(folder / "provenance.json", provenance)
+            immutable_json(folder / "provenance.json", provenance)
             save_json(folder / "specification.json", spec)
             save_json(folder / "settings.json", settings)
             implementation = {
@@ -325,12 +397,17 @@ def forecast_year(spec, year, settings, protocol):
 def evaluate(program_path, results_dir):
     out = Path(results_dir).resolve()
     out.mkdir(parents=True, exist_ok=True)
-    start, annual, private, spec, source = time.monotonic(), {}, {}, None, None
+    start, annual, private, spec, source, science = time.monotonic(), {}, {}, None, None, None
     try:
+        require_search_open(ROOT)
+        science = scientific_identity(ROOT)
+        require_expected_fingerprint(science)
         protocol = read_json(PROTOCOL)
         settings = read_json(ROOT / protocol["prediction_settings"])
         spec, source = read_program(program_path)
         baseline_spec, _ = read_program(REFERENCE)
+        hypothesis = hypothesis_record(source, spec, baseline_spec, spec_hash(spec), science["sha256"])
+        immutable_json(out / "hypothesis.json", hypothesis)
         for year in YEARS:
             baseline = forecast_year(baseline_spec, year, settings, protocol)
             candidate = baseline if spec == baseline_spec else forecast_year(spec, year, settings, protocol)
@@ -389,7 +466,7 @@ def evaluate(program_path, results_dir):
                   **objectives, "raw_F": objectives["J1"], "years": annual,
                   "canonical_sha256": spec_hash(spec), "canonical_specification": spec,
                   "complexity": complexity(spec)["estimated_network_terms"], "structural_complexity": complexity(spec),
-                  "runtime_seconds": time.monotonic() - start}
+                  "runtime_seconds": time.monotonic() - start, "scientific_fingerprint": science["sha256"]}
         save_json(out / "metrics.json", {"combined_score": score, "public": public,
                   "private": {"annual_artifacts": {year: {role: data["cache_directory"] for role, data in values.items()}
                                                      for year, values in private.items()}}, "text_feedback": feedback})
@@ -400,22 +477,27 @@ def evaluate(program_path, results_dir):
         (archive / "candidate.py").write_text(source)
         save_json(archive / "annual_results.json", private)
         save_json(archive / "protocol.json", protocol)
-        for name in ("metrics.json", "correct.json", "canonical_specification.json"):
+        for name in ("metrics.json", "correct.json", "canonical_specification.json", "hypothesis.json"):
             shutil.copy2(out / name, archive / name)
         return 0
     except Exception as exc:
         paused = isinstance(exc, ExecutionWindowPaused)
         status = "paused_execution_window" if paused else "invalid_evaluation"
         error = f"{type(exc).__name__}: {exc}"
+        diagnosis = getattr(exc, "development_failure", None)
         public = {"protocol": "multiobjective-v1", "status": status, "valid": False,
                   "J1": None, "J2": None, "J3": None, "raw_F": None,
                   "years": annual, "runtime_seconds": time.monotonic() - start}
+        if science is not None:
+            public["scientific_fingerprint"] = science["sha256"]
+        if diagnosis is not None:
+            public["failure_diagnostics"] = diagnosis
         if spec is not None:
             public.update(canonical_sha256=spec_hash(spec), canonical_specification=spec,
                           complexity=complexity(spec)["estimated_network_terms"])
         save_json(out / "metrics.json", {"combined_score": None, "public": public, "private": {},
                   "text_feedback": ("PAUSED; resume the same candidate from saved numerical checkpoints. " if paused else
-                                    "INVALID evaluation; no scientific objective vector or loss. ") + error})
+                                    "INVALID evaluation; no scientific objective vector or loss. ") + (failure_text(diagnosis) if diagnosis else error)})
         save_json(out / "correct.json", {"correct": False, "error": error})
         (out / "error.log").write_text(traceback.format_exc())
         return 75 if paused else 1

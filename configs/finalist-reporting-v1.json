@@ -1,0 +1,12 @@
+{
+  "version": "finalist-reporting-v1",
+  "development_seed_offsets": [2, 3, 4, 5, 6],
+  "simulations_per_forecast": 1000,
+  "fit_reuse": "Reuse each selected specification's accepted development fit; never refit for forecast-seed sensitivity.",
+  "membership": "Freeze the J1, J2, J3 and auxiliary-score champions on the development Pareto frontier, deduplicate and include Model 3 before sensitivity.",
+  "sensitivity_changes_membership": false,
+  "interpretation": "Five prespecified additional forecast-seed repetitions (including the original +2 repetition). Descriptive Monte Carlo sensitivity only; no independent-dyad confidence intervals, fitting-uncertainty claim or change to evolutionary fitness.",
+  "final_target": 2010,
+  "final_seed_offset": 1,
+  "report_every_locked_finalist": true
+}

@@ -86,7 +86,10 @@ def main():
     reproduction["equilibrium_full_settings"]=101
     reproduction["partial_equilibrium_figure"]="results/paper_reproduction/abm-full-equilibria/partial_equilibrium.pdf"
     save_json(reproduction_path,reproduction)
-    print("Updated results/reproduction_manifest.json and results/evolution_manifest.json from current artifacts.")
+    from scripts.update_readme_status import updated
+    readme = ROOT / "README.md"
+    readme.write_text(updated(readme.read_text(), evolution, reproduction))
+    print("Updated scientific manifests and the README coverage block from current artifacts.")
 
 
 if __name__=="__main__":

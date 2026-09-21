@@ -1,37 +1,69 @@
 # Conventional search, finalist sensitivity and reserved final test
 
-## Current continuing campaign: multiobjective-v1
+## Current campaign: multiobjective-v1
 
-The three-objective protocol in [multiobjective-v1.json](../configs/multiobjective-v1.json)
-supersedes the small PR-only pilot for future discovery. The instructions below
-this section describe the preserved historical PR-only tooling; its fifteen-model
-catalog, scalar winner and old preflight commands do **not** govern the current
-campaign. No final-year result has been obtained.
+The primary three-objective evaluator and the expanded native grammar remain
+unchanged. Current commands are implemented in `scripts/finalist_set.py`:
 
-Before any reserved outcomes are opened, select from the development Pareto
-frontier the unique champions of J1, J2, J3 and the fixed auxiliary score
-`2 + (J1 + J2 + J3/10)/3`. Resolve exact ties by fewer free structural
-coefficients, then lexicographically smaller canonical SHA256. Deduplicate the
-selected structures and include original Model3. The rule is fixed before final
-access; it is not a proposal or generation limit.
+```bash
+# Read existing complete development evidence and freeze the representative set.
+# No fits, new forecasts, or 2010 outcome access.
+python3 scripts/finalist_set.py plan
 
-Use the existing fresh-randomness design on these representatives and the
-reference: reuse their accepted training fits, forecast1000 endpoints with seed
-`target_year*1000+2` for each development year, and report all three objectives.
-This additional repetition assesses Monte Carlo sensitivity and does not change
-membership of the prespecified representative set. It is not comprehensive
-uncertainty estimation. Lock all selected specifications and the reporting rule
-before2010; report every locked finalist, including losses and trade-offs, and
-never return final outcomes to evolution. The legacy single-finalist lock/final
-commands below require adaptation before use with this multiobjective set.
+# Reuse accepted development fits; run all five prespecified forecast-seed
+# repetitions (+2 through +6), with 1,000 endpoints per model/year/repetition.
+python3 scripts/finalist_set.py sensitivity --execute
 
-Session deadlines preserve the population and pending numerical checkpoints;
-they do not finish the research campaign or trigger finalist selection. Four
-adjacent development years provide limited temporal evidence, and dependent
-dyads are not independent experimental replications. A claim that Shinka improves
-on conventional search additionally requires an executed comparison in the same
-scientific grammar/evaluator with distinct specifications, failures, cache reuse
-and fitting effort accounted for.
+# Verify every sensitivity artifact and seal the set before final outcomes.
+python3 scripts/finalist_set.py lock
+
+# Only this explicit command may fit/forecast and then score 2010.
+python3 scripts/finalist_set.py run --execute
+```
+
+Membership is chosen on the development Pareto frontier: unique J1, J2, J3 and
+auxiliary-score champions, exact ties resolved by fewer free structural
+coefficients then canonical identity. Deduplicate and include Model 3. Sensitivity
+never changes membership. Its separate reporting policy is versioned in
+`configs/finalist-reporting-v1.json`. No fit is repeated for forecast-seed
+sensitivity, and no Monte Carlo statistic becomes new evolutionary fitness.
+
+The plan stops further confirmatory search; ordinary execution checkpoints do
+not create it. A fixed-set report includes all locked models, including losses
+and null terminal native failures. The reference must have a valid committed
+forecast. All valid finalists must have committed forecasts before the first
+2010 target hash/read. Missing or changed committed predictions fail closed,
+without new fits or reselection. Repeating the same command resumes saved work;
+paused work is not a scientific failure. Final results stay outside mutation,
+inspiration and prompt-evolution context. The former single-finalist commands
+below are historical, not the new multiobjective interface.
+
+The conventional comparator supports two explicit methods:
+
+```bash
+python3 scripts/conventional_search.py --protocol multiobjective-v1 \
+  --search-rule scalar-local --native-results-dir runs/evolution_multiobjective \
+  --results-dir results/conventional_scalar --execute
+
+python3 scripts/conventional_search.py --protocol multiobjective-v1 \
+  --search-rule pareto-local --native-results-dir runs/evolution_multiobjective \
+  --results-dir results/conventional_pareto --execute
+```
+
+Each freezes the observed distinct-terminal-attempt budget from an implementation-
+bound native campaign. A separately declared `--limit N` can be used instead.
+`--window-hours` is optional; omission respects the configured unbounded default.
+The Pareto-local method expands nondominated parents in deterministic round-robin
+order; the original scalar-local method retains its auxiliary-score incumbent.
+Both retain observed objective vectors and record numerical effort/cache reuse.
+Neither is an exhaustive search or proof of an LLM-specific advantage.
+
+Four adjacent development years are limited temporal evidence. Five additional
+forecast repetitions measure only limited Monte Carlo sensitivity, not estimation
+uncertainty or independent experimental replications. Dyads are dependent.
+2010 is reserved from this search, not historically untouched: the paper already
+examined it. No empirical sensitivity or final result was generated by the code
+implementation update; source-only tests use fake native-worker fixtures.
 
 ## Historical PR-only protocol
 

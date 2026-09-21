@@ -18,6 +18,8 @@ import fcntl
 import signal
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 
 def run_multiobjective(args, config):
@@ -31,17 +33,16 @@ def run_multiobjective(args, config):
 
     if args.native_worker or args.supervisor_only:
         raise ValueError("multiobjective-v1 uses the native runner, not the legacy terminating supervisor")
+    from scripts.execution_windows import resolve_deadline, set_deadline
+    from scripts.scientific_contract import bind_campaign, scientific_identity, require_search_open, source_hashes
+    from scripts.check_native_patch import verify_patch
     hours = args.window_hours
-    if hours is not None and not positive_number(hours):
-        raise ValueError("--window-hours must be finite and positive")
     # The user superseded the former session deadline. Publication checkpoints
     # do not limit scientific admission. An explicit future --window-hours is
     # still supported; stale inherited deadlines must not stop this campaign.
-    deadline = time.time() + hours * 3600 if hours is not None else None
-    if deadline is None:
-        os.environ.pop("SHINKA_EXECUTION_DEADLINE", None)
-    else:
-        os.environ["SHINKA_EXECUTION_DEADLINE"] = str(deadline)
+    deadline = resolve_deadline(hours)
+    set_deadline(deadline)
+    require_search_open(ROOT)
     os.environ["SHINKA_PRICING_MODE"] = "offline"
     os.environ["SHINKA_HEADLESS_COMMAND"] = f"{sys.executable} {ROOT / 'shinka/headless_isolated.py'}"
     os.environ["SHINKA_HEADLESS_TIMEOUT"] = "1800"
@@ -49,6 +50,7 @@ def run_multiobjective(args, config):
     for name in list(os.environ):
         if name.endswith("API_KEY") or name in {"OPENAI_ACCESS_TOKEN", "ANTHROPIC_AUTH_TOKEN"}:
             os.environ.pop(name, None)
+    verify_patch()
     from shinka.core import EvolutionConfig, ShinkaEvolveRunner
     from shinka.database import DatabaseConfig
     from shinka.launch import LocalJobConfig
@@ -91,11 +93,27 @@ def run_multiobjective(args, config):
                 "overall_generation_ceiling": None, "paid_api_fallback": False}
     with (args.results_dir / "campaign_supervisor.lock").open("a") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        write_json(args.results_dir / "resolved_config.json", resolved)
+        science = scientific_identity(ROOT)
+        search = {key: config[key] for key in ("upstream_commit", "evolution", "database", "runner", "job")}
+        search["implementation"] = source_hashes(ROOT, (
+            "scripts/run_shinka.py", "shinka/pareto_selection.py", "shinka/multiobjective_native.patch",
+            "shinka/task_prompt_multiobjective.md", "configs/effect-catalog-v2.json",
+            "scripts/evaluation_feedback.py", "scripts/execution_windows.py"))
+        search["initial_source_sha256"] = hashlib.sha256(initial.read_bytes()).hexdigest()
+        # Optional session windows are operational, not new scientific campaigns.
+        search["evolution"] = {key: value for key, value in search["evolution"].items()
+                               if key not in ("num_generations", "execution_window_seconds")}
         if not args.execute:
-            print(json.dumps({"resolved_config": str(args.results_dir / "resolved_config.json"),
+            print(json.dumps({"resolved_config": resolved, "scientific_fingerprint": science["sha256"],
                               "execution_deadline_unix": deadline, "launched": False}))
             return 0
+        bind_campaign(args.results_dir, science, search)
+        resolved["scientific_fingerprint"] = science["sha256"]
+        # Preserve the first launch record; later runtime windows are append-only.
+        if not (args.results_dir / "resolved_config.json").exists():
+            write_json(args.results_dir / "resolved_config.json", resolved)
+        with (args.results_dir / "launch_history.jsonl").open("a") as stream:
+            stream.write(json.dumps({"started_unix": time.time(), "resolved": resolved}, allow_nan=False) + "\n")
         module_spec = importlib.util.spec_from_file_location("project_scientific_pareto", ROOT / "shinka/pareto_selection.py")
         module = importlib.util.module_from_spec(module_spec)
         sys.modules[module_spec.name] = module

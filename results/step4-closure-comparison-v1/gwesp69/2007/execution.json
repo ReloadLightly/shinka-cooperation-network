@@ -1,0 +1,9 @@
+{
+  "status": "complete",
+  "model": "gwesp69",
+  "year": 2007,
+  "new_forecast_batches": 5,
+  "endpoints": 5000,
+  "reserved_outcomes": 0,
+  "step5_started": false
+}

@@ -1,0 +1,16 @@
+{
+  "status": "complete",
+  "version": "step4-closure-comparison-v1",
+  "model": "gwesp69",
+  "target": 2008,
+  "batch": 2,
+  "seed": 61200812,
+  "simulations": 1000,
+  "fit_sha256": "99483a335136e8694ba1a01ae565f518da86c5e69bcb621eaf276368ad41bd21",
+  "accepted_attempt": 2,
+  "authoritative_n3": 3000,
+  "all_forward_coefficients_fixed": true,
+  "coefficients_checked_each_call": true,
+  "new_estimation_calls": 0,
+  "target_reads": 0
+}

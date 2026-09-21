@@ -1,0 +1,59 @@
+Warning message:
+package ‘jsonlite’ was built under R version 4.2.3 
+If you use this algorithm object, siena07 will create/use an output file /home/runner/work/shinka-cooperation-network/shinka-cooperation-network/results/step4-closure-comparison-v1/gwesp69/2009/forecasts/1/forecast.txt .
+Tracing function "phase1.1" in package "namespace:RSiena"
+Tracing function "phase1.2" in package "namespace:RSiena"
+Tracing function "phase2.1" in package "namespace:RSiena"
+Tracing function "proc2subphase" in package "namespace:RSiena"
+Tracing function "maxlikec" in package "namespace:RSiena"
+Tracing function "phase3" in package "namespace:RSiena"
+Tracing function "simstats0c" in package "namespace:RSiena"
+Untracing function "simstats0c" in package "namespace:RSiena"
+Untracing function "phase3" in package "namespace:RSiena"
+Untracing function "maxlikec" in package "namespace:RSiena"
+Untracing function "proc2subphase" in package "namespace:RSiena"
+Untracing function "phase2.1" in package "namespace:RSiena"
+Untracing function "phase1.2" in package "namespace:RSiena"
+Untracing function "phase1.1" in package "namespace:RSiena"
+$status
+[1] "complete"
+
+$version
+[1] "step4-closure-comparison-v1"
+
+$model
+[1] "gwesp69"
+
+$target
+[1] 2009
+
+$batch
+[1] 1
+
+$seed
+[1] 61200911
+
+$simulations
+[1] 1000
+
+$fit_sha256
+[1] "cefe4cec894bcf08d00e994cb333e43a33bd11d377df772f06eb6decb35f89a1"
+
+$accepted_attempt
+[1] 2
+
+$authoritative_n3
+[1] 3000
+
+$all_forward_coefficients_fixed
+[1] TRUE
+
+$coefficients_checked_each_call
+[1] TRUE
+
+$new_estimation_calls
+[1] 0
+
+$target_reads
+[1] 0
+

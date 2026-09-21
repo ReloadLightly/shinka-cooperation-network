@@ -1,0 +1,26 @@
+{
+  "version": "step4-closure-comparison-v1",
+  "status": "accepted",
+  "model": "reference",
+  "target": 2009,
+  "imported_optimization_checkpoints": {
+    "1": {
+      "source": "results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99/fit-attempt-1.rds",
+      "sha256": "ae36f144356995f8ee36efb0e0a54371ab53be01be576dec64bb41fac15165c2",
+      "original_acceptance_imported": false,
+      "coefficient_change": false
+    },
+    "2": {
+      "source": "results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99/fit-attempt-2.rds",
+      "sha256": "8d0a5b8d8afa1a17bb8415c8883cd984c99112afeaa79aa618dd5532393e4562",
+      "original_acceptance_imported": false,
+      "coefficient_change": false
+    }
+  },
+  "new_optimization_calls_this_invocation": 0,
+  "authoritative_n3": 3000,
+  "accepted_attempt": 2,
+  "historical_acceptance_imported": false,
+  "forecasts": 0,
+  "target_reads": 0
+}

@@ -1,0 +1,11 @@
+{
+  "version": "step4-closure-comparison-v1",
+  "files": {
+    "delete-1.rds": "88548bde9e8ad13d1ee2a20c66465a9803e4b67b6b5e757411c404f8065602c2",
+    "delete-2.rds": "62fbd32d471caa715fc8cd736fc8064d98ab28afaf37de8de96e8983e951c7b6",
+    "delete-3.rds": "17ed57e83300b14df0e9311e1008be1ba2101fed4eb4618dc00fbb9bb5d3b1e6",
+    "delete-4.rds": "e2071fe0616683c939fc9d157b3e5590d5eee6385833c49ae9d11effe5ad76e4",
+    "delete-5.rds": "114acebc8bff23ebdcfee218203bcf65fd1dd32147611e972cfa8a535fa66871",
+    "predictions.rds": "4e77751880e75b3a1967b9519251b200c606a18ca5424e19cbd97dd5cb672786"
+  }
+}

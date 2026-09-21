@@ -1,0 +1,14 @@
+{
+  "version": "step4-closure-comparison-v1",
+  "workflow_run": "35626907047",
+  "source_commit": "a0060b55a7b9e7e0f1bece61801ba2183060c789",
+  "reserved_at_utc": "2026-09-21T16:38:59.886524+00:00",
+  "maximum_model_year_cells": 8,
+  "maximum_forecast_batches": 40,
+  "max_parallel_cells": 8,
+  "cell_native_seconds": 14400,
+  "automatic_numerical_retries": 0,
+  "reserved_year_access": false,
+  "no_shinka_search": true,
+  "plan_sha256": "4131bda2e98aead58baa8765ae503b498e1e085ed2a94cc878e503bdf0cbcb39"
+}

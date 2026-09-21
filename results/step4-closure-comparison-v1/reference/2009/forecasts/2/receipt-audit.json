@@ -1,0 +1,16 @@
+{
+  "status": "complete",
+  "version": "step4-closure-comparison-v1",
+  "model": "reference",
+  "target": 2009,
+  "batch": 2,
+  "seed": 61200902,
+  "simulations": 1000,
+  "fit_sha256": "62cf3321ea6fe75d2f7f8af9a941ebfb18465084b9bfa282e3a0905aac532d8a",
+  "accepted_attempt": 2,
+  "authoritative_n3": 3000,
+  "all_forward_coefficients_fixed": true,
+  "coefficients_checked_each_call": true,
+  "new_estimation_calls": 0,
+  "target_reads": 0
+}

@@ -1,0 +1,284 @@
+{
+  "version": "step4-closure-comparison-v1",
+  "target": 2006,
+  "training": [
+    1990,
+    2005
+  ],
+  "specification": {
+    "schema_version": 2,
+    "network_effects": [
+      {
+        "effect": "degPlus",
+        "parameter": 1
+      },
+      {
+        "effect": "transTriads",
+        "parameter": 0
+      }
+    ]
+  },
+  "past_sha256": "7e00ccdf14204ac676cd141533e2612bc8bd810dbd371992d24670b47ad69ac5",
+  "settings": {
+    "version": "precision-fit-v1",
+    "mode": "evolution_forecast",
+    "development_years": [
+      2006,
+      2007,
+      2008,
+      2009
+    ],
+    "final_test_year": 2010,
+    "training_start": 1990,
+    "archive_sha256": "2f4c2c02e3969437976c505098848e0ef7333466aeba3cccd807b3b44ba75308",
+    "software": {
+      "RSiena": "1.3.10",
+      "PRROC": "1.3.1"
+    },
+    "estimation": {
+      "nsub": 3,
+      "n3": 1000,
+      "seed": 12345,
+      "max_attempts": 4,
+      "retry": "prevAns",
+      "max_abs_convergence_t": 0.10000000000000001,
+      "max_overall_convergence": 0.25,
+      "timeout_seconds": 21600,
+      "modelType": 3,
+      "behModelType": 1,
+      "require_native_ok": true,
+      "required_termination": "OK",
+      "require_completed_phase3": true,
+      "require_finite_full_covariance": true,
+      "reject_native_divergence": true,
+      "reject_automatically_fixed_parameters": true,
+      "reject_native_covariance_warning": true,
+      "covariance_eigenvalue_threshold": null,
+      "covariance_eigenvalues": "report only; no scale-dependent threshold",
+      "continuation_after_attempt": 3,
+      "continuation_nsub": 5,
+      "continuation_n3": 3000,
+      "policy_revision": "Retain attempts 1–3 at nsub=3/n3=1000; if none is acceptable, perform exactly one prevAns continuation at nsub=5/n3=3000, seed 12348. Stop on first acceptable fit. Applies identically to every specification and development target.",
+      "convergence_assessment": "precision-before-continuation-v1"
+    },
+    "forecast": {
+      "simulations": 1000,
+      "conditional": false,
+      "rate_rule": "last_estimable_training_interval",
+      "covariate_rule": "carry_forward_origin",
+      "duration_years": 1,
+      "seed_rule": "target_year * 1000 + 1",
+      "fresh_finalist_seed_rule": "target_year * 1000 + 2",
+      "timeout_seconds": 21600
+    },
+    "fitness": {
+      "metric": "PRROC::pr.curve(..., curve=FALSE)$auc.integral",
+      "aggregation": "mean of four candidate-minus-baseline annual PR-AUC differences",
+      "average_endpoints_before_auc": true,
+      "combined_score_offset": 1,
+      "offset_reason": "Pinned native Shinka get_best_program uses score or -inf and mishandles exact zero; 1+F preserves ordering for valid PR-AUC differences.",
+      "numerical_tolerance": 9.9999999999999998e-13,
+      "failure_policy": "invalid, never a scientific loss or partial-year mean"
+    },
+    "complexity": {
+      "max_network_effects": 3,
+      "penalty": 0
+    },
+    "selection": {
+      "final_test_access": "only after locked selected canonical specification and protocol"
+    }
+  },
+  "policy": {
+    "version": "precision-before-continuation-v1",
+    "scope": "Opt-in structured Model 3 estimator; same rule for reference and candidate specifications.",
+    "trigger": "Complete 1000-draw fit with all non-ratio native checks passed and at least one failed convergence ratio.",
+    "short_pass": "Accept an already valid short fit; this is a prespecified supplemental gate, not uniform 3000-draw certification.",
+    "diagnostic_draws": 3000,
+    "nsub": 0,
+    "simOnly": false,
+    "serial": true,
+    "individual_strictly_below": 0.10000000000000001,
+    "overall_strictly_below": 0.25,
+    "seed_base": 52000000,
+    "seed_rule": "52000000 + 10 * forecast_target_year + optimization_attempt (1..4)",
+    "maximum_assessments_per_unchanged_vector": 1,
+    "maximum_extra_assessments_per_fit": 3,
+    "continuation_after_diagnostic_failure": "Use the original optimization checkpoint, not the diagnostic result, as prevAns.",
+    "complete_3000_failure": "Continue or exhaust the existing schedule; never reassess the unchanged vector.",
+    "native_invalid": "No precision reassessment; preserve ordinary continuation/failure behavior.",
+    "incomplete_operation": "Stop and retain evidence; no automatic rerun on resume.",
+    "historical_imports": "Not automatic. A separately audited checkpoint-import procedure is required; historical acceptance and forecasts are not migrated.",
+    "role_specific_rules": false,
+    "reserved_outcome_access": false,
+    "evidence_basis": "Steps 3B/3C at 7972dc9cac17ef62f78c774b1b8186d18ce9d1e1; descriptive evidence for two vectors, not universal certification."
+  },
+  "source_sha256": {
+    "R/empirical.R": "7642d0642261ac56a8bacd4c8280ea7b835c18f42c83e8073280b9f6fef68985",
+    "R/forecast.R": "0e364460af034477626b077aa14fc9b9f02d9cdfc09682d0eeafbb0891a30aea",
+    "R/network_specification_v2.R": "30552b27f50da4ef348c422abdbfca3e562fc85cbc6595941c01b0b0ec9ada87",
+    "R/forecast_multiobjective.R": "681793d9db415fd8e95d3d40606c6c40fdec65923191353321f1d9f4cdbd669a",
+    "R/convergence_preflight.R": "b9deaf332852e108eaafe2123271303faf70f1638ea2198e6063929825a550e8",
+    "R/precision_convergence.R": "eb5d5fa60b85d6d8979b16d77b655797c36995c17bf813523e23ef6d3f4d3bd7",
+    "scripts/precision_fit.py": "f0f260d8af09927618a2c170c95827e39311480b64b574436a68274c04a83126",
+    "scripts/convergence_pilot.py": "dd3c1009d345df2693c89971765fb3a7a4fd298c8dc93031e9dc2cec2f85db3a",
+    "scripts/scientific_contract.py": "9ff8230dcf597c0d1f31d9c75145a701a261abe4e36bf0319a2f812fbbd6e8b4",
+    "scripts/convergence_preflight.py": "20da8e65111828766792024d4f82a21372e0ff58a2aea6ef8d379f7fc425cace",
+    "environment/run-r": "b8deb06881864b96a049ad2fdc920e5a5661d5edd9d06d9744c7985ed51833ac",
+    "scripts/network_specification_v2.py": "b547c649248f60aa71eb1127805121e868d3b8820a60f759fba8ea9e67357b35",
+    "configs/effect-catalog-v2.json": "2351cdb084b34118733ca7f59a7296af416df32f07b2f0c474e63fcff2b758b1",
+    "configs/convergence-preflight-v1.json": "b84a567d4b2235af2ca180d49c1de7c7136f8b71b3238b81e0cbd56463a99483",
+    "configs/evaluator-v2.json": "23d4a55f5fbc676d0924cfc79816a38c47d87436248faf9304d81e00d77374a5",
+    "configs/precision-fit-v1.json": "bd2762fb36aec3747f1b3b7cff5871a99b73890fec241c190c7b7d6f3c21aa90",
+    "configs/convergence-assessment-v1.json": "df456d1f381c6b859d7afefdc37b67f04f677b0371a28d3118540e2bbd2fd109",
+    "environment/versions.json": "c6dfe4c4d7625899b0af6fc728e07ef43ec64ad398260a52f6ff4c17c13b8683",
+    "environment/conda-linux-64.explicit.txt": "f6aafee5d35cfe19066dde4ba704b8ab271c70930387108e09b1a8b934e8d2ba",
+    "scripts/step4_compare.py": "a1d6594e54673c106ed3fbf25b42a0f5d8d86eb7fcb106fc02a183143940f2b2",
+    "R/step4_compare.R": "2385087225527e53425419b7bef6a60dd81aa56e7125e9c8cd6141975baf5fed",
+    "R/test_step4_compare.R": "5c3709e34a5a07d0146bff10c2f0236b389c454d49afb8fa888843e113bf437d",
+    "configs/step4-comparison-v1.json": "4131bda2e98aead58baa8765ae503b498e1e085ed2a94cc878e503bdf0cbcb39",
+    "R/score.R": "2542b2666a0bdbb1022d507720d49e15fd11c1b817fd995d9d68dae9b159e3f5",
+    "candidates/step4_reference.py": "936023d97e0006c4a0feaccc9e9289b7076e5ce4d1a9603383f29e241c6b1ac4",
+    "candidates/step4_gwesp69.py": "6c26998810184abdddce041806a4bb4bd834743e7638939ff1f301d6f5e6ca08"
+  },
+  "native_source_sha256": {
+    "R/siena07.r": "a36f6105ab37ee067a01f587382cb8b08ac9117e1b5c1652608327a4c87b030d",
+    "R/robmon.r": "917037f767c28cab1e104d7fa79cdabc45d6bbd7198d87c98f5be76723f57b6e",
+    "R/initializeFRAN.r": "1b6beff3442beb9e8add1131213564c64c8cf5499201f3e0d4de9919b24b8991",
+    "R/phase1.r": "b8516ab545f1a8a5e570351c81f2457223e5494a63592bd994f42111917285e7",
+    "R/phase2.r": "51300e097a328a0f2ccc4d1d811581c0116e9a2e7f61afec8daa8d542994ef65",
+    "R/phase3.r": "5052965c866878935f9a6445e8875dbb2ab2a2594fa9d8c452606c378d41ee92",
+    "R/simstatsc.r": "37799c6ebf06ca46102b08559a405730b5c7de50a3b90fff20230a4cc5b94e92",
+    "R/terminateFRAN.r": "daeeb42a936e544324c6f3edb5ab9ece7a0cbc1aa155d85af96ec9fb24ee7be0",
+    "R/sienaModelCreate.r": "3fd470423038c4bbe2f86cc8d4672a17064ea1ec44af946344b5d0b35cc778c1",
+    "man/siena07.Rd": "c3bbdd113c914d9f8faab1e8749450cd4e8843fcb3648d08b75b3fd3984068ad",
+    "man/sienaAlgorithmCreate.Rd": "234a2e74089f22be7a19f6c6452874d81a7b593fa55e07687b61334f666e4163",
+    "DESCRIPTION": "a9ee3ced896fd3087c0cb508af331405b27975d5f399184dea0db8fcd6d6fd66",
+    "NAMESPACE": "e89903586d8b29ca49faf2b13c3088d55be98ec55a48d41c994c1f80f71ff352"
+  },
+  "historical_imports": "optimization-only audited replay",
+  "forecasts": 0,
+  "outcome_access": false,
+  "estimator_version": "precision-before-continuation-v1",
+  "model": "reference",
+  "comparison": {
+    "version": "step4-closure-comparison-v1",
+    "evidence_base_commit": "2a7a8f5000dacfcc9e56f865e2d720e1b446ee53",
+    "question": "Does replacing the network-selection transitive-triad term with native GWESP(69) change forecast quality and excessive predicted clustering under comparable estimation and forecast budgets?",
+    "models": {
+      "reference": {
+        "schema_version": 2,
+        "network_effects": [
+          {
+            "effect": "degPlus",
+            "parameter": 1
+          },
+          {
+            "effect": "transTriads",
+            "parameter": 0
+          }
+        ]
+      },
+      "gwesp69": {
+        "schema_version": 2,
+        "network_effects": [
+          {
+            "effect": "degPlus",
+            "parameter": 1
+          },
+          {
+            "effect": "gwesp",
+            "parameter": 69
+          }
+        ]
+      }
+    },
+    "development_years": [
+      2006,
+      2007,
+      2008,
+      2009
+    ],
+    "reserved_year_access": false,
+    "convergence_policy": "precision-before-continuation-v1",
+    "fit_settings": "configs/precision-fit-v1.json",
+    "historical_import": "Replay exact compatible optimization checkpoints in attempt order; recompute acceptance under the new policy, never import a historical acceptance or forecast. Any model with a matching bound history is eligible, independent of role.",
+    "baseline_cache_folders": {
+      "2006": "results/cache/8129f423ce5a8a407d8e5fe630fb02d145e209f6500ae34e57af32b4e4f2d829",
+      "2007": "results/cache/af83d3ca1787321e3791be9a7247b403b2bd9f5cefd58fb9111edb65d9b347c7",
+      "2008": "results/cache/bc0aa83f0001d4466c7e675ab88c95734eca049097860e828dc1799cf4cb1139",
+      "2009": "results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99"
+    },
+    "forecast": {
+      "batches_per_model_year": 5,
+      "endpoints_per_batch": 1000,
+      "point_estimate_endpoints": 5000,
+      "seed_base": 61000000,
+      "seed_rule": "61000000 + 100 * year + 10 * model_index + batch (model_index reference=0,gwesp69=1; batch=1..5)",
+      "max_new_batches": 40,
+      "duration_years": 1,
+      "conditional": false,
+      "batch_timeout_seconds": 1800
+    },
+    "primary": "Mean of four annual candidate-minus-reference PR-AUC differences. Each annual point uses probabilities averaged over all 5000 endpoints BEFORE PRROC scoring.",
+    "secondary": [
+      "Brier (reference minus candidate)",
+      "ordinal spending RMSE (reference minus candidate)",
+      "formation PR-AUC",
+      "dissolution PR-AUC",
+      "predicted ties and triangles",
+      "clustering and degree variance"
+    ],
+    "uncertainty": "Report five independent 1000-endpoint batch contrasts separately. Approximate Monte Carlo uncertainty of the pooled point by a five-block delete-one-batch jackknife, with blocks pairing the predeclared independent model/year batch indices. Preserve whole simulated networks. Report the four-year jackknife SE and a descriptive t(4) interval; it is not fitting or historical generalization uncertainty and is fragile for nonsmooth ranking metrics/ties.",
+    "no_automatic_winner": true,
+    "no_shinka_search": true,
+    "fitting_seed_repetitions": 1,
+    "decay_parameter_search": false,
+    "budget": {
+      "model_year_cells": 8,
+      "maximum_optimization_attempts_per_cell": 4,
+      "maximum_supplemental_diagnostics_per_cell": 3,
+      "cell_native_seconds": 14400,
+      "cell_wall_timeout_minutes": 270,
+      "max_parallel_cells": 8,
+      "automatic_numerical_retries": 0
+    },
+    "failure": "Retain failed or interrupted cells and exact checkpoints. No changed seeds, extra candidates, partial four-year score, silent restart or reserved-year access.",
+    "interpretation": "A development-stage comparison motivated partly by an already observed 2007 discrepancy, not a preregistered historical out-of-sample confirmation, causal test, free-riding test, evolutionary result, or measurement of fit-seed variability."
+  },
+  "import_history": {
+    "source_commit": "2a7a8f5000dacfcc9e56f865e2d720e1b446ee53",
+    "provenance_sha256": {
+      "results/cache/8129f423ce5a8a407d8e5fe630fb02d145e209f6500ae34e57af32b4e4f2d829/provenance.json": "cc9cc4b191610300f33f59ad70931603cbba055e2f20a1bda1a6534e5f4bfeff"
+    },
+    "attempts": {
+      "1": {
+        "path": "results/cache/8129f423ce5a8a407d8e5fe630fb02d145e209f6500ae34e57af32b4e4f2d829/fit-attempt-1.rds",
+        "sha256": "e56242a767771dcde6966c33684f07cfae0b4a88011a359efc960d2252cb3394",
+        "previous_path": null
+      },
+      "2": {
+        "path": "results/cache/8129f423ce5a8a407d8e5fe630fb02d145e209f6500ae34e57af32b4e4f2d829/fit-attempt-2.rds",
+        "sha256": "dcca749ce79b28b23f3a93a47e619b7317982bb7c1a2bd84a98d731d5d38facc",
+        "previous_path": "results/cache/8129f423ce5a8a407d8e5fe630fb02d145e209f6500ae34e57af32b4e4f2d829/fit-attempt-1.rds"
+      },
+      "3": {
+        "path": "results/cache/8129f423ce5a8a407d8e5fe630fb02d145e209f6500ae34e57af32b4e4f2d829/fit-attempt-3.rds",
+        "sha256": "f3c0bd5366438b4a66c357e865d822c2d23e4abe107a68620a2808f4fe72245c",
+        "previous_path": "results/cache/8129f423ce5a8a407d8e5fe630fb02d145e209f6500ae34e57af32b4e4f2d829/fit-attempt-2.rds"
+      },
+      "4": {
+        "path": "results/cache/8129f423ce5a8a407d8e5fe630fb02d145e209f6500ae34e57af32b4e4f2d829/fit-attempt-4.rds",
+        "sha256": "955533aadd0540c628649344e76d8eb5505f82fddc6a1c8bcfdb6a0b32748355",
+        "previous_path": "results/cache/8129f423ce5a8a407d8e5fe630fb02d145e209f6500ae34e57af32b4e4f2d829/fit-attempt-3.rds"
+      }
+    },
+    "historical_acceptance_imported": false
+  },
+  "forecast_seeds": [
+    61200601,
+    61200602,
+    61200603,
+    61200604,
+    61200605
+  ]
+}

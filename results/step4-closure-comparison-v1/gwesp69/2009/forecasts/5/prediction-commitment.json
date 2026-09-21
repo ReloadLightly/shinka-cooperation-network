@@ -1,0 +1,25 @@
+{
+  "version": "step4-closure-comparison-v1",
+  "files": {
+    "behavior_predictions.csv": "250508e858876d071578b32eb6ebd785d78af78a9f46a063826372dc560c2b77",
+    "canonical_specification.json": "3f77542934e32ec8dbefc73148551e4c4c089b7101f8e7c780c7f0dd328f5247",
+    "checkpoint.json": "8f50a659190575d8958bdfb9ce0ee3d35c9753f9fb75756574bb3ee2bb3c468b",
+    "fitted_coefficients.csv": "8f7331f900d73fd5cb8d34f7f3863f3df5c25009873f6151c964f58aa959b307",
+    "forecast-settings.json": "270e2438e152d2a4a4e87730b08f089f619d6e10f47e7dab83a81963af760bb1",
+    "forecast.txt": "80c6f5d9bc3e1e5bd3d4c47931b2f121040dc0a90c5d9f5bf2149761be9c4265",
+    "forecast_audit.json": "33a7ccda19df0e360902e7696fd0a3f1438dc4cca0d1da568dd2c1b4241312d2",
+    "forecast_coefficient_transform.json": "7216d2047a741f0fb81d9da0ae35347df92e447216511edd2f0bc11e4e54358d",
+    "forecast_effects.csv": "3086d95f9a2c1b49ff5c3f5091144140268e1138953070f2ea9a305ff53eebbb",
+    "native.log": "d90fd0d0c57f4b48f7678117879a92d924bbe5533db84026fbe1b77932e1418a",
+    "native_effect_instance_catalog.csv": "3d38270aef35ca34651b3712afb7a9d4e063edf9d5c9ad802d70e5e26b0bdbf3",
+    "predictions.csv": "3a066a8b8ddfc9a4f2aac09514f8522b18f3912d4fd4e095e706fde4fa334a70",
+    "predictions.rds": "0a844139db9223e915fe35551cf2c3b1b4b5d2e8ba08543bb6f261b719e149fa",
+    "preflight_audit.json": "d2d8dd1345b3ddb4b95a2b869c6a5e38798107eceece945f51529770b4f96fb2",
+    "receipt-audit.json": "2262e9bc6a869ca63734c76423ba39833bfd6df081032e2731c50250b7148638",
+    "resources.txt": "afe87d869c21a470544a4a850f18c8208d17d7a4d4129b41b38f0ee7492584c7",
+    "simulations.rds": "fb6165c33eee46efbe9c43004b0c8c26ece7bfc0a143101bd9a7600a69a1cedd",
+    "started.json": "51bd909dd1c3f344f0e2976b732ef2a98c6074cb2b36f5fdfcffee3fa9cd6192",
+    "structured_adapter.json": "62ca2907d8a404a0388f630c27d896286db24fbe55f53141bbb94c21b8e943b8",
+    "training_effects.csv": "4f94a319e468fcc82c2bd717a3c409510a23cef5809b2acd5870e961e303912e"
+  }
+}

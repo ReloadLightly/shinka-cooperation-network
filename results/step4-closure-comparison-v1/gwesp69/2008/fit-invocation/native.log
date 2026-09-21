@@ -1,0 +1,99 @@
+Warning message:
+package ‘jsonlite’ was built under R version 4.2.3 
+STEP4 new optimization attempt 1 
+If you use this algorithm object, siena07 will create/use an output file /home/runner/work/shinka-cooperation-network/shinka-cooperation-network/results/step4-closure-comparison-v1/gwesp69/2008/fit/fit-1.txt .
+Tracing function "phase1.1" in package "namespace:RSiena"
+Tracing function "phase1.2" in package "namespace:RSiena"
+Tracing function "phase2.1" in package "namespace:RSiena"
+Tracing function "proc2subphase" in package "namespace:RSiena"
+Tracing function "maxlikec" in package "namespace:RSiena"
+Tracing function "phase3" in package "namespace:RSiena"
+Tracing function "simstats0c" in package "namespace:RSiena"
+Tracing function "phase3.2" in package "namespace:RSiena"
+Tracing function "PotentialNR" in package "namespace:RSiena"
+PRECISION 250 /3000; theta unchanged
+PRECISION 500 /3000; theta unchanged
+PRECISION 750 /3000; theta unchanged
+PRECISION 1000 /3000; theta unchanged
+PRECISION 1250 /3000; theta unchanged
+PRECISION 1500 /3000; theta unchanged
+PRECISION 1750 /3000; theta unchanged
+PRECISION 2000 /3000; theta unchanged
+PRECISION 2250 /3000; theta unchanged
+PRECISION 2500 /3000; theta unchanged
+PRECISION 2750 /3000; theta unchanged
+PRECISION 3000 /3000; theta unchanged
+Untracing function "PotentialNR" in package "namespace:RSiena"
+Untracing function "phase3.2" in package "namespace:RSiena"
+Untracing function "simstats0c" in package "namespace:RSiena"
+Untracing function "phase3" in package "namespace:RSiena"
+Untracing function "maxlikec" in package "namespace:RSiena"
+Untracing function "proc2subphase" in package "namespace:RSiena"
+Untracing function "phase2.1" in package "namespace:RSiena"
+Untracing function "phase1.2" in package "namespace:RSiena"
+Untracing function "phase1.1" in package "namespace:RSiena"
+STEP4 new optimization attempt 2 
+If you use this algorithm object, siena07 will create/use an output file /home/runner/work/shinka-cooperation-network/shinka-cooperation-network/results/step4-closure-comparison-v1/gwesp69/2008/fit/fit-2.txt .
+Tracing function "phase1.1" in package "namespace:RSiena"
+Tracing function "phase1.2" in package "namespace:RSiena"
+Tracing function "phase2.1" in package "namespace:RSiena"
+Tracing function "proc2subphase" in package "namespace:RSiena"
+Tracing function "maxlikec" in package "namespace:RSiena"
+Tracing function "phase3" in package "namespace:RSiena"
+Tracing function "simstats0c" in package "namespace:RSiena"
+Tracing function "phase3.2" in package "namespace:RSiena"
+Tracing function "PotentialNR" in package "namespace:RSiena"
+PRECISION 250 /3000; theta unchanged
+PRECISION 500 /3000; theta unchanged
+PRECISION 750 /3000; theta unchanged
+PRECISION 1000 /3000; theta unchanged
+PRECISION 1250 /3000; theta unchanged
+PRECISION 1500 /3000; theta unchanged
+PRECISION 1750 /3000; theta unchanged
+PRECISION 2000 /3000; theta unchanged
+PRECISION 2250 /3000; theta unchanged
+PRECISION 2500 /3000; theta unchanged
+PRECISION 2750 /3000; theta unchanged
+PRECISION 3000 /3000; theta unchanged
+Untracing function "PotentialNR" in package "namespace:RSiena"
+Untracing function "phase3.2" in package "namespace:RSiena"
+Untracing function "simstats0c" in package "namespace:RSiena"
+Untracing function "phase3" in package "namespace:RSiena"
+Untracing function "maxlikec" in package "namespace:RSiena"
+Untracing function "proc2subphase" in package "namespace:RSiena"
+Untracing function "phase2.1" in package "namespace:RSiena"
+Untracing function "phase1.2" in package "namespace:RSiena"
+Untracing function "phase1.1" in package "namespace:RSiena"
+$version
+[1] "step4-closure-comparison-v1"
+
+$status
+[1] "accepted"
+
+$model
+[1] "gwesp69"
+
+$target
+[1] 2008
+
+$imported_optimization_checkpoints
+list()
+
+$new_optimization_calls_this_invocation
+[1] 2
+
+$authoritative_n3
+[1] 3000
+
+$accepted_attempt
+[1] 2
+
+$historical_acceptance_imported
+[1] FALSE
+
+$forecasts
+[1] 0
+
+$target_reads
+[1] 0
+

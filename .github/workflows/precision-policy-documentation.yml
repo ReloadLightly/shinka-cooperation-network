@@ -1,0 +1,123 @@
+name: Precision policy - publish reviewed documentation
+on:
+  push:
+    branches: [repairs/precision-policy-v1-20260921]
+    paths: [.github/workflows/precision-policy-documentation.yml]
+permissions:
+  contents: write
+jobs:
+  document:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - name: Verify saved evidence and publish policy documentation
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import pathlib,json,hashlib
+          out=pathlib.Path('results/diagnostics/precision-policy-v1')
+          record=json.loads((out/'execution.json').read_text())
+          assert record['status']=='verified' and record['python_tests']==170 and record['native_checks']==48
+          assert all(record[k]==0 for k in ['new_simulations','new_refits','new_forecasts','target_packets_read'])
+          for name,digest in json.loads((out/'commitment.json').read_text())['files'].items():
+              assert hashlib.sha256((out/name).read_bytes()).hexdigest()==digest,name
+          p=pathlib.Path('scripts/precision_fit.py');s=p.read_text()
+          old='    "scripts/precision_fit.py", "scripts/convergence_pilot.py",\n'
+          assert s.count(old)==1
+          p.write_text(s.replace(old,old+'    "scripts/scientific_contract.py", "scripts/convergence_preflight.py", "environment/run-r",\n'))
+          report='''# Precision-before-continuation policy: implementation validation
+
+          Status: **implemented and validated as an opt-in fit-only policy**.
+          No Step 4 experiment or production fit has been executed under this policy.
+
+          The pinned R 4.2.1 / RSiena 1.3.10 validation passed **48 R checks**.
+          It replayed archived native and explicitly synthetic fixtures through the
+          policy state machine, testing short acceptance, one supplemental assessment,
+          successful rescue, failed-assessment continuation using original prevAns,
+          unchanged-vector seed reuse, partial-operation refusal and tampering refusal.
+          Both strict cutoffs and all existing native validity requirements remain.
+
+          Two **real native initializations** restored the saved third/fourth vectors
+          through the structured adapter at policy seed 52020091 and stopped before
+          phase 3. All coefficients remained identical, with zero simulator calls.
+          The test replay does not create empirical observations at that new seed.
+          The new generalized assessor's complete 3000-draw route was not rerun.
+
+          **170 Python tests** passed. Source/CLI tests, fixture replay and real stopped
+          initialization are distinct forms of evidence, not interchangeable claims.
+          Saved evidence is in execution.json, native-tests.json, native-tests.log,
+          python-tests.log and resources.txt; commitment.json binds those original files.
+          Documentation publication additionally binds the Python contract and runtime
+          launcher helpers in future request fingerprints; it does not alter the native
+          implementation that passed the R checks.
+
+          ## Exact production behavior, when explicitly invoked
+
+          An eligible ratio-failing 1000-draw vector gets one fresh 3000-draw check.
+          Valid short fits remain accepted; this is a prespecified supplemental gate,
+          **not universal 3000-draw certification** or a guaranteed error probability.
+          A failed complete 3000-draw result gets no extra chance. Native-invalid
+          short fits do not bypass native validity. Seeds depend only on development
+          target and optimization attempt: 52000000 + 10 * year + attempt.
+          If an unchanged vector recurs within its bound fit, its assessment is reused.
+
+          Original optimizer checkpoints and any supplemental result remain separate.
+          Failed supplemental diagnostics never replace original warm-start matrices.
+          Acceptance records explicitly carry authoritative_n3, which can be 3000 on
+          an optimizer attempt whose scheduled n3 was 1000. Resumption cannot silently
+          change the request, overwrite evidence or retry an interrupted operation.
+
+          ## Boundaries and Step 4
+
+          The interface is scripts/precision_fit.py, with the explicitly new profile
+          configs/precision-fit-v1.json. It is development-only and fit-only; no target
+          scores or evolution run. Historical entry points/settings/results remain
+          unchanged. Do not give the new settings to the old forecast adapter: Step 4
+          must explicitly consume the new acceptance receipt and declare its scoring
+          and uncertainty protocol. Automatic migration of historical accepted fits or
+          scores is not implemented. Any reuse must replay a reviewed policy-compatible
+          checkpoint history consistently for reference and candidate models.
+
+          Full design: ../../../docs/PRECISION_CONVERGENCE_POLICY.md.
+          Evidence motivating it: ../convergence-repeatability-v1/INTERPRETATION.md.
+          '''
+          import textwrap
+          (out/'REPORT.md').write_text(textwrap.dedent(report))
+          p=pathlib.Path('README.md');s=p.read_text()
+          addition='''## Prospective convergence policy for the next comparison
+
+          The separately versioned **precision-before-continuation-v1** estimator is
+          implemented and validated using saved-fixture replay and stopped native
+          initialization. Eligible ratio-failing 1,000-draw fits receive one fixed
+          3,000-draw assessment at unchanged coefficients before another optimization
+          continuation. Thresholds and native validity checks are unchanged; valid
+          short fits still pass without reassessment. This is **opt-in, fit-only**:
+          historical evaluators and results remain unchanged and Step 4 has not run.
+          See [policy and handoff](docs/PRECISION_CONVERGENCE_POLICY.md) and
+          [validation evidence](results/diagnostics/precision-policy-v1/REPORT.md).
+
+          '''
+          assert '## 1. Research question' in s and '## Prospective convergence policy' not in s
+          p.write_text(s.replace('## 1. Research question',textwrap.dedent(addition)+'## 1. Research question',1))
+          p=pathlib.Path('docs/REPAIR_STEPS.md');s=p.read_text()
+          old='No production convergence policy, historical acceptance decision, forecast fitness or evolutionary archive was changed. Step 4 has not started.'
+          new='Those diagnostic steps did not change the production policy. The subsequently approved **precision-before-continuation-v1** policy is now implemented as a separately selected, fit-only estimator. Historical acceptance, forecast fitness and existing evolutionary configurations are unchanged. Step 4 has not started.'
+          assert s.count(old)==1
+          s=s.replace(old,new)
+          needle='| 4. A changed-specification comparison |'
+          row='| **Precision policy preparation** | Apply the approved one-assessment rule before continuation. | Implemented opt-in fitter; 170 Python tests and 48 R checks, including two real stopped initializations. No new simulations or Step 4 comparison. See [policy](PRECISION_CONVERGENCE_POLICY.md). |\n'
+          assert needle in s
+          p.write_text(s.replace(needle,row+needle,1))
+          PY
+          python -m unittest discover -s tests -v > /tmp/precision-publication-tests.log 2>&1
+          python scripts/update_readme_status.py --check
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/precision_fit.py README.md docs/REPAIR_STEPS.md results/diagnostics/precision-policy-v1/REPORT.md
+          git commit -m 'Document opt-in precision policy, validation limits and explicit Step 4 acceptance handoff'
+          git push origin "HEAD:${GITHUB_REF_NAME}"

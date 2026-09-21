@@ -1,0 +1,103 @@
+name: Step 3A verify without simulation
+on:
+  push:
+    branches: [repairs/step3a-diagnostic-preflight-20260921]
+    paths: [.github/workflows/step3a-verify.yml]
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    env:
+      R_GC_MEM_GROW: '0'
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      MAKEFLAGS: '-j2'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/cache@v4
+        with:
+          path: |
+            environment/runtime
+            environment/R-library
+            environment/bin
+            environment/downloads
+            vendor/RSiena
+          key: step3a-native-r421-rsiena1310-${{ hashFiles('environment/conda-linux-64.explicit.txt') }}
+      - name: Install pinned runtime without preparing raw data
+        run: |
+          set -euo pipefail
+          mkdir -p environment/{bin,downloads,R-library,conda-pkgs} vendor
+          export MAMBA_ROOT_PREFIX="$PWD/environment/conda-pkgs"
+          if [ ! -x environment/bin/micromamba ]; then
+            curl --fail --location --retry 2 https://micro.mamba.pm/api/micromamba/linux-64/2.9.0 -o environment/downloads/micromamba.tar.bz2
+            echo '8761c382127e6363bd9e0a2451aa3ef90d071a79133f736e2f759a3bf13040dd  environment/downloads/micromamba.tar.bz2' | sha256sum -c -
+            tar -xjf environment/downloads/micromamba.tar.bz2 -C environment bin/micromamba
+          fi
+          if [ ! -x environment/runtime/bin/Rscript ]; then
+            environment/bin/micromamba create --yes --prefix "$PWD/environment/runtime" --file environment/conda-linux-64.explicit.txt
+          fi
+          if [ ! -d vendor/RSiena ]; then
+            curl --fail --location --retry 2 https://github.com/stocnet/rsiena/archive/refs/tags/v1.3.10.tar.gz -o environment/downloads/RSiena-v1.3.10.tar.gz
+            echo 'c7e0fc358f064e6b5d753ceb675a2eb00ea08cd6d58934ebabef31055302a1d5  environment/downloads/RSiena-v1.3.10.tar.gz' | sha256sum -c -
+            tar -xzf environment/downloads/RSiena-v1.3.10.tar.gz -C vendor
+            mv vendor/rsiena-1.3.10 vendor/RSiena
+          fi
+          if [ ! -f environment/R-library/RSiena/DESCRIPTION ]; then
+            environment/bin/micromamba run --prefix "$PWD/environment/runtime" R CMD INSTALL --library="$PWD/environment/R-library" vendor/RSiena
+          fi
+      - name: Source regressions and deterministic native self-tests
+        run: |
+          set -euo pipefail
+          python -m unittest discover -s tests -v 2>&1 | tee /tmp/step3a-tests.log
+          python scripts/update_readme_status.py --check
+          python scripts/convergence_preflight.py check
+          environment/run-r R/convergence_preflight.R --self-test
+      - name: Reconstruct old diagnostics and stop before phase 3
+        run: |
+          set -euo pipefail
+          /usr/bin/time -v -o /tmp/step3a-resources.txt python scripts/convergence_preflight.py verify --execute
+          python scripts/convergence_preflight.py verify-artifacts
+          test ! -e data/targets/2010.rds
+          test ! -e data/targets/2009.rds
+          test ! -e data/past/2010.rds
+          test ! -e results/diagnostics/convergence-preflight-v1/training-packet.rds
+          git diff --exit-code
+          python - <<'PY'
+          import pathlib,json,os,re,shutil
+          out=pathlib.Path('results/diagnostics/convergence-preflight-v1')
+          tests=pathlib.Path('/tmp/step3a-tests.log').read_text()
+          n=int(re.search(r'Ran (\d+) tests',tests).group(1))
+          assert re.search(r'\nOK\s*$',tests)
+          shutil.copy2('/tmp/step3a-tests.log',out/'python-tests.log')
+          shutil.copy2('/tmp/step3a-resources.txt',out/'resources.txt')
+          (out/'execution.json').write_text(json.dumps({'stage':'3A','status':'verified_no_simulation',
+            'workflow_run':os.environ['GITHUB_RUN_ID'],'source_commit':os.environ['GITHUB_SHA'],
+            'python_tests':n,'real_saved_fit_loaded':True,'only_training_packet_decompressed':True,
+            'native_initialization_stopped_before_phase3_body':True,'original_tracked_files_unchanged':True,
+            'new_simulations':0,'new_refits':0,'new_forecasts':0,'target_packets_read':0,'raw_archives_read':0,
+            'step3b_started':False},indent=2)+'\n')
+          PY
+      - name: Preserve verification evidence on the step 3A branch only
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- results/diagnostics/convergence-preflight-v1
+          git diff --cached --check -- '*.json' '*.csv'
+          git commit -m 'Record verified saved-fit diagnostics and stopped native initialization; no new simulations'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: step3a-verification-evidence
+          path: |
+            results/diagnostics/convergence-preflight-v1
+            /tmp/step3a-tests.log
+            /tmp/step3a-resources.txt
+          if-no-files-found: ignore
+          retention-days: 14

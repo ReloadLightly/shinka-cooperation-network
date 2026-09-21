@@ -1,3 +1,6 @@
+# Reviewed recovery: the first preflight stopped on the accepted-fit envelope,
+# before the study claim or any simulation. The format is now explicitly handled.
+# Frozen plan, nine numerical cells, coefficients, seeds and cutoffs are unchanged.
 name: Step 3C - bounded fixed-vector repeatability
 'on':
   push:

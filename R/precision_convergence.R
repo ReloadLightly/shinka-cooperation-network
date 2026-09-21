@@ -155,6 +155,9 @@ precision_verify_operation <- function(folder) {
   done<-file.path(folder,"complete.rds")
   assert(file.exists(done),paste("Incomplete operation preserved; no automatic retry:",folder))
   meta<-readRDS(done)
+  required<-if(!is.null(meta$vector_key))c("started.rds","result.rds","diagnostics.json")else c("started.rds","fit.rds")
+  assert(all(required%in%names(meta$files)),"Incomplete operation artifact list")
+  assert(all(basename(names(meta$files))==names(meta$files)),"Unsafe operation artifact path")
   for(n in names(meta$files))assert(identical(precision_sha(file.path(folder,n)),meta$files[[n]]),paste("Changed operation evidence",n))
   meta
 }
@@ -235,7 +238,16 @@ fit_model_precision <- function(netdata,effs,settings,outdir,target,
     if(record$accepted){
       ans<-list(fit=selected,diagnostics=history,convergence_policy=PRECISION_VERSION,
         accepted_attempt=attempt,authoritative_n3=actual_n3,authoritative_diagnostics=authoritative)
-      if(!file.exists(file.path(outdir,"accepted_fit.rds")))precision_save(ans,file.path(outdir,"accepted_fit.rds"))
+      receipt<-file.path(outdir,"accepted_fit.rds")
+      if(file.exists(receipt)){
+        old<-readRDS(receipt)
+        assert(identical(old$convergence_policy,ans$convergence_policy)&&
+          identical(old$accepted_attempt,ans$accepted_attempt)&&identical(old$authoritative_n3,ans$authoritative_n3)&&
+          identical(old$authoritative_diagnostics,ans$authoritative_diagnostics)&&
+          identical(as.numeric(old$fit$theta),as.numeric(ans$fit$theta))&&
+          identical(parameter_keys(old$fit$requestedEffects),parameter_keys(ans$fit$requestedEffects)),
+          "Uncommitted accepted receipt differs from replayed checkpoint decisions")
+      }else precision_save(ans,receipt)
       return(ans)
     }
     previous<-fit

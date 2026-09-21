@@ -1,0 +1,265 @@
+name: Step 3C - bounded fixed-vector repeatability
+'on':
+  push:
+    branches:
+    - repairs/step3c-convergence-repeatability-20260921
+    paths:
+    - .github/workflows/step3c-repeatability.yml
+permissions:
+  contents: read
+concurrency:
+  group: step3c-convergence-v1
+  cancel-in-progress: false
+env:
+  R_GC_MEM_GROW: '0'
+  OPENBLAS_NUM_THREADS: '1'
+  OMP_NUM_THREADS: '1'
+  MAKEFLAGS: -j2
+jobs:
+  prepare:
+    if: ${{ github.repository == 'ReloadLightly/shinka-cooperation-network' && github.event.repository.private == false }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+    - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+      with:
+        python-version: '3.11'
+    - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+      with:
+        path: |
+          environment/runtime
+          environment/R-library
+          environment/bin
+          environment/downloads
+          vendor/RSiena
+        key: step3b-native-r421-rsiena1310-${{ hashFiles('environment/conda-linux-64.explicit.txt') }}
+    - name: Install pinned runtime without raw-data preparation
+      run: |
+        set -euo pipefail
+        mkdir -p environment/{bin,downloads,R-library,conda-pkgs} vendor
+        export MAMBA_ROOT_PREFIX="$PWD/environment/conda-pkgs"
+        if [ ! -x environment/bin/micromamba ]; then
+          curl --fail --location --retry 2 https://micro.mamba.pm/api/micromamba/linux-64/2.9.0 -o environment/downloads/micromamba.tar.bz2
+          echo '8761c382127e6363bd9e0a2451aa3ef90d071a79133f736e2f759a3bf13040dd  environment/downloads/micromamba.tar.bz2' | sha256sum -c -
+          tar -xjf environment/downloads/micromamba.tar.bz2 -C environment bin/micromamba
+        fi
+        if [ ! -x environment/runtime/bin/Rscript ]; then
+          environment/bin/micromamba create --yes --prefix "$PWD/environment/runtime" --file environment/conda-linux-64.explicit.txt
+        fi
+        if [ ! -d vendor/RSiena ]; then
+          curl --fail --location --retry 2 https://github.com/stocnet/rsiena/archive/refs/tags/v1.3.10.tar.gz -o environment/downloads/RSiena-v1.3.10.tar.gz
+          echo 'c7e0fc358f064e6b5d753ceb675a2eb00ea08cd6d58934ebabef31055302a1d5  environment/downloads/RSiena-v1.3.10.tar.gz' | sha256sum -c -
+          tar -xzf environment/downloads/RSiena-v1.3.10.tar.gz -C vendor
+          mv vendor/rsiena-1.3.10 vendor/RSiena
+        fi
+        if [ ! -f environment/R-library/RSiena/DESCRIPTION ]; then
+          environment/bin/micromamba run --prefix "$PWD/environment/runtime" R CMD INSTALL --library="$PWD/environment/R-library" vendor/RSiena
+        fi
+    - name: Verify sources, pilot and fourth-vector initialization; no simulation
+      run: |
+        set -euo pipefail
+        mkdir -p results/diagnostics/convergence-repeatability-v1
+        python -m unittest discover -s tests -v > results/diagnostics/convergence-repeatability-v1/python-tests.log 2>&1
+        cat results/diagnostics/convergence-repeatability-v1/python-tests.log
+        python scripts/convergence_repeatability.py check
+        python scripts/update_readme_status.py --check
+        environment/run-r R/convergence_repeatability.R --self-test
+        python scripts/convergence_repeatability.py preflight --fit attempt4 --seed 2009401 --execute
+        git diff --exit-code
+    - name: Reserve this one bounded study
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        set -euo pipefail
+        python - <<'PYCLAIM'
+        import os,json,urllib.request
+        assert os.environ['GITHUB_RUN_ATTEMPT']=='1'
+        repo=os.environ['GITHUB_REPOSITORY']
+        assert repo=='ReloadLightly/shinka-cooperation-network'
+        payload={'ref':'refs/heads/claims/step3c-convergence-v1','sha':os.environ['GITHUB_SHA']}
+        req=urllib.request.Request('https://api.github.com/repos/'+repo+'/git/refs',data=json.dumps(payload).encode(),method='POST',headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','Content-Type':'application/json'})
+        with urllib.request.urlopen(req,timeout=30) as res: assert res.status==201
+        print('Claimed one closed nine-cell study; reruns refuse this existing claim.')
+        PYCLAIM
+    - name: Preserve preflight evidence without duplicating artifacts
+      run: |
+        set -euo pipefail
+        git config user.name 'github-actions[bot]'
+        git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+        git add -- results/diagnostics/convergence-repeatability-v1
+        git commit -m 'Preserve Step 3C preflight: fourth-vector initialization only, no new simulation'
+        git push origin HEAD:refs/heads/repairs/step3c-setup-evidence-20260921
+    - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      if: ${{ failure() }}
+      with:
+        name: step3c-setup-failure
+        path: results/diagnostics/convergence-repeatability-v1
+        retention-days: 1
+        if-no-files-found: ignore
+  cells:
+    needs: prepare
+    runs-on: ubuntu-22.04
+    timeout-minutes: 75
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      max-parallel: 9
+      matrix:
+        include:
+        - fit: attempt3
+          seed: 2009302
+        - fit: attempt3
+          seed: 2009303
+        - fit: attempt3
+          seed: 2009304
+        - fit: attempt3
+          seed: 2009305
+        - fit: attempt4
+          seed: 2009401
+        - fit: attempt4
+          seed: 2009402
+        - fit: attempt4
+          seed: 2009403
+        - fit: attempt4
+          seed: 2009404
+        - fit: attempt4
+          seed: 2009405
+    env:
+      FIT: ${{ matrix.fit }}
+      SEED: ${{ matrix.seed }}
+    steps:
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+    - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+      with:
+        python-version: '3.11'
+    - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+      with:
+        path: |
+          environment/runtime
+          environment/R-library
+          environment/bin
+          environment/downloads
+          vendor/RSiena
+        key: step3b-native-r421-rsiena1310-${{ hashFiles('environment/conda-linux-64.explicit.txt') }}
+    - name: Install pinned runtime only on cache miss
+      run: |
+        set -euo pipefail
+        mkdir -p environment/{bin,downloads,R-library,conda-pkgs} vendor
+        export MAMBA_ROOT_PREFIX="$PWD/environment/conda-pkgs"
+        if [ ! -x environment/bin/micromamba ]; then
+          curl --fail --location --retry 2 https://micro.mamba.pm/api/micromamba/linux-64/2.9.0 -o environment/downloads/micromamba.tar.bz2
+          echo '8761c382127e6363bd9e0a2451aa3ef90d071a79133f736e2f759a3bf13040dd  environment/downloads/micromamba.tar.bz2' | sha256sum -c -
+          tar -xjf environment/downloads/micromamba.tar.bz2 -C environment bin/micromamba
+        fi
+        if [ ! -x environment/runtime/bin/Rscript ]; then
+          environment/bin/micromamba create --yes --prefix "$PWD/environment/runtime" --file environment/conda-linux-64.explicit.txt
+        fi
+        if [ ! -d vendor/RSiena ]; then
+          curl --fail --location --retry 2 https://github.com/stocnet/rsiena/archive/refs/tags/v1.3.10.tar.gz -o environment/downloads/RSiena-v1.3.10.tar.gz
+          echo 'c7e0fc358f064e6b5d753ceb675a2eb00ea08cd6d58934ebabef31055302a1d5  environment/downloads/RSiena-v1.3.10.tar.gz' | sha256sum -c -
+          tar -xzf environment/downloads/RSiena-v1.3.10.tar.gz -C vendor
+          mv vendor/rsiena-1.3.10 vendor/RSiena
+        fi
+        if [ ! -f environment/R-library/RSiena/DESCRIPTION ]; then
+          environment/bin/micromamba run --prefix "$PWD/environment/runtime" R CMD INSTALL --library="$PWD/environment/R-library" vendor/RSiena
+        fi
+    - name: Run exactly one declared seed
+      id: native
+      run: |
+        set -euo pipefail
+        test "$GITHUB_RUN_ATTEMPT" = 1
+        environment/run-r R/convergence_repeatability.R --self-test
+        python scripts/convergence_repeatability.py run --fit "$FIT" --seed "$SEED" --execute
+        python scripts/convergence_repeatability.py verify-cell --fit "$FIT" --seed "$SEED"
+    - name: Publish cell evidence to its unique branch
+      id: publish
+      if: ${{ always() }}
+      env:
+        NATIVE_OUTCOME: ${{ steps.native.outcome }}
+      run: |
+        set -euo pipefail
+        OUT="results/diagnostics/convergence-repeatability-v1/$FIT/$SEED"
+        mkdir -p "$OUT"
+        test ! -f "$OUT/training-packet.rds"
+        git diff --exit-code
+        python - <<'PYRECORD'
+        import os,json,pathlib
+        out=pathlib.Path('results/diagnostics/convergence-repeatability-v1')/os.environ['FIT']/os.environ['SEED']
+        (out/'execution.json').write_text(json.dumps({'workflow_run':os.environ['GITHUB_RUN_ID'],'source_commit':os.environ['GITHUB_SHA'],'fit':os.environ['FIT'],'seed':int(os.environ['SEED']),'native_step_outcome':os.environ['NATIVE_OUTCOME'],'automatically_retried':False},indent=2)+'\n')
+        PYRECORD
+        git config user.name 'github-actions[bot]'
+        git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+        git add -- "$OUT"
+        git commit -m "Preserve fixed-vector diagnostic $FIT seed $SEED; no automatic retry"
+        git push origin "HEAD:refs/heads/repairs/step3c-results/$FIT-$SEED"
+    - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      if: ${{ always() && steps.publish.outcome != 'success' }}
+      with:
+        name: step3c-fallback-${{ matrix.fit }}-${{ matrix.seed }}
+        path: results/diagnostics/convergence-repeatability-v1
+        retention-days: 1
+        if-no-files-found: ignore
+  report:
+    needs:
+    - prepare
+    - cells
+    if: ${{ always() && needs.prepare.result == 'success' }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+    - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+      with:
+        python-version: '3.11'
+    - name: Collect every result, verify commitments and publish without native execution
+      run: |
+        set -euo pipefail
+        OUT=results/diagnostics/convergence-repeatability-v1
+        git fetch --no-tags origin repairs/step3c-setup-evidence-20260921
+        git checkout FETCH_HEAD -- "$OUT"
+        python - <<'PYCOLLECT'
+        import subprocess,pathlib,json
+        from scripts.convergence_repeatability import NEW,OUT
+        missing=[]
+        for fit,seed in NEW:
+            branch=f'repairs/step3c-results/{fit}-{seed}'
+            res=subprocess.run(['git','fetch','--no-tags','origin',branch],capture_output=True,text=True)
+            if res.returncode:
+                missing.append({'fit':fit,'seed':seed,'publication_error':res.stderr});continue
+            path=f'{OUT}/{fit}/{seed}'
+            res=subprocess.run(['git','checkout','FETCH_HEAD','--',path],capture_output=True,text=True)
+            if res.returncode:missing.append({'fit':fit,'seed':seed,'publication_error':res.stderr})
+        pathlib.Path(OUT,'collection.json').write_text(json.dumps({'missing_publications':missing},indent=2)+'\n')
+        PYCOLLECT
+        python scripts/convergence_repeatability.py aggregate
+        python - <<'PYMETA'
+        import json,pathlib,os
+        p=pathlib.Path('results/diagnostics/convergence-repeatability-v1')
+        s=json.loads((p/'summary.json').read_text())
+        (p/'execution.json').write_text(json.dumps({'workflow_run':os.environ['GITHUB_RUN_ID'],'source_commit':os.environ['GITHUB_SHA'],'status':s['status'],'new_completed_cells':s['new_completed_cells'],'reused_pilot_cells':s['reused_pilot_cells'],'automatic_retries':0,'new_refits':0,'new_forecasts':0,'step4_started':False},indent=2)+'\n')
+        with open(os.environ['GITHUB_STEP_SUMMARY'],'w') as f:f.write((p/'REPORT.md').read_text())
+        PYMETA
+        git config user.name 'github-actions[bot]'
+        git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+        git add -- "$OUT"
+        git diff --cached --check -- '*.py' '*.R' '*.json' '*.md'
+        git commit -m 'Publish Step 3C seed-level evidence and all-cell repeatability report'
+        git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+    - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      if: ${{ always() }}
+      with:
+        name: step3c-compact-review
+        path: |
+          results/diagnostics/convergence-repeatability-v1/**/*.json
+          results/diagnostics/convergence-repeatability-v1/**/*.csv
+          results/diagnostics/convergence-repeatability-v1/**/*.log
+          results/diagnostics/convergence-repeatability-v1/**/*.txt
+          results/diagnostics/convergence-repeatability-v1/**/*.md
+        retention-days: 1
+        if-no-files-found: ignore

@@ -1,0 +1,13 @@
+{
+  "version": "step4-closure-comparison-v1",
+  "status": "accepted",
+  "model": "gwesp69",
+  "target": 2007,
+  "imported_optimization_checkpoints": [],
+  "new_optimization_calls_this_invocation": 2,
+  "authoritative_n3": 3000,
+  "accepted_attempt": 2,
+  "historical_acceptance_imported": false,
+  "forecasts": 0,
+  "target_reads": 0
+}

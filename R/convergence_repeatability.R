@@ -27,6 +27,20 @@ check_phase3_state <- function(z,x,fit,seed) {
   assert(z$observations == 19L && z$pp == 58L, "Training scope changed")
 }
 
+# Accepted forecasts serialize list(fit, diagnostics); attempt checkpoints serialize
+# the sienaFit directly. Never substitute another file or loosen its hash binding.
+unwrap_saved_fit <- function(object,label) {
+  if(label=="attempt3") {
+    assert(inherits(object,"sienaFit"),"Third-attempt checkpoint is not a native fit")
+    return(object)
+  }
+  assert(label=="attempt4" && is.list(object) && inherits(object$fit,"sienaFit"),
+    "Accepted-fit envelope is malformed")
+  d <- tail(object$diagnostics,1)[[1]]
+  assert(d$attempt==4L && isTRUE(d$valid),"Envelope does not certify the fourth attempt")
+  object$fit
+}
+
 pilot_self_tests <- function() {
   n <- 0L
   bad <- function(expr) {assert(inherits(try(force(expr),silent=TRUE),"try-error"),"Expected refusal");n<<-n+1L}
@@ -41,6 +55,13 @@ pilot_self_tests <- function() {
   wrong <- z;wrong$cconditional<-TRUE;bad(check_simulation_state(wrong,theta))
   wrong <- z;wrong$cl<-list("worker");bad(check_simulation_state(wrong,theta))
   wrong <- z;wrong$Deriv<-FALSE;bad(check_simulation_state(wrong,theta))
+  fake <- structure(list(theta=theta),class="sienaFit")
+  wrapped <- list(fit=fake,diagnostics=list(list(attempt=4L,valid=TRUE)))
+  assert(identical(unwrap_saved_fit(fake,"attempt3"),fake),"Bare checkpoint mismatch");n<-n+1L
+  assert(identical(unwrap_saved_fit(wrapped,"attempt4"),fake),"Accepted envelope mismatch");n<-n+1L
+  bad(unwrap_saved_fit(wrapped,"attempt3"))
+  bad(unwrap_saved_fit(fake,"attempt4"))
+  wrapped$diagnostics[[1]]$attempt<-3L;bad(unwrap_saved_fit(wrapped,"attempt4"))
   list(status="passed",checks=n,new_simulations=0L)
 }
 
@@ -54,7 +75,7 @@ run_cell <- function(root,output,label,seed,preflight=FALSE) {
   meta <- plan$fits[[label]]
   assert(seed %in% meta$seeds,"Undeclared seed")
   assert(!(label=="attempt3" && seed==2009301L),"Completed pilot must not be rerun")
-  fit <- readRDS(file.path(root,meta$path))
+  fit <- unwrap_saved_fit(readRDS(file.path(root,meta$path)),label)
   packet <- readRDS(file.path(output,"training-packet.rds"))
   assert(identical(as.integer(packet$years),1990:2008) && length(packet$nms)==161L, "Wrong training packet")
   assert(length(fit$theta)==58L && nrow(fit$sf)==meta$original_draws && fit$Phase3nits==meta$original_draws, "Wrong saved fit")

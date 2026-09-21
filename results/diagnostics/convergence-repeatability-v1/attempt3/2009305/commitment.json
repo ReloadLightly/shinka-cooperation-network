@@ -1,0 +1,18 @@
+{
+  "stage": "3C",
+  "plan_sha256": "0f0b987240b0880148791531eea7e1bd1484e60009c5836b0891369d5fa91214",
+  "artifacts": {
+    "guard-audit.json": "91f09ac6e3d77984d86cd3f92d346c964f5fda706b2ce2d30729beb36b4edbf3",
+    "moment-covariance.csv": "d977d4cc909f808d8645b29ee6fabb27ab5825ac2b8cafee4e1a1101cbbade84",
+    "moment-deviations.csv": "7cf51c0eb559d2052e850e905ed229b9a5fcc1ea0281548b0754397f837c7f5e",
+    "native-diagnostic.rds": "b47400166a9a6f9d1feff0bf72663da0eff9718ddc1694795fc60cd9ab0dc774",
+    "native-pilot.txt": "a47b0265f3a118aad8c235dba8aadea2a8bb6d571fe083a927e6f2a3377ec329",
+    "native.log": "0a7197ad48299ac0b3b6c3726cba2682a3f9ec456e02f0d6141385f74f9a0722",
+    "parameter-diagnostics.csv": "d41095b0e7289d4ba78b090c3b167bbb9a1013a42f5f07502bb730df6c144f59",
+    "raw-phase3.rds": "bc6fd5c77f82d8620a80d95831758c980b01e774cf365efd11a4c245af4ba314",
+    "request.json": "e511535e7a0a874e2205a39edee0209da34646e72a063c2d34d2b39896bbafab",
+    "resources.txt": "aaf3926956c004bcd97c8311efe6d02e33d59efe8b7dd9b58d23605fb75f39ef",
+    "session-info.txt": "343f9b764400c4a5d1ccc91f45d46f71a81a3f229dcf27f4616965090b383a1b",
+    "summary.json": "349a3b6b9f26f7b0356588e1c075574b14ead8edeb575b4da436873664ff4779"
+  }
+}

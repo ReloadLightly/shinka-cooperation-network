@@ -1,0 +1,86 @@
+{
+  "status": "diagnosed_only",
+  "models": {
+    "reference/2006": {
+      "recomputed_valid": true,
+      "recorded_valid": true,
+      "authoritative_n3": 3000,
+      "differences": []
+    },
+    "reference/2007": {
+      "recomputed_valid": true,
+      "recorded_valid": true,
+      "authoritative_n3": 3000,
+      "differences": {
+        "covariance_minimum_eigenvalue": {
+          "actual": 5.2772380641444751e-06,
+          "recorded": 5.2772380640889368e-06,
+          "all_equal": true,
+          "actual_type": "double",
+          "recorded_type": "double"
+        },
+        "covariance_condition_number": {
+          "actual": 1705373.7292298228,
+          "recorded": 1705373.7292298477,
+          "all_equal": true,
+          "actual_type": "double",
+          "recorded_type": "double"
+        }
+      }
+    },
+    "reference/2008": {
+      "recomputed_valid": true,
+      "recorded_valid": true,
+      "authoritative_n3": 3000,
+      "differences": []
+    },
+    "reference/2009": {
+      "recomputed_valid": true,
+      "recorded_valid": true,
+      "authoritative_n3": 3000,
+      "differences": {
+        "covariance_minimum_eigenvalue": {
+          "actual": 3.8656907149791693e-06,
+          "recorded": 3.8656907149723948e-06,
+          "all_equal": true,
+          "actual_type": "double",
+          "recorded_type": "double"
+        },
+        "covariance_condition_number": {
+          "actual": 1920930.8205411416,
+          "recorded": 1920930.8205412054,
+          "all_equal": true,
+          "actual_type": "double",
+          "recorded_type": "double"
+        }
+      }
+    },
+    "gwesp69/2006": {
+      "recomputed_valid": true,
+      "recorded_valid": true,
+      "authoritative_n3": 3000,
+      "differences": []
+    },
+    "gwesp69/2007": {
+      "recomputed_valid": true,
+      "recorded_valid": true,
+      "authoritative_n3": 3000,
+      "differences": []
+    },
+    "gwesp69/2008": {
+      "recomputed_valid": true,
+      "recorded_valid": true,
+      "authoritative_n3": 3000,
+      "differences": []
+    },
+    "gwesp69/2009": {
+      "recomputed_valid": true,
+      "recorded_valid": true,
+      "authoritative_n3": 3000,
+      "differences": []
+    }
+  },
+  "new_simulations": 0,
+  "new_fits": 0,
+  "new_forecasts": 0
+}

@@ -1,0 +1,21 @@
+{
+  "stage": "3A",
+  "status": "verified_no_simulation",
+  "native_workflow_run": 35594291946,
+  "native_source_commit": "f6dce99f6f562ba391511d7d8087ca74b0b5795b",
+  "publication_workflow_run": "35594517754",
+  "publication_source_commit": "e797c6f3771a3de44e2075448ff219fdb6ced0fa",
+  "python_tests": 117,
+  "real_saved_fit_loaded": true,
+  "only_training_packet_decompressed": true,
+  "native_initialization_stopped_before_phase3_body": true,
+  "original_tracked_files_unchanged": true,
+  "new_simulations": 0,
+  "new_refits": 0,
+  "new_forecasts": 0,
+  "target_packets_read": 0,
+  "raw_archives_read": 0,
+  "native_execution_repeated_for_publication": false,
+  "step3b_started": false,
+  "publication_repair": "The native verification and all 117 tests passed. A helper incorrectly required OK at the end of the merged test log; buffered fixture output followed OK. Match the standalone status line instead, preserve original evidence and do not rerun native initialization."
+}

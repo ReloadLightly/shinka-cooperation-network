@@ -1,0 +1,108 @@
+{
+  "status": "verified_no_simulation",
+  "stage": "3A",
+  "training_years": [1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008],
+  "actors": 161,
+  "observations": 19,
+  "periods": 18,
+  "parameter_count": 58,
+  "network_rates": 18,
+  "behavior_rates": 18,
+  "network_objective": 11,
+  "behavior_objective": 11,
+  "original_diagnostics": {
+    "draws": 1000,
+    "maximum_absolute_t": 0.07587932310910743,
+    "overall": 0.26134400479858988,
+    "individual_pass": true,
+    "overall_pass": false,
+    "full_original_acceptance": false,
+    "covariance_reconstruction_max_error": 0,
+    "t_ratio_reconstruction_max_error": 0,
+    "overall_reconstruction_error": [
+      [3.8857805861880479e-16]
+    ]
+  },
+  "dry_initialization": {
+    "coefficients_identical": true,
+    "parameter_order_identical": true,
+    "fixed_flags_identical": true,
+    "free_coordinates": 58,
+    "observed_targets_equal": true,
+    "period_targets_equal": true,
+    "maximum_target_difference": 0,
+    "maximum_period_target_difference": 0,
+    "observations": 19,
+    "periods": 18,
+    "optimization_iterations": 0,
+    "nsub": 0,
+    "n3": 3000,
+    "simOnly": false,
+    "seed": 2009301,
+    "phase3_body_entered": false,
+    "simulator_entered": false
+  },
+  "source_function_verification": {
+    "siena07": {
+      "source": "R/siena07.r",
+      "loaded_body_and_formals_match": true
+    },
+    "robmon": {
+      "source": "R/robmon.r",
+      "loaded_body_and_formals_match": true
+    },
+    "initializeFRAN": {
+      "source": "R/initializeFRAN.r",
+      "loaded_body_and_formals_match": true
+    },
+    "simstats0c": {
+      "source": "R/simstatsc.r",
+      "loaded_body_and_formals_match": true
+    },
+    "terminateFRAN": {
+      "source": "R/terminateFRAN.r",
+      "loaded_body_and_formals_match": true
+    },
+    "phase3": {
+      "source": "R/phase3.r",
+      "loaded_body_and_formals_match": true
+    },
+    "phase3.2": {
+      "source": "R/phase3.r",
+      "loaded_body_and_formals_match": true
+    },
+    "CalculateDerivative3": {
+      "source": "R/phase3.r",
+      "loaded_body_and_formals_match": true
+    },
+    "PotentialNR": {
+      "source": "R/phase3.r",
+      "loaded_body_and_formals_match": true
+    }
+  },
+  "self_tests": {
+    "status": "passed",
+    "checks": 11,
+    "simulations": 0,
+    "refits": 0
+  },
+  "saved_fit_contains_reusable_training_data": false,
+  "interpretation": "Recomputed OLD 1000-draw diagnostics and verified initialization only. The 3000-draw pilot has NOT run. No new convergence observation, uncertainty estimate or acceptance decision.",
+  "new_simulations": 0,
+  "new_fits": 0,
+  "new_forecasts": 0,
+  "target_packets_read": 0,
+  "raw_archives_read": 0,
+  "pilot": {
+    "status": "prepared_not_executed",
+    "seed": 2009301,
+    "n3": 3000,
+    "nsub": 0,
+    "simOnly": false,
+    "coefficient_source": "fit$theta mapped by complete effect identities including period and group",
+    "previous_answer": {},
+    "keep_original_fixed_flags": true,
+    "thresholds": [0.10000000000000001, 0.25],
+    "remaining_checks": ["Actual 3000-draw completion", "Coefficient invariance throughout and after simulation", "Fresh diagnostics and numerical warnings", "Measured runtime and peak memory"]
+  }
+}

@@ -1,0 +1,130 @@
+test_artifact_tampering_refused (test_convergence_preflight.ConvergencePreflightTests.test_artifact_tampering_refused) ... ok
+test_declared_policy (test_convergence_preflight.ConvergencePreflightTests.test_declared_policy) ... ok
+test_duplicate_member_refused (test_convergence_preflight.ConvergencePreflightTests.test_duplicate_member_refused) ... /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/zipfile.py:1581: UserWarning: Duplicate name: 'data/past/2009.rds'
+  return self._open_to_write(zinfo, force_zip64=force_zip64)
+ok
+test_extra_or_unsafe_member_refused (test_convergence_preflight.ConvergencePreflightTests.test_extra_or_unsafe_member_refused) ... ok
+test_guarded_r_route_is_present (test_convergence_preflight.ConvergencePreflightTests.test_guarded_r_route_is_present) ... ok
+test_help_and_unexecuted_request_do_not_read_inputs (test_convergence_preflight.ConvergencePreflightTests.test_help_and_unexecuted_request_do_not_read_inputs) ... ok
+test_historical_acceptance_cannot_be_rewritten (test_convergence_preflight.ConvergencePreflightTests.test_historical_acceptance_cannot_be_rewritten) ... ok
+test_native_mismatch_refused (test_convergence_preflight.ConvergencePreflightTests.test_native_mismatch_refused) ... ok
+test_native_report_valid (test_convergence_preflight.ConvergencePreflightTests.test_native_report_valid) ... ok
+test_native_scope_violation_refused (test_convergence_preflight.ConvergencePreflightTests.test_native_scope_violation_refused) ... ok
+test_next_pilot_changes_refused (test_convergence_preflight.ConvergencePreflightTests.test_next_pilot_changes_refused) ... ok
+test_only_training_member_is_read (test_convergence_preflight.ConvergencePreflightTests.test_only_training_member_is_read) ... ok
+test_output_outside_diagnostics_refused_before_read (test_convergence_preflight.ConvergencePreflightTests.test_output_outside_diagnostics_refused_before_read) ... ok
+test_scope_changes_refused (test_convergence_preflight.ConvergencePreflightTests.test_scope_changes_refused) ... ok
+test_wrong_packet_hash_refused (test_convergence_preflight.ConvergencePreflightTests.test_wrong_packet_hash_refused) ... ok
+test_wrong_route_refused (test_convergence_preflight.ConvergencePreflightTests.test_wrong_route_refused) ... ok
+test_dry_run_needs_no_packets (test_forecast_repeatability.CliTests.test_dry_run_needs_no_packets) ... ok
+test_r_guard_source_prohibits_refit (test_forecast_repeatability.CliTests.test_r_guard_source_prohibits_refit) ... ok
+test_changed_packet_refused (test_forecast_repeatability.InputTests.test_changed_packet_refused) ... ok
+test_changed_score_commitment_refused (test_forecast_repeatability.InputTests.test_changed_score_commitment_refused) ... ok
+test_exact_eight_development_packets (test_forecast_repeatability.InputTests.test_exact_eight_development_packets) ... ok
+test_export_exact_packets_and_no_overwrite (test_forecast_repeatability.InputTests.test_export_exact_packets_and_no_overwrite) ... ok
+test_missing_all_packets_no_worker_or_output (test_forecast_repeatability.InputTests.test_missing_all_packets_no_worker_or_output) ... ok
+test_no_future_file_reads (test_forecast_repeatability.InputTests.test_no_future_file_reads) ... ok
+test_rejected_new_target_or_budget (test_forecast_repeatability.InputTests.test_rejected_new_target_or_budget) ... ok
+test_duplicate_and_nonfinite_refused (test_forecast_repeatability.SummaryTests.test_duplicate_and_nonfinite_refused) ... ok
+test_known_sample_sd_and_four_year_groups (test_forecast_repeatability.SummaryTests.test_known_sample_sd_and_four_year_groups) ... ok
+test_partial_not_fitness_or_generalization (test_forecast_repeatability.SummaryTests.test_partial_not_fitness_or_generalization) ... ok
+test_signed_same_model_difference_is_not_improvement (test_forecast_repeatability.SummaryTests.test_signed_same_model_difference_is_not_improvement) ... ok
+test_failed_worker_stops_no_substitute_or_retry (test_forecast_repeatability.WorkflowTests.test_failed_worker_stops_no_substitute_or_retry) ... ok
+test_finite_twenty_batches_and_resume_zero_calls (test_forecast_repeatability.WorkflowTests.test_finite_twenty_batches_and_resume_zero_calls) ... ok
+test_mutated_fixed_fit_refused (test_forecast_repeatability.WorkflowTests.test_mutated_fixed_fit_refused) ... ok
+test_one_batch_pause_then_resume (test_forecast_repeatability.WorkflowTests.test_one_batch_pause_then_resume) ... ok
+test_tampered_committed_forecast_never_regenerated (test_forecast_repeatability.WorkflowTests.test_tampered_committed_forecast_never_regenerated) ... ok
+test_changed_bytes_are_rejected (test_input_recovery.DevelopmentBundleTests.test_changed_bytes_are_rejected) ... ok
+test_exact_bundle_is_validated (test_input_recovery.DevelopmentBundleTests.test_exact_bundle_is_validated) ... ok
+test_expected_manifest_cannot_expand_the_scope (test_input_recovery.DevelopmentBundleTests.test_expected_manifest_cannot_expand_the_scope) ... ok
+test_reserved_or_traversal_or_missing_entries_are_rejected (test_input_recovery.DevelopmentBundleTests.test_reserved_or_traversal_or_missing_entries_are_rejected) ... ok
+test_restore_is_exact_and_repeatable_without_raw_data_or_r (test_input_recovery.DevelopmentBundleTests.test_restore_is_exact_and_repeatable_without_raw_data_or_r) ... ok
+test_restore_never_overwrites_changed_existing_packet (test_input_recovery.DevelopmentBundleTests.test_restore_never_overwrites_changed_existing_packet) ... ok
+test_default_dry_run_does_not_need_archive_or_runtime (test_input_recovery.InputRecoveryTests.test_default_dry_run_does_not_need_archive_or_runtime) ... ok
+test_restricts_original_preparation_without_altering_the_builder (test_input_recovery.InputRecoveryTests.test_restricts_original_preparation_without_altering_the_builder) ... ok
+test_source_drift_is_not_silently_accepted (test_input_recovery.InputRecoveryTests.test_source_drift_is_not_silently_accepted) ... ok
+test_maintained_shell_examples_select_protocol (test_protocol_routing.DocumentedCommandTests.test_maintained_shell_examples_select_protocol) ... ok
+test_explicit_protocol_routes_and_preserves_exit_code (test_protocol_routing.EvaluatorDispatchTests.test_explicit_protocol_routes_and_preserves_exit_code) ... ok
+test_omitted_protocol_never_dispatches (test_protocol_routing.EvaluatorDispatchTests.test_omitted_protocol_never_dispatches) ... ok
+test_legacy_native_invalid_fixture_still_selects_legacy_protocol (test_protocol_routing.NativeCallSiteTests.test_legacy_native_invalid_fixture_still_selects_legacy_protocol) ... ok
+test_legacy_profile_explicitly_routes_legacy_evaluator (test_protocol_routing.NativeCallSiteTests.test_legacy_profile_explicitly_routes_legacy_evaluator) ... ok
+test_multiobjective_launcher_keeps_explicit_current_protocol (test_protocol_routing.NativeCallSiteTests.test_multiobjective_launcher_keeps_explicit_current_protocol) ... ok
+test_conventional_launcher_requires_protocol_before_preflight (test_protocol_routing.ProtocolCliTests.test_conventional_launcher_requires_protocol_before_preflight) ... ok
+test_evaluator_requires_protocol_before_reading_candidate (test_protocol_routing.ProtocolCliTests.test_evaluator_requires_protocol_before_reading_candidate) ... ok
+test_help_needs_no_selector_or_scientific_environment (test_protocol_routing.ProtocolCliTests.test_help_needs_no_selector_or_scientific_environment) ... ok
+test_native_launcher_requires_config_before_importing_shinka (test_protocol_routing.ProtocolCliTests.test_native_launcher_requires_config_before_importing_shinka) ... ok
+test_unknown_conventional_protocol_rejected_without_work (test_protocol_routing.ProtocolCliTests.test_unknown_conventional_protocol_rejected_without_work) ... ok
+test_unknown_evaluator_protocol_rejected_without_work (test_protocol_routing.ProtocolCliTests.test_unknown_evaluator_protocol_rejected_without_work) ... ok
+test_effect_mapping_missing_is_explicit (test_scientific_contracts.FeedbackTests.test_effect_mapping_missing_is_explicit) ... ok
+test_hypothesis_does_not_invent_rationale (test_scientific_contracts.FeedbackTests.test_hypothesis_does_not_invent_rationale) ... ok
+test_native_failure_exposes_worst_effect_not_private_paths (test_scientific_contracts.FeedbackTests.test_native_failure_exposes_worst_effect_not_private_paths) ... ok
+test_signal_does_not_claim_oom (test_scientific_contracts.FeedbackTests.test_signal_does_not_claim_oom) ... ok
+test_champions_and_reference_are_deduplicated (test_scientific_contracts.FinalistTests.test_champions_and_reference_are_deduplicated) ... ok
+test_committed_missing_prediction_never_regenerated (test_scientific_contracts.FinalistTests.test_committed_missing_prediction_never_regenerated) ... ok
+test_dry_final_run_reads_nothing (test_scientific_contracts.FinalistTests.test_dry_final_run_reads_nothing) ... ok
+test_every_finalist_required_before_access (test_scientific_contracts.FinalistTests.test_every_finalist_required_before_access) ... ok
+test_five_prespecified_repetitions (test_scientific_contracts.FinalistTests.test_five_prespecified_repetitions) ... ok
+test_native_pause_is_not_terminal_loss (test_scientific_contracts.FinalistTests.test_native_pause_is_not_terminal_loss) ... ok
+test_nonfinite_rejected (test_scientific_contracts.FinalistTests.test_nonfinite_rejected) ... ok
+test_structured_forecast_not_legacy_adapter (test_scientific_contracts.FinalistTests.test_structured_forecast_not_legacy_adapter) ... ok
+test_ties_use_complexity_then_identity (test_scientific_contracts.FinalistTests.test_ties_use_complexity_then_identity) ... ok
+test_boolean_parameter_rejected (test_scientific_contracts.GrammarTests.test_boolean_parameter_rejected) ... ok
+test_canonical_order (test_scientific_contracts.GrammarTests.test_canonical_order) ... ok
+test_closure_moments_excluded (test_scientific_contracts.GrammarTests.test_closure_moments_excluded) ... ok
+test_degenerate_knot_rejected (test_scientific_contracts.GrammarTests.test_degenerate_knot_rejected) ... ok
+test_duplicate_aliases_rejected (test_scientific_contracts.GrammarTests.test_duplicate_aliases_rejected) ... ok
+test_literal_only (test_scientific_contracts.GrammarTests.test_literal_only) ... ok
+test_more_than_three_terms_allowed (test_scientific_contracts.GrammarTests.test_more_than_three_terms_allowed) ... ok
+test_native_product_compatibility (test_scientific_contracts.GrammarTests.test_native_product_compatibility) ... ok
+test_parameter_instances_differ (test_scientific_contracts.GrammarTests.test_parameter_instances_differ) ... ok
+test_product_order (test_scientific_contracts.GrammarTests.test_product_order) ... ok
+test_raw_moments_excluded (test_scientific_contracts.GrammarTests.test_raw_moments_excluded) ... ok
+test_reference_decodes (test_scientific_contracts.GrammarTests.test_reference_decodes) ... ok
+test_root_alias (test_scientific_contracts.GrammarTests.test_root_alias) ... ok
+test_zero_gwesp_idempotence (test_scientific_contracts.GrammarTests.test_zero_gwesp_idempotence) ... ok
+test_campaign_mismatch (test_scientific_contracts.IdentityTests.test_campaign_mismatch) ... ok
+test_catalog_math_bound (test_scientific_contracts.IdentityTests.test_catalog_math_bound) ... ok
+test_catalog_prose_ignored (test_scientific_contracts.IdentityTests.test_catalog_prose_ignored) ... ok
+test_estimator_change_invalidates_both (test_scientific_contracts.IdentityTests.test_estimator_change_invalidates_both) ... ok
+test_forecast_seed_does_not_invalidate_fit (test_scientific_contracts.IdentityTests.test_forecast_seed_does_not_invalidate_fit) ... ok
+test_forward_change_does_not_invalidate_fit (test_scientific_contracts.IdentityTests.test_forward_change_does_not_invalidate_fit) ... ok
+test_pending_population_preserved (test_scientific_contracts.IdentityTests.test_pending_population_preserved) ... ok
+test_science_never_reads_target_or_2010 (test_scientific_contracts.IdentityTests.test_science_never_reads_target_or_2010) ... ok
+test_score_change_leaves_predictions_alone (test_scientific_contracts.IdentityTests.test_score_change_leaves_predictions_alone) ... ok
+test_search_stops_after_explicit_plan (test_scientific_contracts.IdentityTests.test_search_stops_after_explicit_plan) ... ok
+test_unbound_population_not_relabelled (test_scientific_contracts.IdentityTests.test_unbound_population_not_relabelled) ... ok
+test_write_once_idempotent (test_scientific_contracts.IdentityTests.test_write_once_idempotent) ... ok
+test_dominated_removed_at_soft_target (test_scientific_contracts.ParetoTests.test_dominated_removed_at_soft_target) ... ok
+test_duplicate_earliest_not_best (test_scientific_contracts.ParetoTests.test_duplicate_earliest_not_best) ... ok
+test_incomplete_years_rejected (test_scientific_contracts.ParetoTests.test_incomplete_years_rejected) ... ok
+test_invalid_never_admitted (test_scientific_contracts.ParetoTests.test_invalid_never_admitted) ... ok
+test_paused_never_admitted (test_scientific_contracts.ParetoTests.test_paused_never_admitted) ... ok
+test_sql_invalid_and_duplicate_population (test_scientific_contracts.ParetoTests.test_sql_invalid_and_duplicate_population) ... ok
+test_tradeoff_retained_despite_lower_scalar (test_scientific_contracts.ParetoTests.test_tradeoff_retained_despite_lower_scalar) ... ok
+test_wrong_fingerprint_rejected (test_scientific_contracts.ParetoTests.test_wrong_fingerprint_rejected) ... ok
+test_actual_conventional_config_none (test_scientific_contracts.WindowTests.test_actual_conventional_config_none) ... ok
+test_existing_earlier_deadline (test_scientific_contracts.WindowTests.test_existing_earlier_deadline) ... ok
+test_inherited_without_window (test_scientific_contracts.WindowTests.test_inherited_without_window) ... ok
+test_invalid_hours (test_scientific_contracts.WindowTests.test_invalid_hours) ... ok
+test_invalid_inherited (test_scientific_contracts.WindowTests.test_invalid_inherited) ... ok
+test_numeric_deadline (test_scientific_contracts.WindowTests.test_numeric_deadline) ... ok
+test_remove_stale_env (test_scientific_contracts.WindowTests.test_remove_stale_env) ... ok
+test_unbounded_default (test_scientific_contracts.WindowTests.test_unbounded_default) ... ok
+test_pareto_parent_order_keeps_lower_scalar_tradeoff (test_workflow_integration.ConventionalIntegrationTests.test_pareto_parent_order_keeps_lower_scalar_tradeoff) ... ok
+test_unbounded_runner_completes_synthetic_reference (test_workflow_integration.ConventionalIntegrationTests.test_unbounded_runner_completes_synthetic_reference) ... ok
+test_changed_commitment_refuses_refit (test_workflow_integration.FixedSetWorkflowTests.test_changed_commitment_refuses_refit) ... ok
+test_complete_plan_sensitivity_lock_final_and_idempotent_resume (test_workflow_integration.FixedSetWorkflowTests.test_complete_plan_sensitivity_lock_final_and_idempotent_resume) ... ok
+test_incomplete_sensitivity_cannot_lock (test_workflow_integration.FixedSetWorkflowTests.test_incomplete_sensitivity_cannot_lock) ... ok
+test_invalid_final_forecast_is_null_and_not_retried_after_access (test_workflow_integration.FixedSetWorkflowTests.test_invalid_final_forecast_is_null_and_not_retried_after_access) ... ok
+test_selection_rejects_changed_scientific_identity (test_workflow_integration.FixedSetWorkflowTests.test_selection_rejects_changed_scientific_identity) ... ok
+
+----------------------------------------------------------------------
+Ran 117 tests in 3.377s
+
+OK
+{"summary": "/tmp/tmprskta6t3/results/diagnostics/repeat/summary.json", "new_batches": 20, "completed_batches": 20, "status": "complete"}
+{"summary": "/tmp/tmprskta6t3/results/diagnostics/repeat/summary.json", "new_batches": 0, "completed_batches": 20, "status": "complete"}
+{"summary": "/tmp/tmplnhznn1c/results/diagnostics/repeat/summary.json", "new_batches": 1, "completed_batches": 1, "status": "paused"}
+{"summary": "/tmp/tmplnhznn1c/results/diagnostics/repeat/summary.json", "new_batches": 1, "completed_batches": 2, "status": "paused"}
+{"summary": "/tmp/tmpgzj9dfo5/results/diagnostics/repeat/summary.json", "new_batches": 1, "completed_batches": 1, "status": "paused"}
+Dry run: run requires --execute. No forecasts or outcomes accessed.

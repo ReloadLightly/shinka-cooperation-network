@@ -1,0 +1,158 @@
+Warning message:
+package ‘jsonlite’ was built under R version 4.2.3 
+Tracing function "phase1.1" in package "namespace:RSiena"
+Tracing function "phase1.2" in package "namespace:RSiena"
+Tracing function "phase2.1" in package "namespace:RSiena"
+Tracing function "proc2subphase" in package "namespace:RSiena"
+Tracing function "doIterations" in package "namespace:RSiena"
+Tracing function "maxlikec" in package "namespace:RSiena"
+Tracing function "phase3" in package "namespace:RSiena"
+Tracing function "simstats0c" in package "namespace:RSiena"
+Tracing function "PotentialNR" in package "namespace:RSiena"
+Verified unchanged theta at native call 250 of 3000
+Verified unchanged theta at native call 500 of 3000
+Verified unchanged theta at native call 750 of 3000
+Verified unchanged theta at native call 1000 of 3000
+Verified unchanged theta at native call 1250 of 3000
+Verified unchanged theta at native call 1500 of 3000
+Verified unchanged theta at native call 1750 of 3000
+Verified unchanged theta at native call 2000 of 3000
+Verified unchanged theta at native call 2250 of 3000
+Verified unchanged theta at native call 2500 of 3000
+Verified unchanged theta at native call 2750 of 3000
+Verified unchanged theta at native call 3000 of 3000
+Untracing function "PotentialNR" in package "namespace:RSiena"
+Untracing function "simstats0c" in package "namespace:RSiena"
+Untracing function "phase3" in package "namespace:RSiena"
+Untracing function "maxlikec" in package "namespace:RSiena"
+Untracing function "doIterations" in package "namespace:RSiena"
+Untracing function "proc2subphase" in package "namespace:RSiena"
+Untracing function "phase2.1" in package "namespace:RSiena"
+Untracing function "phase1.2" in package "namespace:RSiena"
+Untracing function "phase1.1" in package "namespace:RSiena"
+{
+  "status": "completed",
+  "stage": "3B",
+  "training_years": [1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008],
+  "actors": 161,
+  "parameters": 58,
+  "draws": 3000,
+  "seed": 2009301,
+  "nsub": 0,
+  "simOnly": false,
+  "simulator_calls": 3000,
+  "phase3_entries": 1,
+  "optimization_entries": 0,
+  "newton_checks": 1,
+  "coefficients_identical_at_every_simulator_call": true,
+  "coefficients_identical_after": true,
+  "fixed_flags_identical": true,
+  "observed_targets_identical": true,
+  "original": {
+    "draws": 1000,
+    "maximum_absolute_t": 0.07587932310910743,
+    "overall": 0.26134400479859021,
+    "individual_pass": true,
+    "overall_pass": false
+  },
+  "fresh_prefix": {
+    "draws": 1000,
+    "maximum_absolute_t": 0.094229644280881195,
+    "overall": 0.26208269327212586,
+    "individual_pass": true,
+    "overall_pass": false
+  },
+  "fresh_full": {
+    "draws": 3000,
+    "maximum_absolute_t": 0.050915035189653818,
+    "overall": 0.19081938270781293,
+    "individual_pass": true,
+    "overall_pass": true
+  },
+  "historical_fit_accepted": false,
+  "fresh_native_diagnostics": {
+    "valid": true,
+    "maximum_absolute_t_ratio": 0.050915035189653818,
+    "overall_maximum_convergence": 0.19081938270781293,
+    "t_ratios": [-0.023903650977258342, 0.031157258252784332, -0.037016433372117213, -0.016338630521991009, 0.018162896447896627, -0.023780618352945104, 0.01003318728964402, -0.016005335159451191, 0.0033403074190273209, -0.0035616685841836559, 0.019771897148715391, 0.0053226575193685323, -0.010164630734115389, 0.017686335871844726, 0.030658784978477654, 0.003766550844899433, 0.01083395484434873, -0.037653286711706015, 0.0032254934823160793, 0.037266901477029421, 0.032447471748498158, -0.035459349716302345, 0.010463690287389679, 0.0044533181396833781, 0.0025149563463179492, -0.023303204812907877, 0.0099618530928964333, -0.015290614110652172, 0.011776141800451742, -0.017384070739205001, -0.0067514075054469162, 0.0042362052160061572, 0.0013198246286016159, 0.049634409905687647, -0.043091248630917713, 0.003052539210478693, 0.0053166493750735977, 0.006846979875379384, -0.02937124943008803, -0.024339620789577621, -0.019631851281886041, -0.050915035189653818, -0.040692782964109976, 0.021128257772842676, 0.020082838601882605, -0.017191895795162091, 0.0083005297568373038, 0.00035083924129576861, -0.045587749458262126, -0.0059378309252415959, -0.0080159204658392016, 0.042688764708207774, -0.045434984590137367, 0.020989652906255464, 0.023475721814711324, -0.020596941661783937, -0.015165693424039721, 0.0054709792360638811],
+    "estimates": [0.047088220799035407, 0.13952032976401443, 0.42974048489000261, 0.3477927215340455, 0.32340792080606867, 0.31832000918515085, 0.39776901596252473, 0.30856422064421207, 0.32688706768387049, 0.27452499634187039, 0.32280208146210387, 0.44639410121677076, 0.35388117652794709, 0.32360174372267525, 0.28985774430120614, 0.51594223685301066, 0.34214914608184732, 0.39626980053418642, -5.5373956927245107, 0.15839745095270064, 0.057236223009883125, -0.85761492508584325, 1.0931303683454128, -0.60653826048866466, 0.070877547841219579, -3.3897351416678756, -0.055939054002219497, 1.4515840611661313, 0.79907140174560398, 0.93396276137710044, 1.2964572315301648, 1.3504252472601721, 1.1915306023764387, 0.6969388480477422, 0.56212707518195326, 0.47628554815555524, 0.52147415384002438, 0.37224984121671828, 1.7115278372356442, 0.5829261800396226, 1.3128685474660216, 0.32121150283882416, 0.29475032944773349, 1.0850819919270336, 0.40747873977931193, 0.35235668787056418, 0.40673637863825685, -1.1716601012900836, -0.027762192832477616, 0.088737822375495948, -0.020653164885987087, -0.44879194161339547, -2.2396411684080277, 0.87520660239502557, -0.010892108252889918, 0.25749369704718239, 0.13711461332200747, 7.1307773329416317],
+    "standard_errors": [0.022203385529688452, 0.034830478169458889, 0.078644417493393612, 0.049386460672042387, 0.059961248100719698, 0.057467845956411481, 0.064536193095130312, 0.056183312060301763, 0.053244875738319361, 0.047959006956570203, 0.055014165538562865, 0.065221242981240296, 0.055460823581633172, 0.052427203230975564, 0.048287831274544883, 0.067130335200897437, 0.051927634802211527, 0.053758546334046184, 0.21606735470214536, 0.051611478444607638, 0.0051193565716415416, 0.069602083058123015, 0.13425820030014146, 0.069582864787574916, 0.029773490379810742, 0.34673374294826059, 0.057763781916926063, 0.23477575883628146, 0.067146864180036875, 0.17680497830994571, 0.25781522536009172, 0.26199294763937281, 0.22333321750142077, 0.13356389094215482, 0.12155581229740139, 0.10464293882637458, 0.10929307857542539, 0.083421734762018557, 0.37748232433617318, 0.11081231015034193, 0.23906683849584712, 0.079830841085611434, 0.076902423302966288, 0.20976206836236844, 0.10385990123646219, 0.086240605883083452, 0.095635696543537374, 0.078459495461039572, 0.023533628947017576, 0.023237956780611496, 0.0072851063340088184, 0.13407682401372017, 0.87425005041790937, 0.1638937725707835, 0.0035706593957439514, 0.19059125860694928, 0.091336269581778359, 2.9273375660501788],
+    "native_ok": true,
+    "termination": "OK",
+    "phase3_complete": true,
+    "phase3_iterations": 3000,
+    "covariance_all_finite": true,
+    "covariance_message": "",
+    "divergence": {
+      "present": true,
+      "shape_valid": true,
+      "any": false,
+      "indices": []
+    },
+    "fixed_parameters": {
+      "present": true,
+      "shape_valid": true,
+      "any": false,
+      "indices": []
+    },
+    "newly_fixed_parameters": {
+      "present": false,
+      "shape_valid": true,
+      "any": false,
+      "indices": []
+    },
+    "covariance_minimum_eigenvalue": 3.8587050989985024e-06,
+    "covariance_condition_number": 2223210.4909888287,
+    "finite_identified": true
+  },
+  "native_elapsed_seconds": 722.32600000000002,
+  "warnings": [],
+  "source_function_verification": {
+    "siena07": {
+      "source": "R/siena07.r",
+      "loaded_body_and_formals_match": true
+    },
+    "robmon": {
+      "source": "R/robmon.r",
+      "loaded_body_and_formals_match": true
+    },
+    "initializeFRAN": {
+      "source": "R/initializeFRAN.r",
+      "loaded_body_and_formals_match": true
+    },
+    "simstats0c": {
+      "source": "R/simstatsc.r",
+      "loaded_body_and_formals_match": true
+    },
+    "terminateFRAN": {
+      "source": "R/terminateFRAN.r",
+      "loaded_body_and_formals_match": true
+    },
+    "phase3": {
+      "source": "R/phase3.r",
+      "loaded_body_and_formals_match": true
+    },
+    "phase3.2": {
+      "source": "R/phase3.r",
+      "loaded_body_and_formals_match": true
+    },
+    "CalculateDerivative3": {
+      "source": "R/phase3.r",
+      "loaded_body_and_formals_match": true
+    },
+    "PotentialNR": {
+      "source": "R/phase3.r",
+      "loaded_body_and_formals_match": true
+    }
+  },
+  "reconstruction": {
+    "max_t_error": 0,
+    "max_covariance_error": 0,
+    "overall_error": 0
+  },
+  "new_refits": 0,
+  "new_forecasts": 0,
+  "target_packets_read": 0,
+  "raw_archives_read": 0,
+  "interpretation": "One new diagnostic batch at unchanged theta. Prefix and full estimates are nested, not independent repetitions. No variability estimate or historical acceptance update; primary fitting policy unchanged."
+} 

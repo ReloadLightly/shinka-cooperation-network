@@ -1,0 +1,13 @@
+{
+  "status": "completed",
+  "stage": "3B",
+  "seed": 2009301,
+  "n3": 3000,
+  "simulator_calls": 3000,
+  "phase3_entries": 1,
+  "forbidden_entries": 0,
+  "newton_checks": 1,
+  "initialization_verified": true,
+  "warnings": [],
+  "error": null
+}

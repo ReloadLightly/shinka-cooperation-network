@@ -1,0 +1,18 @@
+{
+  "stage": "3B",
+  "status": "completed",
+  "artifacts": {
+    "diagnostic-fit.rds": "be80aef250a6d17cef580d4cbf64714179f9c871c5e1fb573b6dab54d5006820",
+    "inputs.json": "cec02031d2f8f2c0245803d4f81721d529d60a210fe317fa84302a719f4eccf1",
+    "moment-covariance.csv": "6375ed5311cacbbcb456296cc6695a8050dbeb36002a404223b6445d894e8e53",
+    "moment-deviations.rds": "c0924b431ec1a8aac4225153eb162e038e0b1eb0f79cb80339ede037d02854dd",
+    "native-phase3.txt": "471f1d26b7a4d8254549d7139fab2220c4931cc9e5b692af30fb032b7105c8a7",
+    "native-state.json": "b5dc7e69007d79aee479c7f21425249f0e9c511f22ac2a7c2477474ee769b3da",
+    "native.log": "f6c4ea99e70807818026e8744bf8b3f59a475190ac1f4c145b8515b38f936112",
+    "parameter-diagnostics.csv": "0240b6441b30122d3e09696db7ed602a3efab0892d16af27ea22994f76aa114f",
+    "resources.txt": "d619d8c31d55fd613b8f49f60861707386a615bc0708568a2b98dc574ec1f453",
+    "result.json": "d1869803674d8ef2284442e53df91c3c1a6f3d20de1dfb684712e84b4cc1d148",
+    "session-info.txt": "343f9b764400c4a5d1ccc91f45d46f71a81a3f229dcf27f4616965090b383a1b",
+    "started.json": "8229e61f0303065d0dad2436db6cc8d8c47de99a8324573a9776aa8298213502"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "stage": "3B",
+  "workflow_run": "35603515377",
+  "source_commit": "251012b6aa255b1bcced6105688e9799bef43993",
+  "measurement_outcome": "success",
+  "result_status": "completed",
+  "python_tests": 134,
+  "source_tests_passed": true,
+  "new_refits": 0,
+  "new_forecasts": 0,
+  "raw_archives_read": 0,
+  "outcome_packets_read": 0,
+  "additional_repetitions_started": false
+}

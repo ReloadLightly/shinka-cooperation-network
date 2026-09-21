@@ -1,21 +1,34 @@
 # Step 2: fixed-fit forecast repeatability
 
-## Status
+## Status — completed
 
-The bounded diagnostic is implemented. **No empirical repeatability estimate has
-yet been produced.** A fresh published checkout contains all four accepted fits
-and primary forecasts, but not the eight development-only `data/past` and
-`data/targets` packets. Those directories are intentionally excluded from Git.
-The input checker reports their exact expected hashes from the published
-prediction/scoring provenance. Missing packets are an input-availability issue,
-not a failed fit or evidence about the signal-to-noise ratio.
+**All 20 native forecast batches completed with zero refits**, using R 4.2.1 /
+RSiena 1.3.10 in GitHub Actions run `35587860418`. The four-year average PR-AUC
+has fresh-batch sample SD **0.001075374**, across five prespecified repetitions.
+The full [measurement report](../results/diagnostics/forecast-repeatability-v1/REPORT.md),
+[unrounded summary](../results/diagnostics/forecast-repeatability-v1/summary.json)
+and per-batch native artifacts are retained. This is conditional forecast Monte
+Carlo variability, not a measured candidate SNR or an evolutionary improvement.
 
-A pinned R 4.2.1 / RSiena 1.3.10 environment was installed in a branch-only GitHub
-Actions job, and the saved native objects were inspected. The saved forecasts
-contain unpacked forward-state objects, but those objects are not a substitute
-for the original outcome packets required by the trusted scorer. The raw mixed-
-year replication archive was **not opened** to regenerate packets. No 2010
-outcomes, reference refits, candidate proposals or finalist selection are needed.
+The earlier [availability record](../results/diagnostics/forecast-repeatability-v1/availability.json)
+is preserved as historical evidence of the missing-input checkpoint, not current
+status. The exact eight development packets were subsequently recovered from
+GitHub and verified against all pre-existing published SHA-256 hashes. The
+verified bundle is now stored at `sources/archive/step2-development-inputs.zip`;
+no manual WSL-to-Windows upload is needed.
+
+The trusted recovery process did deserialize the mixed-year raw archive, then
+removed rows after 2009 before constructing packets. No 2010 forecast or score
+was produced, and no 2010 result was used for model selection. A subsequent raw
+reconstruction failed the past-packet byte hashes and was rejected; its cause
+was not established. The successful first bundle was reused without relaxing
+checks. Standard restoration now uses that development-only bundle and does not
+open the raw archive.
+
+An initial forecast attempt failed before simulation because CSV type inference
+turned empty interaction-name fields into logical NA. The diagnostic reader now
+preserves those fields as character strings; an R regression reproduces the old
+failure and verifies the repair. All coefficient equality checks remain intact.
 
 ## Frozen bounded design
 
@@ -74,18 +87,32 @@ Read-only availability/provenance check (exit 2 when packets are missing):
 python3 scripts/forecast_repeatability.py check
 ```
 
-On the existing local checkout with the original packets, export exactly the
-eight permitted inputs. This command checks their hashes and never includes the
-raw archive, 2010 packets, fitted models, credentials or runtime files:
+Restore exactly the eight verified packets from the repository bundle:
+
+```bash
+python3 scripts/recover_repeatability_inputs.py --execute
+```
+
+Restoration validates every member before writing, rejects unexpected paths or
+hash mismatches, and never overwrites conflicting local inputs. It starts no R
+process and performs no fitting, forecasting or scoring. The optional
+`--from-raw` route preserves the historical trusted-preparation implementation;
+it is not the routine restoration path and does not promise byte-identical
+reconstruction on another host. Existing recovery records are never overwritten.
+
+Export from a checkout with verified packets remains available, but is no longer
+required for this handoff:
 
 ```bash
 python3 scripts/forecast_repeatability.py export-inputs --output /tmp/step2-inputs.zip
 ```
 
-With the required packets and pinned native environment available:
+The existing runner remains available. With the published completed artifacts,
+it verifies and reuses all 20 batches; it does not start new forecasts. Native R
+is needed only when running a separately authorized incomplete study:
 
 ```bash
-# One bounded batch, then exit 75 with a resumable diagnostic checkpoint.
+# For an incomplete, separately authorized study: admit at most one new batch.
 python3 scripts/forecast_repeatability.py run --execute --max-new-batches 1
 
 # Complete the same finite study; completed batches are verified and reused.
@@ -102,11 +129,17 @@ The new Python regression cases cover missing/changed inputs, exact eight-file
 export, no reserved-packet reads, finite batches, prediction commitments, no-fit
 fallback, failure preservation, bounded pause/resumption and summary arithmetic.
 Workflow fixtures use synthetic bytes and a mocked native worker; they are not
-research observations. `environment/run-r R/forecast_repeatability.R
---guard-self-test` checks the R call guards without simulation. Native forecast
-execution and empirical variability remain unmeasured until the original
-permitted packets are supplied.
+research observations. The R `--guard-self-test` checks call guards without
+simulation. Native execution is now documented by the 20 completed batch
+artifacts, separately from the synthetic regression cases. The publication verification restores real
+inputs and checks all completed commitments and coefficient vectors from a fresh
+checkout without installing the native runtime or rerunning forecasts.
 
-Only new diagnostic code/configuration is added. Existing estimator, evaluator,
-primary results and campaign contracts are unchanged; the diagnostic does not
+The only changed R file is the diagnostic wrapper, not the original model or
+scorer. Existing estimator, evaluator, primary results and campaign contracts
+are unchanged; the diagnostic does not
 rebind an existing evolutionary database.
+
+The [fresh-checkout publication verification](../results/diagnostics/forecast-repeatability-v1/publication_verification.json)
+records 101 passing Python tests, restoration of all eight real packets and
+verification of all twenty completed native batches without new simulation.

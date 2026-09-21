@@ -1,0 +1,18 @@
+{
+  "plan_sha256": "aebf9768787095eede58c8ddaefad536a1075bc386a70112111f99b836cfbfa5",
+  "year": 2009,
+  "offset": 105,
+  "artifacts": {
+    "accepted_fit.rds": "94b2c9e916989f0f869d7050118829a907aabbf3e5e2d729274708bfac990b68",
+    "fit_diagnostics.json": "e6973975cc7f1640335149fcbbc056dd949c2f3f68ea985c9a29cfdc9b0ce4e6",
+    "predictions.rds": "88334421846fa269d35b7f494a8a60f3e56480620354de55e27e5236d2c157f0",
+    "simulations.rds": "147fdbf3fea163fa320ee2e2b7a9c76fa2a24e427e1eb51087a166c7882043ca",
+    "forecast_audit.json": "85da6d376081be22b872bbf8a71c6f16ae9ff8d0feaeb5c07cf3a33547b15272",
+    "fixed_coefficient_audit.json": "953ace3cc6a09495d44a0a03496d1b7de68a844cf615a8dbfe24c5114f6254b7",
+    "scores.json": "518b80bdb662b4c98202717e051d51efcfae7db0674ca206aeb930476e1bb15a",
+    "eligibility_mask.rds": "3e51b26e7feee1dda91b8fd2b9db0693e637428df9e02e9a3c2f56fbd9eef1cd",
+    "settings.json": "7797d4c7c0edeea51a3f6ff07ad09cfba3088982826911ed14335f094738115a",
+    "specification.json": "df8dd1a3bc2e615a51e07a820289effde776ddef8000dd52a10d1aa748c740ea",
+    "prediction_commit.json": "f931ab4f5d96211e5c3b51bd6ccec94440de78d83ab0f147e2a8fe5a3ee92ed5"
+  }
+}

@@ -1,15 +1,15 @@
 # Bounded repairs after the external review
 
-Step 1 is complete. Step 2 has a bounded fixed-fit runner and input check, but
-its measurements are blocked in a fresh checkout by eight uncommitted development
-packets. See [forecast repeatability](FORECAST_REPEATABILITY.md). Later steps
-require their own bounded task, measured result and decision; no campaign starts
-automatically.
+Steps 1 and 2 are complete. Step 2 measured 20 native fixed-fit forecast batches,
+with zero refits, and now includes an exact development-input bundle restored
+from GitHub. See [forecast repeatability](FORECAST_REPEATABILITY.md). Later steps
+require their own bounded task, measured result and decision; no evolutionary
+campaign starts automatically.
 
 | Step | Question or defect | Boundary / stopping condition |
 |---|---|---|
 | **1. Explicit protocol routing** | Omitted selectors silently choose a legacy evaluator or launcher. | Require an explicit selector, preserve explicit legacy/current routes, pass routing regressions and stop. |
-| **2. Runner implemented; measurements pending inputs** | How variable are scores at fixed accepted coefficients? | Design a development-only diagnostic separate from finalist selection; reuse accepted fits, specify a finite number of native forecast batches, preserve existing scores and report conditional Monte Carlo variability. No refitting or 2010 access. |
+| **2. Fixed-fit variability measured** | How variable are scores at fixed accepted coefficients? | Completed 20/20 development forecast batches; four-year PR-AUC sample SD 0.001075374. Zero refits or reserved-year scoring. The trusted recovery loaded the mixed-year archive, but only verified development packets enter forecasts. Stop before step 3. |
 | 3. Convergence diagnostic precision | Does a more precise diagnostic resolve borderline convergence without more optimization? | Verify a fixed-coefficient native diagnostic path before changing any acceptance policy. Preserve thresholds and prior accept/reject records unless a separately reviewed protocol changes them. |
 | 4. A changed-specification comparison | Is an actual mechanism difference distinguishable from numerical variability? | Select and evaluate a motivated alternative under a declared bounded comparison. Do not infer search impossibility or publication readiness from one result. |
 | 5. Selection uncertainty and operational scales | What selection rule and objective scales are justified by the measurements? | Freeze a separately versioned rule before sustained search. Do not silently replace objectives, use reserved outcomes, or expand the spending grammar as a bug fix. |
@@ -79,5 +79,6 @@ remain reusable under their existing checks. This step introduces no automatic
 migration and does not require refitting unchanged reference models.
 
 **Not resolved by step 1:** forecast/refit uncertainty, finite-draw convergence
-precision, objective scaling, or whether changed models improve prediction. The
-next substantive task is step 2, not an open-ended Shinka launch.
+precision, objective scaling, or whether changed models improve prediction.
+Step 2 now reports fixed-fit forecast variability; the remaining questions
+belong to the separately bounded later steps, not an automatic Shinka launch.

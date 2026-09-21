@@ -1,0 +1,19 @@
+{
+  "status": "verified_artifact_reused",
+  "source_run": 35586281432,
+  "artifact_id": 10632512269,
+  "packets": {
+    "data/past/2006.rds": "7e00ccdf14204ac676cd141533e2612bc8bd810dbd371992d24670b47ad69ac5",
+    "data/targets/2006.rds": "a2b9edb5f8c98a6b0b937dce5b8be9345e64cb2f225506115974a247fc3e434a",
+    "data/past/2007.rds": "7b772635ff780df37102249f103c96b6f0c79efda3fb9a1c55349ba110872435",
+    "data/targets/2007.rds": "d0d1c97414d39550096e69fcd36c5e14dc5e28aea1fca0b34f6de6ed76d0c936",
+    "data/past/2008.rds": "332836625db9ff13b86e0dbf7a34386e8abcfc155df4b196cfacddf3aa1a496f",
+    "data/targets/2008.rds": "973e54b1b7fd764889584cf1a25e429a6ebd3de7fa83a91684464c2d1b2850d2",
+    "data/past/2009.rds": "f8aea6ff84f4a82c43cce7cd6bc12fcd0a4fc36e0db0f6aeb4618381fc1771e4",
+    "data/targets/2009.rds": "a7bd4d561517e93c318e4f71dc7d6fbd3ddda827a55e214431f4b47837865c2c"
+  },
+  "bundle_sha256": "eb19f701383b0adf88038332977a297b2b030e24c6db591f86877e13699f54fd",
+  "all_eight_match_published_hashes": true,
+  "new_raw_archive_access": false,
+  "note": "The first preparation succeeded. A second preparation produced different past-packet bytes and was rejected, not substituted. Reuse the first verified artifacts without relaxing any hash checks."
+}

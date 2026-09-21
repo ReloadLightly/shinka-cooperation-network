@@ -1,0 +1,165 @@
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 21/09/2026 10:27:52
+New results follow.
+-----------------------------------
+
+RSiena version 1.3.10 (28 Apr 22)
+
+
+@1
+Simulations.
+============
+
+Current random number seed is 2006105.
+Effects object used: effects 
+Model Type:
+ Initiative model
+Behavioral Model Type:
+ Standard behavior actor-oriented model ('restrict')
+Estimation method: unconditional moment estimation
+.
+
+Time duration for simulations is 1.0.
+Changing composition.
+Joiners/leavers option: 1
+Derivatives are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Parameter values are 
+  1. rate:  basic rate parameter dv.net                     0.2864  (fixed) 
+  2. eval:  degree (density)                               -6.0767  (fixed) 
+  3. eval:  transitive triads                               0.2439  (fixed) 
+  4. eval:  degree act+pop                                  0.0686  (fixed) 
+  5. eval:  nets.ATOP_d                                     1.1768  (fixed) 
+  6. eval:  nets.lndistance_d                              -1.0162  (fixed) 
+  7. eval:  nets.absidealdiff_d                            -0.6685  (fixed) 
+  8. eval:  nets.lntrade_d                                  0.0558  (fixed) 
+  9. eval:  nets.NATO_d                                    -3.5782  (fixed) 
+ 10. eval:  beh.democracy_1 alter                           1.6618  (fixed) 
+ 11. eval:  beh.lncinc_1 alter                              0.8385  (fixed) 
+ 12. eval:  milex.beh alter                                -0.0614  (fixed) 
+ 13. rate:  rate milex.beh period 1                         1.1099  (fixed) 
+ 14. eval:  milex.beh linear shape                         -1.1613  (fixed) 
+ 15. eval:  milex.beh quadratic shape                      -0.0290  (fixed) 
+ 16. eval:  milex.beh degree                                0.0950  (fixed) 
+ 17. eval:  milex.beh dense triads                         -0.0287  (fixed) 
+ 18. eval:  milex.beh: effect from beh.democracy_1         -0.4987  (fixed) 
+ 19. eval:  milex.beh: effect from beh.GDPgrowth_1         -2.6705  (fixed) 
+ 20. eval:  milex.beh: effect from beh.nato_1               0.9185  (fixed) 
+ 21. eval:  milex.beh: effect from beh.allies_1            -0.0117  (fixed) 
+ 22. eval:  milex.beh: effect from beh.military_1           0.2649  (fixed) 
+ 23. eval:  milex.beh: effect from beh.lnmids_1             0.1887  (fixed) 
+ 24. eval:  milex.beh: effect from beh.milexSpLag_1         7.5115  (fixed) 
+
+
+Observed values of target statistics are
+  1. Amount of network change                                             0.0000
+  2. Number of edges                                                    427.0000
+  3. Number of transitive triads                                        671.0000
+  4. Sum of squared degrees                                            30132.0000
+  5. Sum of ties x nets.ATOP_d                                          489.0697
+  6. Sum of ties x nets.lndistance_d                                   -845.7553
+  7. Sum of ties x nets.absidealdiff_d                                 -224.1334
+  8. Sum of ties x nets.lntrade_d                                      3313.9540
+  9. Sum of ties x nets.NATO_d                                          199.7066
+ 10. Sum of degrees x beh.democracy_1                                   231.2987
+ 11. Sum of degrees x beh.lncinc_1                                      928.0279
+ 12. Sum of degrees x milex.beh                                          22.2174
+ 13. Amount of behavioral change                                         13.0000
+ 14. milex.beh centered sum                                               3.5000
+ 15. milex.beh sum of cent. squares                                     238.3245
+ 16. milex.beh outdegrees                                                24.2174
+ 17. milex.beh dense triads                                            -188.4876
+ 18. milex.beh x beh.democracy_1                                         -3.0325
+ 19. milex.beh x beh.GDPgrowth_1                                         -0.2512
+ 20. milex.beh x beh.nato_1                                              12.2561
+ 21. milex.beh x beh.allies_1                                          -488.4904
+ 22. milex.beh x beh.military_1                                           4.9290
+ 23. milex.beh x beh.lnmids_1                                            10.5331
+ 24. milex.beh x beh.milexSpLag_1                                         0.4493
+
+ 24 parameters, 24 statistics
+
+All parameters are fixed.
+Therefore the estimation phase is skipped
+ and the program passes on immediately to phase 3
+ for checking the current parameter values and calculating standard errors.
+Estimation of derivatives by the LR method (type 1).
+
+
+
+
+@2
+Simulation Results.
+-------------------
+
+Regular end of simulation algorithm.
+Total of 1000 iteration steps.
+
+
+@3
+Parameter values
+                
+Network Dynamics
+ 1. rate:  basic rate parameter dv.net                             0.2864  
+ 2. eval:  degree (density)                                       -6.0767  
+ 3. eval:  transitive triads                                       0.2439  
+ 4. eval:  degree act+pop                                          0.0686  
+ 5. eval:  nets.ATOP_d                                             1.1768  
+ 6. eval:  nets.lndistance_d                                      -1.0162  
+ 7. eval:  nets.absidealdiff_d                                    -0.6685  
+ 8. eval:  nets.lntrade_d                                          0.0558  
+ 9. eval:  nets.NATO_d                                            -3.5782  
+10. eval:  beh.democracy_1 alter                                   1.6618  
+11. eval:  beh.lncinc_1 alter                                      0.8385  
+12. eval:  milex.beh alter                                        -0.0614  
+Behavior Dynamics
+
+13. rate:  rate milex.beh period 1                                 1.1099  
+14. eval:  milex.beh linear shape                                 -1.1613  
+15. eval:  milex.beh quadratic shape                              -0.0290  
+16. eval:  milex.beh degree                                        0.0950  
+17. eval:  milex.beh dense triads                                 -0.0287  
+18. eval:  milex.beh: effect from beh.democracy_1                 -0.4987  
+19. eval:  milex.beh: effect from beh.GDPgrowth_1                 -2.6705  
+20. eval:  milex.beh: effect from beh.nato_1                       0.9185  
+21. eval:  milex.beh: effect from beh.allies_1                    -0.0117  
+22. eval:  milex.beh: effect from beh.military_1                   0.2649  
+23. eval:  milex.beh: effect from beh.lnmids_1                     0.1887  
+24. eval:  milex.beh: effect from beh.milexSpLag_1                 7.5115  
+
+
+@3
+Simulated statistics
+                    
+Estimated means and standard deviations, standard errors of the mean 
+  1. Amount of network change                                   80.834   11.869   0.1647
+  2. Number of edges                                           451.863    6.692   0.1605
+  3. Number of transitive triads                               754.699   30.447   0.8315
+  4. Sum of squared degrees                                  33295.730  875.950  21.0061
+  5. Sum of ties x nets.ATOP_d                                 518.870    8.642   0.1938
+  6. Sum of ties x nets.lndistance_d                          -899.351   17.540   0.3956
+  7. Sum of ties x nets.absidealdiff_d                        -242.761   10.766   0.1802
+  8. Sum of ties x nets.lntrade_d                             3467.558   55.485   1.2499
+  9. Sum of ties x nets.NATO_d                                 199.312    3.276   0.0624
+ 10. Sum of degrees x beh.democracy_1                          244.049    4.693   0.1264
+ 11. Sum of degrees x beh.lncinc_1                             981.022   19.922   0.5017
+ 12. Sum of degrees x milex.beh                                 17.843    8.151   0.2185
+ 13. Amount of behavioral change                                42.781    5.683   0.1660
+ 14. milex.beh centered sum                                     -4.506    6.154   0.1184
+ 15. milex.beh sum of cent. squares                            134.338   15.688   0.3227
+ 16. milex.beh outdegrees                                       22.966   61.326   1.0355
+ 17. milex.beh dense triads                                   -128.518  154.706   2.8147
+ 18. milex.beh x beh.democracy_1                                -6.158    2.946   0.0569
+ 19. milex.beh x beh.GDPgrowth_1                                -0.143    0.258   0.0049
+ 20. milex.beh x beh.nato_1                                      6.108    2.742   0.0434
+ 21. milex.beh x beh.allies_1                                 -451.017  122.674   2.2417
+ 22. milex.beh x beh.military_1                                  5.381    1.434   0.0296
+ 23. milex.beh x beh.lnmids_1                                    8.440    3.178   0.0566
+ 24. milex.beh x beh.milexSpLag_1                                0.208    0.050   0.0009
+
+Standard errors of the mean are less than s.d./sqrt(n) 
+because of regression on scores (Dolby option). 
+Total computation time 22.72 seconds.

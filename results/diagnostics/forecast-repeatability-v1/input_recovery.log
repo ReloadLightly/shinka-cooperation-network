@@ -1,0 +1,12 @@
+Warning message:
+package ‘jsonlite’ was built under R version 4.2.3 
+           used  (Mb) gc trigger  (Mb) max used  (Mb)
+Ncells  1416581  75.7    2485051 132.8  2379524 127.1
+Vcells 22287505 170.1   24045210 183.5 22288683 170.1
+           used  (Mb) gc trigger  (Mb) max used  (Mb)
+Ncells  1412734  75.5    2485051 132.8  2379524 127.1
+Vcells 13997693 106.8   24045210 183.5 22306050 170.2
+           used  (Mb) gc trigger  (Mb) max used  (Mb)
+Ncells  1412938  75.5    2485051 132.8  2379524 127.1
+Vcells 13987986 106.8   28146104 214.8 27436974 209.4
+Prepared past-only packets and separate target packets. No forecasting or scoring performed.

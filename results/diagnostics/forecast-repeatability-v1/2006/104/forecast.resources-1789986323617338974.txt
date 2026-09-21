@@ -1,0 +1,23 @@
+	Command being timed: "/home/runner/work/shinka-cooperation-network/shinka-cooperation-network/environment/run-r /home/runner/work/shinka-cooperation-network/shinka-cooperation-network/R/forecast_repeatability.R /home/runner/work/shinka-cooperation-network/shinka-cooperation-network/results/diagnostics/forecast-repeatability-v1/2006/104/specification.json 2006 /home/runner/work/shinka-cooperation-network/shinka-cooperation-network/results/diagnostics/forecast-repeatability-v1/2006/104 /home/runner/work/shinka-cooperation-network/shinka-cooperation-network/results/diagnostics/forecast-repeatability-v1/2006/104/settings.json /home/runner/work/shinka-cooperation-network/shinka-cooperation-network/data/past/2006.rds /home/runner/work/shinka-cooperation-network/shinka-cooperation-network/results/cache/8129f423ce5a8a407d8e5fe630fb02d145e209f6500ae34e57af32b4e4f2d829/forecast_effects.csv"
+	User time (seconds): 32.53
+	System time (seconds): 0.22
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:32.76
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 337068
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 97071
+	Voluntary context switches: 40
+	Involuntary context switches: 153
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 4280
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

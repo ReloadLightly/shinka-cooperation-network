@@ -1,0 +1,19 @@
+{
+  "workflow_run": 35586281432,
+  "source_commit": "624470142fe87f11b40f70fca335c6d24270ddd8",
+  "recorded_utc": "2026-09-21T10:01:08.175228+00:00",
+  "input_recovery": "All eight development packets reconstructed with exact published SHA-256 hashes",
+  "stage": "pre_native_coefficient_key_check",
+  "target": 2006,
+  "seed": 2006101,
+  "error": "!anyNA(index) is not TRUE",
+  "diagnosis": "Default read.csv type inference converts the entirely empty interaction2 column into logical NA. The guard then fails to match genuine empty-string native effect identifiers.",
+  "native_simulation_calls": 0,
+  "fitting_calls": 0,
+  "scoring_calls": 0,
+  "scientific_result": null,
+  "repair": "Read effect-key string columns explicitly as character; preserve the exact coefficient comparison and native fixed-parameter checks. Regression reproduces the old parser failure.",
+  "retry_policy": "The same declared seed is retained. No model, coefficient, metric, convergence threshold or endpoint budget is changed.",
+  "full_log_artifact_id": 10632028838,
+  "verified_input_artifact_id": 10632512269
+}

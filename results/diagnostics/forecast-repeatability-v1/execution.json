@@ -1,0 +1,14 @@
+{
+  "status": "complete",
+  "workflow_run": "35587860418",
+  "source_commit": "0399484dccec51a5eff9b7bc92c281b6f2797d9f",
+  "completed_batches": 20,
+  "endpoints_per_batch": 1000,
+  "refits": 0,
+  "all_twenty_batch_commitments_verified": true,
+  "original_tracked_files_unchanged": true,
+  "reserved_forecasts_or_scores": 0,
+  "input_mode": "previously hash-verified GitHub artifact",
+  "raw_archive_loaded_by_prior_trusted_preparation": true,
+  "raw_archive_loaded_in_this_execution": false
+}

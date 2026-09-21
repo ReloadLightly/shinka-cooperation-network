@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-09-21T10:24:43.086768+00:00",
+  "stage": "score",
+  "command": [
+    "/home/runner/work/shinka-cooperation-network/shinka-cooperation-network/environment/run-r",
+    "/home/runner/work/shinka-cooperation-network/shinka-cooperation-network/R/score.R",
+    "/home/runner/work/shinka-cooperation-network/shinka-cooperation-network/results/diagnostics/forecast-repeatability-v1/2008/103/predictions.rds",
+    "/home/runner/work/shinka-cooperation-network/shinka-cooperation-network/data/targets/2008.rds",
+    "/home/runner/work/shinka-cooperation-network/shinka-cooperation-network/results/diagnostics/forecast-repeatability-v1/2008/103"
+  ],
+  "invocation_id": "1789986283086747630",
+  "resources_file": "/home/runner/work/shinka-cooperation-network/shinka-cooperation-network/results/diagnostics/forecast-repeatability-v1/2008/103/score.resources-1789986283086747630.txt",
+  "pid": 5684,
+  "status": "completed",
+  "elapsed_seconds": 4.226335796000058,
+  "exit_code": 0
+}

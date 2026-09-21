@@ -11,6 +11,14 @@ assert_repeat_call <- function(x, effects) {
   invisible(TRUE)
 }
 
+read_published_coefficients <- function(path) {
+  # A column of empty CSV fields otherwise becomes logical NA during inference.
+  # Empty interaction names are real native effect-key components, not missing.
+  read.csv(path, stringsAsFactors=FALSE,
+    colClasses=c(name="character",type="character",shortName="character",
+                 interaction1="character",interaction2="character"))
+}
+
 run_fixed_repeat <- function(specfile, target, outdir, settingsfile, pastfile, coefficientfile) {
   if (!target %in% 2006:2009) stop("Only development targets 2006-2009 are admitted")
   fitfile <- file.path(outdir, "accepted_fit.rds")
@@ -22,7 +30,7 @@ run_fixed_repeat <- function(specfile, target, outdir, settingsfile, pastfile, c
   if (settings$forecast$simulations != 1000L) stop("Batch size must remain 1000")
   stopifnot(getRversion() == "4.2.1", packageVersion("RSiena") == "1.3.10")
   before <- unname(tools::md5sum(fitfile))
-  expected <- read.csv(coefficientfile, stringsAsFactors=FALSE)
+  expected <- read_published_coefficients(coefficientfile)
   stopifnot(all(expected$include), all(expected$fix), !anyDuplicated(effect_key(expected)))
   calls <- 0L
   scope <- new.env(parent=environment(run_forecast))
@@ -61,6 +69,17 @@ if (sys.nframe() == 0L) {
   args <- commandArgs(trailingOnly=TRUE)
   if (identical(args, "--guard-self-test")) {
     # Contract test only. No fit, data packet, outcome or native simulation read.
+    fixture <- data.frame(name=c("dv.net","milex.beh"),type="eval",
+      shortName=c("density","behDenseTriads"),interaction1=c("","dv.net"),
+      interaction2=c("",""),parm=c(0L,6L),include=TRUE,fix=TRUE,
+      initialValue=c(-6,0.1),stringsAsFactors=FALSE)
+    csv <- tempfile(fileext=".csv"); write.csv(fixture,csv,row.names=FALSE)
+    # Reproduce the old failure, then check the typed reader preserves identity.
+    legacy <- read.csv(csv,stringsAsFactors=FALSE)
+    stopifnot(anyNA(legacy$interaction2),
+      !identical(effect_key(legacy),effect_key(fixture)),
+      identical(effect_key(read_published_coefficients(csv)),effect_key(fixture)))
+    unlink(csv)
     x <- list(simOnly=TRUE,nsub=0,n3=1000,cconditional=FALSE,useStdInits=FALSE)
     effects <- data.frame(include=c(TRUE,TRUE),fix=c(TRUE,TRUE),initialValue=c(0.1,0.2))
     assert_repeat_call(x,effects)

@@ -1,0 +1,85 @@
+name: Step 3C - read-only final evidence review
+'on':
+  push:
+    branches: [repairs/step3c-convergence-repeatability-20260921]
+    paths: [.github/workflows/step3c-review.yml]
+permissions:
+  contents: write
+jobs:
+  review:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    env:
+      R_GC_MEM_GROW: '0'
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+    - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+      with:
+        python-version: '3.11'
+    - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+      with:
+        path: |
+          environment/runtime
+          environment/R-library
+          environment/bin
+          environment/downloads
+          vendor/RSiena
+        key: step3b-native-r421-rsiena1310-${{ hashFiles('environment/conda-linux-64.explicit.txt') }}
+        fail-on-cache-miss: true
+    - name: Verify commitments and recompute saved diagnostics only
+      run: |
+        set -euo pipefail
+        python - <<'PYHASH'
+        from pathlib import Path
+        from scripts import convergence_repeatability as r
+        from scripts import convergence_preflight as pre
+        root=Path.cwd();out=root/r.OUT
+        r.inspect(root,native=True)
+        c=pre.read(out/'study-commitment.json')
+        assert c['plan_sha256']==r.PLAN_SHA
+        for name,h in c['artifacts'].items():
+            p=(out/name).resolve();p.relative_to(out.resolve())
+            assert pre.sha(p)==h,name
+        rows=[r.row(pre.read(root/'results/diagnostics/convergence-pilot-v1/summary.json'),'attempt3',True)]
+        for label,seed in r.NEW:
+            folder=out/label/str(seed)
+            rows.append(r.row(r.verify_cell(folder,label,seed),label,False))
+            req=pre.read(folder/'request.json')
+            for name,h in req['implementation'].items():assert pre.sha(root/name)==h,name
+        assert r.summarize(rows,[])==pre.read(out/'summary.json')
+        print('All full native-file commitments and summary recomputation verified without simulation.')
+        PYHASH
+        environment/run-r scripts/verify_convergence_native.R > results/diagnostics/convergence-repeatability-v1/native-evidence-verification.log 2>&1
+        cat results/diagnostics/convergence-repeatability-v1/native-evidence-verification.log
+        git diff --exit-code
+        python - <<'PYMETA'
+        import os,json,pathlib,hashlib
+        p=pathlib.Path('results/diagnostics/convergence-repeatability-v1')
+        record={'workflow_run':os.environ['GITHUB_RUN_ID'],'source_commit':os.environ['GITHUB_SHA'],
+                'status':'verified','new_simulations':0,'new_refits':0,'target_packets_read':0,
+                'full_cell_commitments_verified':9,'prior_pilot_verified':True,
+                'all_ten_native_vectors_match_original_fits':True,
+                'all_raw_native_arrays_and_csv_diagnostics_checked':True}
+        (p/'evidence-review.json').write_text(json.dumps(record,indent=2)+'\n')
+        checks={n:hashlib.sha256((p/n).read_bytes()).hexdigest() for n in
+                ('study-commitment.json','native-evidence-verification.json','native-evidence-verification.log','evidence-review.json')}
+        (p/'review-commitment.json').write_text(json.dumps({'artifacts':checks,'verifier_sha256':hashlib.sha256(pathlib.Path('scripts/verify_convergence_native.R').read_bytes()).hexdigest()},indent=2)+'\n')
+        print(json.dumps(record,indent=2))
+        PYMETA
+        git config user.name 'github-actions[bot]'
+        git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+        git add -- results/diagnostics/convergence-repeatability-v1
+        git commit -m 'Verify all saved native arrays, coefficients and commitments; zero new simulation'
+        git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+    - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      if: ${{ always() }}
+      with:
+        name: step3c-readonly-verification
+        path: |
+          results/diagnostics/convergence-repeatability-v1/*verification*
+          results/diagnostics/convergence-repeatability-v1/evidence-review.json
+          results/diagnostics/convergence-repeatability-v1/review-commitment.json
+        retention-days: 1
+        if-no-files-found: ignore

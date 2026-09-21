@@ -1,0 +1,91 @@
+{
+  "version": "convergence-repeatability-v1",
+  "stage": "3C",
+  "basis_commit": "87b679c4a08171c50c083ea64ed88f83d3a833c5",
+  "question": "At fixed saved coefficients, how repeatable are convergence diagnostics at nested 1000 and 3000 phase-3 draws?",
+  "training_years": [
+    1990,
+    1991,
+    1992,
+    1993,
+    1994,
+    1995,
+    1996,
+    1997,
+    1998,
+    1999,
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008
+  ],
+  "actors": 161,
+  "parameters": 58,
+  "fits": {
+    "attempt3": {
+      "path": "results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99/fit-attempt-3.rds",
+      "sha256": "5c122ed7a1e061d8d23f50c73a22baa4b80884ad74be49ab7a56bdb80dfe0e5c",
+      "original_draws": 1000,
+      "historically_accepted": false,
+      "seeds": [
+        2009301,
+        2009302,
+        2009303,
+        2009304,
+        2009305
+      ]
+    },
+    "attempt4": {
+      "path": "results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99/accepted_fit.rds",
+      "sha256": "94b2c9e916989f0f869d7050118829a907aabbf3e5e2d729274708bfac990b68",
+      "original_draws": 3000,
+      "historically_accepted": true,
+      "seeds": [
+        2009401,
+        2009402,
+        2009403,
+        2009404,
+        2009405
+      ]
+    }
+  },
+  "pilot": {
+    "path": "results/diagnostics/convergence-pilot-v1",
+    "fit": "attempt3",
+    "seed": 2009301,
+    "summary_sha256": "0c439206a5ea220fe241419fce11723bdb1a13145794e645a745c495b26a50f7",
+    "recompute": false
+  },
+  "n3": 3000,
+  "nested_prefix": 1000,
+  "nsub": 0,
+  "simOnly": false,
+  "preserve_fixed_flags": true,
+  "independent_seed_sets_between_vectors": true,
+  "new_cells": 9,
+  "total_cells_with_pilot": 10,
+  "new_draws": 27000,
+  "individual_strictly_below": 0.1,
+  "overall_strictly_below": 0.25,
+  "cell_timeout_seconds": 3600,
+  "max_parallel_isolated_jobs": 9,
+  "native_serial_per_job": true,
+  "no_automatic_retries": true,
+  "no_refitting": true,
+  "no_forecasting": true,
+  "no_target_access": true,
+  "reporting": "All cells retained regardless of diagnostic pass. Report 4 NEW attempt3 repetitions separately from 5 including the pilot; report 5 NEW attempt4 repetitions. Means, sample SD, min/max, individual/overall joint threshold counts and native validity. Prefix and full samples are nested, not independent. No inferential pass probability or production acceptance-policy change.",
+  "evidence_storage": "Retain raw sf/ssc/sf2 and named targets, covariance/derivative/parameter covariance and native diagnostics, not duplicated full sienaFit closures. XZ-compress RDS; retain workflow artifacts 1 day, publish evidence to study branch.",
+  "original_implementation_sha256": {
+    "R/convergence_preflight.R": "b9deaf332852e108eaafe2123271303faf70f1638ea2198e6063929825a550e8",
+    "scripts/convergence_preflight.py": "20da8e65111828766792024d4f82a21372e0ff58a2aea6ef8d379f7fc425cace",
+    "configs/convergence-preflight-v1.json": "b84a567d4b2235af2ca180d49c1de7c7136f8b71b3238b81e0cbd56463a99483",
+    "R/convergence_pilot.R": "c3541d89b66c2ccb23558d9631e1c2f5103185ed775831ac005ab09173cc9d1a",
+    "scripts/convergence_pilot.py": "dd3c1009d345df2693c89971765fb3a7a4fd298c8dc93031e9dc2cec2f85db3a"
+  }
+}

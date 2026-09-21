@@ -1,0 +1,152 @@
+name: Step 4 - source and receipt preflight
+on:
+  push:
+    branches: [repairs/step4-closure-comparison-20260921]
+    paths: [.github/workflows/step4-preflight.yml]
+permissions:
+  contents: write
+concurrency:
+  group: step4-preflight-v1
+  cancel-in-progress: false
+jobs:
+  preflight:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 25
+    env:
+      R_GC_MEM_GROW: '0'
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      MAKEFLAGS: -j2
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - name: Verify and install prepared sources before native work
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import base64, hashlib, json, lzma
+          from pathlib import Path
+          text=''.join(Path(f'sources/step4-prepared/part{i}.b64').read_text().strip() for i in (1,2,3))
+          compressed=base64.b64decode(text,validate=True)
+          assert hashlib.sha256(compressed).hexdigest()=='ae56b384d1c2ece2e3efca3e435b2cb2e88fd90b35ad975acd29901485fae23a'
+          data=lzma.decompress(compressed)
+          assert hashlib.sha256(data).hexdigest()=='439ac18164d5757374f941739d4473972265e88ea541afd85d3ab7fab4ee0268'
+          files=json.loads(data)
+          expected={'configs/step4-comparison-v1.json','candidates/step4_reference.py','candidates/step4_gwesp69.py','R/step4_compare.R','R/test_step4_compare.R','scripts/step4_compare.py','tests/test_step4_compare.py','docs/STEP4_COMPARISON.md'}
+          assert set(files)==expected
+          for name,content in files.items():
+              p=Path(name)
+              if p.exists():
+                  assert p.read_text()==content, f'Existing prepared source differs: {name}'
+              else:
+                  p.parent.mkdir(parents=True,exist_ok=True)
+                  p.write_text(content)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add configs/step4-comparison-v1.json candidates/step4_reference.py candidates/step4_gwesp69.py R/step4_compare.R R/test_step4_compare.R scripts/step4_compare.py tests/test_step4_compare.py docs/STEP4_COMPARISON.md
+          git diff --cached --check
+          if ! git diff --cached --quiet; then
+            git commit -m 'Freeze Step 4 single GWESP comparison, receipt consumer and forecast uncertainty protocol'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+          git fetch --no-tags --depth=1 origin 2a7a8f5000dacfcc9e56f865e2d720e1b446ee53
+      - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            environment/runtime
+            environment/R-library
+            environment/bin
+            environment/downloads
+            vendor/RSiena
+          key: step3b-native-r421-rsiena1310-6db791b62070759c2fb953aa07540b5feada3bf0602804ed6b38fac4c16a6b01
+      - name: Install pinned runtime only on cache miss
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p environment/{bin,downloads,R-library,conda-pkgs} vendor
+          export MAMBA_ROOT_PREFIX="$PWD/environment/conda-pkgs"
+          if [ ! -x environment/bin/micromamba ]; then
+            curl --fail --location --retry 2 https://micro.mamba.pm/api/micromamba/linux-64/2.9.0 -o environment/downloads/micromamba.tar.bz2
+            echo '8761c382127e6363bd9e0a2451aa3ef90d071a79133f736e2f759a3bf13040dd  environment/downloads/micromamba.tar.bz2' | sha256sum -c -
+            tar -xjf environment/downloads/micromamba.tar.bz2 -C environment bin/micromamba
+          fi
+          if [ ! -x environment/runtime/bin/Rscript ]; then
+            environment/bin/micromamba create --yes --prefix "$PWD/environment/runtime" --file environment/conda-linux-64.explicit.txt
+          fi
+          if [ ! -d vendor/RSiena ]; then
+            curl --fail --location --retry 2 https://github.com/stocnet/rsiena/archive/refs/tags/v1.3.10.tar.gz -o environment/downloads/RSiena-v1.3.10.tar.gz
+            echo 'c7e0fc358f064e6b5d753ceb675a2eb00ea08cd6d58934ebabef31055302a1d5  environment/downloads/RSiena-v1.3.10.tar.gz' | sha256sum -c -
+            tar -xzf environment/downloads/RSiena-v1.3.10.tar.gz -C vendor
+            mv vendor/rsiena-1.3.10 vendor/RSiena
+          fi
+          if [ ! -f environment/R-library/RSiena/DESCRIPTION ]; then
+            environment/bin/micromamba run --prefix "$PWD/environment/runtime" R CMD INSTALL --library="$PWD/environment/R-library" vendor/RSiena
+          fi
+      - name: Python contracts and training-only source checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=results/diagnostics/step4-preflight-v1
+          mkdir -p "$OUT"
+          python -m compileall -q scripts tests candidates
+          python -m unittest discover -s tests -v > "$OUT/python-tests.log" 2>&1
+          tail -15 "$OUT/python-tests.log"
+          python scripts/update_readme_status.py --check
+          python scripts/step4_compare.py check > "$OUT/requests.json"
+          python - <<'PY'
+          from pathlib import Path
+          from scripts.precision_fit import packet_bytes
+          p=Path('/tmp/step4-past');p.mkdir(exist_ok=True)
+          for year in (2006,2007,2008,2009):
+              (p/f'{year}.rds').write_bytes(packet_bytes(Path.cwd(),year))
+          PY
+      - name: Verify archived optimization history and receipt-aware forecast initialization
+        shell: bash
+        env:
+          STEP4_REQUESTS: results/diagnostics/step4-preflight-v1/requests.json
+          STEP4_PAST_DIR: /tmp/step4-past
+          STEP4_PREFLIGHT_REPORT: results/diagnostics/step4-preflight-v1/native-tests.json
+        run: |
+          set -euo pipefail
+          OUT=results/diagnostics/step4-preflight-v1
+          /usr/bin/time -v -o "$OUT/resources.txt" environment/run-r R/test_step4_compare.R > "$OUT/native-tests.log" 2>&1
+          cat "$OUT/native-tests.log"
+          git diff --exit-code
+          python - <<'PY'
+          import os,json,hashlib,subprocess,re
+          from pathlib import Path
+          out=Path('results/diagnostics/step4-preflight-v1')
+          r=json.loads((out/'native-tests.json').read_text())
+          assert r['status']=='passed'
+          assert all(r[k]==0 for k in ('new_empirical_simulations','new_fits','target_packets_read'))
+          tests=(out/'python-tests.log').read_text()
+          assert re.search(r'^OK$',tests,re.M)
+          record={'status':'verified','workflow_run':os.environ['GITHUB_RUN_ID'],'tested_source_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'python_tests':int(re.search(r'Ran (\d+) tests',tests).group(1)),'native_checks':r['checks'],'real_stopped_forecast_initializations':r['real_receipt_forecast_initializations_stopped'],'new_empirical_simulations':0,'new_fits':0,'target_packets_read':0,'step4_numerical_cells_started':False}
+          (out/'execution.json').write_text(json.dumps(record,indent=2)+'\n')
+          files={str(p.relative_to(out)):hashlib.sha256(p.read_bytes()).hexdigest() for p in out.rglob('*') if p.is_file()}
+          (out/'commitment.json').write_text(json.dumps({'files':files},indent=2)+'\n')
+          print(json.dumps(record,indent=2))
+          PY
+      - name: Preserve preflight outcome without starting the comparison
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -d results/diagnostics/step4-preflight-v1 ]; then
+            git add results/diagnostics/step4-preflight-v1
+            if ! git diff --cached --quiet; then
+              git commit -m 'Preserve Step 4 preflight outcome and logs; no empirical execution'
+              git push origin "HEAD:${GITHUB_REF_NAME}"
+            fi
+          fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: failure()
+        with:
+          name: step4-preflight-evidence
+          path: results/diagnostics/step4-preflight-v1
+          retention-days: 1
+          if-no-files-found: ignore

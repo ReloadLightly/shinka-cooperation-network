@@ -1,0 +1,167 @@
+Warning message:
+package ‘jsonlite’ was built under R version 4.2.3 
+Tracing function "phase1.1" in package "namespace:RSiena"
+Tracing function "phase1.2" in package "namespace:RSiena"
+Tracing function "phase2.1" in package "namespace:RSiena"
+Tracing function "proc2subphase" in package "namespace:RSiena"
+Tracing function "maxlikec" in package "namespace:RSiena"
+Tracing function "phase3" in package "namespace:RSiena"
+Tracing function "simstats0c" in package "namespace:RSiena"
+Tracing function "phase3.2" in package "namespace:RSiena"
+Tracing function "PotentialNR" in package "namespace:RSiena"
+STEP3C: 250/3000 draws; theta unchanged; elapsed 73.9 s
+STEP3C: 500/3000 draws; theta unchanged; elapsed 144.6 s
+STEP3C: 750/3000 draws; theta unchanged; elapsed 215.0 s
+STEP3C: 1000/3000 draws; theta unchanged; elapsed 284.2 s
+STEP3C: 1250/3000 draws; theta unchanged; elapsed 353.4 s
+STEP3C: 1500/3000 draws; theta unchanged; elapsed 423.0 s
+STEP3C: 1750/3000 draws; theta unchanged; elapsed 493.2 s
+STEP3C: 2000/3000 draws; theta unchanged; elapsed 562.5 s
+STEP3C: 2250/3000 draws; theta unchanged; elapsed 632.3 s
+STEP3C: 2500/3000 draws; theta unchanged; elapsed 701.8 s
+STEP3C: 2750/3000 draws; theta unchanged; elapsed 771.0 s
+STEP3C: 3000/3000 draws; theta unchanged; elapsed 841.3 s
+Untracing function "PotentialNR" in package "namespace:RSiena"
+Untracing function "phase3.2" in package "namespace:RSiena"
+Untracing function "simstats0c" in package "namespace:RSiena"
+Untracing function "phase3" in package "namespace:RSiena"
+Untracing function "maxlikec" in package "namespace:RSiena"
+Untracing function "proc2subphase" in package "namespace:RSiena"
+Untracing function "phase2.1" in package "namespace:RSiena"
+Untracing function "phase1.2" in package "namespace:RSiena"
+Untracing function "phase1.1" in package "namespace:RSiena"
+{
+  "status": "completed",
+  "stage": "3C",
+  "fit": "attempt3",
+  "seed": 2009303,
+  "draws": 3000,
+  "replications": 1,
+  "training_years": [1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008],
+  "actors": 161,
+  "parameters": 58,
+  "nsub": 0,
+  "simOnly": false,
+  "coefficients_identical": true,
+  "original_fixed_flags_preserved": true,
+  "historical_attempt_accepted": false,
+  "new_refits": 0,
+  "new_forecasts": 0,
+  "target_packets_read": 0,
+  "raw_archives_read": 0,
+  "step4_started": false,
+  "guard": {
+    "status": "completed",
+    "phase3_entries": 1,
+    "simulator_entries": 3000,
+    "simulator_exits": 3000,
+    "forbidden_entries": 0,
+    "potential_nr_calls": 1,
+    "postprocessing_entries": 1,
+    "checked_every_simulator_call": true,
+    "seed": 2009303,
+    "nsub": 0,
+    "n3": 3000,
+    "simOnly": false,
+    "warnings": [],
+    "elapsed_seconds": 850.37500000000011
+  },
+  "original_diagnostic": {
+    "draws": 1000,
+    "maximum_absolute_t": 0.07587932310910743,
+    "overall": 0.26134400479859027
+  },
+  "fresh_first_1000": {
+    "draws": 1000,
+    "maximum_absolute_t": 0.080374237368405141,
+    "overall": 0.2533797544743977,
+    "individual_pass": true,
+    "overall_pass": false
+  },
+  "fresh_full_3000": {
+    "draws": 3000,
+    "maximum_absolute_t": 0.065415772107061176,
+    "overall": 0.18376683860755733,
+    "individual_pass": true,
+    "overall_pass": true
+  },
+  "native_diagnostics": {
+    "valid": true,
+    "maximum_absolute_t_ratio": 0.065415772107061176,
+    "overall_maximum_convergence": 0.1837668386075573,
+    "t_ratios": [-0.022103855245950328, 0.025510581049583366, 0.00021805112044223702, -0.023724096237599201, 0.02749794697833513, 0.003337682784681128, 0.039378954839049657, 0.014013194632401058, 0.020257091585912483, 0.012310811339533894, 0.014317066155960286, -0.009740303596326336, -0.0019941637865208885, -0.029120487995218169, 0.0093373093507852153, -0.013926205611091955, 0.0073061389326376236, -0.0011161341488863539, 0.030910250147573929, 0.012390445062860241, 0.027226101805247781, -0.029339897510519006, -0.0074608358900955223, -0.010120230447732012, 0.014519751727509134, -0.027370774233829134, 0.0034303361476281614, -0.0086931332422795285, 0.032037889815294991, 0.016061455173724582, -0.038836531784699826, 0.0079756065238143336, 0.014394616763469623, 0.014274758247750218, -0.033879850214204546, 0.031892110146535008, -0.0019258249066510516, -0.054990662324222075, 0.0015029610129416778, -0.014121954148210934, -0.0088284847876829893, -0.052374595458180018, -0.031282673619084288, 0.0025992658043208676, -0.065415772107061176, -0.03773177203450355, -0.0034181941936786762, 0.0099674460341656612, -0.015479009504379698, 0.0096651691735149606, 0.0068466303347738938, -0.0095214241301809135, -0.011040129815344852, 0.016815395302386238, 0.042374196024112812, -0.016178354871694417, -0.0004056727902697041, -0.01100438285922614],
+    "estimates": [0.047088220799035407, 0.13952032976401443, 0.42974048489000261, 0.3477927215340455, 0.32340792080606867, 0.31832000918515085, 0.39776901596252473, 0.30856422064421207, 0.32688706768387049, 0.27452499634187039, 0.32280208146210387, 0.44639410121677076, 0.35388117652794709, 0.32360174372267525, 0.28985774430120614, 0.51594223685301066, 0.34214914608184732, 0.39626980053418642, -5.5373956927245107, 0.15839745095270064, 0.057236223009883125, -0.85761492508584325, 1.0931303683454128, -0.60653826048866466, 0.070877547841219579, -3.3897351416678756, -0.055939054002219497, 1.4515840611661313, 0.79907140174560398, 0.93396276137710044, 1.2964572315301648, 1.3504252472601721, 1.1915306023764387, 0.6969388480477422, 0.56212707518195326, 0.47628554815555524, 0.52147415384002438, 0.37224984121671828, 1.7115278372356442, 0.5829261800396226, 1.3128685474660216, 0.32121150283882416, 0.29475032944773349, 1.0850819919270336, 0.40747873977931193, 0.35235668787056418, 0.40673637863825685, -1.1716601012900836, -0.027762192832477616, 0.088737822375495948, -0.020653164885987087, -0.44879194161339547, -2.2396411684080277, 0.87520660239502557, -0.010892108252889918, 0.25749369704718239, 0.13711461332200747, 7.1307773329416317],
+    "standard_errors": [0.02119878687141814, 0.034124723745349465, 0.079440777278006025, 0.051562889969539193, 0.056996294428125455, 0.055989469523134702, 0.065195315307808005, 0.051303879523135032, 0.053423181972323375, 0.048040987627336204, 0.052528754536365671, 0.063729808469249083, 0.056141959163463692, 0.052272197611295354, 0.049826997786285764, 0.065425884404418225, 0.051529692280858075, 0.054507041838735192, 0.21951103363890756, 0.05083831063363306, 0.0049416497010128834, 0.070351867537732399, 0.13556050420891066, 0.070810101043768822, 0.028903797120619527, 0.35704434540823127, 0.056136399062569335, 0.23208550318884494, 0.067569093604588293, 0.17583996803666613, 0.23935288361265064, 0.24107635953691747, 0.22618286300964574, 0.13759544723378, 0.114840691005708, 0.10675827339311557, 0.10435761427448392, 0.082962840715998465, 0.34794380382639256, 0.1087113203670137, 0.23218232971296787, 0.082470281883095228, 0.076678305994744025, 0.21766243085777914, 0.098025590173627219, 0.087411786447452247, 0.097907171238515542, 0.079587022906769334, 0.022993051549417803, 0.023746660060280225, 0.0075043803694641422, 0.13847748072574798, 0.89036637496515025, 0.16470759550554673, 0.0035058014503691012, 0.19246905020908694, 0.091231495894552886, 2.8073643369346533],
+    "native_ok": true,
+    "termination": "OK",
+    "phase3_complete": true,
+    "phase3_iterations": 3000,
+    "covariance_all_finite": true,
+    "covariance_message": "",
+    "divergence": {
+      "present": true,
+      "shape_valid": true,
+      "any": false,
+      "indices": []
+    },
+    "fixed_parameters": {
+      "present": true,
+      "shape_valid": true,
+      "any": false,
+      "indices": []
+    },
+    "newly_fixed_parameters": {
+      "present": false,
+      "shape_valid": true,
+      "any": false,
+      "indices": []
+    },
+    "covariance_minimum_eigenvalue": 3.9951293415518069e-06,
+    "covariance_condition_number": 1974976.1777901188,
+    "finite_identified": true
+  },
+  "source_function_verification": {
+    "siena07": {
+      "source": "R/siena07.r",
+      "loaded_body_and_formals_match": true
+    },
+    "robmon": {
+      "source": "R/robmon.r",
+      "loaded_body_and_formals_match": true
+    },
+    "initializeFRAN": {
+      "source": "R/initializeFRAN.r",
+      "loaded_body_and_formals_match": true
+    },
+    "simstats0c": {
+      "source": "R/simstatsc.r",
+      "loaded_body_and_formals_match": true
+    },
+    "terminateFRAN": {
+      "source": "R/terminateFRAN.r",
+      "loaded_body_and_formals_match": true
+    },
+    "phase3": {
+      "source": "R/phase3.r",
+      "loaded_body_and_formals_match": true
+    },
+    "phase3.2": {
+      "source": "R/phase3.r",
+      "loaded_body_and_formals_match": true
+    },
+    "CalculateDerivative3": {
+      "source": "R/phase3.r",
+      "loaded_body_and_formals_match": true
+    },
+    "PotentialNR": {
+      "source": "R/phase3.r",
+      "loaded_body_and_formals_match": true
+    }
+  },
+  "self_tests": {
+    "status": "passed",
+    "checks": 13,
+    "new_simulations": 0
+  },
+  "interpretation": "One declared repeatability cell. Prefix 1000 and full 3000 are nested, correlated samples; vectors use disjoint seed sets. Historical acceptance remains unchanged. This is conditional diagnostic variability, not fitting uncertainty, prediction quality, identification proof or search readiness."
+} 

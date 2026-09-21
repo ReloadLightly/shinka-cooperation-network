@@ -1,0 +1,14 @@
+{
+  "combined_score": null,
+  "public": {
+    "protocol": "multiobjective-replicated-v1",
+    "status": "invalid_evaluation",
+    "valid": false,
+    "J1": null,
+    "J2": null,
+    "J3": null,
+    "reason": "InvalidSpecification: Only build_network_spec(allowed_schema) is allowed; no imports or top-level executable statements."
+  },
+  "private": {},
+  "text_feedback": "INVALID specification/evaluation; no scientific loss assigned. Only build_network_spec(allowed_schema) is allowed; no imports or top-level executable statements."
+}

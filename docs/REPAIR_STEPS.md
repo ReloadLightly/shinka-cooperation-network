@@ -1,16 +1,20 @@
 # Bounded repairs after the external review
 
-Steps 1 and 2 are complete. Step 2 measured 20 native fixed-fit forecast batches,
-with zero refits, and now includes an exact development-input bundle restored
-from GitHub. See [forecast repeatability](FORECAST_REPEATABILITY.md). Later steps
-require their own bounded task, measured result and decision; no evolutionary
-campaign starts automatically.
+Steps **1, 2 and 3A** are complete. Step 2 measured 20 native fixed-fit forecast
+batches with zero refits and preserved an exact development-input bundle from
+GitHub. Step 3A verified the saved third 2009 training fit and real native
+initialization, then stopped before any new simulation. See
+[forecast repeatability](FORECAST_REPEATABILITY.md) and
+[convergence preflight](CONVERGENCE_PREFLIGHT.md). Step 3B's 3,000-draw pilot has
+not run. Later steps require their own bounded task, measured result and decision;
+no evolutionary campaign starts automatically.
 
 | Step | Question or defect | Boundary / stopping condition |
 |---|---|---|
 | **1. Explicit protocol routing** | Omitted selectors silently choose a legacy evaluator or launcher. | Require an explicit selector, preserve explicit legacy/current routes, pass routing regressions and stop. |
 | **2. Fixed-fit variability measured** | How variable are scores at fixed accepted coefficients? | Completed 20/20 development forecast batches; four-year PR-AUC sample SD 0.001075374. Zero refits or reserved-year scoring. The trusted recovery loaded the mixed-year archive, but only verified development packets enter forecasts. Stop before step 3. |
-| 3. Convergence diagnostic precision | Does a more precise diagnostic resolve borderline convergence without more optimization? | Verify a fixed-coefficient native diagnostic path before changing any acceptance policy. Preserve thresholds and prior accept/reject records unless a separately reviewed protocol changes them. |
+| **3A. Diagnostic initialization verified** | Can the exact saved fit and its original observed moments be restored without estimation? | Verified all 58 coefficients, effect ordering and aggregate/per-period targets. Reconstructed old convergence ratios. Native execution stopped before phase 3; zero new simulations. |
+| 3B–3C. Convergence diagnostic precision | Does a more precise diagnostic resolve borderline convergence without more optimization? | One separately authorized 3,000-draw pilot first; measure actual resources before a finite repetition study. Preserve thresholds and prior accept/reject records. |
 | 4. A changed-specification comparison | Is an actual mechanism difference distinguishable from numerical variability? | Select and evaluate a motivated alternative under a declared bounded comparison. Do not infer search impossibility or publication readiness from one result. |
 | 5. Selection uncertainty and operational scales | What selection rule and objective scales are justified by the measurements? | Freeze a separately versioned rule before sustained search. Do not silently replace objectives, use reserved outcomes, or expand the spending grammar as a bug fix. |
 
@@ -82,3 +86,22 @@ migration and does not require refitting unchanged reference models.
 precision, objective scaling, or whether changed models improve prediction.
 Step 2 now reports fixed-fit forecast variability; the remaining questions
 belong to the separately bounded later steps, not an automatic Shinka launch.
+
+## Step 3A — completed, no new simulations
+
+The saved third 2009 attempt, its exact training packet (1990–2008), the original
+adapter and thirteen pinned native source/help/package files are fingerprinted.
+The actual loaded bodies and formals of nine native functions matched source.
+All 58 coefficients and aggregate/per-period observed targets survived native
+initialization unchanged. Guards stopped execution before the phase-3 body.
+
+The old maximum individual ratio is 0.07587932310910743 and the overall ratio is
+0.2613440047985899; the original overall failure is not relabelled. The Python
+suite has 117 passing tests and eleven deterministic R self-checks passed.
+Native initialization verification used real inputs, not a mocked worker.
+
+Evidence and the separately proposed pilot settings are documented in
+[CONVERGENCE_PREFLIGHT.md](CONVERGENCE_PREFLIGHT.md). No raw archive or target
+packet was read, no reference forecast was changed, and no new convergence
+measurement or fitness value was produced. The next decision is Step 3B,
+not an automatic continuation into the larger repetition study.

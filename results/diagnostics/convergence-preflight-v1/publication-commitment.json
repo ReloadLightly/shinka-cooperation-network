@@ -1,0 +1,16 @@
+{
+  "artifacts": {
+    "commitment.json": "984356619629e5adfbe92d0bfe949822b22214948f53c38fd4bdd039091fd349",
+    "execution.json": "6cd11de2995dd0699d040807028aae6a44be75d54b5fba76fc2f4b704f9ba35f",
+    "inputs.json": "3bf5feba7bd1efba15800c8193222f6423b3932101c4d3ce556ec87aa4f5f722",
+    "native.log": "9a6716dda0cd5550e408d1481d2eccfe124ba2925e7f45e813f6bc78bab352ee",
+    "parameter-map.csv": "f927a1abf53dd051a146983d0217553b3c355492cfb8db132c989b71cb7d1574",
+    "python-tests.log": "e73e5c1aae231f2456b237f9a93684e76c8d873a835c2caf977e7be641adb02b",
+    "resources.txt": "2be7334e0851bb3c3385cf3250dc7f3a8563b681f6d637ca6dbc142066219fce",
+    "saved-moment-covariance.csv": "9ed3ee0627f12e9dfb549c9a23e2fd4732100cb6229e5b5d34a310b3b9988aa7",
+    "saved-moment-means.csv": "bf791fc9615dadd8fa3add98ec4dbbe6ba3423bb3a737ae1786d42b099709b49",
+    "session-info.txt": "343f9b764400c4a5d1ccc91f45d46f71a81a3f229dcf27f4616965090b383a1b",
+    "stopped-initialization.txt": "1ce5d22904ac1efd3ed8430f6ca36b536669d8f8386c376cf373841cab667c15",
+    "verification.json": "0ffe70256d5d723b136055c2921c70d971bc488f90636a09e3ddfea8ae1e419e"
+  }
+}

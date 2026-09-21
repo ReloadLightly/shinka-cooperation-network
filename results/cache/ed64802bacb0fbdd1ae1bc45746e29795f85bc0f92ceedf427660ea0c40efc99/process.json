@@ -1,22 +1,17 @@
 {
-  "timestamp": "2026-09-20T21:25:33.184939+00:00",
-  "stage": "fit_and_forecast",
+  "timestamp": "2026-09-21T01:58:59.560380+00:00",
+  "stage": "score",
   "command": [
     "/home/roland/actir/shinka-cooperation-network/environment/run-r",
-    "/home/roland/actir/shinka-cooperation-network/R/forecast.R",
-    "--spec",
-    "/home/roland/actir/shinka-cooperation-network/results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99/specification.json",
-    "--target",
-    "2009",
-    "--output",
-    "/home/roland/actir/shinka-cooperation-network/results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99",
-    "--settings",
-    "/home/roland/actir/shinka-cooperation-network/results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99/settings.json"
+    "/home/roland/actir/shinka-cooperation-network/R/score.R",
+    "/home/roland/actir/shinka-cooperation-network/results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99/predictions.rds",
+    "/home/roland/actir/shinka-cooperation-network/data/targets/2009.rds",
+    "/home/roland/actir/shinka-cooperation-network/results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99"
   ],
-  "invocation_id": "1789939533184717901",
-  "resources_file": "/home/roland/actir/shinka-cooperation-network/results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99/fit_and_forecast.resources-1789939533184717901.txt",
-  "pid": 69,
-  "status": "failed",
-  "elapsed_seconds": 5940.343161721001,
-  "exit_code": 137
+  "invocation_id": "1789955939560171479",
+  "resources_file": "/home/roland/actir/shinka-cooperation-network/results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99/score.resources-1789955939560171479.txt",
+  "pid": 20,
+  "status": "completed",
+  "elapsed_seconds": 10.224785733007593,
+  "exit_code": 0
 }

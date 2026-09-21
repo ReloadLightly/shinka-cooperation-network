@@ -1,0 +1,46 @@
+{
+  "recorded_utc": "2026-09-21T00:12:41.834135+00:00",
+  "operation": "Recover interrupted scheduled fourth attempt from fit-attempt-3.rds",
+  "attempt": 4,
+  "seed": 12348,
+  "nsub": 5,
+  "n3": 3000,
+  "forecast_endpoints": 1000,
+  "scientific_settings_changed": false,
+  "execution_environment": {
+    "R_GC_MEM_GROW": "0"
+  },
+  "rationale": "Fresh process, strictly serial R work, least aggressive documented R heap growth; no diagnostic readers or evolution services run alongside this reference recovery.",
+  "memory_snapshot_utc": "2026-09-21T00:11:46.498225+00:00",
+  "mem_available_kib": 856724,
+  "previous_stage_peak_rss_kib": 717432,
+  "residual_risk": "Host memory can fluctuate and swap remains nearly exhausted. If global OOM recurs, no repeated relaunch without additional available memory.",
+  "prior_interruption": "interruption-20260920T230733Z.json",
+  "installed_documentation": "environment/runtime/lib/R base::Memory help, R4.2.1",
+  "policy_revision": null,
+  "live_process_observation": {
+    "observed_utc": "2026-09-21T00:17:47Z",
+    "host_R_pid": 1010372,
+    "started_utc": "2026-09-21T00:12:53Z",
+    "state": "R (actively running)",
+    "elapsed": "00:04:54",
+    "cpu_time": "00:05:05",
+    "cpu_percent": 103,
+    "rss_kib": 438188,
+    "native_output": "Fourth-attempt initialization lists58 parameters/58 statistics; silent invocation exposes no live iteration counter.",
+    "additional_R_processes": 0
+  },
+  "outcome": {
+    "recorded_utc": "2026-09-21T02:01:29.172419+00:00",
+    "status": "accepted_fit_and_forecast_completed",
+    "fit_elapsed_seconds": 6319.522,
+    "maximum_absolute_t_ratio": 0.047248223874978804,
+    "overall_maximum_convergence": 0.1610484454862545,
+    "forecast_simulations": 1000,
+    "forecast_elapsed_seconds": 38.998,
+    "process_peak_rss_kib": 599456,
+    "process_gnu_walltime": "1:46:17",
+    "wrapper_elapsed_seconds": 6122.839280458997,
+    "timing_note": "Native R/GNU resource timing and Python wrapper timing disagree; retain each raw clock, do not silently reconcile."
+  }
+}

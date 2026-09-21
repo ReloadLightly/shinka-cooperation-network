@@ -154,3 +154,7 @@ The latest user instruction supersedes the former session deadline. Periodic pub
 ### 2009 fourth continuation interrupted by global OOM (2026-09-20T23:07:33Z)
 
 The kernel killed the active fit while host RAM/swap were exhausted and a diagnostic R reader was also present. No fourth fit was saved. This is an execution failure, not a fourth nonconvergence finding. Saved-fit inspection and fitting will now be strictly serial. Recovery must use saved attempt3 and the unchanged scheduled fourth settings/seed; additional numerical remedies depend on an actual completed fourth result. The kernel event, interruption logs and invalid evaluator output are preserved. No forecasts or objective values were fabricated.
+
+### 2026-09-21 — recovery outcome
+
+The interrupted fourth 2009 continuation was recovered once from saved attempt3, with identical nsub5/n3=3000/seed12348 and acceptance thresholds. `R_GC_MEM_GROW=0` plus serial execution changed execution memory behavior only. It passed (overall0.1610484454862545), and all1000 forecast endpoints were scored. The OOM attempt and its cost remain separately preserved. Native/GNU and Python wrapper clocks disagree in this environment; retain raw timings and identify their source rather than merge them into a false precise total.

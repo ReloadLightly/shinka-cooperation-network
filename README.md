@@ -6,7 +6,7 @@
 
 **Reconstructing Kinne & Kang’s defense-cooperation model with RSiena and ShinkaEvolve**
 
-20 September 2026 · Recoverable research campaign · [Original paper](https://doi.org/10.1017/S0020818322000315)
+21 September 2026 · Recoverable research campaign · [Original paper](https://doi.org/10.1017/S0020818322000315)
 
 [Abstract](#abstract) · [Model](#2-original-model-and-reconstruction) · [Methods](#3-prespecified-evolution-and-evaluation) · [Results](#4-results) · [Reproduce](#7-reproducibility-and-artifacts)
 
@@ -16,11 +16,11 @@
 
 ## Abstract
 
-Can ShinkaEvolve discover interpretable alternative network-selection specifications that improve forecasts of defense-cooperation agreements and defense spending relative to Kinne and Kang’s Model 3? We reconstruct the original model using **R 4.2.1 / RSiena 1.3.10**, and conduct a separate, strict temporal forecasting extension. Network mechanisms may evolve; empirical controls and the spending equation’s structure remain fixed, with all coefficients jointly reestimated. **Multiobjective-v1** measures equally weighted 2006–2009 improvements in PRROC PR-AUC, tie-probability Brier score and ordinal-spending RMSE. Three reference forecasts have completed with 1,000 endpoints each; their PR-AUCs are **0.885308, 0.941662 and 0.914560**. Each improves ranking over persistence while having slightly worse Brier score. The 2009 reference remains incomplete: the kernel killed its fourth continuation during host memory exhaustion, before a fitted result was saved. No complete candidate objective vector or evolutionary improvement is established. Original-source reproduction remains partial: **86 endpoints across seven settings**. The authors favor an efficiency interpretation; our predictive extension cannot independently establish that explanation or improved security.
+Can ShinkaEvolve discover interpretable alternative network-selection specifications that improve forecasts of defense-cooperation agreements and defense spending relative to Kinne and Kang’s Model 3? We reconstruct the original model using **R 4.2.1 / RSiena 1.3.10**, and conduct a separate, strict temporal forecasting extension. Network mechanisms may evolve; empirical controls and the spending equation’s structure remain fixed, with all coefficients jointly reestimated. **Multiobjective-v1** measures equally weighted 2006–2009 improvements in PRROC PR-AUC, tie-probability Brier score and ordinal-spending RMSE. All four reference forecasts have completed with 1,000 endpoints each; their PR-AUCs are **0.885308, 0.941662, 0.914560 and 0.949362**. Each improves ranking over persistence while having slightly worse Brier score. The 2009 fourth continuation passed after recovery from host memory exhaustion, with unchanged scientific settings, seed and convergence thresholds. The historical PR-only seed evaluation returns exactly **F=0**. No changed specification or evolutionary improvement is established; native multiobjective evolution is the next operation. Original-source reproduction remains partial: **86 endpoints across seven settings**. The authors favor an efficiency interpretation; our predictive extension cannot independently establish that explanation or improved security.
 
 | Original-source execution | Accepted reference forecasts | Unique changed-model evaluations | Native evolutionary proposals |
 |:---:|:---:|:---:|:---:|
-| **7 settings · 86 endpoints** | **3 / 4 development years** | **0 complete** | **0** |
+| **7 settings · 86 endpoints** | **4 / 4 development years** | **0 complete** | **0** |
 
 ## 1. Research question
 
@@ -152,28 +152,29 @@ Both original-source drivers remain **paused at completed-call checkpoints**. Th
 
 ### 4.2 Empirical reference forecasts
 
-The bounded continuation resolved the earlier 2006 convergence failure without changing acceptance thresholds. Three reference fits and forecasts are complete. These are cumulative results; 2006 and 2007 were saved before the latest 2–3-hour execution window.
+The bounded continuation resolved the earlier 2006 convergence failure without changing acceptance thresholds. All four reference fits and forecasts are complete. These are cumulative results; the latest operation recovered the interrupted fourth 2009 attempt and completed its forecast.
 
 | Target | Accepted attempt | Max. absolute t-ratio | Overall convergence | PR-AUC | Brier | Spending RMSE |
 |---:|---:|---:|---:|---:|---:|---:|
 | 2006 | 4 | 0.05882920 | 0.14818946 | 0.885307944587 | 0.005488310220 | 0.371239362775 |
 | 2007 | 4 | 0.04937219 | 0.14525484 | 0.941661642008 | 0.004086563129 | 0.363818030354 |
 | 2008 | 3 | 0.09340243 | 0.23084237 | 0.914560377575 | 0.004505291667 | 0.439598610503 |
-| 2009 | Fourth interrupted by OOM | — | — | — | — | — |
+| 2009 | 4 | 0.04724822 | 0.16104845 | 0.949361519014 | 0.003397851336 | 0.393049691009 |
 
-Each completed forecast returned exactly **1,000 endpoints** and scored **12,720 eligible unordered pairs**, excluding 160 pairs involving an origin-inactive country. Spending comparisons contain 152, 152 and 146 countries respectively. The existing evaluator entered 2009 fitting at **21:25:33 UTC**. Attempts 1–3 failed overall convergence (0.35094438, 0.31907346, 0.26134400); the third passes individual ratios at 0.07587932. The fourth continuation was killed by a host-wide out-of-memory event at **23:07:33 UTC**, with no fourth fit saved. The first three outcomes are nonconvergence; the interruption is a separate execution failure, not an additional convergence result. The next publication checkpoint is approximately **23:15 UTC / 01:15 Berlin**. The user superseded the former stopping instruction: fitting and evolution continue across publication checkpoints while actual resources permit.
+Each forecast returned exactly **1,000 endpoints** and scored **12,720 eligible unordered pairs**, excluding 160 pairs involving an origin-inactive country. Spending comparisons contain 152, 152, 146 and 151 countries respectively. The 2009 attempts 1–3 failed overall convergence (0.35094438, 0.31907346, 0.26134400). The kernel killed the original fourth operation during host memory exhaustion at 23:07:33 UTC on 20 September, before a fit was saved. A single recovery reused saved attempt 3 and the same seed 12348, `nsub=5/n3=3000`, with `R_GC_MEM_GROW=0` and strictly serial R execution. It passed all existing acceptance criteria; prediction and scoring completed at approximately 01:59 UTC on 21 September. The interrupted operation remains separately recorded. Publication checkpoints do not stop the authorized campaign.
 
 | Target | Persistence PR-AUC | Persistence Brier | Formation PR-AUC | Dissolution PR-AUC | Total fitting time, all attempts |
 |---:|---:|---:|---:|---:|---:|
 | 2006 | 0.863880670037 | 0.005424528302 | 0.015180235117 | 0.098349858713 | 6,042.586 s |
 | 2007 | 0.910837757172 | 0.003773584906 | 0.038517184507 | 0.022624255212 | 8,211.529 s |
 | 2008 | 0.900873672246 | 0.004402515723 | 0.022770206409 | 0.030813282345 | 3,559.530 s |
+| 2009 | 0.928460716452 | 0.003223270440 | 0.013994458664 | 0.047340866856 | 10,724.035 s |
 
-Model 3 ranks ties better than persistence in these three years but has slightly worse probability MSE. Formation scores concern the 50, 37 and 40 newly observed ties; overall tie-ranking performance is not evidence of equally strong prediction of new partnerships. The 2007 forecast overpredicts triangles: mean 875.948 against 751 observed, outside the 95% simulation envelope [800, 958]. The 2006 observation lies inside its envelope, and 2008 is at the lower endpoint. Alternative closure or saturation forms are a hypothesis to explore, not a demonstrated improvement.
+Model 3 ranks ties better than persistence in all four years but has slightly worse probability MSE. Formation scores concern the 50, 37, 40 and 26 newly observed ties; overall tie-ranking performance is not evidence of equally strong prediction of new partnerships. The 2007 forecast overpredicts triangles: mean 875.948 against 751 observed, outside the 95% simulation envelope [800, 958]. The 2006 observation lies inside its envelope, and 2008 is at the lower endpoint. Alternative closure or saturation forms are a hypothesis to explore, not a demonstrated improvement.
 
-The 2007 fit-and-forecast stage took **2 h 17 min 47 s**, peak RSS **744,640 KB**; its forecast took 44.986 s. The 2008 stage took **1 h 00 min 07 s**, peak RSS **690,224 KB**. Estimation dominates cost. Reusing endpoint predictions supplies Brier, spending RMSE and [descriptive reliability bins](results/evolution_forecast/baseline-calibration-2006-2007.json) without another fitting campaign. No changed specification has completed evaluation, and **no evolutionary improvement is demonstrated**.
+The 2007 fit-and-forecast stage took **2 h 17 min 47 s**, peak RSS **744,640 KB**; its forecast took 44.986 s. The 2008 stage took **1 h 00 min 07 s**, peak RSS **690,224 KB**. The recovered 2009 fourth fit took **6,319.522 s**; its fit-and-forecast process took **1 h 46 min 17 s**, peak RSS **599,456 KiB**, and the forecast took **38.998 s**. Across the four years, 15 completed fitting attempts consumed **28,537.680 s (7.93 h)**, excluding the interrupted operation. Estimation dominates cost. Reusing endpoint predictions supplies Brier, spending RMSE and [descriptive reliability bins](results/evolution_forecast/baseline-calibration-2006-2007.json) without another fitting campaign. No changed specification has completed evaluation, and **no evolutionary improvement is demonstrated**.
 
-A [focused diagnosis of the saved 2009 fits](results/evolution_forecast/diagnosis-2009/MATRIX_FINDINGS.md) finds small, shrinking coefficient changes: maxima 0.135 and 0.088 marginal SEs across consecutive attempts. The third fit’s raw statistic-covariance condition number of 48.4 million falls to 126.8 after standardization; the scaled derivative remains full rank, with no native divergence, fixing or covariance warning. The overall ratio combines deviations across 58 statistics. Saved-draw estimates place its Monte Carlo scale near 0.233–0.239 at 1,000 diagnostic simulations, compared with the observed 0.261344. A stable near-solution with appreciable diagnostic noise is plausible, but residual mismatch is not excluded and the fit remains invalid. `nsub=5` adds optimization subphases; `n3=3000` improves phase-3 diagnostic precision. The same combined continuation passed for 2006 and 2007 in 69.38 and 81.40 minutes, without identifying which component caused acceptance. The 2009 host OOM occurred while a diagnostic reader was also present; all further R work will be serial. The host had about 3.7 GiB managed RAM and exhausted 1 GiB swap. Recovery resumes the interrupted fourth attempt from saved attempt 3 with the same settings and seed 12348 once memory permits; no fifth statistical attempt or altered convergence policy has been introduced.
+A [focused diagnosis of the saved 2009 fits](results/evolution_forecast/diagnosis-2009/MATRIX_FINDINGS.md) finds small, shrinking coefficient changes: maxima 0.135 and 0.088 marginal SEs across consecutive attempts. The third fit’s raw statistic-covariance condition number of 48.4 million falls to 126.8 after standardization; the scaled derivative remains full rank, with no native divergence, fixing or covariance warning. The overall ratio combines deviations across 58 statistics. Saved-draw estimates place its Monte Carlo scale near 0.233–0.239 at 1,000 diagnostic simulations, compared with the observed 0.261344. A stable near-solution with appreciable diagnostic noise is plausible, but residual mismatch was not excluded and attempt 3 remained invalid. The subsequently completed fourth attempt passed without changing the acceptance thresholds. `nsub=5` adds optimization subphases; `n3=3000` improves phase-3 diagnostic precision. The same combined continuation passed for 2006 and 2007 in 69.38 and 81.40 minutes, without identifying which component caused acceptance. The 2009 host OOM occurred while a diagnostic reader was also present; all further R work will be serial. The host had about 3.7 GiB managed RAM and exhausted 1 GiB swap. Recovery of the interrupted fourth attempt succeeded from saved attempt 3 with the same settings and seed 12348, in a fresh serial process with `R_GC_MEM_GROW=0`. Installed R documentation describes this as less aggressive heap growth, potentially increasing garbage-collection time. No fifth statistical attempt or altered convergence policy has been introduced. If OOM recurs, further restarts await additional memory.
 
 The [historical v1 invalid result](results/evolution_forecast/initial/metrics.json) and three failed fits remain intact. [Current numerical artifacts](results/cache/) retain every attempt, accepted fit, coefficients, probabilities, masks, score provenance and resource logs. The old convergence figure documents only the superseded three-attempt checkpoint.
 
@@ -183,7 +184,7 @@ The [historical v1 invalid result](results/evolution_forecast/initial/metrics.js
 |---|---|
 | Original equilibrium diagnostic | **6 / 101** settings; 60 endpoints |
 | Figures 5–7 simulation campaign | **1 / 564** settings; 26 endpoints |
-| Temporal references | **2006–2008 accepted and scored**; 2009 fourth attempt interrupted by OOM |
+| Temporal references | **2006–2008 accepted and scored**; same 2009 fourth attempt recovering after OOM |
 | Complete four-year objective vector | Pending 2009; no partial-year fitness |
 | Structural candidates / conventional comparison | Expanded grammar and matched evaluator implemented; no completed comparison |
 | Native evolutionary campaign | Configured; not launched |
@@ -236,18 +237,12 @@ The [capability matrix](docs/SHINKA_CAPABILITIES.md) distinguishes configured fe
 On the existing checkout and pinned environment:
 
 ```bash
-.venv-shinka/bin/python scripts/run_shinka.py \
+R_GC_MEM_GROW=0 .venv-shinka/bin/python scripts/run_shinka.py \
   --config shinka/native_multiobjective_config.json \
   --results-dir runs/evolution_multiobjective --execute
 ```
 
-The legacy evaluator ended with invalid fitness after the 2009 host OOM. First recover its interrupted fourth attempt with the command below once memory permits; then launch the same native campaign. Do not start duplicate controllers. Native seed evaluation reuses unchanged baseline forecasts. Paused candidate fits retain their candidate, generation and lineage. The fixed evaluator supports `python3 evaluate.py --protocol multiobjective-v1 --program_path PROGRAM --results_dir DIRECTORY`; candidate programs cannot edit or execute the evaluator.
-
-```bash
-# Resume only the interrupted fourth reference attempt; accepted years are cached.
-python3 evaluate.py --program_path candidates/initial.py \
-  --results_dir results/evolution_forecast/initial-v2
-```
+The reference evaluator is complete; its four forecasts are reused by native seed evaluation without refitting. The command above starts or resumes the same native campaign. Do not start duplicate controllers. Paused candidate fits retain their candidate, generation and lineage. The fixed evaluator supports `python3 evaluate.py --protocol multiobjective-v1 --program_path PROGRAM --results_dir DIRECTORY`; candidate programs cannot edit or execute the evaluator.
 
 The exact package lock, source checksums and session information are versioned. [Environment notes](environment/README.md) record compiler/OpenBLAS and ancillary-package differences. Existing preparation instructions remain in the runbook; this continuation does not rebuild the environment or repeat readiness checks.
 
@@ -285,7 +280,7 @@ Installed runtimes, package caches, credentials and redundant working copies are
 
 ## 8. Limitations and remaining work
 
-The reconstruction and reproduction are partial, and the evolutionary question remains unanswered. The immediate numerical task is recovery of the interrupted 2009 fourth continuation and its forecast under adequate memory. Once the existing evaluator finishes, its results will be published and native multiobjective evolution can propose alternatives directly. Unchanged acceptance criteria can still invalidate a candidate; failed fits are not measured predictive losses. The expanded grammar, coefficient-transfer corrections and project Pareto integration are implemented but have not produced an evaluated descendant.
+The reconstruction and reproduction are partial, and the evolutionary question remains unanswered. The complete reference now permits native multiobjective evolution to propose alternatives directly. The next scientific step is estimating and forecasting changed native network specifications, then retaining their measured Pareto trade-offs. Unchanged acceptance criteria can still invalidate a candidate; failed fits are not measured predictive losses. The expanded grammar, coefficient-transfer corrections and project Pareto integration are implemented but have not produced an evaluated descendant.
 
 A sustained campaign must explore competing mechanisms and descendants across recoverable sessions. A same-space conventional search is implemented for an effort-accounted comparison; no superiority over conventional search is claimed without that experiment. Development Pareto representatives require fresh-randomness sensitivity, a frozen reporting set and then a reserved 2010 comparison. The legacy final-test command covers the historical PR-only workflow; multiobjective finalist-set execution must be adapted before use.
 

@@ -16,53 +16,50 @@
 
 ## Abstract
 
-Can ShinkaEvolve discover interpretable alternative network-selection specifications that improve forecasts of defense-cooperation agreements and defense spending relative to Kinne and Kang’s Model 3? We reconstruct the original model using **R 4.2.1 / RSiena 1.3.10**, and conduct a separate, strict temporal forecasting extension. Network mechanisms may evolve; empirical controls and the spending equation’s structure remain fixed, with all coefficients jointly reestimated. **Multiobjective-v1** measures equally weighted 2006–2009 improvements in PRROC PR-AUC, tie-probability Brier score and ordinal-spending RMSE. All four reference forecasts have completed with 1,000 endpoints each; their PR-AUCs are **0.885308, 0.941662, 0.914560 and 0.949362**. Each improves ranking over persistence while having slightly worse Brier score. The 2009 fourth continuation passed after recovery from host memory exhaustion, with unchanged scientific settings, seed and convergence thresholds. The historical PR-only seed evaluation returns exactly **F=0**. No changed specification or evolutionary improvement is established. Fixed-coefficient numerical audits are reported separately; a bounded changed-model comparison and uncertainty-aware selection remain outstanding. Original-source reproduction remains partial: **86 endpoints across seven settings**. The authors favor an efficiency interpretation; our predictive extension cannot independently establish that explanation or improved security.
+This project reconstructs Kinne and Kang's Model 3 and studies a separate temporal
+forecasting extension: can native ShinkaEvolve discover interpretable network-selection
+specifications with improved predictive performance? The current development protocol is
+**multiobjective-replicated-v1**. Original controls and spending-equation structure stay
+fixed; all coefficients are jointly estimated. Targets are 2006–2009, with five
+1,000-endpoint forecast batches per accepted model/year and integer network-count pooling
+before PRROC PR-AUC, Brier error and ordinal-spending RMSE are scored.
 
-| Original-source execution | Accepted reference forecasts | Unique changed-model evaluations | Native evolutionary proposals |
-|:---:|:---:|:---:|:---:|
-| **7 settings · 86 endpoints** | **4 / 4 development years** | **0 complete** | **0** |
+**Measured starting evidence is complete for two specifications:** reference
+`degPlus(1)+transTriads(0)` and the manually specified `degPlus(1)+gwesp(69)` alternative.
+The eight model/year cells contain 40 forecast batches. The corrected GWESP objective
+vector is **(-0.0027068271812663025, +0.000011269955188679295,
+-0.00021712129519249612)**, a predictive trade-off, not a Shinka discovery or overall
+improvement. The original floating-point-pooling scores are retained separately.
+Original-source reproduction remains partial: seven settings and 86 endpoints.
 
-## Prospective convergence policy for the next comparison
+| Current milestone | Evidence |
+|---|---|
+| Reference and manually specified alternative | 2 specifications; 8 complete model/year cells |
+| Replicated forecasting | 40 batches; 5,000 endpoints per model/year |
+| Native Shinka integration | Saved-evidence scheduler, selection and persistence checks recorded |
+| Genuine Shinka-generated evaluated descendants | **None established by this handoff** |
+| Live inference and execution host | Must be established on the selected authenticated host |
 
-The separately versioned **precision-before-continuation-v1** estimator is
-implemented and validated using saved-fixture replay and stopped native
-initialization. Eligible ratio-failing 1,000-draw fits receive one fixed
-3,000-draw assessment at unchanged coefficients before another optimization
-continuation. Thresholds and native validity checks are unchanged; valid
-short fits still pass without reassessment. This is **opt-in, fit-only**:
-historical evaluators and results remain unchanged. The separately declared Step 4 comparison below now explicitly consumes the new receipts.
-See [policy and handoff](docs/PRECISION_CONVERGENCE_POLICY.md) and
-[validation evidence](results/diagnostics/precision-policy-v1/REPORT.md).
+## Current execution route — Step 5C
 
-## Step 4: declared closure comparison launched
+Use **`scripts/run_shinka_replicated.py`**, not the historical `scripts/run_shinka.py`
+commands below. [Step 5C handoff](docs/STEP5C_HANDOFF.md) gives the local checks,
+evidence hydration and explicit-budget invocation. [Current scientific protocol](docs/REPLICATED_SHINKA_PROTOCOL.md)
+defines replicated evaluation and MC-resolved selection. [Corrected saved comparison](results/diagnostics/replicated-replay-v1/native-shinka/job-gwesp69/metrics.json)
+and the [original Step 4 study](https://github.com/ReloadLightly/shinka-cooperation-network/tree/104ba59d81a92f1c98b77c89178fad9178b6ccb4/results/step4-closure-comparison-v1)
+are distinct records.
 
-The single **reference versus GWESP(69)** comparison is implemented and was
-launched in Actions run **35626907047**. This section records the launch,
-not a completed result. The running workers use their frozen source commit;
-documentation publication does not restart or modify their numerical work.
+Step 5C repairs terminal numerical-failure replay and adds host/service startup checks.
+It does not alter native equations, convergence thresholds, objectives, seeds or measured
+predictions. An exhausted estimation policy stays invalid on replay; interruptions and
+corrupted evidence remain paused. No host check makes an LLM inference call. A successful
+GitHub validation run is not authentication of the user's WSL host, and no new campaign
+budget is selected automatically.
 
-Both specifications retain the original empirical controls and spending
-structure; only `transTriads(0)` is replaced by native `gwesp(69)` (alpha 0.69).
-The precision policy is applied consistently, including audited replay of
-the reference's 15 immutable optimization checkpoints, not historical
-acceptance labels. The new forecast consumer uses `authoritative_n3`.
-
-The finite plan is **eight model/year cells**, development years 2006–2009,
-and five 1,000-endpoint forecast batches per accepted cell. Primary annual
-points pool all 5,000 endpoints **before** scoring. Independent batch
-contrasts and an explicitly approximate five-block jackknife quantify
-conditional forecast Monte Carlo uncertainty, not fitting or historical
-generalization uncertainty. No decay search, Shinka run or 2010 scoring.
-
-Preflight passed **191 Python tests and 57 pinned-R checks**, including two
-actual receipt-aware forecast initializations stopped before simulation.
-See the [frozen design](docs/STEP4_COMPARISON.md) and
-[preflight evidence](results/diagnostics/step4-preflight-v1/execution.json).
-Each running model/year has a four-hour native-process budget; incomplete
-or failed cells are preserved, never replaced with another seed or a
-partial four-year score. Result branches are `repairs/step4-results/*`;
-the collector writes `repairs/step4-comparison-results-20260921` for review.
-Final results are not asserted here before that evidence is inspected.
+The detailed 1,000-endpoint tables and `multiobjective-v1` material below are **historical
+protocol/results**, retained for audit rather than instructions to launch the current run.
+The current operational scalar is the reference-scaled uncertainty-aware expression in
+`docs/REPLICATED_SHINKA_PROTOCOL.md`, not the historical raw-unit scalar in section 3.
 
 ## 1. Research question
 
@@ -94,7 +91,7 @@ Three consequential source differences are retained in the record: the appendix 
 
 **Source audit:** [equation/effect mapping](docs/SOURCE_MODEL_MAP.md) · [paper reproduction protocol](docs/PAPER_REPRODUCTION.md) · [deviations](DEVIATIONS.md)
 
-## 3. Prespecified evolution and evaluation
+## 3. Historical multiobjective-v1 evolution and evaluation
 
 ### 3.1 Temporal design
 
@@ -171,7 +168,7 @@ All nondominated canonical alternatives are preserved. Project extensions to Shi
 
 The development-only final-reporting rule selects unique J1, J2, J3 and auxiliary-score champions from the Pareto frontier, resolving exact ties by fewer free structural coefficients and then canonical identity. Deduplicate and include the reference. The representative set is frozen before sensitivity. The separate [finalist reporting policy](configs/finalist-reporting-v1.json) retains the original +2 seed repetition and adds four prespecified forecast-seed repetitions (+3 through +6), reusing accepted fits. These five repetitions describe limited Monte Carlo sensitivity; they do not alter membership or evolutionary fitness. Report every locked finalist on 2010, including losses. A session checkpoint neither ends the campaign nor triggers final-year access. [Selection details](docs/SELECTION.md).
 
-## 4. Results
+## 4. Historical reproduction and 1,000-endpoint reference results
 
 ### 4.1 Original-source simulation: partial reproduction
 
@@ -294,12 +291,14 @@ The [capability matrix](docs/SHINKA_CAPABILITIES.md) distinguishes configured fe
 On the existing checkout and pinned environment:
 
 ```bash
-R_GC_MEM_GROW=0 .venv-shinka/bin/python scripts/run_shinka.py \
-  --config shinka/native_multiobjective_config.json \
-  --results-dir runs/evolution_multiobjective --execute
+# Current replicated workflow: check the intended host without new model calls.
+.venv-shinka/bin/python scripts/replicated_host.py --check-runtime --check-isolation
+# Resolve configuration only (does not create a campaign or perform inference).
+.venv-shinka/bin/python scripts/run_shinka_replicated.py --results-dir runs/evolution_replicated
+# The explicit-budget execute command is in docs/STEP5C_HANDOFF.md.
 ```
 
-The reference evaluator is complete; its four forecasts are reused by native seed evaluation without refitting. The command above starts or resumes the same native campaign. Do not start duplicate controllers. Paused candidate fits retain their candidate, generation and lineage. The fixed evaluator supports `python3 evaluate.py --protocol multiobjective-v1 --program_path PROGRAM --results_dir DIRECTORY`; candidate programs cannot edit or execute the evaluator.
+The reference evaluator is complete; its four forecasts are reused by native seed evaluation without refitting. The commands above check the host and resolve configuration only; neither starts evolution. Do not start duplicate controllers. Paused candidate fits retain their candidate, generation and lineage. The fixed evaluator supports `python3 evaluate.py --protocol multiobjective-v1 --program_path PROGRAM --results_dir DIRECTORY`; candidate programs cannot edit or execute the evaluator.
 
 General entry points now require explicit routing: `evaluate.py --protocol ...`,
 `scripts/run_shinka.py --config ...`, and `scripts/conventional_search.py --protocol ...`.
@@ -375,7 +374,7 @@ Installed runtimes, package caches, credentials and redundant working copies are
 
 ## 8. Limitations and remaining work
 
-The reconstruction and reproduction are partial, and the evolutionary question remains unanswered. The complete reference now permits native multiobjective evolution to propose alternatives directly. The next scientific step is estimating and forecasting changed native network specifications, then retaining their measured Pareto trade-offs. Unchanged acceptance criteria can still invalidate a candidate; failed fits are not measured predictive losses. The expanded grammar, coefficient-transfer corrections and project Pareto integration are implemented but have not produced an evaluated descendant.
+The reconstruction and reproduction are partial, and the evolutionary question remains unanswered. The complete replicated starting evidence supports the dedicated launcher after the Step 5C host checks; live model access and a new evaluated descendant remain unestablished. The next scientific step is estimating and forecasting changed native network specifications, then retaining their measured Pareto trade-offs. Unchanged acceptance criteria can still invalidate a candidate; failed fits are not measured predictive losses. The expanded grammar, coefficient-transfer corrections and replicated MC-resolved selection are implemented. The manual GWESP comparison is complete; no Shinka-generated evaluated descendant is established.
 
 A sustained campaign must explore competing mechanisms and descendants across recoverable sessions. A same-space conventional search is implemented for an effort-accounted comparison; no superiority over conventional search is claimed without that experiment. Development Pareto representatives require fresh-randomness sensitivity, a frozen reporting set and then a reserved 2010 comparison. The legacy final-test command covers the historical PR-only workflow. The new `scripts/finalist_set.py` implements the multiobjective plan, five-repetition development sensitivity, immutable selection lock and complete reserved reporting set. No empirical sensitivity or final comparison was run during this implementation update.
 

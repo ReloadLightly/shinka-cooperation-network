@@ -24,6 +24,8 @@ if str(ROOT) not in sys.path:sys.path.insert(0,str(ROOT))
 from scripts import replicated_evaluation as ev
 from scripts.scientific_contract import bind_campaign, immutable_json, source_hashes, digest, require_search_open
 from scripts.execution_windows import resolve_deadline, set_deadline
+from scripts.replicated_host import (HostUnavailable, require_runtime, service_ports,
+                                     require_free_ports, wait_services, stop_services)
 CONFIG='shinka/native_replicated_config.json'
 UPSTREAM='9912af12d423504b8d580f4179fd15f5f88b8c50'
 
@@ -56,6 +58,9 @@ def launch(args):
     if args.window_hours is None or args.max_new_specs is None:
         raise ValueError('Execution requires explicit --window-hours and --max-new-specs; no default compute commitment')
     require_search_open(ROOT)
+    ports = service_ports(resolved['settings'], args.webui_port)
+    require_free_ports(ports)
+    host_report = require_runtime(ROOT)
     if (ROOT/'results/selection/multiobjective-replicated-v1/plan.json').exists():raise ValueError('Finalist set frozen')
     from scripts.check_native_patch import verify_patch
     verify_patch()
@@ -77,7 +82,7 @@ def launch(args):
         science=ev.identity(ROOT)
         search={'config':c,'sources':source_hashes(ROOT,(CONFIG,'shinka/replicated_selection.py',
             'shinka/pareto_selection.py','shinka/task_prompt_replicated.md','scripts/run_shinka_replicated.py',
-            'shinka/multiobjective_native.patch'))}
+            'shinka/multiobjective_native.patch','scripts/replicated_host.py'))}
         bind_campaign(folder,science,search)
         # Verify the actual shared reference before constructing a model client.
         ref=ev.result_for(ev.policy()['reference'],ev.evidence_root())
@@ -109,21 +114,23 @@ def launch(args):
         module_spec=importlib.util.spec_from_file_location('project_replicated_selection',ROOT/'shinka/replicated_selection.py')
         module=importlib.util.module_from_spec(module_spec);sys.modules[module_spec.name]=module;module_spec.loader.exec_module(module);module.install()
         if not (folder/'resolved_config.json').exists():immutable_json(folder/'resolved_config.json',resolved)
-        with (folder/'launch_history.jsonl').open('a') as stream:stream.write(json.dumps({'started_unix':time.time(),'deadline':deadline,'resolved':resolved})+'\n')
-        streams=[];services=[]
+        with (folder/'launch_history.jsonl').open('a') as stream:stream.write(json.dumps({'started_unix':time.time(),'deadline':deadline,'resolved':resolved,'local_runtime':host_report})+'\n')
+        streams=[];services={}
         try:
             for name,cmd in (
-                ('embedding',[sys.executable,str(ROOT/'shinka/embedding_server.py'),'--log',str(folder/'embedding_calls.jsonl')]),
+                ('embedding',[sys.executable,str(ROOT/'shinka/embedding_server.py'),'--port',str(ports['embedding']),'--log',str(folder/'embedding_calls.jsonl')]),
                 ('webui',[str(Path(sys.executable).parent/'shinka_visualize'),str(folder),'--port',str(args.webui_port)])):
                 log=(folder/f'{name}.log').open('a');streams.append(log)
-                services.append(subprocess.Popen(cmd,cwd=ROOT,stdout=log,stderr=subprocess.STDOUT))
+                services[name]=subprocess.Popen(cmd,cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+            wait_services(services, ports)
             print(f'Replicated evaluator; WebUI http://localhost:{args.webui_port}; native state retained in {folder}',flush=True)
             runner=ShinkaEvolveRunner(evo_config=EvolutionConfig(**evo),db_config=db,job_config=job,**c['runner'],verbose=True)
             runner.run()
         finally:
-            for svc in services:
-                if svc.poll() is None:svc.terminate();svc.wait(timeout=10)
-            for stream in streams:stream.close()
+            try:
+                stop_services(services.values())
+            finally:
+                for stream in streams:stream.close()
     return 75 if time.time()>=deadline else 0
 
 
@@ -134,6 +141,10 @@ def main():
     p.add_argument('--max-new-specs',type=int)
     p.add_argument('--webui-port',type=int,default=8765)
     p.add_argument('--execute',action='store_true')
-    return launch(p.parse_args())
+    try:
+        return launch(p.parse_args())
+    except HostUnavailable as exc:
+        print(str(exc), file=sys.stderr)
+        return 75
 
 if __name__=='__main__':raise SystemExit(main())

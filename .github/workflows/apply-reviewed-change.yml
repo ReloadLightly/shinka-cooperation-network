@@ -1,0 +1,64 @@
+name: Apply tested scientific contracts
+
+on:
+  push:
+    branches: ['maintenance/scientific-contracts-20260921']
+    paths: ['.maintenance/**', '.github/workflows/apply-reviewed-change.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.ref == 'refs/heads/maintenance/scientific-contracts-20260921'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify and apply the locally tested source patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .maintenance/review.patch.gz.0* > /tmp/review.patch.gz
+          echo '5759ab2e263d82c9156ca0bc0f891876e294af43a05809ab045cdc62210caf78  /tmp/review.patch.gz' | sha256sum --check
+          gzip -dc /tmp/review.patch.gz > /tmp/review.patch
+          echo 'd5edc129f767090e7cfba83c7fdf341688d21f44dff3fe1a05dbf3e87f57c8b3  /tmp/review.patch' | sha256sum --check
+          git apply --check /tmp/review.patch
+          git apply /tmp/review.patch
+          python -m compileall -q evaluate.py scripts shinka tests
+          python -m unittest discover -s tests -v 2>&1 | tee /tmp/contract-tests.log
+          python scripts/update_readme_status.py --check
+          git diff --check
+      - name: Commit tested source changes on the maintenance branch only
+        shell: bash
+        run: |
+          set -euo pipefail
+          # The connector will publish the reviewed permanent workflow and remove
+          # this temporary helper. This token never edits workflow definitions.
+          git restore -- .github/workflows/contracts.yml
+          git add -A
+          python - <<'PY'
+          import subprocess
+          names = subprocess.check_output(['git', 'diff', '--cached', '--name-only'], text=True).splitlines()
+          allowed_r = {'R/check_structured_contracts.R', 'R/compare_structured_predictions.R'}
+          assert names, 'No source changes were staged'
+          for name in names:
+              assert not name.startswith(('data/', 'results/', 'sources/', '.maintenance/', '.github/')), name
+              if name.startswith('R/'):
+                  assert name in allowed_r, name
+          print('Verified', len(names), 'source/documentation files; empirical artifacts and native science unchanged')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Implement and regression-test scientific contracts and finalist reporting'
+          git push origin HEAD:maintenance/scientific-contracts-20260921
+          git log -1 --format='TESTED_COMMIT=%H%nTESTED_TREE=%T'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: implementation-contract-tests
+          path: /tmp/contract-tests.log
+          retention-days: 7

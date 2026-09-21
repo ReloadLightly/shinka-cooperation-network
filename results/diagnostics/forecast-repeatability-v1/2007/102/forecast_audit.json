@@ -1,0 +1,41 @@
+{
+  "forecast_schema_version": "training-only-v2-fixed-origin-membership",
+  "native_origin_active": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+  "native_composition_events": 0,
+  "origin_membership_native_verified": true,
+  "inactive_dyads_native_structural_zero": 160,
+  "active_dyads_have_no_structural_constraints": true,
+  "network_missing_at_origin": 320,
+  "behavior_missing_at_origin": 9,
+  "inactive_at_origin": 260,
+  "support": [1, 11],
+  "placeholder": "duplicate origin network; origin behavior with two historical boundary values",
+  "conditional": false,
+  "simOnly": true,
+  "allowOnly": false,
+  "training_behavior_mean": 1.8487913981976294,
+  "forward_behavior_mean": 1.4720496894409938,
+  "covariate_centering": "training means preserved; missing origin values last known then training mean",
+  "rates": {
+    "dv.net": {
+      "value": 0.51062951377862098,
+      "training_period": "16",
+      "duration_adjustment": 1
+    },
+    "milex.beh": {
+      "value": 0.42596836426129531,
+      "training_period": "16",
+      "duration_adjustment": 1
+    }
+  },
+  "centering_corrections": {
+    "density": 0.019242488685917505,
+    "linear": 0.027096352859302817
+  },
+  "mean_shift": -0.3767417087566356,
+  "seed": 2007102,
+  "requested_simulations": 1000,
+  "returned_simulations": 1000,
+  "elapsed_seconds": 25.317,
+  "target_outcomes_accessed": false
+}

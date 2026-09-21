@@ -1,0 +1,27 @@
+{
+  "status": "recovered_and_byte_identical",
+  "recorded_utc": "2026-09-21T10:01:01.192470+00:00",
+  "archive_sha256": "2f4c2c02e3969437976c505098848e0ef7333466aeba3cccd807b3b44ba75308",
+  "raw_member": "IO_Final/data/data_raw.RData",
+  "raw_member_sha256": "889bd72ade53533607f3ad7fa30ff88f6d13ba58e07e59bb20f108b71fa7413e",
+  "preparation_source_sha256": "efa5dd793fb65afa1af402b2452effba5f6c6d246b6edb509ea16e818ffd0357",
+  "restricted_preparation_sha256": "6fb4d29ddff37886d001e86e3bfe1d7650a8190bc0fffe6d155a98342970f250",
+  "packets_sha256": {
+    "data/past/2007.rds": "7b772635ff780df37102249f103c96b6f0c79efda3fb9a1c55349ba110872435",
+    "data/past/2009.rds": "f8aea6ff84f4a82c43cce7cd6bc12fcd0a4fc36e0db0f6aeb4618381fc1771e4",
+    "data/past/2006.rds": "7e00ccdf14204ac676cd141533e2612bc8bd810dbd371992d24670b47ad69ac5",
+    "data/past/2008.rds": "332836625db9ff13b86e0dbf7a34386e8abcfc155df4b196cfacddf3aa1a496f",
+    "data/targets/2007.rds": "d0d1c97414d39550096e69fcd36c5e14dc5e28aea1fca0b34f6de6ed76d0c936",
+    "data/targets/2009.rds": "a7bd4d561517e93c318e4f71dc7d6fbd3ddda827a55e214431f4b47837865c2c",
+    "data/targets/2006.rds": "a2b9edb5f8c98a6b0b937dce5b8be9345e64cb2f225506115974a247fc3e434a",
+    "data/targets/2008.rds": "973e54b1b7fd764889584cf1a25e429a6ebd3de7fa83a91684464c2d1b2850d2"
+  },
+  "all_eight_match_published_hashes": true,
+  "mixed_year_archive_deserialized_by_trusted_preparer": true,
+  "rows_after_2009_removed_before_packet_construction": true,
+  "reserved_year_packet_created": false,
+  "forecast_calls": 0,
+  "fit_calls": 0,
+  "score_calls": 0,
+  "scope": "Trusted input recovery only; never report zero raw-archive access. No 2010 forecast, score, analysis or model selection."
+}

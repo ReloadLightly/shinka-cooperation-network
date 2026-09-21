@@ -1,0 +1,101 @@
+{
+  "target": 2009,
+  "simulations": 1000,
+  "seed": 2009104,
+  "primary": {
+    "n": 12720,
+    "positives": 519,
+    "negatives": 12201,
+    "pr_auc": 0.94998038168354126,
+    "roc_auc": 0.9927256507450114,
+    "brier": 0.0034119758647798743,
+    "limitation": null
+  },
+  "formation": {
+    "n": 12212,
+    "positives": 26,
+    "negatives": 12186,
+    "pr_auc": 0.013240804700819649,
+    "roc_auc": 0.86458451691095706,
+    "brier": 0.0022655523255813953,
+    "limitation": null
+  },
+  "dissolution": {
+    "n": 508,
+    "positives": 15,
+    "negatives": 493,
+    "pr_auc": 0.048512056841027683,
+    "roc_auc": 0.62555780933062877,
+    "brier": 0.03097127559055118,
+    "limitation": null
+  },
+  "persistence": {
+    "n": 12720,
+    "positives": 519,
+    "negatives": 12201,
+    "pr_auc": 0.92846071645205541,
+    "roc_auc": 0.97433712673034945,
+    "brier": 0.0032232704402515725,
+    "limitation": null
+  },
+  "spending": {
+    "n": 151,
+    "units": "ordinal categories 1-11",
+    "rmse": 0.39311773845934594
+  },
+  "network_diagnostics": {
+    "expected_ties": 538.70100000000002,
+    "observed_ties": 519,
+    "expected_density": 0.042350707547169811,
+    "observed_density": 0.040801886792452828,
+    "degree_rmse": 1.0630784840989107
+  },
+  "structural_predictive_checks": {
+    "scope": "Network restricted to the common eligible dyad mask; inactive and invalid edges absent in both observed and simulated graphs",
+    "interpretation": "Descriptive predictive envelopes, not independent-dyad significance tests or coefficient uncertainty",
+    "observed": {
+      "ties": 519,
+      "triangles": 841,
+      "clustering": 0.27175786299009047,
+      "degree_variance": 80.711257763975155
+    },
+    "simulated": [
+      {
+        "statistic": "ties",
+        "finite_simulations": 1000,
+        "mean": 538.70100000000002,
+        "quantiles_025_50_975": [525, 538, 554]
+      },
+      {
+        "statistic": "triangles",
+        "finite_simulations": 1000,
+        "mean": 891.60000000000002,
+        "quantiles_025_50_975": [833.97500000000002, 889, 966.04999999999995]
+      },
+      {
+        "statistic": "clustering",
+        "finite_simulations": 1000,
+        "mean": 0.26783890611591921,
+        "quantiles_025_50_975": [0.25601261457473468, 0.26779629020099172, 0.28091319567909556]
+      },
+      {
+        "statistic": "degree_variance",
+        "finite_simulations": 1000,
+        "mean": 86.483943788819872,
+        "quantiles_025_50_975": [82.260518245341629, 86.355745341614906, 91.45202057453416]
+      }
+    ]
+  },
+  "eligibility": {
+    "total_unordered_pairs": 12880,
+    "eligible": 12720,
+    "excluded_inactive": 160,
+    "excluded_target_missing_or_structural": 0,
+    "excluded_origin_missing_or_structural": 0,
+    "origin_actors": 160,
+    "target_present_in_sample": 160,
+    "entered_since_origin_in_training_sample": [],
+    "left_since_origin_in_training_sample": [],
+    "target_actors_outside_training_sample": ["40", "110", "520", "531", "581", "620", "700", "731", "860", "910", "940"]
+  }
+}

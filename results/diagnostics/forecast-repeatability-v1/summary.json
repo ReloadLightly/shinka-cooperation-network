@@ -1,0 +1,316 @@
+{
+  "status": "complete",
+  "completed_batches": 20,
+  "planned_batches": 20,
+  "annual": {
+    "2006": {
+      "pr_auc": {
+        "n": 5,
+        "mean": 0.8856425529357542,
+        "sample_sd": 0.002750276519612608,
+        "minimum": 0.881122388785682,
+        "maximum": 0.8878269369194313,
+        "range": 0.006704548133749211,
+        "published_reference": 0.8853079445873959
+      },
+      "brier": {
+        "n": 5,
+        "mean": 0.005481970660377359,
+        "sample_sd": 6.75915749399661e-06,
+        "minimum": 0.005471488600628931,
+        "maximum": 0.005488858176100629,
+        "range": 1.736957547169779e-05,
+        "published_reference": 0.005488310220125786
+      },
+      "spending_rmse": {
+        "n": 5,
+        "mean": 0.36832922248843847,
+        "sample_sd": 0.0011310032861461372,
+        "minimum": 0.3669417887292063,
+        "maximum": 0.3699406602487258,
+        "range": 0.002998871519519497,
+        "published_reference": 0.3712393627751295
+      },
+      "formation_pr_auc": {
+        "n": 5,
+        "mean": 0.015778371544929674,
+        "sample_sd": 0.0010970350235764471,
+        "minimum": 0.014794854698923778,
+        "maximum": 0.017367659363781738,
+        "range": 0.00257280466485796,
+        "published_reference": 0.015180235117037194
+      },
+      "dissolution_pr_auc": {
+        "n": 5,
+        "mean": 0.07673385236405157,
+        "sample_sd": 0.021627266769839292,
+        "minimum": 0.059710092811539994,
+        "maximum": 0.10159326405296085,
+        "range": 0.04188317124142085,
+        "published_reference": 0.09834985871290293
+      }
+    },
+    "2007": {
+      "pr_auc": {
+        "n": 5,
+        "mean": 0.9385692643920883,
+        "sample_sd": 0.002541011404920856,
+        "minimum": 0.9361841525534731,
+        "maximum": 0.9424254564225114,
+        "range": 0.006241303869038317,
+        "published_reference": 0.9416616420083401
+      },
+      "brier": {
+        "n": 5,
+        "mean": 0.004094229827044025,
+        "sample_sd": 6.017407362214242e-06,
+        "minimum": 0.004089105738993711,
+        "maximum": 0.004102076729559748,
+        "range": 1.297099056603735e-05,
+        "published_reference": 0.004086563128930818
+      },
+      "spending_rmse": {
+        "n": 5,
+        "mean": 0.36348401333085023,
+        "sample_sd": 0.0011000599585128455,
+        "minimum": 0.3619252067253093,
+        "maximum": 0.3649219004404266,
+        "range": 0.0029966937151172934,
+        "published_reference": 0.36381803035381066
+      },
+      "formation_pr_auc": {
+        "n": 5,
+        "mean": 0.04014162063228711,
+        "sample_sd": 0.0012508241955356129,
+        "minimum": 0.038772691665003634,
+        "maximum": 0.04154640368968474,
+        "range": 0.002773712024681109,
+        "published_reference": 0.03851718450654261
+      },
+      "dissolution_pr_auc": {
+        "n": 5,
+        "mean": 0.021466882388637625,
+        "sample_sd": 0.0012799466442333575,
+        "minimum": 0.020271415690032407,
+        "maximum": 0.023454087203492693,
+        "range": 0.003182671513460286,
+        "published_reference": 0.022624255212066784
+      }
+    },
+    "2008": {
+      "pr_auc": {
+        "n": 5,
+        "mean": 0.9168324830179568,
+        "sample_sd": 0.0007664428831913058,
+        "minimum": 0.9159384727468507,
+        "maximum": 0.9180346743988914,
+        "range": 0.002096201652040719,
+        "published_reference": 0.9145603775754418
+      },
+      "brier": {
+        "n": 5,
+        "mean": 0.004498395110062893,
+        "sample_sd": 8.825515466324819e-06,
+        "minimum": 0.004488757625786164,
+        "maximum": 0.004505876493710692,
+        "range": 1.711886792452825e-05,
+        "published_reference": 0.004505291666666667
+      },
+      "spending_rmse": {
+        "n": 5,
+        "mean": 0.4411297883958184,
+        "sample_sd": 0.0008866847964918135,
+        "minimum": 0.4404421424227225,
+        "maximum": 0.4426600399391209,
+        "range": 0.0022178975163983927,
+        "published_reference": 0.43959861050299553
+      },
+      "formation_pr_auc": {
+        "n": 5,
+        "mean": 0.0236697074395142,
+        "sample_sd": 0.0008201354127908032,
+        "minimum": 0.02284722816664623,
+        "maximum": 0.024797661385851315,
+        "range": 0.001950433219205086,
+        "published_reference": 0.022770206408522696
+      },
+      "dissolution_pr_auc": {
+        "n": 5,
+        "mean": 0.032058430942093846,
+        "sample_sd": 0.0008365021646261326,
+        "minimum": 0.03111941792772372,
+        "maximum": 0.03340043909363865,
+        "range": 0.0022810211659149288,
+        "published_reference": 0.030813282345479427
+      }
+    },
+    "2009": {
+      "pr_auc": {
+        "n": 5,
+        "mean": 0.949539691762212,
+        "sample_sd": 0.003922614579191293,
+        "minimum": 0.9430006815609652,
+        "maximum": 0.9526152858545793,
+        "range": 0.00961460429361416,
+        "published_reference": 0.9493615190143408
+      },
+      "brier": {
+        "n": 5,
+        "mean": 0.003405264496855346,
+        "sample_sd": 7.992996863911099e-06,
+        "minimum": 0.0033919088836477985,
+        "maximum": 0.0034119758647798743,
+        "range": 2.0066981132075765e-05,
+        "published_reference": 0.0033978513364779873
+      },
+      "spending_rmse": {
+        "n": 5,
+        "mean": 0.39353656045957275,
+        "sample_sd": 0.001459476991179352,
+        "minimum": 0.3918503312735684,
+        "maximum": 0.39585324058225185,
+        "range": 0.004002909308683467,
+        "published_reference": 0.39304969100948167
+      },
+      "formation_pr_auc": {
+        "n": 5,
+        "mean": 0.013612909786061477,
+        "sample_sd": 0.0007783650263084241,
+        "minimum": 0.012624003190205834,
+        "maximum": 0.01442160144773266,
+        "range": 0.0017975982575268255,
+        "published_reference": 0.01399445866412289
+      },
+      "dissolution_pr_auc": {
+        "n": 5,
+        "mean": 0.048993530023224076,
+        "sample_sd": 0.0014514482422753568,
+        "minimum": 0.04766071322063784,
+        "maximum": 0.051411702362153186,
+        "range": 0.0037509891415153443,
+        "published_reference": 0.04734086685636852
+      }
+    }
+  },
+  "complete_four_year_repetitions": [
+    {
+      "offset": 101,
+      "four_year_means": {
+        "pr_auc": 0.9224186383388643,
+        "brier": 0.004368864052672956,
+        "spending_rmse": 0.391323863197,
+        "formation_pr_auc": 0.023025682772912347,
+        "dissolution_pr_auc": 0.05092519686367166
+      },
+      "same_model_signed_differences_from_published": {
+        "pr_auc": -0.0003042324575154298,
+        "brier": 6.40035377358697e-07,
+        "spending_rmse": 0.0006025604633543291
+      }
+    },
+    {
+      "offset": 102,
+      "four_year_means": {
+        "pr_auc": 0.9239400877929942,
+        "brier": 0.004371862008647798,
+        "spending_rmse": 0.39183195857113506,
+        "formation_pr_auc": 0.022850642040281446,
+        "dissolution_pr_auc": 0.050528104507786914
+      },
+      "same_model_signed_differences_from_published": {
+        "pr_auc": 0.0012172169966144786,
+        "brier": -2.357920597483368e-06,
+        "spending_rmse": 9.446508921928665e-05
+      }
+    },
+    {
+      "offset": 103,
+      "four_year_means": {
+        "pr_auc": 0.922623918054077,
+        "brier": 0.0043660266312893084,
+        "spending_rmse": 0.3925023641747041,
+        "formation_pr_auc": 0.024047392053696957,
+        "dissolution_pr_auc": 0.04106499394008972
+      },
+      "same_model_signed_differences_from_published": {
+        "pr_auc": -9.89527423027603e-05,
+        "brier": 3.4774567610066157e-06,
+        "spending_rmse": -0.0005759405143497265
+      }
+    },
+    {
+      "offset": 104,
+      "four_year_means": {
+        "pr_auc": 0.9210389555167001,
+        "brier": 0.00437517207154088,
+        "spending_rmse": 0.3910085006124676,
+        "formation_pr_auc": 0.022989267317769842,
+        "dissolution_pr_auc": 0.03990324581758095
+      },
+      "same_model_signed_differences_from_published": {
+        "pr_auc": -0.001683915279679593,
+        "brier": -5.6679834905650275e-06,
+        "spending_rmse": 0.0009179230478867373
+      }
+    },
+    {
+      "offset": 105,
+      "four_year_means": {
+        "pr_auc": 0.9232083904323788,
+        "brier": 0.004367900353773585,
+        "spending_rmse": 0.39143279428804306,
+        "formation_pr_auc": 0.023590277568829983,
+        "dissolution_pr_auc": 0.04164432851837965
+      },
+      "same_model_signed_differences_from_published": {
+        "pr_auc": 0.00048551963599907655,
+        "brier": 1.6037342767298915e-06,
+        "spending_rmse": 0.0004936293723112883
+      }
+    }
+  ],
+  "four_year_mean_variability": {
+    "pr_auc": {
+      "n": 5,
+      "mean": 0.9226459980270029,
+      "sample_sd": 0.0010753742514798088,
+      "minimum": 0.9210389555167001,
+      "maximum": 0.9239400877929942,
+      "range": 0.0029011322762940717
+    },
+    "brier": {
+      "n": 5,
+      "mean": 0.004369965023584906,
+      "sample_sd": 3.59506025670683e-06,
+      "minimum": 0.0043660266312893084,
+      "maximum": 0.00437517207154088,
+      "range": 9.145440251571643e-06
+    },
+    "spending_rmse": {
+      "n": 5,
+      "mean": 0.39161989616867,
+      "sample_sd": 0.0005744926902073984,
+      "minimum": 0.3910085006124676,
+      "maximum": 0.3925023641747041,
+      "range": 0.0014938635622364638
+    },
+    "formation_pr_auc": {
+      "n": 5,
+      "mean": 0.023300652350698114,
+      "sample_sd": 0.0005041282421005252,
+      "minimum": 0.022850642040281446,
+      "maximum": 0.024047392053696957,
+      "range": 0.0011967500134155117
+    },
+    "dissolution_pr_auc": {
+      "n": 5,
+      "mean": 0.04481317392950178,
+      "sample_sd": 0.005436338022954566,
+      "minimum": 0.03990324581758095,
+      "maximum": 0.05092519686367166,
+      "range": 0.01102195104609071
+    }
+  },
+  "interpretation": "Conditional forecast Monte Carlo variability for fixed accepted reference coefficients. Five repetitions give a rough SD estimate. Differences from the original finite-simulation reference are NOT candidate improvements. No refitting variance, generalization uncertainty, signal-to-noise ratio or evolutionary fitness is established.",
+  "aggregation": "Score each batch after averaging its 1000 endpoints. Means of batch metrics are not scores of pooled-endpoint probabilities."
+}

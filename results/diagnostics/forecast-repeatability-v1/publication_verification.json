@@ -1,0 +1,14 @@
+{
+  "status": "verified",
+  "workflow_run": "35589589005",
+  "source_commit": "dd9de9820179c580e0362352c7bb61cdf5284310",
+  "python_tests": 101,
+  "real_packets_restored_and_hash_verified": 8,
+  "committed_batches_verified": 20,
+  "coefficient_vectors_identical_across_all_five_seeds_per_year": true,
+  "native_runtime_installed_in_this_verification_job": false,
+  "new_forecasts": 0,
+  "new_refits": 0,
+  "reserved_packets_created": 0,
+  "summary_recomputed_from_verified_score_artifacts": true
+}

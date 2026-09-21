@@ -1,0 +1,241 @@
+$target
+[1] 2008
+
+$simulations
+[1] 1000
+
+$seed
+[1] 2008104
+
+$primary
+$primary$n
+[1] 12720
+
+$primary$positives
+[1] 508
+
+$primary$negatives
+[1] 12212
+
+$primary$pr_auc
+[1] 0.9168689
+
+$primary$roc_auc
+[1] 0.9835785
+
+$primary$brier
+[1] 0.004502561
+
+$primary$limitation
+NULL
+
+
+$formation
+$formation$n
+[1] 12236
+
+$formation$positives
+[1] 40
+
+$formation$negatives
+[1] 12196
+
+$formation$pr_auc
+[1] 0.02312066
+
+$formation$roc_auc
+[1] 0.800656
+
+$formation$brier
+[1] 0.003300524
+
+$formation$limitation
+NULL
+
+
+$dissolution
+$dissolution$n
+[1] 484
+
+$dissolution$positives
+[1] 16
+
+$dissolution$negatives
+[1] 468
+
+$dissolution$pr_auc
+[1] 0.03111942
+
+$dissolution$roc_auc
+[1] 0.4676816
+
+$dissolution$brier
+[1] 0.03489124
+
+$dissolution$limitation
+NULL
+
+
+$persistence
+$persistence$n
+[1] 12720
+
+$persistence$positives
+[1] 508
+
+$persistence$negatives
+[1] 12212
+
+$persistence$pr_auc
+[1] 0.9008737
+
+$persistence$roc_auc
+[1] 0.9599748
+
+$persistence$brier
+[1] 0.004402516
+
+$persistence$limitation
+NULL
+
+
+$spending
+$spending$n
+[1] 146
+
+$spending$units
+[1] "ordinal categories 1-11"
+
+$spending$rmse
+[1] 0.4404421
+
+
+$network_diagnostics
+$network_diagnostics$expected_ties
+[1] 511.836
+
+$network_diagnostics$observed_ties
+[1] 508
+
+$network_diagnostics$expected_density
+[1] 0.04023868
+
+$network_diagnostics$observed_density
+[1] 0.03993711
+
+$network_diagnostics$degree_rmse
+[1] 1.029146
+
+
+$structural_predictive_checks
+$structural_predictive_checks$scope
+[1] "Network restricted to the common eligible dyad mask; inactive and invalid edges absent in both observed and simulated graphs"
+
+$structural_predictive_checks$interpretation
+[1] "Descriptive predictive envelopes, not independent-dyad significance tests or coefficient uncertainty"
+
+$structural_predictive_checks$observed
+$structural_predictive_checks$observed$ties
+[1] 508
+
+$structural_predictive_checks$observed$triangles
+[1] 789
+
+$structural_predictive_checks$observed$clustering
+[1] 0.2655969
+
+$structural_predictive_checks$observed$degree_variance
+[1] 77.67795
+
+
+$structural_predictive_checks$simulated
+$structural_predictive_checks$simulated[[1]]
+$structural_predictive_checks$simulated[[1]]$statistic
+[1] "ties"
+
+$structural_predictive_checks$simulated[[1]]$finite_simulations
+[1] 1000
+
+$structural_predictive_checks$simulated[[1]]$mean
+[1] 511.836
+
+$structural_predictive_checks$simulated[[1]]$quantiles_025_50_975
+[1] 499 512 526
+
+
+$structural_predictive_checks$simulated[[2]]
+$structural_predictive_checks$simulated[[2]]$statistic
+[1] "triangles"
+
+$structural_predictive_checks$simulated[[2]]$finite_simulations
+[1] 1000
+
+$structural_predictive_checks$simulated[[2]]$mean
+[1] 841.362
+
+$structural_predictive_checks$simulated[[2]]$quantiles_025_50_975
+[1] 783.00 840.00 905.05
+
+
+$structural_predictive_checks$simulated[[3]]
+$structural_predictive_checks$simulated[[3]]$statistic
+[1] "clustering"
+
+$structural_predictive_checks$simulated[[3]]$finite_simulations
+[1] 1000
+
+$structural_predictive_checks$simulated[[3]]$mean
+[1] 0.2715265
+
+$structural_predictive_checks$simulated[[3]]$quantiles_025_50_975
+[1] 0.2600754 0.2715030 0.2844038
+
+
+$structural_predictive_checks$simulated[[4]]
+$structural_predictive_checks$simulated[[4]]$statistic
+[1] "degree_variance"
+
+$structural_predictive_checks$simulated[[4]]$finite_simulations
+[1] 1000
+
+$structural_predictive_checks$simulated[[4]]$mean
+[1] 81.90066
+
+$structural_predictive_checks$simulated[[4]]$quantiles_025_50_975
+[1] 78.00952 81.84224 86.36403
+
+
+
+
+$eligibility
+$eligibility$total_unordered_pairs
+[1] 12880
+
+$eligibility$eligible
+[1] 12720
+
+$eligibility$excluded_inactive
+[1] 160
+
+$eligibility$excluded_target_missing_or_structural
+[1] 0
+
+$eligibility$excluded_origin_missing_or_structural
+[1] 0
+
+$eligibility$origin_actors
+[1] 160
+
+$eligibility$target_present_in_sample
+[1] 160
+
+$eligibility$entered_since_origin_in_training_sample
+character(0)
+
+$eligibility$left_since_origin_in_training_sample
+character(0)
+
+$eligibility$target_actors_outside_training_sample
+ [1] "40"  "110" "520" "531" "581" "620" "700" "731" "860" "910" "940"
+
+

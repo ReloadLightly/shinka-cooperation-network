@@ -1,0 +1,16 @@
+{
+  "status": "completed",
+  "seed": 52020091,
+  "draws": 3000,
+  "simulator_entries": 3000,
+  "simulator_exits": 3000,
+  "phase3_entries": 1,
+  "potential_nr_calls": 1,
+  "forbidden_entries": 0,
+  "parameters": 58,
+  "coefficients_checked_each_call": true,
+  "nsub": 0,
+  "simOnly": false,
+  "warnings": [],
+  "elapsed_seconds": 873.17100000000005
+}

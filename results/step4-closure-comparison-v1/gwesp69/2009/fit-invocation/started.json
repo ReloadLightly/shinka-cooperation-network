@@ -1,0 +1,12 @@
+{
+  "args": [
+    "R/step4_compare.R",
+    "fit",
+    "/home/runner/work/shinka-cooperation-network/shinka-cooperation-network/results/step4-closure-comparison-v1/gwesp69/2009",
+    "/tmp/step4-past-xkzp3r0e/past.rds",
+    "gwesp69",
+    "2009"
+  ],
+  "timeout_seconds": 14399,
+  "version": "step4-closure-comparison-v1"
+}

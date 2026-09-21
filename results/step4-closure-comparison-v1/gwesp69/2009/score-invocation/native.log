@@ -1,0 +1,615 @@
+Warning message:
+package ‘jsonlite’ was built under R version 4.2.3 
+$status
+[1] "complete"
+
+$pooled
+$pooled$pr_auc
+[1] 0.9489553
+
+$pooled$brier
+[1] 0.003395671
+
+$pooled$spending_rmse
+[1] 0.395133
+
+$pooled$formation_pr_auc
+[1] 0.01391073
+
+$pooled$dissolution_pr_auc
+[1] 0.04350327
+
+
+$delete_one_batch
+$delete_one_batch[[1]]
+$delete_one_batch[[1]]$pr_auc
+[1] 0.9482897
+
+$delete_one_batch[[1]]$brier
+[1] 0.003396727
+
+$delete_one_batch[[1]]$spending_rmse
+[1] 0.3951497
+
+$delete_one_batch[[1]]$formation_pr_auc
+[1] 0.01382204
+
+$delete_one_batch[[1]]$dissolution_pr_auc
+[1] 0.0427596
+
+
+$delete_one_batch[[2]]
+$delete_one_batch[[2]]$pr_auc
+[1] 0.9491546
+
+$delete_one_batch[[2]]$brier
+[1] 0.003395399
+
+$delete_one_batch[[2]]$spending_rmse
+[1] 0.3955368
+
+$delete_one_batch[[2]]$formation_pr_auc
+[1] 0.01395703
+
+$delete_one_batch[[2]]$dissolution_pr_auc
+[1] 0.04323848
+
+
+$delete_one_batch[[3]]
+$delete_one_batch[[3]]$pr_auc
+[1] 0.9493406
+
+$delete_one_batch[[3]]$brier
+[1] 0.00339643
+
+$delete_one_batch[[3]]$spending_rmse
+[1] 0.3947258
+
+$delete_one_batch[[3]]$formation_pr_auc
+[1] 0.01377135
+
+$delete_one_batch[[3]]$dissolution_pr_auc
+[1] 0.04366967
+
+
+$delete_one_batch[[4]]
+$delete_one_batch[[4]]$pr_auc
+[1] 0.949431
+
+$delete_one_batch[[4]]$brier
+[1] 0.003394539
+
+$delete_one_batch[[4]]$spending_rmse
+[1] 0.394572
+
+$delete_one_batch[[4]]$formation_pr_auc
+[1] 0.01384076
+
+$delete_one_batch[[4]]$dissolution_pr_auc
+[1] 0.04376274
+
+
+$delete_one_batch[[5]]
+$delete_one_batch[[5]]$pr_auc
+[1] 0.949395
+
+$delete_one_batch[[5]]$brier
+[1] 0.003396287
+
+$delete_one_batch[[5]]$spending_rmse
+[1] 0.3957185
+
+$delete_one_batch[[5]]$formation_pr_auc
+[1] 0.01404546
+
+$delete_one_batch[[5]]$dissolution_pr_auc
+[1] 0.0438654
+
+
+
+$batches
+$batches[[1]]
+$batches[[1]]$pr_auc
+[1] 0.9505337
+
+$batches[[1]]$brier
+[1] 0.003395565
+
+$batches[[1]]$spending_rmse
+[1] 0.3952021
+
+$batches[[1]]$formation_pr_auc
+[1] 0.01377408
+
+$batches[[1]]$dissolution_pr_auc
+[1] 0.04564585
+
+
+$batches[[2]]
+$batches[[2]]$pr_auc
+[1] 0.9475875
+
+$batches[[2]]$brier
+[1] 0.003400762
+
+$batches[[2]]$spending_rmse
+[1] 0.393673
+
+$batches[[2]]$formation_pr_auc
+[1] 0.01320679
+
+$batches[[2]]$dissolution_pr_auc
+[1] 0.04419928
+
+
+$batches[[3]]
+$batches[[3]]$pr_auc
+[1] 0.9495389
+
+$batches[[3]]$brier
+[1] 0.003396772
+
+$batches[[3]]$spending_rmse
+[1] 0.3969173
+
+$batches[[3]]$formation_pr_auc
+[1] 0.01396366
+
+$batches[[3]]$dissolution_pr_auc
+[1] 0.04316175
+
+
+$batches[[4]]
+$batches[[4]]$pr_auc
+[1] 0.943868
+
+$batches[[4]]$brier
+[1] 0.003404362
+
+$batches[[4]]$spending_rmse
+[1] 0.3975141
+
+$batches[[4]]$formation_pr_auc
+[1] 0.01375672
+
+$batches[[4]]$dissolution_pr_auc
+[1] 0.04113516
+
+
+$batches[[5]]
+$batches[[5]]$pr_auc
+[1] 0.9488382
+
+$batches[[5]]$brier
+[1] 0.003397319
+
+$batches[[5]]$spending_rmse
+[1] 0.3929665
+
+$batches[[5]]$formation_pr_auc
+[1] 0.01279307
+
+$batches[[5]]$dissolution_pr_auc
+[1] 0.0434336
+
+
+
+$eligibility_sha256
+[1] "3e51b26e7feee1dda91b8fd2b9db0693e637428df9e02e9a3c2f56fbd9eef1cd"
+
+$dyads
+[1] 12720
+
+$spending_countries
+[1] 151
+
+$primary_endpoints
+[1] 5000
+
+$uncertainty
+[1] "Conditional simulation precision only; five-block jackknife is approximate, especially for PR-AUC ties"
+
+$structural_checks
+$structural_checks[[1]]
+$structural_checks[[1]]$scope
+[1] "Network restricted to the common eligible dyad mask; inactive and invalid edges absent in both observed and simulated graphs"
+
+$structural_checks[[1]]$interpretation
+[1] "Descriptive predictive envelopes, not independent-dyad significance tests or coefficient uncertainty"
+
+$structural_checks[[1]]$observed
+$structural_checks[[1]]$observed$ties
+[1] 519
+
+$structural_checks[[1]]$observed$triangles
+[1] 841
+
+$structural_checks[[1]]$observed$clustering
+[1] 0.2717579
+
+$structural_checks[[1]]$observed$degree_variance
+[1] 80.71126
+
+
+$structural_checks[[1]]$simulated
+$structural_checks[[1]]$simulated[[1]]
+$structural_checks[[1]]$simulated[[1]]$statistic
+[1] "ties"
+
+$structural_checks[[1]]$simulated[[1]]$finite_simulations
+[1] 1000
+
+$structural_checks[[1]]$simulated[[1]]$mean
+[1] 543.927
+
+$structural_checks[[1]]$simulated[[1]]$quantiles_025_50_975
+[1] 529 544 559
+
+
+$structural_checks[[1]]$simulated[[2]]
+$structural_checks[[1]]$simulated[[2]]$statistic
+[1] "triangles"
+
+$structural_checks[[1]]$simulated[[2]]$finite_simulations
+[1] 1000
+
+$structural_checks[[1]]$simulated[[2]]$mean
+[1] 911.807
+
+$structural_checks[[1]]$simulated[[2]]$quantiles_025_50_975
+[1] 859 910 971
+
+
+$structural_checks[[1]]$simulated[[3]]
+$structural_checks[[1]]$simulated[[3]]$statistic
+[1] "clustering"
+
+$structural_checks[[1]]$simulated[[3]]$finite_simulations
+[1] 1000
+
+$structural_checks[[1]]$simulated[[3]]$mean
+[1] 0.2742148
+
+$structural_checks[[1]]$simulated[[3]]$quantiles_025_50_975
+[1] 0.2645954 0.2738771 0.2854299
+
+
+$structural_checks[[1]]$simulated[[4]]
+$structural_checks[[1]]$simulated[[4]]$statistic
+[1] "degree_variance"
+
+$structural_checks[[1]]$simulated[[4]]$finite_simulations
+[1] 1000
+
+$structural_checks[[1]]$simulated[[4]]$mean
+[1] 85.54007
+
+$structural_checks[[1]]$simulated[[4]]$quantiles_025_50_975
+[1] 81.79247 85.55819 90.07727
+
+
+
+
+$structural_checks[[2]]
+$structural_checks[[2]]$scope
+[1] "Network restricted to the common eligible dyad mask; inactive and invalid edges absent in both observed and simulated graphs"
+
+$structural_checks[[2]]$interpretation
+[1] "Descriptive predictive envelopes, not independent-dyad significance tests or coefficient uncertainty"
+
+$structural_checks[[2]]$observed
+$structural_checks[[2]]$observed$ties
+[1] 519
+
+$structural_checks[[2]]$observed$triangles
+[1] 841
+
+$structural_checks[[2]]$observed$clustering
+[1] 0.2717579
+
+$structural_checks[[2]]$observed$degree_variance
+[1] 80.71126
+
+
+$structural_checks[[2]]$simulated
+$structural_checks[[2]]$simulated[[1]]
+$structural_checks[[2]]$simulated[[1]]$statistic
+[1] "ties"
+
+$structural_checks[[2]]$simulated[[1]]$finite_simulations
+[1] 1000
+
+$structural_checks[[2]]$simulated[[1]]$mean
+[1] 544.436
+
+$structural_checks[[2]]$simulated[[1]]$quantiles_025_50_975
+[1] 529.975 544.000 561.000
+
+
+$structural_checks[[2]]$simulated[[2]]
+$structural_checks[[2]]$simulated[[2]]$statistic
+[1] "triangles"
+
+$structural_checks[[2]]$simulated[[2]]$finite_simulations
+[1] 1000
+
+$structural_checks[[2]]$simulated[[2]]$mean
+[1] 912.099
+
+$structural_checks[[2]]$simulated[[2]]$quantiles_025_50_975
+[1] 859.000 911.000 971.025
+
+
+$structural_checks[[2]]$simulated[[3]]
+$structural_checks[[2]]$simulated[[3]]$statistic
+[1] "clustering"
+
+$structural_checks[[2]]$simulated[[3]]$finite_simulations
+[1] 1000
+
+$structural_checks[[2]]$simulated[[3]]$mean
+[1] 0.2740327
+
+$structural_checks[[2]]$simulated[[3]]$quantiles_025_50_975
+[1] 0.2641276 0.2739836 0.2844562
+
+
+$structural_checks[[2]]$simulated[[4]]
+$structural_checks[[2]]$simulated[[4]]$statistic
+[1] "degree_variance"
+
+$structural_checks[[2]]$simulated[[4]]$finite_simulations
+[1] 1000
+
+$structural_checks[[2]]$simulated[[4]]$mean
+[1] 85.58375
+
+$structural_checks[[2]]$simulated[[4]]$quantiles_025_50_975
+[1] 81.76751 85.44095 90.22689
+
+
+
+
+$structural_checks[[3]]
+$structural_checks[[3]]$scope
+[1] "Network restricted to the common eligible dyad mask; inactive and invalid edges absent in both observed and simulated graphs"
+
+$structural_checks[[3]]$interpretation
+[1] "Descriptive predictive envelopes, not independent-dyad significance tests or coefficient uncertainty"
+
+$structural_checks[[3]]$observed
+$structural_checks[[3]]$observed$ties
+[1] 519
+
+$structural_checks[[3]]$observed$triangles
+[1] 841
+
+$structural_checks[[3]]$observed$clustering
+[1] 0.2717579
+
+$structural_checks[[3]]$observed$degree_variance
+[1] 80.71126
+
+
+$structural_checks[[3]]$simulated
+$structural_checks[[3]]$simulated[[1]]
+$structural_checks[[3]]$simulated[[1]]$statistic
+[1] "ties"
+
+$structural_checks[[3]]$simulated[[1]]$finite_simulations
+[1] 1000
+
+$structural_checks[[3]]$simulated[[1]]$mean
+[1] 544.256
+
+$structural_checks[[3]]$simulated[[1]]$quantiles_025_50_975
+[1] 530 544 559
+
+
+$structural_checks[[3]]$simulated[[2]]
+$structural_checks[[3]]$simulated[[2]]$statistic
+[1] "triangles"
+
+$structural_checks[[3]]$simulated[[2]]$finite_simulations
+[1] 1000
+
+$structural_checks[[3]]$simulated[[2]]$mean
+[1] 911.597
+
+$structural_checks[[3]]$simulated[[2]]$quantiles_025_50_975
+[1] 858.00 911.00 972.05
+
+
+$structural_checks[[3]]$simulated[[3]]
+$structural_checks[[3]]$simulated[[3]]$statistic
+[1] "clustering"
+
+$structural_checks[[3]]$simulated[[3]]$finite_simulations
+[1] 1000
+
+$structural_checks[[3]]$simulated[[3]]$mean
+[1] 0.2740984
+
+$structural_checks[[3]]$simulated[[3]]$quantiles_025_50_975
+[1] 0.2644131 0.2739960 0.2848788
+
+
+$structural_checks[[3]]$simulated[[4]]
+$structural_checks[[3]]$simulated[[4]]$statistic
+[1] "degree_variance"
+
+$structural_checks[[3]]$simulated[[4]]$finite_simulations
+[1] 1000
+
+$structural_checks[[3]]$simulated[[4]]$mean
+[1] 85.512
+
+$structural_checks[[3]]$simulated[[4]]$quantiles_025_50_975
+[1] 81.94685 85.42314 89.46719
+
+
+
+
+$structural_checks[[4]]
+$structural_checks[[4]]$scope
+[1] "Network restricted to the common eligible dyad mask; inactive and invalid edges absent in both observed and simulated graphs"
+
+$structural_checks[[4]]$interpretation
+[1] "Descriptive predictive envelopes, not independent-dyad significance tests or coefficient uncertainty"
+
+$structural_checks[[4]]$observed
+$structural_checks[[4]]$observed$ties
+[1] 519
+
+$structural_checks[[4]]$observed$triangles
+[1] 841
+
+$structural_checks[[4]]$observed$clustering
+[1] 0.2717579
+
+$structural_checks[[4]]$observed$degree_variance
+[1] 80.71126
+
+
+$structural_checks[[4]]$simulated
+$structural_checks[[4]]$simulated[[1]]
+$structural_checks[[4]]$simulated[[1]]$statistic
+[1] "ties"
+
+$structural_checks[[4]]$simulated[[1]]$finite_simulations
+[1] 1000
+
+$structural_checks[[4]]$simulated[[1]]$mean
+[1] 544.121
+
+$structural_checks[[4]]$simulated[[1]]$quantiles_025_50_975
+[1] 530.000 544.000 559.025
+
+
+$structural_checks[[4]]$simulated[[2]]
+$structural_checks[[4]]$simulated[[2]]$statistic
+[1] "triangles"
+
+$structural_checks[[4]]$simulated[[2]]$finite_simulations
+[1] 1000
+
+$structural_checks[[4]]$simulated[[2]]$mean
+[1] 910.514
+
+$structural_checks[[4]]$simulated[[2]]$quantiles_025_50_975
+[1] 859 909 973
+
+
+$structural_checks[[4]]$simulated[[3]]
+$structural_checks[[4]]$simulated[[3]]$statistic
+[1] "clustering"
+
+$structural_checks[[4]]$simulated[[3]]$finite_simulations
+[1] 1000
+
+$structural_checks[[4]]$simulated[[3]]$mean
+[1] 0.2737983
+
+$structural_checks[[4]]$simulated[[3]]$quantiles_025_50_975
+[1] 0.2642984 0.2735631 0.2850293
+
+
+$structural_checks[[4]]$simulated[[4]]
+$structural_checks[[4]]$simulated[[4]]$statistic
+[1] "degree_variance"
+
+$structural_checks[[4]]$simulated[[4]]$finite_simulations
+[1] 1000
+
+$structural_checks[[4]]$simulated[[4]]$mean
+[1] 85.52529
+
+$structural_checks[[4]]$simulated[[4]]$quantiles_025_50_975
+[1] 81.71157 85.49247 89.75911
+
+
+
+
+$structural_checks[[5]]
+$structural_checks[[5]]$scope
+[1] "Network restricted to the common eligible dyad mask; inactive and invalid edges absent in both observed and simulated graphs"
+
+$structural_checks[[5]]$interpretation
+[1] "Descriptive predictive envelopes, not independent-dyad significance tests or coefficient uncertainty"
+
+$structural_checks[[5]]$observed
+$structural_checks[[5]]$observed$ties
+[1] 519
+
+$structural_checks[[5]]$observed$triangles
+[1] 841
+
+$structural_checks[[5]]$observed$clustering
+[1] 0.2717579
+
+$structural_checks[[5]]$observed$degree_variance
+[1] 80.71126
+
+
+$structural_checks[[5]]$simulated
+$structural_checks[[5]]$simulated[[1]]
+$structural_checks[[5]]$simulated[[1]]$statistic
+[1] "ties"
+
+$structural_checks[[5]]$simulated[[1]]$finite_simulations
+[1] 1000
+
+$structural_checks[[5]]$simulated[[1]]$mean
+[1] 544.116
+
+$structural_checks[[5]]$simulated[[1]]$quantiles_025_50_975
+[1] 529 544 559
+
+
+$structural_checks[[5]]$simulated[[2]]
+$structural_checks[[5]]$simulated[[2]]$statistic
+[1] "triangles"
+
+$structural_checks[[5]]$simulated[[2]]$finite_simulations
+[1] 1000
+
+$structural_checks[[5]]$simulated[[2]]$mean
+[1] 911.699
+
+$structural_checks[[5]]$simulated[[2]]$quantiles_025_50_975
+[1] 858.95 910.00 977.00
+
+
+$structural_checks[[5]]$simulated[[3]]
+$structural_checks[[5]]$simulated[[3]]$statistic
+[1] "clustering"
+
+$structural_checks[[5]]$simulated[[3]]$finite_simulations
+[1] 1000
+
+$structural_checks[[5]]$simulated[[3]]$mean
+[1] 0.2742445
+
+$structural_checks[[5]]$simulated[[3]]$quantiles_025_50_975
+[1] 0.2637129 0.2741377 0.2850674
+
+
+$structural_checks[[5]]$simulated[[4]]
+$structural_checks[[5]]$simulated[[4]]$statistic
+[1] "degree_variance"
+
+$structural_checks[[5]]$simulated[[4]]$finite_simulations
+[1] 1000
+
+$structural_checks[[5]]$simulated[[4]]$mean
+[1] 85.47859
+
+$structural_checks[[5]]$simulated[[4]]$quantiles_025_50_975
+[1] 81.73830 85.50105 89.65050
+
+
+
+
+
+Warning message:
+package ‘PRROC’ was built under R version 4.2.3 

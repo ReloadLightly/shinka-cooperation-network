@@ -1,0 +1,28 @@
+{
+  "version": "convergence-pilot-v1",
+  "stage": "3B",
+  "basis_commit": "0ea19d8ac6cf4092c51372d66c8c09a9e68485b0",
+  "fit_path": "results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99/fit-attempt-3.rds",
+  "fit_sha256": "5c122ed7a1e061d8d23f50c73a22baa4b80884ad74be49ab7a56bdb80dfe0e5c",
+  "packet_member": "data/past/2009.rds",
+  "packet_sha256": "f8aea6ff84f4a82c43cce7cd6bc12fcd0a4fc36e0db0f6aeb4618381fc1771e4",
+  "nsub": 0,
+  "n3": 3000,
+  "simOnly": false,
+  "seed": 2009301,
+  "maximum_native_calls": 1,
+  "timeout_seconds": 3600,
+  "serial": true,
+  "allow_refit": false,
+  "allow_outcomes": false,
+  "automatic_retries": 0,
+  "thresholds": {
+    "individual_strictly_below": 0.1,
+    "overall_strictly_below": 0.25
+  },
+  "helper_sha256": {
+    "R/convergence_preflight.R": "b9deaf332852e108eaafe2123271303faf70f1638ea2198e6063929825a550e8",
+    "scripts/convergence_preflight.py": "20da8e65111828766792024d4f82a21372e0ff58a2aea6ef8d379f7fc425cace",
+    "configs/convergence-preflight-v1.json": "b84a567d4b2235af2ca180d49c1de7c7136f8b71b3238b81e0cbd56463a99483"
+  }
+}

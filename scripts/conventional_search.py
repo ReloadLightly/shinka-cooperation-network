@@ -108,6 +108,9 @@ def multiobjective_native_budget(directory, decoder):
     protocol = resolved.get("protocol")
     if protocol != "multiobjective-v1" and not (isinstance(protocol, dict) and protocol.get("version") == "multiobjective-v1"):
         raise ValueError("The comparison must use an actual multiobjective-v1 native run.")
+    fingerprint = resolved.get("scientific_fingerprint")
+    if not fingerprint:
+        raise RuntimeError("Native comparison requires an implementation-bound run, not an unbound historical population")
     records, seen, excluded = [], set(), []
     for path in sorted(directory.glob("*/results/correct.json")):
         metrics_path, program = path.parent / "metrics.json", path.parent.parent / "main.py"
@@ -122,6 +125,8 @@ def multiobjective_native_budget(directory, decoder):
         if public.get("protocol") != "multiobjective-v1" or type(correct.get("correct")) is not bool:
             excluded.append({"path": str(path), "reason": "not a terminal multiobjective evaluator record"})
             continue
+        if public.get("valid") is True and public.get("scientific_fingerprint") != fingerprint:
+            raise RuntimeError("Native comparison mixes evaluator fingerprints")
         try:
             spec, _ = decoder.read_program(program)
             identity = "spec:" + decoder.spec_hash(spec)
@@ -149,7 +154,7 @@ def multiobjective_native_budget(directory, decoder):
         records.append({"identity": identity, "valid": correct["correct"] is True and public.get("valid") is True,
                         "correctness_file": str(path), "metrics_sha256": sha(metrics_path),
                         "program_sha256": sha(program), "error": correct.get("error", "")})
-    return {"directory": str(directory), "observed_utc": now(), "attempt_limit_including_reference": len(records),
+    return {"directory": str(directory), "scientific_fingerprint": fingerprint, "observed_utc": now(), "attempt_limit_including_reference": len(records),
             "distinct_valid_attempts": sum(record["valid"] for record in records),
             "distinct_invalid_attempts": sum(not record["valid"] for record in records),
             "records": records, "excluded": excluded,
@@ -272,11 +277,26 @@ def multiobjective_front(rows):
         for other in valid)]
 
 
+def multiobjective_parent_order(state, search_rule):
+    """No LLM calls: deterministic scalar or round-robin nondominated parents."""
+    if search_rule == "scalar-local":
+        return [next(row for row in state["evaluations"] if row["canonical_sha256"] == state["incumbent"])]
+    if search_rule != "pareto-local":
+        raise ValueError("Unknown comparator search rule")
+    keys = set(multiobjective_front(state["evaluations"]))
+    parents = sorted((row for row in state["evaluations"] if row["canonical_sha256"] in keys), key=lambda row: row["canonical_sha256"])
+    if not parents:
+        return []
+    start = state.get("parent_cursor", 0) % len(parents)
+    return parents[start:] + parents[:start]
+
+
 def run_multiobjective(args):
     """Conventional comparison through the same trusted scientific evaluator."""
     from scripts import multiobjective_evaluation as helper
     from scripts import network_specification_v2 as decoder
 
+    search_rule = getattr(args, "search_rule", "scalar-local")
     if args.limit is not None and args.limit < 1:
         raise ValueError("--limit must be positive and includes the reference.")
     if args.limit is None and args.native_results_dir is None:
@@ -298,36 +318,40 @@ def run_multiobjective(args):
         if cap < 1:
             raise ValueError("No completed distinct native attempts are available for a conventional comparison budget.")
         state = {"protocol": "multiobjective-v1", "scientific_protocol": protocol, "estimation_and_forecast_settings": settings,
-                 "catalog_version": catalog["version"], "method": "deterministic first-improvement local specification search",
+                 "catalog_version": catalog["version"], "search_rule": search_rule, "parent_cursor": 0,
+                 "method": "deterministic Pareto-front local specification search" if search_rule == "pareto-local" else "deterministic first-improvement local specification search",
                  "requested_limit": args.limit, "attempt_limit_including_reference": cap, "native_comparison": native,
                  "ordering": "Closure replacements; native parameter +/-1, half/double or fixed alternative; deletions and atom replacements; factor replacements/removals/extensions; structural additions; covariate-modified mechanisms and all native-compatible two-factor products (including non-ego dyadic structural interactions). Catalog order and canonical incumbent order break move-order ties.",
-                 "acceptance": "Move to the first strictly larger fixed auxiliary score 2+(J1+J2+J3/10)/3; retain every valid observed Pareto-nondominated vector separately. Exact ties retain the incumbent.",
+                 "acceptance": ("Round-robin expansion of all distinct observed nondominated parents; first admissible unseen local edit in the fixed operator order. Auxiliary scalar is reporting only for this rule."
+                                if search_rule == "pareto-local" else "Move to the first strictly larger fixed auxiliary score 2+(J1+J2+J3/10)/3; retain every valid observed Pareto-nondominated vector separately. Exact ties retain the incumbent."),
                  "budget_rule": "One distinct terminal candidate attempt including the reference, valid or invalid. A paused candidate remains pending and resumes in the same slot. Canonical repeats and structurally inadmissible unevaluated edits do not enlarge the comparison budget.",
-                 "limitations": "A deterministic local heuristic with fixed scalar preferences and order effects, not exhaustive grammar coverage or a proof of superiority. Disconnected Pareto trade-offs and improvements requiring several simultaneous edits may be missed. Shared caches can equalize attempted-specification counts without equalizing computation; report actual numerical effort separately.",
+                 "limitations": "A deterministic local heuristic with order effects, not exhaustive grammar coverage or a proof of superiority. The scalar-local rule may miss disconnected Pareto trade-offs; either rule can miss improvements requiring simultaneous edits. Shared caches equalize attempted-specification counts without equalizing computation; report numerical effort and cache reuse separately. A Pareto-local comparison is not an otherwise-identical ablation of the native population controller.",
                  "evaluations": [], "incumbent": None, "pending": None, "status": "declared", "complete": False}
     else:
         expected_native = str(args.native_results_dir.resolve()) if args.native_results_dir else None
         frozen_native = state.get("native_comparison", {}).get("directory") if state.get("native_comparison") else None
         if (state.get("protocol") != "multiobjective-v1" or state.get("scientific_protocol") != protocol
             or state.get("estimation_and_forecast_settings") != settings or state.get("catalog_version") != catalog["version"]
-            or state.get("requested_limit") != args.limit or frozen_native != expected_native):
+            or state.get("requested_limit") != args.limit or frozen_native != expected_native
+            or state.get("search_rule", "scalar-local") != search_rule):
             raise ValueError("Resume requires the same scientific protocol and frozen comparison budget; use a separate results directory for a different comparison.")
     if not args.execute:
         print(json.dumps({"method": state["method"], "attempt_limit_including_reference": state["attempt_limit_including_reference"],
                           "results_directory": str(output), "executed": False}, indent=2))
         return 0
+    from scripts.execution_windows import resolve_deadline, set_deadline
+    from scripts.scientific_contract import scientific_identity, require_search_open
+    require_search_open(ROOT)
+    fingerprint = scientific_identity(ROOT)["sha256"]
+    if state.get("evaluations") and state.get("scientific_fingerprint") != fingerprint:
+        raise RuntimeError("Existing conventional evidence has a different or unbound evaluator; preserve it and use a new results directory.")
+    if state.get("native_comparison") and state["native_comparison"].get("scientific_fingerprint") != fingerprint:
+        raise RuntimeError("Native and conventional comparisons must use the same evaluator fingerprint")
+    state["scientific_fingerprint"] = fingerprint
     hours = args.window_hours
     if hours is None:
         hours = read_json(ROOT / "shinka/native_multiobjective_config.json")["resource_policy"]["default_session_hours"]
-    if not math.isfinite(hours) or hours <= 0:
-        raise ValueError("--window-hours must be finite and positive.")
-    deadline = time.time() + hours * 3600
-    if os.environ.get("SHINKA_EXECUTION_DEADLINE"):
-        existing_deadline = float(os.environ["SHINKA_EXECUTION_DEADLINE"])
-        if not math.isfinite(existing_deadline):
-            raise ValueError("SHINKA_EXECUTION_DEADLINE must be finite Unix seconds.")
-        deadline = min(deadline, existing_deadline)
-    os.environ["SHINKA_EXECUTION_DEADLINE"] = str(deadline)
+    set_deadline(resolve_deadline(hours, inherited=os.environ.get("SHINKA_EXECUTION_DEADLINE")))
     with execution_lock():
         # The shared numerical lock may have been occupied by another session.
         # Its completed conventional checkpoint, if any, takes precedence over
@@ -336,7 +360,7 @@ def run_multiobjective(args):
             latest = read_json(path)
             if any(latest.get(key) != state.get(key) for key in (
                 "protocol", "scientific_protocol", "estimation_and_forecast_settings",
-                "catalog_version", "requested_limit", "attempt_limit_including_reference", "native_comparison")):
+                "catalog_version", "requested_limit", "attempt_limit_including_reference", "native_comparison", "scientific_fingerprint", "search_rule")):
                 raise ValueError("The conventional comparison changed while waiting for the numerical lock.")
             state = latest
         while len(state["evaluations"]) < state["attempt_limit_including_reference"]:
@@ -348,6 +372,7 @@ def run_multiobjective(args):
             if pending is None:
                 seen = {row["canonical_sha256"] for row in state["evaluations"]}
                 chosen = None
+                chosen_parent = state["incumbent"]
                 if not state["evaluations"]:
                     chosen = baseline, "reference Model 3"
                 elif state["incumbent"] is None:
@@ -355,17 +380,23 @@ def run_multiobjective(args):
                     save_json(path, state)
                     return 1
                 else:
-                    incumbent = next(row for row in state["evaluations"] if row["canonical_sha256"] == state["incumbent"])
-                    for proposal, move in multiobjective_neighbors(incumbent["specification"], catalog):
-                        try:
-                            proposal = decoder.validate_spec(proposal, catalog)
-                        except decoder.InvalidSpecification:
-                            continue
-                        if decoder.spec_hash(proposal) not in seen:
-                            source = "def build_network_spec(allowed_schema):\n    return " + repr(proposal) + "\n"
-                            if len(source.encode()) <= decoder.PROGRAM_BYTE_LIMIT:
-                                chosen = proposal, move
-                                break
+                    parents = multiobjective_parent_order(state, search_rule)
+                    for incumbent in parents:
+                        for proposal, move in multiobjective_neighbors(incumbent["specification"], catalog):
+                            try:
+                                proposal = decoder.validate_spec(proposal, catalog)
+                            except decoder.InvalidSpecification:
+                                continue
+                            if decoder.spec_hash(proposal) not in seen:
+                                source = "def build_network_spec(allowed_schema):\n    return " + repr(proposal) + "\n"
+                                if len(source.encode()) <= decoder.PROGRAM_BYTE_LIMIT:
+                                    chosen = proposal, move
+                                    chosen_parent = incumbent["canonical_sha256"]
+                                    break
+                        if chosen is not None:
+                            if search_rule == "pareto-local":
+                                state["parent_cursor"] = state.get("parent_cursor", 0) + 1
+                            break
                 if chosen is None:
                     state.update(status="local_neighborhood_exhausted", updated_utc=now(), complete=True)
                     save_json(path, state)
@@ -380,7 +411,7 @@ def run_multiobjective(args):
                     raise ValueError("A pending conventional candidate source changed.")
                 program.write_text(source)
                 pending = {"canonical_sha256": key, "specification": spec, "move": move,
-                           "parent": state["incumbent"], "results_directory": str(folder),
+                           "parent": chosen_parent, "results_directory": str(folder),
                            "driver_seconds": 0.0, "work_before": multiobjective_work_snapshot(spec, helper, settings, protocol)}
                 state["pending"] = pending
                 state.update(status="evaluating", updated_utc=now(), complete=False)
@@ -417,7 +448,8 @@ def run_multiobjective(args):
                 save_json(path, state)
                 return 75
             valid = correct.get("correct") is True and public.get("valid") is True
-            if valid and (public.get("canonical_sha256") != pending["canonical_sha256"]
+            if valid and (public.get("scientific_fingerprint") != fingerprint
+                          or public.get("canonical_sha256") != pending["canonical_sha256"]
                           or set(public.get("years", {})) != {str(year) for year in helper.YEARS}
                           or not all(type(public.get(key)) in (int, float) and math.isfinite(public[key]) for key in ("J1", "J2", "J3"))
                           or type(metrics.get("combined_score")) not in (int, float) or not math.isfinite(metrics["combined_score"])):
@@ -450,6 +482,7 @@ def run_multiobjective(args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--protocol", choices=("legacy-pr", "multiobjective-v1"), default="legacy-pr")
+    parser.add_argument("--search-rule", choices=("scalar-local", "pareto-local"), default="scalar-local", help="Multiobjective comparator: historical scalar incumbent or deterministic Pareto-front expansion")
     parser.add_argument("--native-results-dir", type=Path, help="Derive the comparison cap from observed native completed attempts, using the selected protocol's counting rule")
     parser.add_argument("--limit", type=int, help="Fixed terminal-attempt cap including the reference; legacy default is 15; multiobjective requires this or observed native results")
     parser.add_argument("--window-hours", type=float, help="Multiobjective cooperative execution window; existing native default applies if omitted")

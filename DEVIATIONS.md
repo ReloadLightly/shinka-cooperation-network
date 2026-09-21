@@ -158,3 +158,20 @@ The kernel killed the active fit while host RAM/swap were exhausted and a diagno
 ### 2026-09-21 — recovery outcome
 
 The interrupted fourth 2009 continuation was recovered once from saved attempt3, with identical nsub5/n3=3000/seed12348 and acceptance thresholds. `R_GC_MEM_GROW=0` plus serial execution changed execution memory behavior only. It passed (overall0.1610484454862545), and all1000 forecast endpoints were scored. The OOM attempt and its cost remain separately preserved. Native/GNU and Python wrapper clocks disagree in this environment; retain raw timings and identify their source rather than merge them into a false precise total.
+
+
+## 21 September 2026 — implementation contracts and reporting-only sensitivity
+
+The code review adds implementation-bound caches/campaigns, failure feedback,
+source-only regression tests, a shared optional-window fix, an optional
+Pareto-aware conventional comparator and fixed-set final reporting. The original
+R model/estimator/forecast/scorer, primary metric definitions, four development
+years, original seeds, convergence criteria and 1,000-endpoint budget are unchanged.
+
+Finalist reporting now prespecifies five additional forecast-seed repetitions
+(offsets 2 through 6), rather than only offset 2. This is an explicitly versioned
+reporting extension; it changes neither evolutionary fitness nor finalist membership
+and reuses accepted fits. It does not assess fitting randomness. Native test
+fixtures are provided but were not run in the editing container. No original
+reference result or final-year outcome was recomputed or accessed in this update.
+See `docs/IMPLEMENTATION_REVIEW_20260921.md` for verification scope and resumption.

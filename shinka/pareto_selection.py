@@ -21,6 +21,7 @@ from functools import wraps
 import json
 import logging
 import math
+import os
 import random
 import re
 from typing import Any, Iterable
@@ -43,6 +44,9 @@ def validate_metrics(metrics: Any, combined_score: Any) -> str | None:
         return "public_metrics.protocol must be multiobjective-v1"
     if metrics.get("valid") is not True:
         return "all four development years must be scientifically valid"
+    expected = os.environ.get("SHINKA_SCIENTIFIC_FINGERPRINT")
+    if expected and metrics.get("scientific_fingerprint") != expected:
+        return "scientific_fingerprint differs from the immutable campaign contract"
     canonical = metrics.get("canonical_sha256")
     if not isinstance(canonical, str) or re.fullmatch(r"[0-9a-f]{64}", canonical) is None:
         return "canonical_sha256 must be a lowercase SHA256 of the validated specification"

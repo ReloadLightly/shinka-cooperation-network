@@ -327,3 +327,22 @@ Host ps identifies R PID1010372, start00:12:53UTC, running state R, elapsed4:54,
 - All four reference years are complete:15 completed fits,4 accepted,11 nonconverged;4000 endpoint networks. Completed fitting time totals28537.680s (7.93h), excluding the interrupted operation. The current process GNU walltime1:46:17/peak599456KiB and native fit6319.522s differ from the wrapper elapsed6122.839s; raw records are retained. No causal runtime comparison is made between GC settings.
 - Legacy PR-only evaluator returned correct=true, raw F=0 exactly and historical combined_score=1. This cache-identical reference comparison does not add an independent source-parity result. Native multiobjective seed evaluation will reuse these forecasts for vector(0,0,0), auxiliary2; no refit is needed. No 2010 data were scored.
 - Proceed directly to the authorized native multiobjective campaign after this publication checkpoint. Changed-model completed evaluations0, native proposals0, evolutionary-role calls0 at this checkpoint. The reference beats persistence in PR-AUC and loses on Brier in every year; no evolutionary improvement is yet established.
+
+
+## 2026-09-21 — implement repository review without new scientific runs
+
+Implementation work based on public commit `a6b152e` preserves all published
+numerical artifacts and the native R scientific code. Added shared optional
+execution windows, safe failed-fit feedback and pre-evaluation hypothesis records;
+implementation-bound fit/forecast caches and immutable native/conventional campaign
+contracts; a Pareto-local comparator; fixed-set sensitivity/sealing/final reporting;
+source-only tests and CI; opt-in native adapter checks; and manifest-generated
+README coverage. Reporting-only forecast-seed sensitivity is explicitly expanded
+to offsets 2–6. No primary fitness or acceptance criterion changes.
+
+Local verification: Python unit/integration tests and compilation, CLI dry runs,
+README-manifest consistency and whitespace/diff checks. Workflow integration uses
+synthetic files and a fake R worker; these are not experimental scores. The
+container has no pinned native R runtime, so supplied native checks remain
+unexecuted. No empirical refit, LLM mutation or genuine 2010 outcome access.
+Full scope and transition notes: `docs/IMPLEMENTATION_REVIEW_20260921.md`.

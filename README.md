@@ -127,7 +127,7 @@ The former **15-specification catalog, three-effect ceiling, four-proposal pilot
 
 All nondominated canonical alternatives are preserved. Project extensions to Shinka use nondominated rank and objective-space diversity for retention, parents, executable inspirations and migration. Scientific feedback includes annual objectives, convergence, formation/dissolution, persistence and structural diagnostics. Code-embedding novelty remains separate from mathematical novelty.
 
-The development-only final-reporting rule selects unique J1, J2, J3 and auxiliary-score champions from the Pareto frontier, resolving exact ties by fewer free structural coefficients and then canonical identity. Deduplicate and include the reference. A fresh development simulation repetition assesses limited Monte Carlo sensitivity before the selected set and reporting rule are frozen; it does not alter membership. Report every locked finalist on 2010, including losses. A session checkpoint neither ends the campaign nor triggers final-year access. [Selection details](docs/SELECTION.md).
+The development-only final-reporting rule selects unique J1, J2, J3 and auxiliary-score champions from the Pareto frontier, resolving exact ties by fewer free structural coefficients and then canonical identity. Deduplicate and include the reference. The representative set is frozen before sensitivity. The separate [finalist reporting policy](configs/finalist-reporting-v1.json) retains the original +2 seed repetition and adds four prespecified forecast-seed repetitions (+3 through +6), reusing accepted fits. These five repetitions describe limited Monte Carlo sensitivity; they do not alter membership or evolutionary fitness. Report every locked finalist on 2010, including losses. A session checkpoint neither ends the campaign nor triggers final-year access. [Selection details](docs/SELECTION.md).
 
 ## 4. Results
 
@@ -180,16 +180,17 @@ The [historical v1 invalid result](results/evolution_forecast/initial/metrics.js
 
 ### 4.3 Coverage and reference values
 
-| Scientific milestone | Evidence at this checkpoint |
+<!-- GENERATED-COVERAGE:START -->
+| Scientific milestone | Evidence in the published manifests |
 |---|---|
-| Original equilibrium diagnostic | **6 / 101** settings; 60 endpoints |
-| Figures 5–7 simulation campaign | **1 / 564** settings; 26 endpoints |
-| Temporal references | **2006–2008 accepted and scored**; same 2009 fourth attempt recovering after OOM |
-| Complete four-year objective vector | Pending 2009; no partial-year fitness |
-| Structural candidates / conventional comparison | Expanded grammar and matched evaluator implemented; no completed comparison |
-| Native evolutionary campaign | Configured; not launched |
-| Fresh-randomness finalist / final 2010 comparison | Not executed |
-| Main empirical results / original appendix validation | Callers prepared; execution deferred |
+| Original equilibrium diagnostic | **6 / 101** settings |
+| Figures 5–7 simulation campaign | **1 / 564** settings |
+| Temporal reference forecasts | **4 / 4 accepted and scored**; 2006, 2007, 2008, 2009 |
+| Four-year reference forecast inputs | **Complete**; cached forecasts supply the zero reference vector |
+| Archived complete multiobjective evaluations | **0** canonical records; this count includes the reference when archived |
+| Native evolutionary improvement | Not inferred from reference completion or configured capabilities; inspect evaluated descendants |
+| Finalist sensitivity / reserved comparison | Tooling available; execution must be established by its own artifacts |
+<!-- GENERATED-COVERAGE:END -->
 
 The authors’ published **PR-AUC 0.927**, **ROC-AUC 0.985**, and **spending RMSE 0.397** are reference values, not results obtained here or values inserted into the evaluator. The extension’s changed forecasting protocol need not reproduce them.
 
@@ -246,6 +247,39 @@ The reference evaluator is complete; its four forecasts are reused by native see
 
 The exact package lock, source checksums and session information are versioned. [Environment notes](environment/README.md) record compiler/OpenBLAS and ancillary-package differences. Existing preparation instructions remain in the runbook; this continuation does not rebuild the environment or repeat readiness checks.
 
+
+### Tested implementation contracts
+
+The [21 September implementation update](docs/IMPLEMENTATION_REVIEW_20260921.md)
+adds source-only regression tests, optional forced-native checks, safe failure
+diagnostics, hypothesis records, separate fit/forecast identities, immutable
+campaign bindings and a multiobjective finalist workflow. No primary objective,
+R model source, convergence threshold, fitting schedule or reference result was
+changed. Python orchestration fixtures are **not** empirical or native-R results.
+
+```bash
+# Fast, offline Python contracts; no fitting, model calls or outcome access.
+python3 -m unittest discover -s tests -v
+python3 scripts/update_readme_status.py --check
+
+# Optional native checks in the EXISTING pinned environment, not run by CI.
+# Synthetic mapping/recentering/entry-point test; no empirical estimation.
+environment/run-r R/check_structured_contracts.R
+# Exactly one forced structured forecast from a saved accepted reference fit.
+python3 scripts/check_structured_reference.py --year 2006 --execute
+```
+
+Native fixtures were supplied but **not executed** in the implementation session:
+its container did not have the pinned R runtime. A successful cached zero-vector
+seed still does not substitute for those new-adapter checks.
+
+New campaigns bind their evaluator implementation and search configuration once.
+Compatible historical numerical caches remain reusable. An already populated or
+pending *unbound* native database is preserved, not silently relabeled: finish it
+on its original revision or start a separately named results directory, sharing
+verified numerical caches. Do not pull code changes into an actively running
+local controller. No new generation ceiling or default session deadline is added.
+
 ### Resume original-source work
 
 ```bash
@@ -282,7 +316,7 @@ Installed runtimes, package caches, credentials and redundant working copies are
 
 The reconstruction and reproduction are partial, and the evolutionary question remains unanswered. The complete reference now permits native multiobjective evolution to propose alternatives directly. The next scientific step is estimating and forecasting changed native network specifications, then retaining their measured Pareto trade-offs. Unchanged acceptance criteria can still invalidate a candidate; failed fits are not measured predictive losses. The expanded grammar, coefficient-transfer corrections and project Pareto integration are implemented but have not produced an evaluated descendant.
 
-A sustained campaign must explore competing mechanisms and descendants across recoverable sessions. A same-space conventional search is implemented for an effort-accounted comparison; no superiority over conventional search is claimed without that experiment. Development Pareto representatives require fresh-randomness sensitivity, a frozen reporting set and then a reserved 2010 comparison. The legacy final-test command covers the historical PR-only workflow; multiobjective finalist-set execution must be adapted before use.
+A sustained campaign must explore competing mechanisms and descendants across recoverable sessions. A same-space conventional search is implemented for an effort-accounted comparison; no superiority over conventional search is claimed without that experiment. Development Pareto representatives require fresh-randomness sensitivity, a frozen reporting set and then a reserved 2010 comparison. The legacy final-test command covers the historical PR-only workflow. The new `scripts/finalist_set.py` implements the multiobjective plan, five-repetition development sensitivity, immutable selection lock and complete reserved reporting set. No empirical sensitivity or final comparison was run during this implementation update.
 
 Four adjacent development years provide limited temporal evidence. Dependent dyads are not independent experimental replications; one fresh simulation repetition is limited Monte Carlo sensitivity, not comprehensive uncertainty estimation. Overall tie metrics can be dominated by persistence; ordinal-spending RMSE measures predictive error, not expenditure savings or security efficiency. Full Figures 5–7, the equilibrium curve, empirical Models 3/4 and original appendix validation remain unfinished. Predictive gains would not independently reproduce the authors’ efficiency explanation.
 

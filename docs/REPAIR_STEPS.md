@@ -1,6 +1,6 @@
 # Bounded repairs after the external review
 
-Steps **1, 2, 3A, 3B and 3C are complete**. The nine new Step 3C diagnostics and the reused pilot have been fully reviewed. No production convergence policy, historical acceptance decision, forecast fitness or evolutionary archive was changed. Step 4 has not started.
+Steps **1, 2, 3A, 3B and 3C are complete**. The nine new Step 3C diagnostics and the reused pilot have been fully reviewed. Those diagnostic steps did not change the production policy. The subsequently approved **precision-before-continuation-v1** policy is now implemented as a separately selected, fit-only estimator. Historical acceptance, forecast fitness and existing evolutionary configurations are unchanged. Step 4 has not started.
 
 See [the complete repeatability results](../results/diagnostics/convergence-repeatability-v1/REPORT.md) and [reviewed interpretation](../results/diagnostics/convergence-repeatability-v1/INTERPRETATION.md).
 
@@ -11,6 +11,7 @@ See [the complete repeatability results](../results/diagnostics/convergence-repe
 | **3A. Diagnostic initialization verified** | Can the exact saved fit and its original observed moments be restored without estimation? | Verified all 58 coefficients, effect ordering and aggregate/per-period targets. Reconstructed old convergence ratios. Native execution stopped before phase 3; zero new simulations. |
 | **3B. Fixed-vector pilot completed** | Can phase 3 execute without coefficient optimization? | One 3,000-draw pilot completed with unchanged theta; no refit. |
 | **3C. Repeatability completed** | Does diagnostic precision affect classification at fixed theta across seeds? | Nine new diagnostics, one reused pilot; all ten 1,000-draw prefixes fail the overall cutoff, all ten full 3,000-draw assessments pass. Report new-only groups separately. Preserve historical records and production policy. |
+| **Precision policy preparation** | Apply the approved one-assessment rule before continuation. | Implemented opt-in fitter; 170 Python tests and 48 R checks, including two real stopped initializations. No new simulations or Step 4 comparison. See [policy](PRECISION_CONVERGENCE_POLICY.md). |
 | 4. A changed-specification comparison | Is an actual mechanism difference distinguishable from numerical variability? | Select and evaluate a motivated alternative under a declared bounded comparison. Do not infer search impossibility or publication readiness from one result. |
 | 5. Selection uncertainty and operational scales | What selection rule and objective scales are justified by the measurements? | Freeze a separately versioned rule before sustained search. Do not silently replace objectives, use reserved outcomes, or expand the spending grammar as a bug fix. |
 

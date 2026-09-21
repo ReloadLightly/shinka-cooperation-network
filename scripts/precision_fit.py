@@ -32,6 +32,7 @@ SOURCE_FILES = (
     "R/empirical.R", "R/forecast.R", "R/network_specification_v2.R",
     "R/forecast_multiobjective.R", "R/convergence_preflight.R", "R/precision_convergence.R",
     "scripts/precision_fit.py", "scripts/convergence_pilot.py",
+    "scripts/scientific_contract.py", "scripts/convergence_preflight.py", "environment/run-r",
     "scripts/network_specification_v2.py", "configs/effect-catalog-v2.json",
     "configs/convergence-preflight-v1.json", "configs/evaluator-v2.json",
     SETTINGS, POLICY, "environment/versions.json", "environment/conda-linux-64.explicit.txt",

@@ -1,0 +1,74 @@
+{
+  "status": "blocked_missing_development_packets",
+  "study": "forecast-repeatability-v1",
+  "base_commit": "2a98adc501ddf5e870c701632fd9dcb2a3f2fcda",
+  "checked_utc": "2026-09-21T09:21:37.338727+00:00",
+  "workflow_run": "35582776641",
+  "planned_new_forecasts": 20,
+  "completed_new_forecasts": 0,
+  "new_fit_calls": 0,
+  "empirical_variability_estimated": false,
+  "reserved_outcomes_accessed": false,
+  "raw_archive_opened": false,
+  "native_guard_contracts": "passed; zero native simulations",
+  "native_version": "R version 4.2.1 (2022-06-23)  / RSiena  1.3.10",
+  "python_regressions": "92 passed; numerical workflows mocked",
+  "missing_inputs": [
+    {
+      "path": "data/past/2006.rds",
+      "expected_sha256": "7e00ccdf14204ac676cd141533e2612bc8bd810dbd371992d24670b47ad69ac5"
+    },
+    {
+      "path": "data/targets/2006.rds",
+      "expected_sha256": "a2b9edb5f8c98a6b0b937dce5b8be9345e64cb2f225506115974a247fc3e434a"
+    },
+    {
+      "path": "data/past/2007.rds",
+      "expected_sha256": "7b772635ff780df37102249f103c96b6f0c79efda3fb9a1c55349ba110872435"
+    },
+    {
+      "path": "data/targets/2007.rds",
+      "expected_sha256": "d0d1c97414d39550096e69fcd36c5e14dc5e28aea1fca0b34f6de6ed76d0c936"
+    },
+    {
+      "path": "data/past/2008.rds",
+      "expected_sha256": "332836625db9ff13b86e0dbf7a34386e8abcfc155df4b196cfacddf3aa1a496f"
+    },
+    {
+      "path": "data/targets/2008.rds",
+      "expected_sha256": "973e54b1b7fd764889584cf1a25e429a6ebd3de7fa83a91684464c2d1b2850d2"
+    },
+    {
+      "path": "data/past/2009.rds",
+      "expected_sha256": "f8aea6ff84f4a82c43cce7cd6bc12fcd0a4fc36e0db0f6aeb4618381fc1771e4"
+    },
+    {
+      "path": "data/targets/2009.rds",
+      "expected_sha256": "a7bd4d561517e93c318e4f71dc7d6fbd3ddda827a55e214431f4b47837865c2c"
+    }
+  ],
+  "accepted_fit_sha256": {
+    "2006": "f27bc9c15a30c6b8bff5d265b77efd4268390a84a0a2ec1771eed09321e02778",
+    "2007": "49f4fa3d281311d05dba7d44d10682d867bc0abd6d7e0253ad3e6be1721ff922",
+    "2008": "c1849468418416bd8415082978bb508a3a82bd4cbf4367ea2ec1ea7de3f26b5d",
+    "2009": "94b2c9e916989f0f869d7050118829a907aabbf3e5e2d729274708bfac990b68"
+  },
+  "checked_implementation_sha256": {
+    "R/empirical.R": "7642d0642261ac56a8bacd4c8280ea7b835c18f42c83e8073280b9f6fef68985",
+    "R/forecast.R": "0e364460af034477626b077aa14fc9b9f02d9cdfc09682d0eeafbb0891a30aea",
+    "R/score.R": "2542b2666a0bdbb1022d507720d49e15fd11c1b817fd995d9d68dae9b159e3f5",
+    "R/forecast_repeatability.R": "df85324b66db29649a318481ed930ca68dce60b3ceb29599cb8a0dd7451118fe",
+    "scripts/forecast_repeatability.py": "d830ba88ae9f33778cc4a78f950cc8e9bb110c58d1b9fe6be0d7cd821ba0a356",
+    "configs/forecast-repeatability-v1.json": "36558e1fdd0087b8205cc00c3ffb37f3aea87d8080feed5e3b937d7c78d03cc5",
+    "environment/versions.json": "c6dfe4c4d7625899b0af6fc728e07ef43ec64ad398260a52f6ff4c17c13b8683",
+    "environment/conda-linux-64.explicit.txt": "f6aafee5d35cfe19066dde4ba704b8ab271c70930387108e09b1a8b934e8d2ba",
+    "evaluate.py": "f99ddee41e3e88b14d1510b102e79e92684c0526d678a8075fe5643d44462625",
+    "scripts/resources.py": "b762dc70322557619acbc0a46c9589ea929ef107c70f75e8f9b2e12284bee272",
+    "scripts/scientific_contract.py": "9ff8230dcf597c0d1f31d9c75145a701a261abe4e36bf0319a2f812fbbd6e8b4",
+    "scripts/network_specification_v2.py": "b547c649248f60aa71eb1127805121e868d3b8820a60f759fba8ea9e67357b35",
+    "configs/effect-catalog-v2.json": "2351cdb084b34118733ca7f59a7296af416df32f07b2f0c474e63fcff2b758b1",
+    "configs/evaluator-v2.json": "23d4a55f5fbc676d0924cfc79816a38c47d87436248faf9304d81e00d77374a5",
+    "candidates/initial_multiobjective.py": "39a56c568a755c527342e93b114a0420453a1cd3aa5d816c2fdbdb257c9f181e"
+  },
+  "next_input": "Export exactly these eight hash-verified packets from the original local checkout. Do not regenerate from mixed-year raw archive."
+}

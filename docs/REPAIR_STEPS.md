@@ -1,12 +1,15 @@
 # Bounded repairs after the external review
 
-Only step 1 is implemented here. Each later step requires its own bounded task,
-measured result and decision; this document does not authorize or start a campaign.
+Step 1 is complete. Step 2 has a bounded fixed-fit runner and input check, but
+its measurements are blocked in a fresh checkout by eight uncommitted development
+packets. See [forecast repeatability](FORECAST_REPEATABILITY.md). Later steps
+require their own bounded task, measured result and decision; no campaign starts
+automatically.
 
 | Step | Question or defect | Boundary / stopping condition |
 |---|---|---|
 | **1. Explicit protocol routing** | Omitted selectors silently choose a legacy evaluator or launcher. | Require an explicit selector, preserve explicit legacy/current routes, pass routing regressions and stop. |
-| 2. Forecast-only repeatability | How variable are scores at fixed accepted coefficients? | Design a development-only diagnostic separate from finalist selection; reuse accepted fits, specify a finite number of native forecast batches, preserve existing scores and report conditional Monte Carlo variability. No refitting or 2010 access. |
+| **2. Runner implemented; measurements pending inputs** | How variable are scores at fixed accepted coefficients? | Design a development-only diagnostic separate from finalist selection; reuse accepted fits, specify a finite number of native forecast batches, preserve existing scores and report conditional Monte Carlo variability. No refitting or 2010 access. |
 | 3. Convergence diagnostic precision | Does a more precise diagnostic resolve borderline convergence without more optimization? | Verify a fixed-coefficient native diagnostic path before changing any acceptance policy. Preserve thresholds and prior accept/reject records unless a separately reviewed protocol changes them. |
 | 4. A changed-specification comparison | Is an actual mechanism difference distinguishable from numerical variability? | Select and evaluate a motivated alternative under a declared bounded comparison. Do not infer search impossibility or publication readiness from one result. |
 | 5. Selection uncertainty and operational scales | What selection rule and objective scales are justified by the measurements? | Freeze a separately versioned rule before sustained search. Do not silently replace objectives, use reserved outcomes, or expand the spending grammar as a bug fix. |

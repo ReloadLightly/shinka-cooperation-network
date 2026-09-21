@@ -63,6 +63,7 @@ jobs:
                   fixture['models'][model][str(y)]={'metrics':e.read(cell/'scores/comparison-metrics.json'),'accepted':e.read(cell/'fit/accepted.json'),'evidence_sha256':e.sha(cell/'cell-commitment.json')}
           data=(json.dumps(fixture,indent=2)+'\n').encode()
           assert hashlib.sha256(data).hexdigest()=='b82031b32243a80a7b4f1d324058f53cd9dfd4b0d65527541026ed3f75492b41'
+          Path('tests/fixtures').mkdir(parents=True,exist_ok=True)
           Path('tests/fixtures/step4-replicated-scores.json').write_bytes(data)
           PY
           git config user.name 'github-actions[bot]'
@@ -180,7 +181,6 @@ jobs:
           assert s['llm_calls']==s['new_evolutionary_proposals']==0
           result={'status':'verified','workflow_run':os.environ['GITHUB_RUN_ID'],'tested_source_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'python_tests':int(re.search(r'Ran (\d+) tests',log).group(1)),'native_r_checks':r['checks'],'native_shinka_checks':s['check_count'],'new_fits':0,'new_forecasts':0,'new_simulations':0,'llm_calls':0,'new_proposals':0,'original_step4_artifacts_unchanged':True,'full_live_evolution_loop_tested':False,'model_authentication_tested':False,'reference_and_candidate_integer_score_views_pinned':True}
           (out/'execution.json').write_text(json.dumps(result,indent=2)+'\n')
-          # Pointers, original raw arrays and labels remain on their immutable result commit.
           files={str(p.relative_to(out)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(out.rglob('*')) if p.is_file() and p.name!='commitment.json'}
           (out/'commitment.json').write_text(json.dumps({'version':'step5a-replay-validation-v1','files':files},indent=2)+'\n')
           print(json.dumps(result,indent=2))

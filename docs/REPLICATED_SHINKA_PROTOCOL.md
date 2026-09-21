@@ -176,3 +176,20 @@ not another model-reconstruction study.
 
 No final-year evaluator is enabled by this change. Finalist locking and the
 reserved-year reporting protocol must be reviewed before that later phase.
+
+
+## Step 5C operational handoff
+
+See `docs/STEP5C_HANDOFF.md`. The dedicated launcher now checks the pinned local
+runtime and isolation before constructing a campaign, derives the embedding port
+from configuration, refuses occupied service ports, and waits for owned embedding
+and WebUI services to answer health probes before constructing the native runner.
+Only its own process groups are cleaned up. No inference is performed by preflight.
+
+A new typed, hash-bound numerical-policy-exhaustion record replays as the same
+invalid evaluation, including in read-only mode and without another admission.
+Uncommitted legacy failures, interrupted operations and corrupt evidence remain
+pauses. Native statistical settings and scientific metric/selection definitions
+are unchanged. Source fingerprints change: do not pull this repair beneath an
+active old controller or rewrite an existing campaign's binding. The preserved
+Step 4 evidence remains compatible and is not refitted for this repair.

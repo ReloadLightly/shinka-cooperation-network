@@ -1,0 +1,45 @@
+{
+  "checks": {
+    "r_wrapper": true,
+    "r_runtime": true,
+    "headless_cli": false,
+    "bubblewrap": false,
+    "embedding_model": false,
+    "visualizer": true,
+    "subscription_auth_file": false,
+    "node": true,
+    "codex_cli": false,
+    "model2vec_importable": true,
+    "pinned_shinka_checkout": true,
+    "native_patch": true,
+    "native_api_imports": true
+  },
+  "r_versions_checked": true,
+  "isolation_checked": false,
+  "local_runtime_passed": false,
+  "model_inference_verified": false,
+  "model_route_note": "No inference request made; configured aliases and allowance remain unverified.",
+  "configured_model_routes": [
+    "headless/codex@gpt-5.6-luna?effort=low",
+    "headless/codex@gpt-5.6-sol?effort=low",
+    "headless/codex@gpt-5.6-terra?effort=low"
+  ],
+  "ports_available": true,
+  "saved_evidence": {
+    "verified": true,
+    "cells": 8,
+    "objectives": {
+      "J1": -0.0027068271812663025,
+      "J2": 1.1269955188679295e-05,
+      "J3": -0.00021712129519249612
+    }
+  },
+  "local_prerequisites_passed": false,
+  "version": "step5c-host-v1",
+  "new_fits": 0,
+  "new_forecasts": 0,
+  "new_simulations": 0,
+  "llm_calls": 0,
+  "reserved_year_access": false,
+  "campaign_started": false
+}

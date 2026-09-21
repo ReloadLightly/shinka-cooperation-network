@@ -1,0 +1,22 @@
+{
+  "status": "verified",
+  "publication_workflow_run": "35665976263",
+  "python_311_source_tests": 248,
+  "scientific_fingerprint": "4b8994a95f82fdfc54d7d9f2a41d51c857cbc5adbcbf21e8e07115fe67a3ea84",
+  "published_source_sha256": {
+    "scripts/replicated_evaluation.py": "5388ae72f6ed5db641773de2ef35e82d05263565919b15466fe379500601ef88",
+    "scripts/run_shinka_replicated.py": "7deada78d9a19ff1f7324b02fb3758d8195fca3fe594cb111b6ddb18af7e59cf",
+    "scripts/replicated_host.py": "9e34734bbd1563d8b83103b96474f8c8a5498263f5a1205be1c495e1e395111d",
+    "tests/test_step5c_handoff.py": "fd53a81562168667d1303081c2cf8f2ac09695e311bf2deb0dfa964f48c48e40",
+    "README.md": "93cf8a0e8539cb028e7d380a385d037e08dd26dc6e272d64ff9a4d818706796d",
+    "docs/RUNBOOK.md": "e518380f69679633e10b9a16f24d04071b94a7b2dfe59c386140b27939d0345e",
+    "docs/REPLICATED_SHINKA_PROTOCOL.md": "f309783fb03f336502ca40cb5f255af8999c9b74e48436a54692180d8910a99a",
+    "docs/STEP5C_HANDOFF.md": "c7038517dfbdd466e21519f2fb4e836fb22dec3a6dbc4f72e01463969cf0586b"
+  },
+  "one_off_execution_workflows_included": false,
+  "live_campaign_started": false,
+  "new_fits": 0,
+  "new_forecasts": 0,
+  "new_simulations": 0,
+  "llm_calls": 0
+}

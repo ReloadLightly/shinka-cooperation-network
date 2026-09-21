@@ -1,0 +1,18 @@
+{
+  "protocol": "multiobjective-replicated-v1",
+  "canonical_sha256": "884b086ba64149ae6f9180d3efd8da372f6d24cb9b2cca73a35cac88dd69923e",
+  "specification": {
+    "schema_version": 2,
+    "network_effects": [
+      {
+        "effect": "degPlus",
+        "parameter": 1
+      },
+      {
+        "effect": "gwesp",
+        "parameter": 69
+      }
+    ]
+  },
+  "scientific_fingerprint": "4b8994a95f82fdfc54d7d9f2a41d51c857cbc5adbcbf21e8e07115fe67a3ea84"
+}

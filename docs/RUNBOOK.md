@@ -1,16 +1,31 @@
 # Execution runbook
 
+## Current route: multiobjective-replicated-v1
+
+Use [Step 5C handoff](STEP5C_HANDOFF.md) for the current launcher, host checks,
+saved-evidence hydration and explicit cumulative budget. `scripts/run_shinka_replicated.py`
+is the current entry point; `scripts/run_shinka.py` below is historical.
+The local check does not authenticate model inference or launch a campaign.
+
+```bash
+.venv-shinka/bin/python scripts/replicated_host.py --check-runtime --check-isolation
+.venv-shinka/bin/python scripts/run_shinka_replicated.py --results-dir runs/evolution_replicated
+```
+
+The remaining instructions preserve older protocols and setup history, not the
+current replicated launch. Do not execute a historical evaluator to test Step 5C.
+
 This is the command reference for the scientific report in [README.md](../README.md).
 For published status, use the generated coverage in README; this document does
 not establish whether a controller is running on a local host.
 
-## Explicit protocol selection (repair step 1)
+## Historical explicit protocol selection (repair step 1)
 
 The general entry points have no legacy default. Missing `--protocol` (evaluator
 or conventional search) or `--config` (native launcher) exits with argument error
 2 before evaluation or results-directory creation. `--help` remains available.
 
-Current-protocol examples on the prepared checkout:
+Historical multiobjective-v1 examples on the prepared checkout:
 
 ```bash
 python3 evaluate.py --protocol multiobjective-v1 \

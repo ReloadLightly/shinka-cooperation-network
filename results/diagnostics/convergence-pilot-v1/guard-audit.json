@@ -1,0 +1,16 @@
+{
+  "status": "completed",
+  "phase3_entries": 1,
+  "simulator_entries": 3000,
+  "simulator_exits": 3000,
+  "forbidden_entries": 0,
+  "potential_nr_calls": 1,
+  "postprocessing_entries": 1,
+  "checked_every_simulator_call": true,
+  "seed": 2009301,
+  "nsub": 0,
+  "n3": 3000,
+  "simOnly": false,
+  "warnings": [],
+  "elapsed_seconds": 819.88400000000001
+}

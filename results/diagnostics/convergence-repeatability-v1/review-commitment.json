@@ -1,0 +1,9 @@
+{
+  "artifacts": {
+    "study-commitment.json": "97b94159b563786bc49a112c7fdcd656de662cb9173da87f549e5e7ef13f1980",
+    "native-evidence-verification.json": "f76f1d5e20ede7f64702e517e5a6e0352b34559ec8c31e440d63a5831e9e092b",
+    "native-evidence-verification.log": "08c5ae40cfea62b9a75152b3897c58e93703c194adccb0f9ba3a2cfeec0e45a9",
+    "evidence-review.json": "1b04effea70014ad5929e63d0fdc3a16bbc8d050c2af6e97bb780766ac6b2cda"
+  },
+  "verifier_sha256": "eda962f1e64f5e0bdd8ec9e20d8ca4b9f4ceb90790b721ec64ac18e6c619fcd1"
+}

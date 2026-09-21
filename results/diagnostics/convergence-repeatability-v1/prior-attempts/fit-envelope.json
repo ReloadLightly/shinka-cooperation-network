@@ -1,0 +1,22 @@
+{
+  "stage": "3C-preflight",
+  "workflow_run": 35614547183,
+  "job_id": 106381774664,
+  "source_commit": "04a443d9ba6d219ea4d571c69096bd806be5d0d2",
+  "artifact_id": 10645985570,
+  "status": "stopped_before_simulation",
+  "native_log": "Warning message:\npackage ‘jsonlite’ was built under R version 4.2.3 \nError: Wrong saved fit\nExecution halted\n",
+  "cause": "The fourth-vector accepted_fit.rds stores list(fit, diagnostics), while fit-attempt-3.rds stores a bare sienaFit. The new reader initially treated both as bare fits and refused the wrapper at its dimension check.",
+  "source_evidence": "Original R/forecast.R reads the envelope as ans, validates ans$fit, and identifies the accepted attempt from tail(ans$diagnostics,1).",
+  "repair_commit": "15bd8434177a38d11adddcf19d340d31a3e06624",
+  "repair": "Explicitly unwrap only the declared fourth-attempt envelope after checking native class, accepted attempt 4 and saved valid flag. Preserve its exact file/hash, final theta, original settings, and add five deterministic wrapper-format checks.",
+  "python_tests_passed": 153,
+  "new_simulations": 0,
+  "new_refits": 0,
+  "new_forecasts": 0,
+  "study_claim_created": false,
+  "numerical_cells_started": 0,
+  "frozen_plan_sha256": "0f0b987240b0880148791531eea7e1bd1484e60009c5836b0891369d5fa91214",
+  "plan_changed": false,
+  "interpretation": "Implementation preflight failure, not a convergence outcome. A reviewed new workflow invocation may proceed after this repair; no numerical seed has been consumed or rerun."
+}

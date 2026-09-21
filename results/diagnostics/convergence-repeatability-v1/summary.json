@@ -1,0 +1,277 @@
+{
+  "stage": "3C",
+  "status": "complete",
+  "plan_sha256": "0f0b987240b0880148791531eea7e1bd1484e60009c5836b0891369d5fa91214",
+  "total_cells": 10,
+  "new_completed_cells": 9,
+  "reused_pilot_cells": 1,
+  "planned_new_cells": 9,
+  "new_refits": 0,
+  "new_forecasts": 0,
+  "step4_started": false,
+  "failures": [],
+  "cells": [
+    {
+      "fit": "attempt3",
+      "seed": 2009301,
+      "reused_pilot": true,
+      "native_valid": true,
+      "warnings": 0,
+      "elapsed_seconds": 819.886,
+      "prefix1000_maximum_t": 0.0942296442808812,
+      "prefix1000_overall": 0.26208269327212586,
+      "prefix1000_pass": false,
+      "full3000_maximum_t": 0.05091503518965382,
+      "full3000_overall": 0.19081938270781273,
+      "full3000_pass": true
+    },
+    {
+      "fit": "attempt3",
+      "seed": 2009302,
+      "reused_pilot": false,
+      "native_valid": true,
+      "warnings": 0,
+      "elapsed_seconds": 943.658,
+      "prefix1000_maximum_t": 0.08969030411754782,
+      "prefix1000_overall": 0.3146494824432911,
+      "prefix1000_pass": false,
+      "full3000_maximum_t": 0.06153953387837911,
+      "full3000_overall": 0.23248434850816904,
+      "full3000_pass": true
+    },
+    {
+      "fit": "attempt3",
+      "seed": 2009303,
+      "reused_pilot": false,
+      "native_valid": true,
+      "warnings": 0,
+      "elapsed_seconds": 850.3750000000001,
+      "prefix1000_maximum_t": 0.08037423736840514,
+      "prefix1000_overall": 0.2533797544743977,
+      "prefix1000_pass": false,
+      "full3000_maximum_t": 0.06541577210706118,
+      "full3000_overall": 0.18376683860755733,
+      "full3000_pass": true
+    },
+    {
+      "fit": "attempt3",
+      "seed": 2009304,
+      "reused_pilot": false,
+      "native_valid": true,
+      "warnings": 0,
+      "elapsed_seconds": 471.937,
+      "prefix1000_maximum_t": 0.08543194208498547,
+      "prefix1000_overall": 0.27183692606291043,
+      "prefix1000_pass": false,
+      "full3000_maximum_t": 0.05887614408411444,
+      "full3000_overall": 0.19514899039008324,
+      "full3000_pass": true
+    },
+    {
+      "fit": "attempt3",
+      "seed": 2009305,
+      "reused_pilot": false,
+      "native_valid": true,
+      "warnings": 0,
+      "elapsed_seconds": 818.042,
+      "prefix1000_maximum_t": 0.08625251658661764,
+      "prefix1000_overall": 0.2850037576537165,
+      "prefix1000_pass": false,
+      "full3000_maximum_t": 0.06094534693183619,
+      "full3000_overall": 0.20381217657943543,
+      "full3000_pass": true
+    },
+    {
+      "fit": "attempt4",
+      "seed": 2009401,
+      "reused_pilot": false,
+      "native_valid": true,
+      "warnings": 0,
+      "elapsed_seconds": 813.528,
+      "prefix1000_maximum_t": 0.07865426417903075,
+      "prefix1000_overall": 0.2680936541191433,
+      "prefix1000_pass": false,
+      "full3000_maximum_t": 0.04646872423610117,
+      "full3000_overall": 0.15466152118748874,
+      "full3000_pass": true
+    },
+    {
+      "fit": "attempt4",
+      "seed": 2009402,
+      "reused_pilot": false,
+      "native_valid": true,
+      "warnings": 0,
+      "elapsed_seconds": 786.342,
+      "prefix1000_maximum_t": 0.08044353327892512,
+      "prefix1000_overall": 0.2829497030549351,
+      "prefix1000_pass": false,
+      "full3000_maximum_t": 0.061573791636679844,
+      "full3000_overall": 0.1547742096395391,
+      "full3000_pass": true
+    },
+    {
+      "fit": "attempt4",
+      "seed": 2009403,
+      "reused_pilot": false,
+      "native_valid": true,
+      "warnings": 0,
+      "elapsed_seconds": 805.014,
+      "prefix1000_maximum_t": 0.05798694930978512,
+      "prefix1000_overall": 0.2558343757096253,
+      "prefix1000_pass": false,
+      "full3000_maximum_t": 0.04263948321780301,
+      "full3000_overall": 0.15285578669325725,
+      "full3000_pass": true
+    },
+    {
+      "fit": "attempt4",
+      "seed": 2009404,
+      "reused_pilot": false,
+      "native_valid": true,
+      "warnings": 0,
+      "elapsed_seconds": 800.527,
+      "prefix1000_maximum_t": 0.1122508218689186,
+      "prefix1000_overall": 0.2564473196592991,
+      "prefix1000_pass": false,
+      "full3000_maximum_t": 0.045648577594189006,
+      "full3000_overall": 0.14369850790678945,
+      "full3000_pass": true
+    },
+    {
+      "fit": "attempt4",
+      "seed": 2009405,
+      "reused_pilot": false,
+      "native_valid": true,
+      "warnings": 0,
+      "elapsed_seconds": 819.857,
+      "prefix1000_maximum_t": 0.08169119791665934,
+      "prefix1000_overall": 0.2532948334348651,
+      "prefix1000_pass": false,
+      "full3000_maximum_t": 0.06669920800900289,
+      "full3000_overall": 0.15826135458792606,
+      "full3000_pass": true
+    }
+  ],
+  "attempt3_new_only": {
+    "n": 4,
+    "prefix1000": {
+      "maximum_t": {
+        "n": 4,
+        "mean": 0.08543725003938901,
+        "sample_sd": 0.003846524579222848,
+        "minimum": 0.08037423736840514,
+        "maximum": 0.08969030411754782
+      },
+      "overall": {
+        "n": 4,
+        "mean": 0.28121748015857895,
+        "sample_sd": 0.025787389944471384,
+        "minimum": 0.2533797544743977,
+        "maximum": 0.3146494824432911
+      },
+      "joint_threshold_passes": 0
+    },
+    "full3000": {
+      "maximum_t": {
+        "n": 4,
+        "mean": 0.061694199250347734,
+        "sample_sd": 0.002731070645979137,
+        "minimum": 0.05887614408411444,
+        "maximum": 0.06541577210706118
+      },
+      "overall": {
+        "n": 4,
+        "mean": 0.20380308852131127,
+        "sample_sd": 0.020808327516468484,
+        "minimum": 0.18376683860755733,
+        "maximum": 0.23248434850816904
+      },
+      "joint_threshold_passes": 4
+    },
+    "full_native_valid": 4,
+    "prefix_fail_full_pass": 4,
+    "prefix_pass_full_fail": 0
+  },
+  "attempt3_including_seen_pilot": {
+    "n": 5,
+    "prefix1000": {
+      "maximum_t": {
+        "n": 5,
+        "mean": 0.08719572888768745,
+        "sample_sd": 0.0051534505725279916,
+        "minimum": 0.08037423736840514,
+        "maximum": 0.0942296442808812
+      },
+      "overall": {
+        "n": 5,
+        "mean": 0.27739052278128834,
+        "sample_sd": 0.023915896887826794,
+        "minimum": 0.2533797544743977,
+        "maximum": 0.3146494824432911
+      },
+      "joint_threshold_passes": 0
+    },
+    "full3000": {
+      "maximum_t": {
+        "n": 5,
+        "mean": 0.05953836643820895,
+        "sample_sd": 0.00536955638060238,
+        "minimum": 0.05091503518965382,
+        "maximum": 0.06541577210706118
+      },
+      "overall": {
+        "n": 5,
+        "mean": 0.20120634735861156,
+        "sample_sd": 0.018932912978587308,
+        "minimum": 0.18376683860755733,
+        "maximum": 0.23248434850816904
+      },
+      "joint_threshold_passes": 5
+    },
+    "full_native_valid": 5,
+    "prefix_fail_full_pass": 5,
+    "prefix_pass_full_fail": 0
+  },
+  "attempt4_new_only": {
+    "n": 5,
+    "prefix1000": {
+      "maximum_t": {
+        "n": 5,
+        "mean": 0.08220535331066378,
+        "sample_sd": 0.01939871047807738,
+        "minimum": 0.05798694930978512,
+        "maximum": 0.1122508218689186
+      },
+      "overall": {
+        "n": 5,
+        "mean": 0.2633239771955736,
+        "sample_sd": 0.012368156767729403,
+        "minimum": 0.2532948334348651,
+        "maximum": 0.2829497030549351
+      },
+      "joint_threshold_passes": 0
+    },
+    "full3000": {
+      "maximum_t": {
+        "n": 5,
+        "mean": 0.05260595693875519,
+        "sample_sd": 0.01077547140406734,
+        "minimum": 0.04263948321780301,
+        "maximum": 0.06669920800900289
+      },
+      "overall": {
+        "n": 5,
+        "mean": 0.15285027600300014,
+        "sample_sd": 0.005477608758913648,
+        "minimum": 0.14369850790678945,
+        "maximum": 0.15826135458792606
+      },
+      "joint_threshold_passes": 5
+    },
+    "full_native_valid": 5,
+    "prefix_fail_full_pass": 5,
+    "prefix_pass_full_fail": 0
+  },
+  "new_guarded_seconds": 7109.28,
+  "interpretation": "Conditional diagnostic repeatability for two fixed historical coefficient vectors. Five is a small sample; the seen pilot is excluded from attempt3_new_only. Prefix/full samples are nested. Counts are descriptive, not a validated pass probability or proof of production-policy suitability. No fitting variation, prediction quality, stronger identification or evolutionary improvement was measured."
+}

@@ -1,0 +1,12 @@
+{
+  "workflow_run": "35617778901",
+  "source_commit": "42c7db7882539aab4add55c0dcc829ad5a77fa39",
+  "status": "verified",
+  "new_simulations": 0,
+  "new_refits": 0,
+  "target_packets_read": 0,
+  "full_cell_commitments_verified": 9,
+  "prior_pilot_verified": true,
+  "all_ten_native_vectors_match_original_fits": true,
+  "all_raw_native_arrays_and_csv_diagnostics_checked": true
+}

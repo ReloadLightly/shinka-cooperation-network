@@ -1,0 +1,20 @@
+{
+  "artifacts": {
+    "moment-deviations.csv": "070b64c09d55be19f4f183c7914578d03345ed1f8a2cdce41efe364150058fb9",
+    "parameter-diagnostics.csv": "ae92d8bb6512180e25de2d1e839b67b7e3e969ef4d28a09d5656cc3f55966eb2",
+    "moment-covariance.csv": "6375ed5311cacbbcb456296cc6695a8050dbeb36002a404223b6445d894e8e53",
+    "r-self-tests.log": "6a958668d56ed6bf913e90997044bbd52ab21d9798d15928aedb7e87a5d8f2f6",
+    "python-tests.log": "27d71342e519a8b1cd41dda0f5cbf7c485bab6cbb952bf556c560e59bc5df398",
+    "native.log": "894ce4fbfb79c930b2cccde8dea352b65658cc4508d569e2d6b77653623802e1",
+    "request.json": "3ca7e75e8424b279514a57363f09dab67791f540ac54266c3ebb9e0466f91952",
+    "diagnostic.rds": "4416272cef5da7e36b9662a31d6f90f805c31738133d6cf6d87529b551175f5b",
+    "resources.txt": "482fe0c1cbea3e88aeed3512413566333d4ae61aa532c4919ad83c51587f9089",
+    "native-pilot.txt": "3983b174aa152851526b04a4a1a6da20de095976f455cd6e4e39006ef9dfdd4e",
+    "execution.json": "8f7733416a94baceb897c7736956283b0fcffc449ed12d98bd4855d26b31763e",
+    "raw-phase3.rds": "03f355a8f4c2c54e86fe5ce7e6d7894dea093be4b1a8a1e46d75429c834c1f70",
+    "guard-audit.json": "2454191a4cc77843f3d34672e91cb7584e72f05f84f0d3eddc3ea2b2c42af598",
+    "summary.json": "0c439206a5ea220fe241419fce11723bdb1a13145794e645a745c495b26a50f7",
+    "commitment.json": "b48fda4f6074bd8fc63be6e361d02ce03d3502d23fb351291a5747a470216a6a",
+    "session-info.txt": "343f9b764400c4a5d1ccc91f45d46f71a81a3f229dcf27f4616965090b383a1b"
+  }
+}

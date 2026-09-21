@@ -1,6 +1,6 @@
 # Step 3A: verified convergence-diagnostic initialization
 
-**Status: complete; Step 3B has not run.** This step reconstructs the old
+**Historical Step 3A record: complete. Steps 3B and 3C subsequently completed; see [current repair status](REPAIR_STEPS.md).** This step reconstructs the old
 convergence statistics and verifies the native setup of a phase-3-only
 assessment. It does not generate new simulations or estimate new coefficients.
 It neither resolves the convergence-precision question nor changes acceptance.
@@ -149,7 +149,7 @@ has no actual-simulation mode. Committed evidence can be checked without R:
 python scripts/convergence_preflight.py verify-artifacts
 ```
 
-## Next step, separately authorized
+## Historical next-step design (subsequently executed as Steps 3B and 3C)
 
 Step 3B would run **one** native phase-3-only pilot using this verified setup:
 `nsub=0`, `simOnly=FALSE`, `n3=3000`, seed **2009301**, original fixed flags,

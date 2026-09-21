@@ -1,0 +1,18 @@
+{
+  "scope": "read-only independent NumPy/CSV review; no simulations or refitting",
+  "basis_commit": "4f5d409f5386d36f8cdb41d9dc8fbbcd3a57d045",
+  "numpy_version": "2.3.5",
+  "commitment_members_verified_locally": 102,
+  "all_ten_moment_matrices_reconstructed": true,
+  "same_vector_csv_coefficients_identical_across_seeds": true,
+  "between_vector_coefficients_distinct": true,
+  "max_overall_reconstruction_error": 1.0547118733938987e-15,
+  "comparison_tolerance": 1e-12,
+  "all_descriptive_summaries_independently_recomputed": true,
+  "local_binary_scope": "The compact download omits new RDS files. Available native evidence members were hash-checked locally; all new binary commitments and exact original coefficients were checked separately by the repository read-only native review.",
+  "status": "verified",
+  "new_simulations": 0,
+  "new_refits": 0,
+  "new_guarded_seconds": 7109.280000000001,
+  "new_maximum_rss_kib": 675316
+}

@@ -1,0 +1,11 @@
+{
+  "workflow_run": "35615515529",
+  "source_commit": "3840bcccc65e62d934ce89900cb069c54e88c1cd",
+  "status": "complete",
+  "new_completed_cells": 9,
+  "reused_pilot_cells": 1,
+  "automatic_retries": 0,
+  "new_refits": 0,
+  "new_forecasts": 0,
+  "step4_started": false
+}

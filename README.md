@@ -16,7 +16,7 @@
 
 ## Abstract
 
-Can ShinkaEvolve discover interpretable alternative network-selection specifications that improve forecasts of defense-cooperation agreements and defense spending relative to Kinne and Kang’s Model 3? We reconstruct the original model using **R 4.2.1 / RSiena 1.3.10**, and conduct a separate, strict temporal forecasting extension. Network mechanisms may evolve; empirical controls and the spending equation’s structure remain fixed, with all coefficients jointly reestimated. **Multiobjective-v1** measures equally weighted 2006–2009 improvements in PRROC PR-AUC, tie-probability Brier score and ordinal-spending RMSE. All four reference forecasts have completed with 1,000 endpoints each; their PR-AUCs are **0.885308, 0.941662, 0.914560 and 0.949362**. Each improves ranking over persistence while having slightly worse Brier score. The 2009 fourth continuation passed after recovery from host memory exhaustion, with unchanged scientific settings, seed and convergence thresholds. The historical PR-only seed evaluation returns exactly **F=0**. No changed specification or evolutionary improvement is established; native multiobjective evolution is the next operation. Original-source reproduction remains partial: **86 endpoints across seven settings**. The authors favor an efficiency interpretation; our predictive extension cannot independently establish that explanation or improved security.
+Can ShinkaEvolve discover interpretable alternative network-selection specifications that improve forecasts of defense-cooperation agreements and defense spending relative to Kinne and Kang’s Model 3? We reconstruct the original model using **R 4.2.1 / RSiena 1.3.10**, and conduct a separate, strict temporal forecasting extension. Network mechanisms may evolve; empirical controls and the spending equation’s structure remain fixed, with all coefficients jointly reestimated. **Multiobjective-v1** measures equally weighted 2006–2009 improvements in PRROC PR-AUC, tie-probability Brier score and ordinal-spending RMSE. All four reference forecasts have completed with 1,000 endpoints each; their PR-AUCs are **0.885308, 0.941662, 0.914560 and 0.949362**. Each improves ranking over persistence while having slightly worse Brier score. The 2009 fourth continuation passed after recovery from host memory exhaustion, with unchanged scientific settings, seed and convergence thresholds. The historical PR-only seed evaluation returns exactly **F=0**. No changed specification or evolutionary improvement is established. Fixed-coefficient numerical audits are reported separately; a bounded changed-model comparison and uncertainty-aware selection remain outstanding. Original-source reproduction remains partial: **86 endpoints across seven settings**. The authors favor an efficiency interpretation; our predictive extension cannot independently establish that explanation or improved security.
 
 | Original-source execution | Accepted reference forecasts | Unique changed-model evaluations | Native evolutionary proposals |
 |:---:|:---:|:---:|:---:|
@@ -193,6 +193,20 @@ The [historical v1 invalid result](results/evolution_forecast/initial/metrics.js
 <!-- GENERATED-COVERAGE:END -->
 
 The authors’ published **PR-AUC 0.927**, **ROC-AUC 0.985**, and **spending RMSE 0.397** are reference values, not results obtained here or values inserted into the evaluator. The extension’s changed forecasting protocol need not reproduce them.
+
+### 4.4 Fixed-coefficient numerical audits: Steps 2–3C
+
+Step 2 measured forecast variability (four-year PR-AUC sample SD **0.001075374**). Steps 3B–3C separately assessed convergence-diagnostic precision for two unchanged 2009 training-fit vectors. **Nine new 3,000-draw diagnostics plus the reused pilot completed, with zero refits.**
+
+| Fixed vector | Repetitions | Overall ratio: first 1,000, mean (SD) | Overall ratio: all 3,000, mean (SD) | Joint-threshold passes: first / full |
+|---|---:|---:|---:|---:|
+| Third attempt: new only | 4 | 0.281217 (0.025787) | 0.203803 (0.020808) | 0/4 / 4/4 |
+| Third attempt: including seen pilot | 5 | 0.277391 (0.023916) | 0.201206 (0.018933) | 0/5 / 5/5 |
+| Fourth attempt: new only | 5 | 0.263324 (0.012368) | 0.152850 (0.005478) | 0/5 / 5/5 |
+
+All full assessments also passed native-validity checks. Prefix and full samples are **nested**, not independent. The small seed sets do not prove a universal pass rate, equivalence of the two coefficient vectors, or prediction improvement. Historical acceptance decisions and production criteria remain unchanged.
+
+[All seed results](results/diagnostics/convergence-repeatability-v1/REPORT.md) · [Reviewed interpretation and next decision](results/diagnostics/convergence-repeatability-v1/INTERPRETATION.md) · [Frozen study design](docs/CONVERGENCE_REPEATABILITY.md)
 
 ## 5. Preserved reconstruction evidence
 

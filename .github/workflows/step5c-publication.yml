@@ -1,0 +1,165 @@
+name: Step 5C - finalize and publish saved-evidence handoff
+on:
+  push:
+    branches: [execution/step5c-handoff-20260922]
+    paths: [.github/workflows/step5c-publication.yml]
+permissions:
+  contents: write
+concurrency:
+  group: step5c-handoff-publication
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    env:
+      SHINKA_PRICING_MODE: offline
+      PYTHON_DOTENV_DISABLED: '1'
+      SHINKA_REPLICATED_EVIDENCE_ROOT: /tmp/step5c-final-evidence
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - name: Fetch the missing base and verify immutable saved validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = execution/step5c-handoff-20260922
+          git fetch --no-tags --depth=1 origin e2945debef7171cd3d15aff8973930730a386770
+          git fetch --no-tags --depth=1 origin 0c585a73f2b7988cc41fee4f2cddf956a5532288
+          python - <<'PY'
+          import json,re,subprocess
+          from pathlib import Path
+          from scripts import replicated_evaluation as e
+          out=Path('results/diagnostics/step5c-handoff-v1')
+          e.verify_manifest(out,'commitment.json',version='step5c-handoff-validation-v1')
+          original=e.read(out/'execution.json')
+          assert original=={'status':'incomplete_or_failed','workflow_run':'35665143274','live_evolution_started':False}
+          native=e.read(out/'native-shinka/verification.json');r=e.read(out/'native-r.json')
+          host=e.read(out/'github-host.json');log=(out/'python-tests.log').read_text()
+          assert native['status']==r['status']=='passed' and re.search(r'^OK$',log,re.M)
+          assert int(re.search(r'Ran (\d+) tests',log).group(1))==248
+          assert native['check_count']==41 and r['checks']==47
+          assert all(native[k]==r[k]==0 for k in ('new_fits','new_forecasts','new_simulations'))
+          assert native['llm_calls']==native['new_evolutionary_proposals']==0
+          assert native['scientific_fingerprint']==e.identity()['sha256']
+          assert host['saved_evidence']['verified'] and host['saved_evidence']['cells']==8
+          assert host['r_versions_checked'] is True and host['model_inference_verified'] is False
+          assert host['local_prerequisites_passed'] is False
+          assert 'AssertionError: 75 != 1' in (out/'before-repair.log').read_text()
+          assert e.read(out/'dry-resolution.json')['executed'] is False
+          base='e2945debef7171cd3d15aff8973930730a386770';tested='0c585a73f2b7988cc41fee4f2cddf956a5532288'
+          subprocess.run(['git','diff','--exit-code',base,'--','R','configs','shinka','candidates','environment','evaluate.py','scripts/precision_fit.py','scripts/replicated_metrics.py','scripts/step4_compare.py','scripts/network_specification_v2.py'],check=True)
+          paths=['scripts/replicated_evaluation.py','scripts/run_shinka_replicated.py','scripts/replicated_host.py','tests/test_step5c_handoff.py','README.md','docs/RUNBOOK.md','docs/REPLICATED_SHINKA_PROTOCOL.md','docs/STEP5C_HANDOFF.md']
+          for name in paths:
+              original=subprocess.check_output(['git','rev-parse',tested+':'+name],text=True).strip()
+              current=subprocess.check_output(['git','hash-object',name],text=True).strip()
+              assert original==current,('Different source from tested revision',name)
+          Path('/tmp/step5c-paths.json').write_text(json.dumps(paths))
+          print('Passed saved component checks, source identity, and formerly missing base comparison. Original failed workflow record unchanged.')
+          PY
+      - name: Verify original scientific evidence without numerical execution
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/hydrate_replicated_evidence.py --destination /tmp/step5c-final-evidence --fetch
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from scripts import replicated_evaluation as e
+          reg=e.read(Path(e.REGISTRY));rows={};total=0
+          for entry in reg['specifications'].values():
+              rows[entry['label']]=e.result_for(entry['specification'],e.evidence_root(),allow_new=False)
+              for y in e.YEARS:total+=rows[entry['label']][y]['verified_files']
+          actual=e.build_metrics(next(x['specification'] for x in reg['specifications'].values() if x['label']=='gwesp69'),rows['gwesp69'],rows['reference'],e.identity())
+          saved=e.read(Path('results/diagnostics/replicated-replay-v1/native-shinka/job-gwesp69/metrics.json'))
+          for key in ('J1','J2','J3','years','delete_one_vectors','mc_standard_errors','mc_intervals','selection_scales','reference_identity'):
+              assert actual['public'][key]==saved['public'][key],key
+          assert actual['combined_score']==saved['combined_score']
+          assert total==1344,total
+          Path('/tmp/step5c-evidence-count.json').write_text(json.dumps({'original_step4_files_verified':total,'corrected_saved_metrics_unchanged':True}))
+          PY
+      - name: Preserve navigation and construct production-only publication branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,subprocess,shutil,os,hashlib
+          from pathlib import Path
+          from scripts import replicated_evaluation as e
+          base='e2945debef7171cd3d15aff8973930730a386770'
+          tested='0c585a73f2b7988cc41fee4f2cddf956a5532288'
+          branch='repairs/step5c-handoff-20260922'
+          assert subprocess.check_output(['git','ls-remote','origin','refs/heads/main'],text=True).split()[0]==base,'Main changed; stop publication'
+          assert not subprocess.check_output(['git','ls-remote','origin','refs/heads/'+branch],text=True).strip(),'Destination already exists'
+          readme=Path('README.md');text=readme.read_text()
+          for heading,anchor in [('## 3. Historical multiobjective-v1 evolution and evaluation','3-prespecified-evolution-and-evaluation'),('## 4. Historical reproduction and 1,000-endpoint reference results','4-results')]:
+              assert text.count(heading)==1
+              text=text.replace(heading,'<a id="'+anchor+'"></a>\n\n'+heading)
+          readme.write_text(text)
+          report={'status':'verified','finalization_workflow_run':os.environ['GITHUB_RUN_ID'],
+              'component_validation_workflow_run':'35665143274','component_workflow_conclusion':'failure',
+              'component_workflow_failure':'Final packaging source comparison lacked base commit in shallow checkout. Passed component evidence is preserved; this run fetches that base and completes the comparison.',
+              'tested_source_commit':tested,'baseline_failure_regression_reproduced':True,
+              'python_313_tests':248,'native_r_checks':47,'native_shinka_checks':41,
+              'native_meta_fixture_limitation':'Existing __new__ counter fixture logs a missing _project_window_deadline after recorded dispatch checks. No complete live meta loop is certified.',
+              **json.loads(Path('/tmp/step5c-evidence-count.json').read_text()),
+              'scientific_sources_and_configurations_unchanged':True,'scientific_fingerprint':e.identity()['sha256'],
+              'new_fits':0,'new_forecasts':0,'new_simulations':0,'llm_calls':0,'new_proposals':0,
+              'full_live_evolution_loop_tested':False,'model_authentication_tested':False,
+              'github_host_ready_for_live_proposals':False,'user_wsl_host_checked':False,
+              'live_campaign_started':False,'original_failed_packaging_record_preserved':True}
+          final=Path('results/diagnostics/step5c-finalization-v1.json')
+          final.write_text(json.dumps(report,indent=2)+'\n')
+          handoff=Path('docs/STEP5C_HANDOFF.md')
+          handoff.write_text(handoff.read_text()+'\n\n## Published validation record\n\nThe finalized outcome is `results/diagnostics/step5c-finalization-v1.json`.\nThe original component workflow passed 248 Python tests, 47 R checks and 41\nnative Shinka checks, then failed a packaging comparison because a shallow clone\nlacked its base commit. Its failed record is preserved unchanged. A separate\nread-only finalization fetched the base, completed the source comparison and\nverified 1,344 original evidence files without rerunning native numerical work.\nNo live proposal host, inference or complete live meta loop is certified.\n')
+          paths=json.loads(Path('/tmp/step5c-paths.json').read_text())
+          out=Path('results/diagnostics/step5c-handoff-v1')
+          snapshot=Path('/tmp/step5c-publication');snapshot.mkdir()
+          for name in [*paths,str(final)]:
+              dest=snapshot/name;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(name,dest)
+          shutil.copytree(out,snapshot/out)
+          subprocess.run(['git','switch','--detach','--force',base],check=True)
+          subprocess.run(['git','switch','-c',branch],check=True)
+          for name in [*paths,str(final)]:
+              dest=Path(name);dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(snapshot/name,dest)
+          shutil.copytree(snapshot/out,out)
+          PY
+          python -m compileall -q scripts tests
+          python -m unittest discover -s tests -v > /tmp/step5c-publication-tests.log 2>&1
+          tail -20 /tmp/step5c-publication-tests.log
+          python scripts/update_readme_status.py --check
+      - name: Commit verified production sources and evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,re,hashlib,os
+          from pathlib import Path
+          from scripts import replicated_evaluation as e
+          log=Path('/tmp/step5c-publication-tests.log').read_text()
+          assert re.search(r'^OK$',log,re.M)
+          paths=json.loads(Path('/tmp/step5c-paths.json').read_text())
+          record={'status':'verified','publication_workflow_run':os.environ['GITHUB_RUN_ID'],
+              'python_311_source_tests':int(re.search(r'Ran (\d+) tests',log).group(1)),
+              'scientific_fingerprint':e.identity()['sha256'],
+              'published_source_sha256':{p:hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in paths},
+              'one_off_execution_workflows_included':False,'live_campaign_started':False,
+              'new_fits':0,'new_forecasts':0,'new_simulations':0,'llm_calls':0}
+          assert record['python_311_source_tests']==248
+          Path('results/diagnostics/step5c-publication-v1.json').write_text(json.dumps(record,indent=2)+'\n')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/replicated_evaluation.py scripts/run_shinka_replicated.py scripts/replicated_host.py tests/test_step5c_handoff.py README.md docs/RUNBOOK.md docs/REPLICATED_SHINKA_PROTOCOL.md docs/STEP5C_HANDOFF.md results/diagnostics/step5c-handoff-v1 results/diagnostics/step5c-finalization-v1.json results/diagnostics/step5c-publication-v1.json
+          git diff --cached --check
+          git commit -m 'Complete bounded Step 5C repair and publish verified saved-evidence handoff'
+          git push origin HEAD:repairs/step5c-handoff-20260922
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: step5c-publication-source-tests
+          path: /tmp/step5c-publication-tests.log
+          retention-days: 7
+          if-no-files-found: ignore

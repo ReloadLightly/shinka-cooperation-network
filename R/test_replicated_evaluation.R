@@ -14,6 +14,19 @@ p<-network_count_pool(fixture,1:5)
 check(identical(p,network_count_pool(fixture,c(5,2,4,3,1))),"Integer pool is permutation invariant")
 check(all(p*5000==round(p*5000)),"Integer pool preserves grid")
 check(p[1]==p[2],"Equal successes stay tied")
+# Preserve exact decision fields; tolerate only report-only spectral roundoff.
+fixture_actual<-list(valid=TRUE,maximum_absolute_t_ratio=0.05,overall_maximum_convergence=0.2,
+  estimates=c(1,2),covariance_minimum_eigenvalue=0.000005,covariance_condition_number=1700000)
+fixture_report<-fixture_actual;fixture_report$covariance_minimum_eigenvalue<-0.000005*(1+1e-11)
+check(replicated_diagnostics_match(fixture_actual,fixture_report),"Spectral reporting roundoff is portable")
+fixture_bad<-fixture_report;fixture_bad$overall_maximum_convergence<-fixture_bad$overall_maximum_convergence+1e-15
+check(!replicated_diagnostics_match(fixture_actual,fixture_bad),"Acceptance ratio comparisons remain exact")
+fixture_bad<-fixture_report;fixture_bad$estimates[1]<-fixture_bad$estimates[1]+1e-12
+check(!replicated_diagnostics_match(fixture_actual,fixture_bad),"Coefficient comparisons remain exact")
+fixture_bad<-fixture_report;fixture_bad$valid<-FALSE
+check(!replicated_diagnostics_match(fixture_actual,fixture_bad),"Invalid recorded evidence cannot pass")
+fixture_bad<-fixture_report;fixture_bad$covariance_condition_number<-1701000
+check(!replicated_diagnostics_match(fixture_actual,fixture_bad),"Large spectral reporting differences refused")
 verified<-list();initializations<-0L
 for(model in c("reference","gwesp69"))for(year in 2006:2009){
   cell<-file.path(evidence,"results/step4-closure-comparison-v1",model,year)

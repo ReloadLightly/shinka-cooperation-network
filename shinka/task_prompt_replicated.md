@@ -52,7 +52,11 @@ objective. Runtime, code length, low spending, geographic favoritism and persuas
 prose confer no reward. Do not alter these definitions in evolved prompts.
 
 Measured starting evidence: GWESP(69), alpha=.69, had mixed development results:
-J=(-0.002670775,+0.000011270,-0.000217121). It did not repair 2007 triangle excess:
+The original Step 4 J=(-0.002670775,+0.000011270,-0.000217121) is preserved.
+The new integer-count pooling view has J1 approximately -0.002706827; J2 and J3
+are unchanged. Pooling now sums network successes before one division so equal
+counts remain tied. This read-only numerical correction is not new evidence.
+GWESP did not repair 2007 triangle excess:
 observed751, reference approximately875.787, GWESP approximately891.998. This does
 not establish that every GWESP specification fails or identify the misfit's cause.
 Use parent/inspiration results, annual scores, structural diagnostics, numerical

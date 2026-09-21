@@ -32,6 +32,46 @@ def check(value,name):
     if not value:raise AssertionError(name)
     checks.append(name)
 
+def verify_credit_guards(example):
+    """Execute the actual patched native side-effect method with counter fixtures.
+
+    The fixture's fresh flag tests dispatch only; it is never a measured new
+    program, never inserted as a new scientific result, and makes no model call.
+    """
+    class MetaCounter:
+        def __init__(self):self.added=[]
+        def add_evaluated_program(self,p):self.added.append(p.id)
+        def should_update_meta(self,interval):return False
+    owner=ShinkaEvolveRunner.__new__(ShinkaEvolveRunner)
+    owner.async_db=SimpleNamespace();owner.verbose=False
+    owner.evo_config=SimpleNamespace(evolve_prompts=True,meta_rec_interval=999)
+    owner.meta_summarizer=MetaCounter();rewards=[];prompt_credits=[];prompt_calls=[];persisted=[]
+    owner.llm_selection=SimpleNamespace(update=lambda **kw:rewards.append(kw))
+    async def prompt_credit(*args,**kw):prompt_credits.append((args,kw))
+    async def prompt_evolve():prompt_calls.append(True)
+    async def no_op():pass
+    async def save_meta(p):persisted.append(p.id)
+    owner._update_prompt_fitness=prompt_credit;owner._maybe_evolve_prompt=prompt_evolve
+    owner._update_best_solution_async=no_op;owner._persist_program_metadata_async=save_meta
+    owner._log_program_to_wandb=lambda p:None
+    for label,preexisting,duplicate in [('existing',True,False),('duplicate',False,True),('new-counter-fixture',False,False)]:
+        md={'model_name':'fixture-model'}
+        if duplicate:md['replicated_canonical_duplicate_of']='fixture-parent'
+        program=dataclasses.replace(example,id='credit-'+label,parent_id=None,metadata=md,
+            public_metrics=dict(example.public_metrics,preexisting_step4_evidence=preexisting))
+        job=AsyncRunningJob(job_id='credit-fixture',exec_fname='not-executed',results_dir='not-executed',
+            start_time=1,proposal_started_at=1,evaluation_submitted_at=2,evaluation_started_at=2,
+            generation=10,meta_patch_data={'system_prompt_id':'fixture-prompt'})
+        event=SimpleNamespace(job=job,program=program,evaluation_finished_at=3,
+            postprocess_started_at=3,postprocess_finished_at=4)
+        asyncio.run(owner._apply_persisted_program_side_effects(event))
+    check([r['reward'] for r in rewards]==[None,None,example.combined_score],
+        'actual native credit method withholds duplicate/import reward and preserves fresh-fixture reward')
+    check(len(prompt_credits)==len(prompt_calls)==1,'actual native method suppresses duplicate/import prompt credit')
+    check(owner.meta_summarizer.added==['credit-new-counter-fixture'],'actual native method suppresses duplicate/import meta credit')
+    check(len(persisted)==3,'native side-effect completion metadata still persisted for all fixtures')
+
+
 def main():
     science=ev.identity(ROOT)
     os.environ['SHINKA_SCIENTIFIC_FINGERPRINT']=science['sha256']
@@ -91,10 +131,15 @@ def main():
         parent,archive,top=db.sample(target_generation=3)
         parents.append(parent.id)
         check(parent.correct and all(x.correct for x in archive+top),'native parent/inspiration sampling valid')
+    with patch.object(db.island_sampler,'sample_island',return_value=0):
+        chosen,archive,top=db.sample(target_generation=3)
+        check(len(archive+top)>0,'native inspiration selection exercised on populated island fixture')
+    verify_credit_guards(p1)
     # Native MOVE migration retains uncertainty fields and never deletes source rows.
     strategy=db.island_manager.migration_strategy if hasattr(db.island_manager,'migration_strategy') else None
     if strategy is not None:
-        strategy.perform_migration(3)
+        moved=strategy.perform_migration(3)
+        check(moved is True,'native MOVE migration actually moved a retained trade-off')
         check(sel.snapshot(db)['unique_evaluated_canonical_specifications']==2,'migration preserves canonical population')
     # Save/reopen the actual SQLite population and scientific selection record.
     db.save();before=sel.snapshot(db);db.close();db=ProgramDatabase(cfg)
@@ -120,7 +165,7 @@ def main():
     # Drive the native pending queue without a proposer or a full runner constructor.
     db.conn.execute('CREATE TABLE IF NOT EXISTS project_pending_evaluations (generation INTEGER PRIMARY KEY,payload TEXT NOT NULL,updated_at REAL NOT NULL)')
     controller=ShinkaEvolveRunner.__new__(ShinkaEvolveRunner)
-    controller.db=db;controller.slot_available=asyncio.Event();controller.running_jobs=[];controller.active_proposal_tasks=set()
+    controller.db=db;controller.submitted_jobs={};controller.slot_available=asyncio.Event();controller.running_jobs=[];controller.active_proposal_tasks=set()
     controller._project_window_closed=lambda:False;controller._has_persistence_work_in_progress=lambda:False
     controller.evo_config=SimpleNamespace(num_generations=math.inf)
     events=[]
@@ -146,7 +191,7 @@ def main():
     controller._submit_evaluation_job_with_slot=submit
     asyncio.run(controller._project_resume_pending())
     check(len(controller.running_jobs)==1,'native pending resubmits same source without proposer')
-    completed=scheduler.monitor(controller.running_jobs[0].job_id,str(pending_out))
+    completed=scheduler.get_job_results(controller.running_jobs[0].job_id,str(pending_out))
     check(completed['correct']['correct'] is True,'resumed native local replay completes')
     check(completed['metrics']['public']==results['gwesp69']['public'],'resumed score identical, no redraw')
     scheduler.shutdown();db.close()

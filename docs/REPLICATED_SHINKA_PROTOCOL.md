@@ -44,6 +44,17 @@ operation is also used for future candidates by `R/replicated_evaluation.R`.
 Replaying original scores and using corrected scores are different recorded
 checks; neither is falsely reported as fresh experimental replication.
 
+## Cross-session diagnostic comparison
+
+Read-only native replay exposed tiny CPU/BLAS roundoff differences in the two
+report-only covariance spectral summaries (minimum eigenvalue and condition
+number). The new consumer still requires exact agreement of EVERY acceptance
+field, convergence ratio, coefficient and standard error, with valid status both
+recorded and recomputed. Only those two reporting summaries use a fixed 1e-8
+relative comparison. The covariance matrix and accepted-fit file remain hash-bound
+and unchanged. This is portability for derived reporting, not a relaxed acceptance
+criterion or rewritten fit. The diagnostic difference record is preserved.
+
 ## Evaluation and numerical execution
 
 Every candidate uses targets 2006–2009, training 1990 through target-1. The
@@ -120,7 +131,8 @@ Canonical duplicates remain correct measured models and retain their ancestry,
 but do not count as new evaluated structures. Three narrowly checked AST changes
 in the pinned native post-persistence method skip duplicate prompt/meta credit
 and submit no predictive bandit reward for duplicates or preexisting Step 4
-measurements. Native bandit completion/cost accounting remains active. This
+measurements. Native bandit completion/cost accounting remains active; a missing reward uses
+the pinned bandit's native worst-reward imputation, not a positive predictive gain. This
 process-local compatibility hook does not rewrite native source or scientific
 scores. It fails closed if the expected native code structure has changed.
 

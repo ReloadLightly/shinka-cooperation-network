@@ -6,6 +6,35 @@ source("R/step4_compare.R")
 source("R/replicated_score_view.R")
 REPLICATED_VERSION <- "multiobjective-replicated-v1"
 STEP4_VERSION <- REPLICATED_VERSION
+# Native spectral summaries are report-only and can differ at roundoff on a
+# different BLAS/CPU. All acceptance fields and coefficient-derived values must
+# remain EXACT; only these two recomputed reporting fields admit a 1e-8 relative
+# comparison. This never changes the strict convergence or native-validity gate.
+replicated_diagnostics_match <- function(actual,recorded) {
+  reporting<-c("covariance_minimum_eigenvalue","covariance_condition_number")
+  if(!identical(names(actual),names(recorded))||!isTRUE(actual$valid)||!isTRUE(recorded$valid))return(FALSE)
+  exact<-setdiff(names(actual),reporting)
+  if(!identical(actual[exact],recorded[exact]))return(FALSE)
+  all(vapply(reporting,function(k){
+    a<-actual[[k]];b<-recorded[[k]]
+    length(a)==1L&&length(b)==1L&&is.finite(a)&&is.finite(b)&&
+      abs(a-b)<=1e-8*max(abs(a),abs(b),.Machine$double.xmin)
+  },logical(1)))
+}
+replicated_receipt <- function(path,effects=NULL) {
+  ans<-readRDS(path)
+  assert(identical(ans$convergence_policy,PRECISION_VERSION)&&ans$accepted_attempt%in%1:4&&
+    ans$authoritative_n3%in%c(1000L,3000L),"Missing explicit precision acceptance")
+  actual<-fit_diagnostics(ans$fit,ans$authoritative_n3)
+  assert(replicated_diagnostics_match(actual,ans$authoritative_diagnostics),
+    "Receipt acceptance fields or spectral reporting evidence disagree")
+  assert(tail(ans$diagnostics,1)[[1]]$attempt==ans$accepted_attempt,"Receipt history ends at wrong attempt")
+  if(!is.null(effects))v2_update_theta(effects,ans$fit)
+  # Return the immutable recorded receipt, not a rewritten diagnosis.
+  ans
+}
+# Private process binding used by the inherited fit and forecast consumers.
+step4_receipt<-replicated_receipt
 replicated_request <- function(cell) {
   req <- read_json(file.path(cell,"request.json"),simplifyVector=FALSE)
   assert(identical(req$version,REPLICATED_VERSION),"Wrong replicated request")

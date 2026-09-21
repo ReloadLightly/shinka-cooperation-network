@@ -1,0 +1,85 @@
+{
+  "version": "step4-closure-comparison-v1",
+  "evidence_base_commit": "2a7a8f5000dacfcc9e56f865e2d720e1b446ee53",
+  "question": "Does replacing the network-selection transitive-triad term with native GWESP(69) change forecast quality and excessive predicted clustering under comparable estimation and forecast budgets?",
+  "models": {
+    "reference": {
+      "schema_version": 2,
+      "network_effects": [
+        {
+          "effect": "degPlus",
+          "parameter": 1
+        },
+        {
+          "effect": "transTriads",
+          "parameter": 0
+        }
+      ]
+    },
+    "gwesp69": {
+      "schema_version": 2,
+      "network_effects": [
+        {
+          "effect": "degPlus",
+          "parameter": 1
+        },
+        {
+          "effect": "gwesp",
+          "parameter": 69
+        }
+      ]
+    }
+  },
+  "development_years": [
+    2006,
+    2007,
+    2008,
+    2009
+  ],
+  "reserved_year_access": false,
+  "convergence_policy": "precision-before-continuation-v1",
+  "fit_settings": "configs/precision-fit-v1.json",
+  "historical_import": "Replay exact compatible optimization checkpoints in attempt order; recompute acceptance under the new policy, never import a historical acceptance or forecast. Any model with a matching bound history is eligible, independent of role.",
+  "baseline_cache_folders": {
+    "2006": "results/cache/8129f423ce5a8a407d8e5fe630fb02d145e209f6500ae34e57af32b4e4f2d829",
+    "2007": "results/cache/af83d3ca1787321e3791be9a7247b403b2bd9f5cefd58fb9111edb65d9b347c7",
+    "2008": "results/cache/bc0aa83f0001d4466c7e675ab88c95734eca049097860e828dc1799cf4cb1139",
+    "2009": "results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99"
+  },
+  "forecast": {
+    "batches_per_model_year": 5,
+    "endpoints_per_batch": 1000,
+    "point_estimate_endpoints": 5000,
+    "seed_base": 61000000,
+    "seed_rule": "61000000 + 100 * year + 10 * model_index + batch (model_index reference=0,gwesp69=1; batch=1..5)",
+    "max_new_batches": 40,
+    "duration_years": 1,
+    "conditional": false,
+    "batch_timeout_seconds": 1800
+  },
+  "primary": "Mean of four annual candidate-minus-reference PR-AUC differences. Each annual point uses probabilities averaged over all 5000 endpoints BEFORE PRROC scoring.",
+  "secondary": [
+    "Brier (reference minus candidate)",
+    "ordinal spending RMSE (reference minus candidate)",
+    "formation PR-AUC",
+    "dissolution PR-AUC",
+    "predicted ties and triangles",
+    "clustering and degree variance"
+  ],
+  "uncertainty": "Report five independent 1000-endpoint batch contrasts separately. Approximate Monte Carlo uncertainty of the pooled point by a five-block delete-one-batch jackknife, with blocks pairing the predeclared independent model/year batch indices. Preserve whole simulated networks. Report the four-year jackknife SE and a descriptive t(4) interval; it is not fitting or historical generalization uncertainty and is fragile for nonsmooth ranking metrics/ties.",
+  "no_automatic_winner": true,
+  "no_shinka_search": true,
+  "fitting_seed_repetitions": 1,
+  "decay_parameter_search": false,
+  "budget": {
+    "model_year_cells": 8,
+    "maximum_optimization_attempts_per_cell": 4,
+    "maximum_supplemental_diagnostics_per_cell": 3,
+    "cell_native_seconds": 14400,
+    "cell_wall_timeout_minutes": 270,
+    "max_parallel_cells": 8,
+    "automatic_numerical_retries": 0
+  },
+  "failure": "Retain failed or interrupted cells and exact checkpoints. No changed seeds, extra candidates, partial four-year score, silent restart or reserved-year access.",
+  "interpretation": "A development-stage comparison motivated partly by an already observed 2007 discrepancy, not a preregistered historical out-of-sample confirmation, causal test, free-riding test, evolutionary result, or measurement of fit-seed variability."
+}

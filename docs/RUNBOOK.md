@@ -1,10 +1,37 @@
 # Execution runbook
 
 This is the command reference for the scientific report in [README.md](../README.md).
-The current version-1 baseline retry policy is exhausted; the original ABM drivers
-are paused at completed-call checkpoints. No scientific job is currently running.
+For published status, use the generated coverage in README; this document does
+not establish whether a controller is running on a local host.
 
-## Environment, checks and execution
+## Explicit protocol selection (repair step 1)
+
+The general entry points have no legacy default. Missing `--protocol` (evaluator
+or conventional search) or `--config` (native launcher) exits with argument error
+2 before evaluation or results-directory creation. `--help` remains available.
+
+Current-protocol examples on the prepared checkout:
+
+```bash
+python3 evaluate.py --protocol multiobjective-v1 \
+  --program_path candidates/initial_multiobjective.py --results_dir runs/manual_multiobjective
+.venv-shinka/bin/python scripts/run_shinka.py \
+  --config shinka/native_multiobjective_config.json --results-dir runs/evolution_multiobjective
+python3 scripts/conventional_search.py --protocol multiobjective-v1 --limit 1
+```
+
+The evaluator example evaluates the reference, with compatible cache reuse; it
+is not a dry run. The two launcher examples omit `--execute` and do not launch
+search. Legacy reproduction remains explicitly selectable, as shown below.
+Changing CLI source changes the existing campaign fingerprint, but not the
+fit/forecast inputs: do not pull beneath an active controller or relabel an old
+campaign contract. See [the bounded repair record](REPAIR_STEPS.md).
+
+## Historical PR-only setup and execution
+
+The following commands preserve the legacy workflow. They are not prerequisites
+for current multiobjective proposals; use the README for the current launch.
+The historical retry-exhaustion checkpoint is not the current reference status.
 
 ```bash
 # Exact scientific environment (public downloads required on a fresh host)
@@ -33,14 +60,14 @@ python3 scripts/paper_reproduction.py --profile full --stage equilibria --max-ne
 python3 scripts/paper_reproduction.py --profile reduced --max-new-calls 21
 
 # Exact native evaluator contract; gates fail closed until audits pass
-python3 evaluate.py --program_path candidates/initial.py \
+python3 evaluate.py --protocol pr-only-v2 --program_path candidates/initial.py \
   --results_dir results/evolution_forecast/initial
-python3 evaluate.py --program_path candidates/replace_degree.py \
+python3 evaluate.py --protocol pr-only-v2 --program_path candidates/replace_degree.py \
   --results_dir results/evolution_forecast/replace_degree
 
 # Native infrastructure and resolved config; --execute remains readiness-gated
 python3 shinka/bootstrap.py
-.venv-shinka/bin/python scripts/run_shinka.py
+.venv-shinka/bin/python scripts/run_shinka.py --config shinka/native_config.json
 ```
 
 Once the substantive candidate has a valid full development evaluation, run:

@@ -277,7 +277,8 @@ def evaluation_timeout(config: dict, ready: dict, problems: list[str]) -> tuple[
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", type=Path, default=ROOT / "shinka/native_config.json")
+    parser.add_argument("--config", type=Path, required=True,
+                        help="Required: choose native_multiobjective_config.json or explicitly select the legacy native_config.json.")
     parser.add_argument("--results-dir", type=Path, default=ROOT / "runs/evolution_native")
     parser.add_argument("--initial", type=Path, default=ROOT / "candidates/initial.py")
     parser.add_argument("--webui-port", type=int, default=8899)

@@ -29,7 +29,8 @@ def main() -> None:
     result_directory = folder / "evaluation"
     result_directory.mkdir()
     scheduler = JobScheduler("local", LocalJobConfig(eval_program_path=str(ROOT / "evaluate.py"),
-                             python_executable=sys.executable, time="00:00:30"), max_workers=1)
+                             python_executable=sys.executable, time="00:00:30",
+                             extra_cmd_args={"protocol": "pr-only-v2"}), max_workers=1)
     original_cwd = Path.cwd()
     try:
         # Deliberately run from the generation folder to check absolute evaluator paths.

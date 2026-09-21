@@ -1,0 +1,8 @@
+{
+  "status": "completed",
+  "stage": "forecast",
+  "next_attempt": null,
+  "timestamp_utc": "2026-09-21T17:36:49Z",
+  "requested_simulations": 1000,
+  "returned_simulations": 1000
+}

@@ -1,0 +1,18 @@
+{
+  "protocol": "multiobjective-replicated-v1",
+  "canonical_sha256": "69cd09507195192b72920fdcc07f79bfdec032bc0021911e3fa7c49a987ee711",
+  "specification": {
+    "schema_version": 2,
+    "network_effects": [
+      {
+        "effect": "degPlus",
+        "parameter": 1
+      },
+      {
+        "effect": "transTriads",
+        "parameter": 0
+      }
+    ]
+  },
+  "scientific_fingerprint": "f73a4e5f215bdc538ef43257ff532bc440d0aa50cce9d57db330907195c8ef6b"
+}

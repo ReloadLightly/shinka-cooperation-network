@@ -1,0 +1,82 @@
+{
+  "status": "passed",
+  "checks": [
+    "native scheduler valid reference",
+    "native admission reference",
+    "native scheduler valid gwesp69",
+    "native admission gwesp69",
+    "reference exact zero",
+    "original Step 4 J1 reproduced",
+    "original Step 4 J2 reproduced",
+    "original Step 4 J3 reproduced",
+    "canonical replay returns identical evidence and seeds",
+    "new protocol pause recognized by native runner",
+    "paused score null",
+    "invalid AST rejected",
+    "invalid fitness null",
+    "duplicate lineage tagged without invalidating scientific score",
+    "duplicate receives no bandit/prompt/meta evidence credit",
+    "preexisting manual comparator not rewarded as new search evidence",
+    "unique models not lineage rows",
+    "native parent/inspiration sampling valid",
+    "native parent/inspiration sampling valid",
+    "native parent/inspiration sampling valid",
+    "native parent/inspiration sampling valid",
+    "native parent/inspiration sampling valid",
+    "native inspiration selection exercised on populated island fixture",
+    "actual native credit method withholds duplicate/import reward and preserves fresh-fixture reward",
+    "actual native method suppresses duplicate/import prompt credit",
+    "actual native method suppresses duplicate/import meta credit",
+    "native side-effect completion metadata still persisted for all fixtures",
+    "native MOVE migration actually moved a retained trade-off",
+    "migration preserves canonical population",
+    "native database reopen preserves scientific population",
+    "ancestry persists",
+    "native bandit state roundtrip",
+    "native meta-state loads without LLM call",
+    "native meta scratchpad preserved",
+    "native prompt archive survives reopen",
+    "native pending queue persisted",
+    "pending ancestry and inspirations preserved",
+    "native pending source tampering refused",
+    "native pending resubmits same source without proposer",
+    "resumed native local replay completes",
+    "resumed score identical, no redraw"
+  ],
+  "check_count": 41,
+  "scientific_fingerprint": "f73a4e5f215bdc538ef43257ff532bc440d0aa50cce9d57db330907195c8ef6b",
+  "reference_identity": "1cc8a417c41d6d14efee43bb876882be93c8d4fb25338197b676dea56a8d3607",
+  "legacy_step4_objectives": {
+    "J1": -0.0026707754342265855,
+    "J2": 1.1269955188679295e-05,
+    "J3": -0.00021712129519249612
+  },
+  "replicated_integer_objectives": {
+    "J1": -0.0027068271812663025,
+    "J2": 1.1269955188679295e-05,
+    "J3": -0.00021712129519249612
+  },
+  "operational_score": 1.9756104166554833,
+  "selection_scales": [
+    0.07582778277703706,
+    0.004366579860849057,
+    0.3915641023892019
+  ],
+  "native_scheduler_jobs": 6,
+  "new_fits": 0,
+  "new_forecasts": 0,
+  "new_simulations": 0,
+  "llm_calls": 0,
+  "new_evolutionary_proposals": 0,
+  "unique_preexisting_specifications": 2,
+  "native_population_before_reopen": {
+    "unique_evaluated_canonical_specifications": 2,
+    "valid_lineage_rows": 4,
+    "excluded_rows": {},
+    "canonical_sha256": [
+      "69cd09507195192b72920fdcc07f79bfdec032bc0021911e3fa7c49a987ee711",
+      "884b086ba64149ae6f9180d3efd8da372f6d24cb9b2cca73a35cac88dd69923e"
+    ]
+  },
+  "scope": "Actual native local scheduler and SQLite APIs; pending methods driven by controller fixture. No full live LLM evolution loop or authentication test."
+}

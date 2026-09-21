@@ -1,0 +1,25 @@
+{
+  "combined_score": null,
+  "public": {
+    "protocol": "multiobjective-replicated-v1",
+    "status": "paused_execution_window",
+    "valid": false,
+    "J1": null,
+    "J2": null,
+    "J3": null,
+    "reason": "Paused: No compatible saved result for this specification; replay-only mode forbids numerical work",
+    "canonical_sha256": "20fa533c3851c7366342ec41cef5f5943a424b60d62b821f380678564e7a0960",
+    "canonical_specification": {
+      "schema_version": 2,
+      "network_effects": [
+        {
+          "effect": "gwesp",
+          "parameter": 40
+        }
+      ]
+    },
+    "scientific_fingerprint": "f73a4e5f215bdc538ef43257ff532bc440d0aa50cce9d57db330907195c8ef6b"
+  },
+  "private": {},
+  "text_feedback": "PAUSED; preserve same candidate and inspect boundary. No compatible saved result for this specification; replay-only mode forbids numerical work"
+}

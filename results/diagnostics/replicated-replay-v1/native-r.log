@@ -1,0 +1,33 @@
+Warning messages:
+1: package ‘jsonlite’ was built under R version 4.2.3 
+2: package ‘PRROC’ was built under R version 4.2.3 
+If you use this algorithm object, siena07 will create/use an output file /tmp/RtmpcHWAA2/replicated-stopped-8bc5c43d372/forecasts/1/forecast.txt .
+Tracing function "phase1.1" in package "namespace:RSiena"
+Tracing function "phase1.2" in package "namespace:RSiena"
+Tracing function "phase2.1" in package "namespace:RSiena"
+Tracing function "proc2subphase" in package "namespace:RSiena"
+Tracing function "maxlikec" in package "namespace:RSiena"
+Tracing function "phase3" in package "namespace:RSiena"
+Tracing function "simstats0c" in package "namespace:RSiena"
+Untracing function "simstats0c" in package "namespace:RSiena"
+Untracing function "phase3" in package "namespace:RSiena"
+Untracing function "maxlikec" in package "namespace:RSiena"
+Untracing function "proc2subphase" in package "namespace:RSiena"
+Untracing function "phase2.1" in package "namespace:RSiena"
+Untracing function "phase1.2" in package "namespace:RSiena"
+Untracing function "phase1.1" in package "namespace:RSiena"
+If you use this algorithm object, siena07 will create/use an output file /tmp/RtmpcHWAA2/replicated-stopped-8bc48ca3f9b/forecasts/1/forecast.txt .
+Tracing function "phase1.1" in package "namespace:RSiena"
+Tracing function "phase1.2" in package "namespace:RSiena"
+Tracing function "phase2.1" in package "namespace:RSiena"
+Tracing function "proc2subphase" in package "namespace:RSiena"
+Tracing function "maxlikec" in package "namespace:RSiena"
+Tracing function "phase3" in package "namespace:RSiena"
+Tracing function "simstats0c" in package "namespace:RSiena"
+Untracing function "simstats0c" in package "namespace:RSiena"
+Untracing function "phase3" in package "namespace:RSiena"
+Untracing function "maxlikec" in package "namespace:RSiena"
+Untracing function "proc2subphase" in package "namespace:RSiena"
+Untracing function "phase2.1" in package "namespace:RSiena"
+Untracing function "phase1.2" in package "namespace:RSiena"
+Untracing function "phase1.1" in package "namespace:RSiena"

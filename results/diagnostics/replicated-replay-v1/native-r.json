@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "checks": 47,
+  "verified_receipts": {
+    "reference/2006": {
+      "parameters": 52,
+      "authoritative_n3": 3000
+    },
+    "reference/2007": {
+      "parameters": 54,
+      "authoritative_n3": 3000
+    },
+    "reference/2008": {
+      "parameters": 56,
+      "authoritative_n3": 3000
+    },
+    "reference/2009": {
+      "parameters": 58,
+      "authoritative_n3": 3000
+    },
+    "gwesp69/2006": {
+      "parameters": 52,
+      "authoritative_n3": 3000
+    },
+    "gwesp69/2007": {
+      "parameters": 54,
+      "authoritative_n3": 3000
+    },
+    "gwesp69/2008": {
+      "parameters": 56,
+      "authoritative_n3": 3000
+    },
+    "gwesp69/2009": {
+      "parameters": 58,
+      "authoritative_n3": 3000
+    }
+  },
+  "stopped_forecast_initializations": 2,
+  "novel_specification_built_not_estimated": true,
+  "new_fits": 0,
+  "new_forecasts": 0,
+  "new_simulations": 0,
+  "target_packets_read": 0
+}

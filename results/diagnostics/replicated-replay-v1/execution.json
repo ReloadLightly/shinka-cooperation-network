@@ -1,0 +1,20 @@
+{
+  "status": "verified",
+  "workflow_run": "35657654274",
+  "tested_source_commit": "b6f2688c9b8403169f74df9f0c0deeedf642cb6f",
+  "python_tests": 231,
+  "native_r_checks": 47,
+  "native_shinka_checks": 41,
+  "original_step4_files_verified": 1344,
+  "new_fits": 0,
+  "new_forecasts": 0,
+  "new_simulations": 0,
+  "llm_calls": 0,
+  "new_proposals": 0,
+  "original_step4_artifacts_unchanged": true,
+  "full_live_evolution_loop_tested": false,
+  "model_authentication_tested": false,
+  "execution_backend_tested": "native local scheduler, saved-evidence evaluation only",
+  "reference_and_candidate_integer_score_views_pinned": true,
+  "native_receipt_spectral_portability": "two report-only derived summaries, relative tolerance 1e-8; decision fields exact"
+}

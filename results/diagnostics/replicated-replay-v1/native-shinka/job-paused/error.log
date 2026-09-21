@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/runner/work/shinka-cooperation-network/shinka-cooperation-network/scripts/replicated_evaluation.py", line 435, in evaluate
+    candidates=reference if spec==refspec else result_for(spec,evidence,root,allow_new=allow_new,campaign=campaign,admission_limit=admission_limit)
+                                               ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/shinka-cooperation-network/shinka-cooperation-network/scripts/replicated_evaluation.py", line 377, in result_for
+    raise Paused('No compatible saved result for this specification; replay-only mode forbids numerical work')
+Paused: No compatible saved result for this specification; replay-only mode forbids numerical work

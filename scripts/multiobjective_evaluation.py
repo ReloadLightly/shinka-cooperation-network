@@ -19,8 +19,8 @@ import sys
 import time
 import traceback
 
-# Direct native CLI entry while the already-running root evaluate.py remains
-# unchanged. Root CLI dispatch can delegate here after its legacy checkpoint.
+# The root evaluate.py CLI dispatches here for multiobjective-v1; a direct entry
+# remains available for the same fixed evaluator and historical invocations.
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import evaluate as legacy
 from scripts.network_specification_v2 import (

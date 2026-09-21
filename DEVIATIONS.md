@@ -150,3 +150,7 @@ Software/version differences and measured costs will be appended as verified.
 ### Continuing campaign authorization (2026-09-20)
 
 The latest user instruction supersedes the former session deadline. Periodic publication checkpoints no longer stop admission. The new native launcher has no default time window or overall generation ceiling and clears stale inherited session deadlines. Optional explicit future windows retain cooperative checkpoint behavior; scientific fit timeouts, finite retry policies, serial R work, strict convergence and subscription-only access remain. This change affects scheduling, not the scientific objectives, sample, accepted-fit reuse or simulation budget.
+
+### 2009 fourth continuation interrupted by global OOM (2026-09-20T23:07:33Z)
+
+The kernel killed the active fit while host RAM/swap were exhausted and a diagnostic R reader was also present. No fourth fit was saved. This is an execution failure, not a fourth nonconvergence finding. Saved-fit inspection and fitting will now be strictly serial. Recovery must use saved attempt3 and the unchanged scheduled fourth settings/seed; additional numerical remedies depend on an actual completed fourth result. The kernel event, interruption logs and invalid evaluator output are preserved. No forecasts or objective values were fabricated.

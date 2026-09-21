@@ -77,7 +77,7 @@ def run_multiobjective(args, config):
     settings = json.loads((ROOT / policy["prediction_settings"]).read_text())
     annual_cap = settings["estimation"]["timeout_seconds"] * settings["estimation"]["max_attempts"] + settings["forecast"]["timeout_seconds"] + 300
     timeout = len(settings["development_years"]) * annual_cap + 600
-    job = LocalJobConfig(eval_program_path=str(ROOT / "scripts/multiobjective_evaluation.py"), python_executable=sys.executable,
+    job = LocalJobConfig(eval_program_path=str(ROOT / "evaluate.py"), python_executable=sys.executable,
                          extra_cmd_args={"protocol": "multiobjective-v1"},
                          time=f"{timeout // 3600:02d}:{timeout % 3600 // 60:02d}:{timeout % 60:02d}", **config["job"])
     db = DatabaseConfig(db_path=str(args.results_dir / "programs.sqlite"), **config["database"])

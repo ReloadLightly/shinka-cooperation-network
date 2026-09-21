@@ -1,11 +1,11 @@
 # Shinka capability matrix
 
-Updated 2026-09-20 for **multiobjective-v1**. The expanded scientific integration is implemented; the existing PR-only evaluator is completing its fourth reference year. **No native evolutionary proposal or evolutionary-role model call has occurred in this window.** Historical setup checks in commit `13021e2` are not evidence that the revised campaign ran. They were not repeated.
+Updated 2026-09-20 for **multiobjective-v1**. The expanded scientific integration is implemented. The PR-only evaluator ended with invalid fitness after the kernel killed the fourth 2009 continuation during global host memory exhaustion; no fourth fit was saved. **No native evolutionary proposal or evolutionary-role model call has occurred in this window.** Historical setup checks in commit `13021e2` are not evidence that the revised campaign ran. They were not repeated.
 
 | Capability | Configured / implemented | Observed in this scientific campaign | Limitation or evidence |
 |---|---|---|---|
 | Pinned native runner | Shinka 0.0.7, commit `9912af1` | Not yet launched | Native proposal generation, SQLite and persistence retained; project patches versioned |
-| Fixed three-objective evaluator | `scripts/multiobjective_evaluation.py`, `configs/multiobjective-v1.json` | Three original reference forecasts saved; no full objective vector yet | Same forecasts supply all objectives; all four years required |
+| Fixed three-objective evaluator | `evaluate.py --protocol multiobjective-v1`, trusted helper, versioned protocol | Three original reference forecasts saved; no full objective vector yet | Same forecasts supply all objectives; all four years required |
 | Pareto population/archive | Project database hooks; preserve all canonical nondominated alternatives | No population yet | Rank and objective-space diversity; archive quota is soft for nondominated models; not an upstream-native feature |
 | Parent selection | Project rank/crowding tournaments within native sampler | No draws | Scalar compatibility score does not replace Pareto selection |
 | Executable inspirations | Diverse Pareto archive alternatives; native executable prompt inclusion | No real descendant prompt | One archive and one top inspiration configured; no synthetic demonstration claimed |
@@ -31,4 +31,4 @@ Updated 2026-09-20 for **multiobjective-v1**. The expanded scientific integratio
 
 Current configuration: [`native_multiobjective_config.json`](../shinka/native_multiobjective_config.json). Scientific operators and interpretation: [`task_prompt_multiobjective.md`](../shinka/task_prompt_multiobjective.md), [`effect-catalog-v2.json`](../configs/effect-catalog-v2.json). Project extensions: [`pareto_selection.py`](../shinka/pareto_selection.py), [`multiobjective_native.patch`](../shinka/multiobjective_native.patch).
 
-The four-proposal pilot, fifteen-specification catalog, three-effect cap and twelve-generation overall limit are withdrawn. A manual successful modified model is not a precondition for native proposals. The unresolved numerical dependency is the complete reference comparison. This campaign remains recoverable across execution windows; setup completion alone is not a substantive evolutionary result.
+The four-proposal pilot, fifteen-specification catalog, three-effect cap and twelve-generation overall limit are withdrawn. A manual successful modified model is not a precondition for native proposals. The unresolved dependency is recovery of the same interrupted fourth reference attempt under adequate memory, followed by the complete reference comparison. This campaign remains recoverable across execution windows; setup completion alone is not a substantive evolutionary result.

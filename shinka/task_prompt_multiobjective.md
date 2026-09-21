@@ -42,6 +42,11 @@ empirical identification still apply. Two-factor native interactions need an ego
 factor or two dyadic factors. Three-factor interactions need two ego factors or
 three ego/dyadic factors. The native grammar, rather than an invented utility
 engine, determines which products are executable.
+RSiena permits operand-only rows without estimating their main coefficients;
+its manual recommends, but does not require, corresponding main effects. Include
+the main terms when your scientific hypothesis calls for them. Omitting one
+sets that main contribution to zero; explain that restriction in your comments.
+The original protected control and spending main effects remain estimated.
 
 Do not jointly estimate proportional raw-degree moments from degPlus(1), inPop
 and outAct, or proportional root-degree moments from degPlus(2), inPopSqrt and

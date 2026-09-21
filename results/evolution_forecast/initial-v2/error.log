@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/roland/actir/shinka-cooperation-network/evaluate.py", line 226, in evaluate
+    baseline = forecast_year(baseline_spec, year, settings)
+  File "/home/roland/actir/shinka-cooperation-network/evaluate.py", line 147, in forecast_year
+    return _forecast_year_locked(spec,year,settings)
+  File "/home/roland/actir/shinka-cooperation-network/evaluate.py", line 162, in _forecast_year_locked
+    run_r([ROOT/"R/forecast.R", "--spec", folder/"specification.json",
+  File "/home/roland/actir/shinka-cooperation-network/evaluate.py", line 68, in run_r
+    return _run_r_locked(arguments,folder,stage,timeout)
+  File "/home/roland/actir/shinka-cooperation-network/evaluate.py", line 140, in _run_r_locked
+    raise RuntimeError(f"{stage} failed (exit {returncode}); diagnostics: {folder}. {tail}")
+RuntimeError: fit_and_forecast failed (exit 137); diagnostics: /home/roland/actir/shinka-cooperation-network/results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99. Warning message:
+package ‘jsonlite’ was built under R version 4.2.3 
+

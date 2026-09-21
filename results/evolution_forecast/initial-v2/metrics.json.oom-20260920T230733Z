@@ -1,0 +1,10 @@
+{
+  "combined_score": null,
+  "public": {
+    "valid": false,
+    "raw_F": null,
+    "runtime_seconds": 17546.126081661
+  },
+  "private": {},
+  "text_feedback": "INVALID evaluation; no scientific fitness. RuntimeError: fit_and_forecast failed (exit 137); diagnostics: /home/roland/actir/shinka-cooperation-network/results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99. Warning message:\npackage \u2018jsonlite\u2019 was built under R version 4.2.3 \n"
+}

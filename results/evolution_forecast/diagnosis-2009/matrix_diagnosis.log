@@ -1,0 +1,8 @@
+Warning message:
+package ‘jsonlite’ was built under R version 4.2.3 
+Attempt 1 object bytes 17782888 
+p 58 overall 0.3509443797466441 max_t 0.1122805300102666 corr_condition 102.0521518622553 derivative_condition 98.53378109905361 
+Attempt 2 object bytes 17784128 
+p 58 overall 0.3190734590000125 max_t 0.09662731744696514 corr_condition 115.3710677837532 derivative_condition 99.74500836577293 
+Attempt 3 object bytes 17784128 
+p 58 overall 0.26134400479859 max_t 0.07587932310910743 corr_condition 126.7862254782683 derivative_condition 99.99160431358348 

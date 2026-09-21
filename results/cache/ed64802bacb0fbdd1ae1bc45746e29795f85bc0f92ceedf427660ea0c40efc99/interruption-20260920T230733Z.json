@@ -1,0 +1,23 @@
+{
+  "recorded_utc": "2026-09-21T00:07:04.688455+00:00",
+  "kernel_termination_utc": "2026-09-20T23:07:33Z",
+  "cause": "Global host out-of-memory kill, signal9/exit137; no fourth fitted result was saved.",
+  "kernel_R_pid": 945909,
+  "killed_R_anon_rss_kib": 686036,
+  "stage_peak_rss_kib": 717432,
+  "host_managed_ram_kib": 3836020,
+  "swap_total_kib": 1048576,
+  "swap_free_at_termination_kib": 0,
+  "concurrent_diagnostic_R_pid": 1014750,
+  "concurrent_diagnostic_R_rss_pages": 17446,
+  "page_size_bytes": 4096,
+  "interpretation": "The diagnostic reader was present during memory pressure. The kernel reports MainThread invoking the allocator failure; no exclusive causal attribution to one process is established. Further R work will be serial.",
+  "saved_fit_attempts": [
+    1,
+    2,
+    3
+  ],
+  "accepted_2009_fit": false,
+  "proposed_recovery": "Once memory is available, resume the interrupted scheduled attempt4 from saved attempt3 with unchanged nsub5,n3=3000,seed12348. This is not an additional statistical attempt or policy revision.",
+  "scientific_fitness": null
+}

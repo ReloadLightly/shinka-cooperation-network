@@ -1,0 +1,5 @@
+"attempt","group","parameters","marginal_convergence","additional_squared_ratio_conditional_on_other_groups"
+1,"dv.net/rate",18,0.241191068042913,0.0723518570465213
+1,"dv.net/eval",11,0.0925041303136946,0.0186440423376898
+1,"milex.beh/rate",18,0.152070923721543,0.0306002741614023
+1,"milex.beh/eval",11,0.135869892875022,0.0166546640072209

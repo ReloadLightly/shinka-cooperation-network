@@ -1,0 +1,11 @@
+Sep 20 23:07:31 LAPTOP-CAHB2HA9 kernel: Node 0 DMA32 free:56228kB boost:0kB min:22528kB low:28160kB high:33792kB reserved_highatomic:2048KB active_anon:1513228kB inactive_anon:1712480kB active_file:40016kB inactive_file:51412kB unevictable:0kB writepending:260kB present:4016764kB managed:3836020kB mlocked:0kB bounce:0kB free_pcp:1268kB local_pcp:0kB free_cma:0kB
+Sep 20 23:07:31 LAPTOP-CAHB2HA9 kernel: Free swap  = 0kB
+Sep 20 23:07:31 LAPTOP-CAHB2HA9 kernel: Total swap = 1048576kB
+Sep 20 23:07:33 LAPTOP-CAHB2HA9 kernel: MainThread invoked oom-killer: gfp_mask=0x140cca(GFP_HIGHUSER_MOVABLE|__GFP_COMP), order=0, oom_score_adj=0
+Sep 20 23:07:33 LAPTOP-CAHB2HA9 kernel: Node 0 DMA32 free:59848kB boost:50688kB min:73216kB low:78848kB high:84480kB reserved_highatomic:0KB active_anon:1513336kB inactive_anon:1787984kB active_file:5660kB inactive_file:6000kB unevictable:0kB writepending:0kB present:4016764kB managed:3836020kB mlocked:0kB bounce:0kB free_pcp:824kB local_pcp:0kB free_cma:0kB
+Sep 20 23:07:33 LAPTOP-CAHB2HA9 kernel: Free swap  = 0kB
+Sep 20 23:07:33 LAPTOP-CAHB2HA9 kernel: Total swap = 1048576kB
+Sep 20 23:07:33 LAPTOP-CAHB2HA9 kernel: [ 945909]  1000 945909   278361   171765  1527808        0             0 R
+Sep 20 23:07:33 LAPTOP-CAHB2HA9 kernel: [1014750]  1000 1014750    74561    17446   278528        0             0 R
+Sep 20 23:07:33 LAPTOP-CAHB2HA9 kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/,task=R,pid=945909,uid=1000
+Sep 20 23:07:33 LAPTOP-CAHB2HA9 kernel: Out of memory: Killed process 945909 (R) total-vm:1113444kB, anon-rss:686036kB, file-rss:1024kB, shmem-rss:0kB, UID:1000 pgtables:1492kB oom_score_adj:0

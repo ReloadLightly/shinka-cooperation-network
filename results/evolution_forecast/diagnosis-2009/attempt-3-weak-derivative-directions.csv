@@ -1,0 +1,25 @@
+"attempt","singular_index","singular_value","effect","column_normalized_parameter_direction"
+3,56,0.0698270985769894,"dv.net :: beh.lncinc_1 alter",0.631667490008852
+3,56,0.0698270985769894,"dv.net :: degree act+pop",-0.468094206457253
+3,56,0.0698270985769894,"dv.net :: nets.lntrade_d",-0.413513859715651
+3,56,0.0698270985769894,"dv.net :: transitive triads",0.286972078334785
+3,56,0.0698270985769894,"dv.net :: nets.lndistance_d",-0.217553330229639
+3,56,0.0698270985769894,"dv.net :: degree (density)",-0.202006721549471
+3,56,0.0698270985769894,"dv.net :: beh.democracy_1 alter",0.164681118938951
+3,56,0.0698270985769894,"dv.net :: nets.ATOP_d",0.0675447426361463
+3,57,0.0609671847431052,"dv.net :: degree (density)",-0.751391371565068
+3,57,0.0609671847431052,"dv.net :: degree act+pop",0.578326820770863
+3,57,0.0609671847431052,"dv.net :: beh.lncinc_1 alter",0.221982601572721
+3,57,0.0609671847431052,"dv.net :: transitive triads",-0.15984474948207
+3,57,0.0609671847431052,"dv.net :: nets.lndistance_d",-0.128300543314241
+3,57,0.0609671847431052,"dv.net :: nets.absidealdiff_d",-0.0618149706581493
+3,57,0.0609671847431052,"dv.net :: milex.beh alter",-0.0446921934050907
+3,57,0.0609671847431052,"dv.net :: nets.ATOP_d",0.032105979578386
+3,58,0.0293656345544407,"milex.beh :: milex.beh degree",0.803606808954592
+3,58,0.0293656345544407,"milex.beh :: milex.beh dense triads",-0.566579362299737
+3,58,0.0293656345544407,"milex.beh :: milex.beh linear shape",-0.145302914758639
+3,58,0.0293656345544407,"milex.beh :: milex.beh: effect from beh.allies_1",-0.0819594663923974
+3,58,0.0293656345544407,"milex.beh :: milex.beh: effect from beh.lnmids_1",-0.0463571940658612
+3,58,0.0293656345544407,"milex.beh :: milex.beh: effect from beh.democracy_1",-0.0393541410623142
+3,58,0.0293656345544407,"milex.beh :: milex.beh: effect from beh.nato_1",-0.0244138908370531
+3,58,0.0293656345544407,"milex.beh :: milex.beh quadratic shape",-0.0173392243001813

@@ -275,5 +275,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--program_path", required=True, type=Path)
     parser.add_argument("--results_dir", required=True, type=Path)
+    parser.add_argument("--protocol", choices=("pr-only-v2", "multiobjective-v1"), default="pr-only-v2")
     options = parser.parse_args()
+    if options.protocol == "multiobjective-v1":
+        from scripts.multiobjective_evaluation import evaluate as evaluate_multiobjective
+        raise SystemExit(evaluate_multiobjective(options.program_path, options.results_dir))
     raise SystemExit(evaluate(options.program_path, options.results_dir))

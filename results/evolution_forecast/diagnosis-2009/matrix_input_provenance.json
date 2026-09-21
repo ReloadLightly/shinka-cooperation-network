@@ -1,0 +1,49 @@
+{
+  "created_utc": "2026-09-20T23:15:39.230454+00:00",
+  "purpose": "Read-only saved-2009-fit numerical diagnosis; no fitting or simulation",
+  "inputs": [
+    {
+      "path": "results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99/fit-attempt-1.rds",
+      "bytes": 5312810,
+      "sha256": "ae36f144356995f8ee36efb0e0a54371ab53be01be576dec64bb41fac15165c2"
+    },
+    {
+      "path": "results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99/fit-attempt-2.rds",
+      "bytes": 5310616,
+      "sha256": "8d0a5b8d8afa1a17bb8415c8883cd984c99112afeaa79aa618dd5532393e4562"
+    },
+    {
+      "path": "results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99/fit-attempt-3.rds",
+      "bytes": 5310392,
+      "sha256": "5c122ed7a1e061d8d23f50c73a22baa4b80884ad74be49ab7a56bdb80dfe0e5c"
+    },
+    {
+      "path": "vendor/RSiena/R/phase1.r",
+      "bytes": 18322,
+      "sha256": "b8516ab545f1a8a5e570351c81f2457223e5494a63592bd994f42111917285e7"
+    },
+    {
+      "path": "vendor/RSiena/R/phase2.r",
+      "bytes": 13147,
+      "sha256": "51300e097a328a0f2ccc4d1d811581c0116e9a2e7f61afec8daa8d542994ef65"
+    },
+    {
+      "path": "vendor/RSiena/R/phase3.r",
+      "bytes": 26256,
+      "sha256": "5052965c866878935f9a6445e8875dbb2ab2a2594fa9d8c452606c378d41ee92"
+    },
+    {
+      "path": "vendor/RSiena/man/sienaAlgorithmCreate.Rd",
+      "bytes": 12004,
+      "sha256": "234a2e74089f22be7a19f6c6452874d81a7b593fa55e07687b61334f666e4163"
+    },
+    {
+      "path": "results/evolution_forecast/diagnosis-2009/saved_attempts_1_to_3_diagnostics.json",
+      "bytes": 14336,
+      "sha256": "5026f14d665a92a9c48b1813223514bcddb6f7a32fc0a6270d0863d33dd7dc32"
+    }
+  ],
+  "analysis_script_sha256": "5f6854d951938300abc126128f79e256e300ed837d8c8db268db6957197bab33",
+  "native_version": "RSiena1.3.10",
+  "active_fit_and_inputs_modified": false
+}

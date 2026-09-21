@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-09-20T21:57:26.072988+00:00",
+  "updated_utc": "2026-09-21T00:10:02.089744+00:00",
   "mode": "evolution_forecast",
   "protocol": "configs/evaluator-v2.json",
   "baseline_years": {
@@ -910,7 +910,9 @@
         "invocation_id": "1789939533184717901",
         "resources_file": "/home/roland/actir/shinka-cooperation-network/results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99/fit_and_forecast.resources-1789939533184717901.txt",
         "pid": 69,
-        "status": "running"
+        "status": "failed",
+        "elapsed_seconds": 5940.343161721001,
+        "exit_code": 137
       },
       "completed_fit_attempts": [
         {
@@ -919,6 +921,20 @@
           "valid": false,
           "maximum_absolute_t_ratio": 0.11228053001026655,
           "overall_maximum_convergence": 0.3509443797466443
+        },
+        {
+          "attempt": 2,
+          "elapsed_seconds": 1337.555,
+          "valid": false,
+          "maximum_absolute_t_ratio": 0.09662731744696514,
+          "overall_maximum_convergence": 0.31907345900001255
+        },
+        {
+          "attempt": 3,
+          "elapsed_seconds": 1752.9550000000004,
+          "valid": false,
+          "maximum_absolute_t_ratio": 0.07587932310910743,
+          "overall_maximum_convergence": 0.26134400479859027
         }
       ],
       "accepted_training_fit_present": false,
@@ -930,8 +946,20 @@
       "persistence_metrics": null
     }
   },
-  "initial_evaluator_correctness": null,
-  "initial_evaluator_metrics": null,
+  "initial_evaluator_correctness": {
+    "correct": false,
+    "error": "RuntimeError: fit_and_forecast failed (exit 137); diagnostics: /home/roland/actir/shinka-cooperation-network/results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99. Warning message:\npackage \u2018jsonlite\u2019 was built under R version 4.2.3 \n"
+  },
+  "initial_evaluator_metrics": {
+    "combined_score": null,
+    "public": {
+      "valid": false,
+      "raw_F": null,
+      "runtime_seconds": 17546.126081661
+    },
+    "private": {},
+    "text_feedback": "INVALID evaluation; no scientific fitness. RuntimeError: fit_and_forecast failed (exit 137); diagnostics: /home/roland/actir/shinka-cooperation-network/results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99. Warning message:\npackage \u2018jsonlite\u2019 was built under R version 4.2.3 \n"
+  },
   "historical_initial_v1": "results/evolution_forecast/initial",
   "readiness": {
     "source_reference_executed": true,

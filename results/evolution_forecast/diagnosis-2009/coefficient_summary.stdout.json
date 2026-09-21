@@ -1,0 +1,464 @@
+{
+  "groups": {
+    "all": {
+      "n": 58,
+      "steps": {
+        "1_to_2": {
+          "maximum_absolute_change_in_latest_se": 0.13545100824708464,
+          "median_absolute_change_in_latest_se": 0.032283129636215616,
+          "largest_named_changes": [
+            {
+              "name": "dv.net",
+              "effect": "constant dv.net rate (period 8)",
+              "change": -0.007287043691190653,
+              "change_in_latest_se": -0.13545100824708464
+            },
+            {
+              "name": "dv.net",
+              "effect": "beh.democracy_1 alter",
+              "change": 0.025467800801170837,
+              "change_in_latest_se": 0.10603114215626423
+            },
+            {
+              "name": "dv.net",
+              "effect": "nets.NATO_d",
+              "change": -0.03309248835853529,
+              "change_in_latest_se": -0.09393069212384714
+            },
+            {
+              "name": "dv.net",
+              "effect": "constant dv.net rate (period 18)",
+              "change": -0.004866378697585605,
+              "change_in_latest_se": -0.08971508231339877
+            },
+            {
+              "name": "dv.net",
+              "effect": "beh.lncinc_1 alter",
+              "change": 0.005650206733139873,
+              "change_in_latest_se": 0.08518050535109696
+            }
+          ]
+        },
+        "2_to_3": {
+          "maximum_absolute_change_in_latest_se": 0.08835205074129482,
+          "median_absolute_change_in_latest_se": 0.01796901482937891,
+          "largest_named_changes": [
+            {
+              "name": "milex.beh",
+              "effect": "rate milex.beh (period 14)",
+              "change": -0.007377525085984105,
+              "change_in_latest_se": -0.08835205074129482
+            },
+            {
+              "name": "milex.beh",
+              "effect": "rate milex.beh (period 6)",
+              "change": -0.006578622228347486,
+              "change_in_latest_se": -0.057259130076995735
+            },
+            {
+              "name": "dv.net",
+              "effect": "beh.democracy_1 alter",
+              "change": -0.012738264126546328,
+              "change_in_latest_se": -0.05430644613512101
+            },
+            {
+              "name": "milex.beh",
+              "effect": "rate milex.beh (period 17)",
+              "change": -0.004488562495918169,
+              "change_in_latest_se": -0.05319612471891747
+            },
+            {
+              "name": "milex.beh",
+              "effect": "milex.beh: effect from beh.allies_1",
+              "change": 0.00017037742329981294,
+              "change_in_latest_se": 0.0498436733304069
+            }
+          ]
+        },
+        "1_to_3": {
+          "maximum_absolute_change_in_latest_se": 0.1344364761994595,
+          "median_absolute_change_in_latest_se": 0.03410906632351493,
+          "largest_named_changes": [
+            {
+              "name": "dv.net",
+              "effect": "nets.NATO_d",
+              "change": -0.047118701073921354,
+              "change_in_latest_se": -0.1344364761994595
+            },
+            {
+              "name": "dv.net",
+              "effect": "constant dv.net rate (period 8)",
+              "change": -0.006139228252238005,
+              "change_in_latest_se": -0.12189066816135859
+            },
+            {
+              "name": "dv.net",
+              "effect": "constant dv.net rate (period 6)",
+              "change": -0.006760570600061688,
+              "change_in_latest_se": -0.118106217671659
+            },
+            {
+              "name": "dv.net",
+              "effect": "nets.lndistance_d",
+              "change": -0.0075617330857569165,
+              "change_in_latest_se": -0.10545977841300946
+            },
+            {
+              "name": "dv.net",
+              "effect": "constant dv.net rate (period 18)",
+              "change": -0.005269350393738381,
+              "change_in_latest_se": -0.0983404726868931
+            }
+          ]
+        }
+      },
+      "update_sign_reversals": 31,
+      "reversals_with_both_steps_above_0_1_latest_se": []
+    },
+    "network_objective": {
+      "n": 11,
+      "steps": {
+        "1_to_2": {
+          "maximum_absolute_change_in_latest_se": 0.10603114215626423,
+          "median_absolute_change_in_latest_se": 0.06619242739787037,
+          "largest_named_changes": [
+            {
+              "name": "dv.net",
+              "effect": "beh.democracy_1 alter",
+              "change": 0.025467800801170837,
+              "change_in_latest_se": 0.10603114215626423
+            },
+            {
+              "name": "dv.net",
+              "effect": "nets.NATO_d",
+              "change": -0.03309248835853529,
+              "change_in_latest_se": -0.09393069212384714
+            },
+            {
+              "name": "dv.net",
+              "effect": "beh.lncinc_1 alter",
+              "change": 0.005650206733139873,
+              "change_in_latest_se": 0.08518050535109696
+            },
+            {
+              "name": "dv.net",
+              "effect": "nets.lndistance_d",
+              "change": -0.005161442282839879,
+              "change_in_latest_se": -0.07493357941319563
+            },
+            {
+              "name": "dv.net",
+              "effect": "degree (density)",
+              "change": -0.015419835736794951,
+              "change_in_latest_se": -0.0671540292476484
+            }
+          ]
+        },
+        "2_to_3": {
+          "maximum_absolute_change_in_latest_se": 0.05430644613512101,
+          "median_absolute_change_in_latest_se": 0.03315398817526867,
+          "largest_named_changes": [
+            {
+              "name": "dv.net",
+              "effect": "beh.democracy_1 alter",
+              "change": -0.012738264126546328,
+              "change_in_latest_se": -0.05430644613512101
+            },
+            {
+              "name": "dv.net",
+              "effect": "degree act+pop",
+              "change": 0.0002304907808705417,
+              "change_in_latest_se": 0.04603783087374998
+            },
+            {
+              "name": "dv.net",
+              "effect": "milex.beh alter",
+              "change": 0.00260910608053648,
+              "change_in_latest_se": 0.04560834883759205
+            },
+            {
+              "name": "dv.net",
+              "effect": "nets.NATO_d",
+              "change": -0.014026212715386066,
+              "change_in_latest_se": -0.040018815648638316
+            },
+            {
+              "name": "dv.net",
+              "effect": "nets.lndistance_d",
+              "change": -0.0024002908029170378,
+              "change_in_latest_se": -0.03347567724642546
+            }
+          ]
+        },
+        "1_to_3": {
+          "maximum_absolute_change_in_latest_se": 0.1344364761994595,
+          "median_absolute_change_in_latest_se": 0.06789767494484002,
+          "largest_named_changes": [
+            {
+              "name": "dv.net",
+              "effect": "nets.NATO_d",
+              "change": -0.047118701073921354,
+              "change_in_latest_se": -0.1344364761994595
+            },
+            {
+              "name": "dv.net",
+              "effect": "nets.lndistance_d",
+              "change": -0.0075617330857569165,
+              "change_in_latest_se": -0.10545977841300946
+            },
+            {
+              "name": "dv.net",
+              "effect": "beh.lncinc_1 alter",
+              "change": 0.005650766157999976,
+              "change_in_latest_se": 0.08553623950010433
+            },
+            {
+              "name": "dv.net",
+              "effect": "transitive triads",
+              "change": 0.004085372421911898,
+              "change_in_latest_se": 0.08031154945094687
+            },
+            {
+              "name": "dv.net",
+              "effect": "nets.absidealdiff_d",
+              "change": -0.005114373373009462,
+              "change_in_latest_se": -0.0715503327734882
+            }
+          ]
+        }
+      },
+      "update_sign_reversals": 4,
+      "reversals_with_both_steps_above_0_1_latest_se": []
+    },
+    "spending_objective": {
+      "n": 11,
+      "steps": {
+        "1_to_2": {
+          "maximum_absolute_change_in_latest_se": 0.03799652901293298,
+          "median_absolute_change_in_latest_se": 0.017856759036491428,
+          "largest_named_changes": [
+            {
+              "name": "milex.beh",
+              "effect": "milex.beh dense triads",
+              "change": 0.0002849014316346314,
+              "change_in_latest_se": 0.03799652901293298
+            },
+            {
+              "name": "milex.beh",
+              "effect": "milex.beh: effect from beh.military_1",
+              "change": 0.005833993299007689,
+              "change_in_latest_se": 0.029843230547508284
+            },
+            {
+              "name": "milex.beh",
+              "effect": "milex.beh quadratic shape",
+              "change": -0.0006411986976756351,
+              "change_in_latest_se": -0.025954667261360434
+            },
+            {
+              "name": "milex.beh",
+              "effect": "milex.beh: effect from beh.nato_1",
+              "change": -0.0037402461447664237,
+              "change_in_latest_se": -0.022649351427236227
+            },
+            {
+              "name": "milex.beh",
+              "effect": "milex.beh degree",
+              "change": -0.0004280737422751729,
+              "change_in_latest_se": -0.018217254060555226
+            }
+          ]
+        },
+        "2_to_3": {
+          "maximum_absolute_change_in_latest_se": 0.0498436733304069,
+          "median_absolute_change_in_latest_se": 0.016074406621128343,
+          "largest_named_changes": [
+            {
+              "name": "milex.beh",
+              "effect": "milex.beh: effect from beh.allies_1",
+              "change": 0.00017037742329981294,
+              "change_in_latest_se": 0.0498436733304069
+            },
+            {
+              "name": "milex.beh",
+              "effect": "milex.beh: effect from beh.milexSpLag_1",
+              "change": -0.09485305209648942,
+              "change_in_latest_se": -0.033394276963958205
+            },
+            {
+              "name": "milex.beh",
+              "effect": "milex.beh degree",
+              "change": -0.0006257580828585435,
+              "change_in_latest_se": -0.028153311966397778
+            },
+            {
+              "name": "milex.beh",
+              "effect": "milex.beh linear shape",
+              "change": 0.0019185040080422766,
+              "change_in_latest_se": 0.02497279364018517
+            },
+            {
+              "name": "milex.beh",
+              "effect": "milex.beh: effect from beh.military_1",
+              "change": -0.0039549880490382106,
+              "change_in_latest_se": -0.019482404513079733
+            }
+          ]
+        },
+        "1_to_3": {
+          "maximum_absolute_change_in_latest_se": 0.06402901051683711,
+          "median_absolute_change_in_latest_se": 0.027135314720029457,
+          "largest_named_changes": [
+            {
+              "name": "milex.beh",
+              "effect": "milex.beh: effect from beh.allies_1",
+              "change": 0.00021886624920238948,
+              "change_in_latest_se": 0.06402901051683711
+            },
+            {
+              "name": "milex.beh",
+              "effect": "milex.beh dense triads",
+              "change": 0.0003901437935523687,
+              "change_in_latest_se": 0.056034691315031505
+            },
+            {
+              "name": "milex.beh",
+              "effect": "milex.beh degree",
+              "change": -0.0010538318251337164,
+              "change_in_latest_se": -0.047412661451493705
+            },
+            {
+              "name": "milex.beh",
+              "effect": "milex.beh linear shape",
+              "change": 0.002799855761310921,
+              "change_in_latest_se": 0.03644517804309971
+            },
+            {
+              "name": "milex.beh",
+              "effect": "milex.beh: effect from beh.lnmids_1",
+              "change": 0.0030515011235058287,
+              "change_in_latest_se": 0.03332601060644093
+            }
+          ]
+        }
+      },
+      "update_sign_reversals": 5,
+      "reversals_with_both_steps_above_0_1_latest_se": []
+    },
+    "rates": {
+      "n": 36,
+      "steps": {
+        "1_to_2": {
+          "maximum_absolute_change_in_latest_se": 0.13545100824708464,
+          "median_absolute_change_in_latest_se": 0.03513754156820485,
+          "largest_named_changes": [
+            {
+              "name": "dv.net",
+              "effect": "constant dv.net rate (period 8)",
+              "change": -0.007287043691190653,
+              "change_in_latest_se": -0.13545100824708464
+            },
+            {
+              "name": "dv.net",
+              "effect": "constant dv.net rate (period 18)",
+              "change": -0.004866378697585605,
+              "change_in_latest_se": -0.08971508231339877
+            },
+            {
+              "name": "dv.net",
+              "effect": "constant dv.net rate (period 7)",
+              "change": -0.0054171826005873225,
+              "change_in_latest_se": -0.0807149823338236
+            },
+            {
+              "name": "milex.beh",
+              "effect": "rate milex.beh (period 2)",
+              "change": -0.017013697729663768,
+              "change_in_latest_se": -0.07638170638920345
+            },
+            {
+              "name": "dv.net",
+              "effect": "constant dv.net rate (period 6)",
+              "change": -0.0043302024536890915,
+              "change_in_latest_se": -0.07251349243572414
+            }
+          ]
+        },
+        "2_to_3": {
+          "maximum_absolute_change_in_latest_se": 0.08835205074129482,
+          "median_absolute_change_in_latest_se": 0.01796901482937891,
+          "largest_named_changes": [
+            {
+              "name": "milex.beh",
+              "effect": "rate milex.beh (period 14)",
+              "change": -0.007377525085984105,
+              "change_in_latest_se": -0.08835205074129482
+            },
+            {
+              "name": "milex.beh",
+              "effect": "rate milex.beh (period 6)",
+              "change": -0.006578622228347486,
+              "change_in_latest_se": -0.057259130076995735
+            },
+            {
+              "name": "milex.beh",
+              "effect": "rate milex.beh (period 17)",
+              "change": -0.004488562495918169,
+              "change_in_latest_se": -0.05319612471891747
+            },
+            {
+              "name": "dv.net",
+              "effect": "constant dv.net rate (period 6)",
+              "change": -0.002430368146372597,
+              "change_in_latest_se": -0.042458189744387725
+            },
+            {
+              "name": "milex.beh",
+              "effect": "rate milex.beh (period 11)",
+              "change": -0.004298426030315938,
+              "change_in_latest_se": -0.03883514822295565
+            }
+          ]
+        },
+        "1_to_3": {
+          "maximum_absolute_change_in_latest_se": 0.12189066816135859,
+          "median_absolute_change_in_latest_se": 0.03186113034326487,
+          "largest_named_changes": [
+            {
+              "name": "dv.net",
+              "effect": "constant dv.net rate (period 8)",
+              "change": -0.006139228252238005,
+              "change_in_latest_se": -0.12189066816135859
+            },
+            {
+              "name": "dv.net",
+              "effect": "constant dv.net rate (period 6)",
+              "change": -0.006760570600061688,
+              "change_in_latest_se": -0.118106217671659
+            },
+            {
+              "name": "dv.net",
+              "effect": "constant dv.net rate (period 18)",
+              "change": -0.005269350393738381,
+              "change_in_latest_se": -0.0983404726868931
+            },
+            {
+              "name": "milex.beh",
+              "effect": "rate milex.beh (period 2)",
+              "change": -0.02154182814688199,
+              "change_in_latest_se": -0.08779434022142156
+            },
+            {
+              "name": "dv.net",
+              "effect": "constant dv.net rate (period 9)",
+              "change": -0.00385744862435361,
+              "change_in_latest_se": -0.0721933018326691
+            }
+          ]
+        }
+      },
+      "update_sign_reversals": 22,
+      "reversals_with_both_steps_above_0_1_latest_se": []
+    }
+  }
+}

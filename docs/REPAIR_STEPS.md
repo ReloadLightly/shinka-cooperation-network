@@ -1,20 +1,16 @@
 # Bounded repairs after the external review
 
-Steps **1, 2 and 3A** are complete. Step 2 measured 20 native fixed-fit forecast
-batches with zero refits and preserved an exact development-input bundle from
-GitHub. Step 3A verified the saved third 2009 training fit and real native
-initialization, then stopped before any new simulation. See
-[forecast repeatability](FORECAST_REPEATABILITY.md) and
-[convergence preflight](CONVERGENCE_PREFLIGHT.md). Step 3B's 3,000-draw pilot has
-not run. Later steps require their own bounded task, measured result and decision;
-no evolutionary campaign starts automatically.
+Steps **1, 2, 3A, 3B and 3C are complete**. The nine new Step 3C diagnostics and the reused pilot have been fully reviewed. No production convergence policy, historical acceptance decision, forecast fitness or evolutionary archive was changed. Step 4 has not started.
+
+See [the complete repeatability results](../results/diagnostics/convergence-repeatability-v1/REPORT.md) and [reviewed interpretation](../results/diagnostics/convergence-repeatability-v1/INTERPRETATION.md).
 
 | Step | Question or defect | Boundary / stopping condition |
 |---|---|---|
 | **1. Explicit protocol routing** | Omitted selectors silently choose a legacy evaluator or launcher. | Require an explicit selector, preserve explicit legacy/current routes, pass routing regressions and stop. |
 | **2. Fixed-fit variability measured** | How variable are scores at fixed accepted coefficients? | Completed 20/20 development forecast batches; four-year PR-AUC sample SD 0.001075374. Zero refits or reserved-year scoring. The trusted recovery loaded the mixed-year archive, but only verified development packets enter forecasts. Stop before step 3. |
 | **3A. Diagnostic initialization verified** | Can the exact saved fit and its original observed moments be restored without estimation? | Verified all 58 coefficients, effect ordering and aggregate/per-period targets. Reconstructed old convergence ratios. Native execution stopped before phase 3; zero new simulations. |
-| 3B–3C. Convergence diagnostic precision | Does a more precise diagnostic resolve borderline convergence without more optimization? | One separately authorized 3,000-draw pilot first; measure actual resources before a finite repetition study. Preserve thresholds and prior accept/reject records. |
+| **3B. Fixed-vector pilot completed** | Can phase 3 execute without coefficient optimization? | One 3,000-draw pilot completed with unchanged theta; no refit. |
+| **3C. Repeatability completed** | Does diagnostic precision affect classification at fixed theta across seeds? | Nine new diagnostics, one reused pilot; all ten 1,000-draw prefixes fail the overall cutoff, all ten full 3,000-draw assessments pass. Report new-only groups separately. Preserve historical records and production policy. |
 | 4. A changed-specification comparison | Is an actual mechanism difference distinguishable from numerical variability? | Select and evaluate a motivated alternative under a declared bounded comparison. Do not infer search impossibility or publication readiness from one result. |
 | 5. Selection uncertainty and operational scales | What selection rule and objective scales are justified by the measurements? | Freeze a separately versioned rule before sustained search. Do not silently replace objectives, use reserved outcomes, or expand the spending grammar as a bug fix. |
 
@@ -103,5 +99,4 @@ Native initialization verification used real inputs, not a mocked worker.
 Evidence and the separately proposed pilot settings are documented in
 [CONVERGENCE_PREFLIGHT.md](CONVERGENCE_PREFLIGHT.md). No raw archive or target
 packet was read, no reference forecast was changed, and no new convergence
-measurement or fitness value was produced. The next decision is Step 3B,
-not an automatic continuation into the larger repetition study.
+measurement or fitness value was produced. That was the historical Step 3A stopping point. The subsequently authorized Steps 3B and 3C are now complete; see the current results linked above.

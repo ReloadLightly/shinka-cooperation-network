@@ -1,3 +1,5 @@
+> **Current status:** Step 3B completed in workflow `35609438242`; Step 3C reused it without rerunning it. See [current repair status](REPAIR_STEPS.md). The original authoring-session handoff below is retained as historical context.
+
 # Step 3B: one fixed-coefficient native diagnostic
 
 **Prepared, not executed by the authoring session.** The authoring session has

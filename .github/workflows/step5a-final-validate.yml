@@ -1,0 +1,163 @@
+name: Step 5A - final saved-evidence verification
+on:
+  push:
+    branches: [repairs/step5a-replicated-20260921]
+    paths: [.github/workflows/step5a-final-validate.yml]
+permissions:
+  contents: write
+concurrency:
+  group: step5a-validation
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 25
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      R_GC_MEM_GROW: '0'
+      SHINKA_PRICING_MODE: offline
+      SHINKA_REPLICATED_EVIDENCE_ROOT: /tmp/step5a-evidence
+      STEP5A_PAST_DIR: /tmp/step5a-past
+      STEP5A_NATIVE_REPORT: results/diagnostics/replicated-replay-v1/native-r.json
+      STEP5A_NATIVE_PY_OUT: results/diagnostics/replicated-replay-v1/native-shinka
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.13.5'
+      - name: Apply hash-bound targeted changes and preserve failed validation records
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,json,shutil
+          from pathlib import Path
+          changes=json.loads(Path('sources/step5a-prepared/repair.json').read_text())
+          assert set(changes)=={'R/replicated_evaluation.R','R/test_replicated_evaluation.R','scripts/verify_replicated_native.py','shinka/task_prompt_replicated.md','docs/REPLICATED_SHINKA_PROTOCOL.md'}
+          for name,rule in changes.items():
+              path=Path(name);data=path.read_bytes()
+              assert hashlib.sha256(data).hexdigest()==rule['old_sha'],name
+              text=data.decode()
+              for start,end,replacement in sorted(rule['edits'],reverse=True):
+                  # Correct a transcription typo in the staged documentation splice;
+                  # the independently recorded complete new-file SHA remains mandatory.
+                  replacement=replacement.replace("the pinned band's native", "the pinned bandit's native")
+                  text=text[:start]+replacement+text[end:]
+              assert hashlib.sha256(text.encode()).hexdigest()==rule['new_sha'],name
+              path.write_text(text)
+          out=Path('results/diagnostics/replicated-replay-v1')
+          prior=out/'attempts/before-portability-repair';prior.mkdir(parents=True,exist_ok=False)
+          for name in ('native-r.log','native-r-resources.txt','native-shinka.log','native-shinka-resources.txt','python-tests.log','native-shinka'):
+              p=out/name
+              if p.exists():shutil.move(str(p),str(prior/name))
+          (prior/'context.json').write_text(json.dumps({'read_only_runs':[35655355966,35655904750,35656344905],'causes':['missing fixture directory, corrected before native work','report-only spectral summaries differed at CPU/BLAS roundoff; exact acceptance fields unchanged','pending-controller test fixture omitted submitted_jobs; initialize it and use actual scheduler get_job_results API'],'new_fits':0,'new_forecasts':0,'new_simulations':0,'llm_calls':0},indent=2)+'\n')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add R scripts shinka docs results/diagnostics/replicated-replay-v1
+          git diff --cached --check
+          git commit -m 'Preserve strict receipt decisions across spectral reporting roundoff and correct native replay fixtures'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+      - name: Hydrate and verify original evidence and already committed score corrections
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=1 origin 104ba59d81a92f1c98b77c89178fad9178b6ccb4
+          mkdir -p /tmp/step5a-evidence
+          git archive 104ba59d81a92f1c98b77c89178fad9178b6ccb4 results/step4-closure-comparison-v1 | tar -x -C /tmp/step5a-evidence
+          python - <<'PY'
+          from pathlib import Path
+          from scripts import replicated_evaluation as e
+          from scripts.precision_fit import packet_bytes
+          reg=e.read(Path(e.REGISTRY));past=Path('/tmp/step5a-past');past.mkdir(exist_ok=True)
+          for entry in reg['specifications'].values():
+              for y in e.YEARS:
+                  cell=Path('/tmp/step5a-evidence')/e.RESULT_SUBDIR/entry['label']/str(y)
+                  e.verify_manifest(cell,'cell-commitment.json',entry['cells'][str(y)],'step4-closure-comparison-v1')
+                  view=entry['score_views'][str(y)]
+                  assert e.sha(Path(view['path']))==view['sha256']
+                  assert e.read(Path(view['path']))['correction_source_sha256']==e.sha(Path('R/replicated_score_view.R'))
+          for y in e.YEARS:(past/f'{y}.rds').write_bytes(packet_bytes(Path.cwd(),y))
+          PY
+      - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            environment/runtime
+            environment/R-library
+            environment/bin
+            environment/downloads
+            vendor/RSiena
+          key: step3b-native-r421-rsiena1310-6db791b62070759c2fb953aa07540b5feada3bf0602804ed6b38fac4c16a6b01
+          fail-on-cache-miss: true
+      - name: Install pinned Shinka runtime without authentication or model access
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --filter=blob:none --no-checkout https://github.com/SakanaAI/ShinkaEvolve.git vendor/ShinkaEvolve
+          git -C vendor/ShinkaEvolve checkout 9912af12d423504b8d580f4179fd15f5f88b8c50
+          git -C vendor/ShinkaEvolve apply "$PWD/shinka/patches/local-evaluation-process-tree.patch"
+          git -C vendor/ShinkaEvolve apply "$PWD/shinka/multiobjective_native.patch"
+          git -C vendor/ShinkaEvolve apply --reverse --check "$PWD/shinka/multiobjective_native.patch"
+          python - <<'PY'
+          from pathlib import Path
+          lines=Path('shinka/requirements.lock').read_text().splitlines()
+          assert [x for x in lines if x.startswith('-e ')]==['-e file:///home/roland/actir/shinka-cooperation-network/vendor/ShinkaEvolve']
+          Path('/tmp/step5a-python.lock').write_text('\n'.join(x for x in lines if not x.startswith('-e '))+'\n')
+          PY
+          python -m pip install --no-deps -r /tmp/step5a-python.lock > /tmp/step5a-pip.log 2>&1
+          python -m pip install --no-deps -e vendor/ShinkaEvolve >> /tmp/step5a-pip.log 2>&1
+          python -m pip check
+      - name: Deterministic source tests and real stopped native initialization
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=results/diagnostics/replicated-replay-v1
+          python -m compileall -q scripts tests shinka
+          python -m unittest discover -s tests -v > "$OUT/python-tests.log" 2>&1
+          tail -18 "$OUT/python-tests.log"
+          /usr/bin/time -v -o "$OUT/native-r-resources.txt" environment/run-r R/test_replicated_evaluation.R > "$OUT/native-r.log" 2>&1
+          cat "$OUT/native-r.log"
+      - name: Actual native scheduler, selection, credit and pending-resumption replay
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=results/diagnostics/replicated-replay-v1
+          /usr/bin/time -v -o "$OUT/native-shinka-resources.txt" python scripts/verify_replicated_native.py > "$OUT/native-shinka.log" 2>&1
+          tail -100 "$OUT/native-shinka.log"
+          python - <<'PY'
+          import os,re,json,hashlib,subprocess
+          from pathlib import Path
+          from scripts import replicated_evaluation as e
+          out=Path('results/diagnostics/replicated-replay-v1');reg=e.read(Path(e.REGISTRY));total=0
+          for entry in reg['specifications'].values():
+              for y in e.YEARS:
+                  c=e.verify_manifest(Path('/tmp/step5a-evidence')/e.RESULT_SUBDIR/entry['label']/str(y),'cell-commitment.json',entry['cells'][str(y)],'step4-closure-comparison-v1')
+                  total+=len(c['files'])
+          r=e.read(out/'native-r.json');s=e.read(out/'native-shinka/verification.json');log=(out/'python-tests.log').read_text()
+          assert r['status']==s['status']=='passed' and re.search(r'^OK$',log,re.M)
+          assert all(r[x]==s[x]==0 for x in ('new_fits','new_forecasts','new_simulations'))
+          assert s['llm_calls']==s['new_evolutionary_proposals']==0
+          record={'status':'verified','workflow_run':os.environ['GITHUB_RUN_ID'],'tested_source_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'python_tests':int(re.search(r'Ran (\d+) tests',log).group(1)),'native_r_checks':r['checks'],'native_shinka_checks':s['check_count'],'original_step4_files_verified':total,'new_fits':0,'new_forecasts':0,'new_simulations':0,'llm_calls':0,'new_proposals':0,'original_step4_artifacts_unchanged':True,'full_live_evolution_loop_tested':False,'model_authentication_tested':False,'execution_backend_tested':'native local scheduler, saved-evidence evaluation only','reference_and_candidate_integer_score_views_pinned':True,'native_receipt_spectral_portability':'two report-only derived summaries, relative tolerance 1e-8; decision fields exact'}
+          (out/'execution.json').write_text(json.dumps(record,indent=2)+'\n')
+          files={str(p.relative_to(out)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(out.rglob('*')) if p.is_file() and p.name!='commitment.json'}
+          (out/'commitment.json').write_text(json.dumps({'version':'step5a-replay-validation-v1','files':files},indent=2)+'\n')
+          print(json.dumps(record,indent=2))
+          PY
+      - name: Preserve verification evidence, including any failure
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add results/diagnostics/replicated-replay-v1
+          if ! git diff --cached --quiet; then
+            git commit -m 'Preserve final Step 5A saved-evidence validation outcome; no new fits or forecasts'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: step5a-final-validation
+          path: results/diagnostics/replicated-replay-v1
+          retention-days: 1
+          if-no-files-found: ignore

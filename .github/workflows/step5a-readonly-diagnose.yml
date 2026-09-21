@@ -1,0 +1,99 @@
+name: Step 5A - read-only receipt diagnosis and native replay
+on:
+  push:
+    branches: [repairs/step5a-replicated-20260921]
+    paths: [.github/workflows/step5a-readonly-diagnose.yml]
+permissions:
+  contents: write
+jobs:
+  inspect:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 25
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      SHINKA_PRICING_MODE: offline
+      SHINKA_REPLICATED_EVIDENCE_ROOT: /tmp/step5a-evidence
+      STEP5A_NATIVE_PY_OUT: results/diagnostics/replicated-replay-v1/native-shinka
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.13.5'
+      - name: Hydrate committed evidence without any runtime invocation
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=1 origin 104ba59d81a92f1c98b77c89178fad9178b6ccb4
+          mkdir -p /tmp/step5a-evidence
+          git archive 104ba59d81a92f1c98b77c89178fad9178b6ccb4 results/step4-closure-comparison-v1 | tar -x -C /tmp/step5a-evidence
+      - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            environment/runtime
+            environment/R-library
+            environment/bin
+            environment/downloads
+            vendor/RSiena
+          key: step3b-native-r421-rsiena1310-6db791b62070759c2fb953aa07540b5feada3bf0602804ed6b38fac4c16a6b01
+          fail-on-cache-miss: true
+      - name: Identify the exact saved versus reconstructed diagnostic differences
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > /tmp/step5a-diagnose.R <<'RS'
+          source('R/replicated_evaluation.R')
+          result<-list()
+          for(model in c('reference','gwesp69'))for(year in 2006:2009){
+            path<-file.path(Sys.getenv('SHINKA_REPLICATED_EVIDENCE_ROOT'),'results/step4-closure-comparison-v1',model,year,'fit/accepted_fit.rds')
+            a<-readRDS(path);d<-fit_diagnostics(a$fit,a$authoritative_n3);saved<-a$authoritative_diagnostics
+            keys<-union(names(d),names(saved));diff<-list()
+            for(k in keys)if(!identical(d[[k]],saved[[k]]))diff[[k]]<-list(actual=d[[k]],recorded=saved[[k]],all_equal=all.equal(d[[k]],saved[[k]]),actual_type=typeof(d[[k]]),recorded_type=typeof(saved[[k]]))
+            result[[paste(model,year,sep='/')]]<-list(recomputed_valid=d$valid,recorded_valid=saved$valid,authoritative_n3=a$authoritative_n3,differences=diff)
+          }
+          jsonlite::write_json(list(status='diagnosed_only',models=result,new_simulations=0L,new_fits=0L,new_forecasts=0L), 'results/diagnostics/replicated-replay-v1/receipt-differences.json',auto_unbox=TRUE,pretty=TRUE,digits=17,na='null',null='null')
+          print(result)
+          RS
+          environment/run-r /tmp/step5a-diagnose.R > results/diagnostics/replicated-replay-v1/receipt-differences.log 2>&1
+          cat results/diagnostics/replicated-replay-v1/receipt-differences.log
+      - name: Install pinned Python dependencies for actual native APIs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --filter=blob:none --no-checkout https://github.com/SakanaAI/ShinkaEvolve.git vendor/ShinkaEvolve
+          git -C vendor/ShinkaEvolve checkout 9912af12d423504b8d580f4179fd15f5f88b8c50
+          git -C vendor/ShinkaEvolve apply "$PWD/shinka/patches/local-evaluation-process-tree.patch"
+          git -C vendor/ShinkaEvolve apply "$PWD/shinka/multiobjective_native.patch"
+          python - <<'PY'
+          from pathlib import Path
+          lines=Path('shinka/requirements.lock').read_text().splitlines()
+          assert [x for x in lines if x.startswith('-e ')]==['-e file:///home/roland/actir/shinka-cooperation-network/vendor/ShinkaEvolve']
+          Path('/tmp/step5a-python.lock').write_text('\n'.join(x for x in lines if not x.startswith('-e '))+'\n')
+          PY
+          python -m pip install --no-deps -r /tmp/step5a-python.lock > /tmp/step5a-pip.log 2>&1
+          python -m pip install --no-deps -e vendor/ShinkaEvolve >> /tmp/step5a-pip.log 2>&1
+          python -m pip check
+      - name: Exercise real native scheduler and persistence against saved evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          /usr/bin/time -v -o results/diagnostics/replicated-replay-v1/native-shinka-resources.txt python scripts/verify_replicated_native.py > results/diagnostics/replicated-replay-v1/native-shinka.log 2>&1
+          tail -100 results/diagnostics/replicated-replay-v1/native-shinka.log
+      - name: Preserve the exact diagnostic and replay outcome
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/diagnostics/replicated-replay-v1
+          if ! git diff --cached --quiet; then
+            git commit -m 'Preserve read-only receipt diagnosis and native replay outcome without scientific reruns'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: step5a-readonly-diagnosis
+          path: results/diagnostics/replicated-replay-v1
+          retention-days: 1

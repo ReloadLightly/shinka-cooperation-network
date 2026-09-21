@@ -1,0 +1,323 @@
+{
+  "combined_score": 2.0,
+  "public": {
+    "protocol": "multiobjective-replicated-v1",
+    "status": "complete",
+    "valid": true,
+    "canonical_sha256": "69cd09507195192b72920fdcc07f79bfdec032bc0021911e3fa7c49a987ee711",
+    "canonical_specification": {
+      "schema_version": 2,
+      "network_effects": [
+        {
+          "effect": "degPlus",
+          "parameter": 1
+        },
+        {
+          "effect": "transTriads",
+          "parameter": 0
+        }
+      ]
+    },
+    "scientific_fingerprint": "f73a4e5f215bdc538ef43257ff532bc440d0aa50cce9d57db330907195c8ef6b",
+    "reference_identity": "1cc8a417c41d6d14efee43bb876882be93c8d4fb25338197b676dea56a8d3607",
+    "complexity": 2,
+    "forecast_batches_per_year": 5,
+    "pooled_endpoints_per_year": 5000,
+    "years": {
+      "2006": {
+        "valid": true,
+        "candidate": {
+          "pr_auc": 0.8898883259278957,
+          "brier": 0.005477962896226415,
+          "spending_rmse": 0.36890750088677554,
+          "formation_pr_auc": 0.01717691400633107,
+          "dissolution_pr_auc": 0.06410574890242132
+        },
+        "reference": {
+          "pr_auc": 0.8898883259278957,
+          "brier": 0.005477962896226415,
+          "spending_rmse": 0.36890750088677554,
+          "formation_pr_auc": 0.01717691400633107,
+          "dissolution_pr_auc": 0.06410574890242132
+        },
+        "J1": 0.0,
+        "J2": -0.0,
+        "J3": -0.0
+      },
+      "2007": {
+        "valid": true,
+        "candidate": {
+          "pr_auc": 0.9395544710227376,
+          "brier": 0.004084454496855346,
+          "spending_rmse": 0.3635316499650557,
+          "formation_pr_auc": 0.04274419376385488,
+          "dissolution_pr_auc": 0.02134439300787169
+        },
+        "reference": {
+          "pr_auc": 0.9395544710227376,
+          "brier": 0.004084454496855346,
+          "spending_rmse": 0.3635316499650557,
+          "formation_pr_auc": 0.04274419376385488,
+          "dissolution_pr_auc": 0.02134439300787169
+        },
+        "J1": 0.0,
+        "J2": -0.0,
+        "J3": -0.0
+      },
+      "2008": {
+        "valid": true,
+        "candidate": {
+          "pr_auc": 0.9124248825704221,
+          "brier": 0.004500418022012578,
+          "spending_rmse": 0.4404809864818852,
+          "formation_pr_auc": 0.023566938480222163,
+          "dissolution_pr_auc": 0.030956806868455197
+        },
+        "reference": {
+          "pr_auc": 0.9124248825704221,
+          "brier": 0.004500418022012578,
+          "spending_rmse": 0.4404809864818852,
+          "formation_pr_auc": 0.023566938480222163,
+          "dissolution_pr_auc": 0.030956806868455197
+        },
+        "J1": 0.0,
+        "J2": -0.0,
+        "J3": -0.0
+      },
+      "2009": {
+        "valid": true,
+        "candidate": {
+          "pr_auc": 0.9548211893707964,
+          "brier": 0.003403484028301887,
+          "spending_rmse": 0.3933362722230911,
+          "formation_pr_auc": 0.014585522227788188,
+          "dissolution_pr_auc": 0.049508210850648285
+        },
+        "reference": {
+          "pr_auc": 0.9548211893707964,
+          "brier": 0.003403484028301887,
+          "spending_rmse": 0.3933362722230911,
+          "formation_pr_auc": 0.014585522227788188,
+          "dissolution_pr_auc": 0.049508210850648285
+        },
+        "J1": 0.0,
+        "J2": -0.0,
+        "J3": -0.0
+      }
+    },
+    "J1": 0.0,
+    "J2": 0.0,
+    "J3": 0.0,
+    "delete_one_vectors": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "batch_vectors": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "selection_scales": [
+      0.07582778277703706,
+      0.004366579860849057,
+      0.3915641023892019
+    ],
+    "mc_standard_errors": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "mc_intervals": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "uncertainty_scope": "Approximate five-block conditional forecast Monte Carlo uncertainty only; not fitting, generalization or simultaneous selective inference.",
+    "operational": {
+      "mean_scaled_improvement": 0.0,
+      "mc_se": 0.0,
+      "lower_heuristic": 0.0,
+      "combined_score": 2.0,
+      "interpretation": "Fixed uncertainty-averse bandit/prompt preference; not a scientific fourth objective or a confidence guarantee."
+    },
+    "replayed_all_years": true,
+    "preexisting_step4_evidence": true,
+    "native_fit_receipts": {
+      "2006": {
+        "accepted_attempt": 2,
+        "authoritative_n3": 3000,
+        "diagnostics": {
+          "maximum_absolute_t_ratio": 0.08251322236340315,
+          "overall_maximum_convergence": 0.23747288142810669,
+          "native_ok": true,
+          "termination": "OK",
+          "phase3_complete": true,
+          "finite_identified": true
+        }
+      },
+      "2007": {
+        "accepted_attempt": 2,
+        "authoritative_n3": 3000,
+        "diagnostics": {
+          "maximum_absolute_t_ratio": 0.07385859360380694,
+          "overall_maximum_convergence": 0.2299046788352168,
+          "native_ok": true,
+          "termination": "OK",
+          "phase3_complete": true,
+          "finite_identified": true
+        }
+      },
+      "2008": {
+        "accepted_attempt": 2,
+        "authoritative_n3": 3000,
+        "diagnostics": {
+          "maximum_absolute_t_ratio": 0.06826965129926083,
+          "overall_maximum_convergence": 0.1972450176171514,
+          "native_ok": true,
+          "termination": "OK",
+          "phase3_complete": true,
+          "finite_identified": true
+        }
+      },
+      "2009": {
+        "accepted_attempt": 2,
+        "authoritative_n3": 3000,
+        "diagnostics": {
+          "maximum_absolute_t_ratio": 0.06082238574419148,
+          "overall_maximum_convergence": 0.2093343906655569,
+          "native_ok": true,
+          "termination": "OK",
+          "phase3_complete": true,
+          "finite_identified": true
+        }
+      }
+    },
+    "structural_feedback": {
+      "2006": {
+        "observed": {
+          "ties": 458,
+          "triangles": 727,
+          "clustering": 0.27857963980074085,
+          "degree_variance": 71.015450310559
+        },
+        "simulated_means": {
+          "ties": 451.5538,
+          "triangles": 754.0744,
+          "clustering": 0.28754545414214094,
+          "degree_variance": 72.30736970496895
+        }
+      },
+      "2007": {
+        "observed": {
+          "ties": 484,
+          "triangles": 751,
+          "clustering": 0.2694653749551489,
+          "degree_variance": 74.1873447204969
+        },
+        "simulated_means": {
+          "ties": 498.94440000000003,
+          "triangles": 875.7874,
+          "clustering": 0.2850518036355052,
+          "degree_variance": 82.77061630434783
+        }
+      },
+      "2008": {
+        "observed": {
+          "ties": 508,
+          "triangles": 789,
+          "clustering": 0.26559694793536803,
+          "degree_variance": 77.67795031055901
+        },
+        "simulated_means": {
+          "ties": 511.7358,
+          "triangles": 841.2384,
+          "clustering": 0.2715916887371794,
+          "degree_variance": 81.86908861801243
+        }
+      },
+      "2009": {
+        "observed": {
+          "ties": 519,
+          "triangles": 841,
+          "clustering": 0.27175786299009047,
+          "degree_variance": 80.71125776397515
+        },
+        "simulated_means": {
+          "ties": 538.3582,
+          "triangles": 890.3385999999999,
+          "clustering": 0.26756350323391825,
+          "degree_variance": 86.49092546583852
+        }
+      }
+    }
+  },
+  "private": {
+    "candidate_cells": {
+      "2006": "/tmp/step5a-evidence/results/step4-closure-comparison-v1/reference/2006",
+      "2007": "/tmp/step5a-evidence/results/step4-closure-comparison-v1/reference/2007",
+      "2008": "/tmp/step5a-evidence/results/step4-closure-comparison-v1/reference/2008",
+      "2009": "/tmp/step5a-evidence/results/step4-closure-comparison-v1/reference/2009"
+    },
+    "reference_cells": {
+      "2006": "/tmp/step5a-evidence/results/step4-closure-comparison-v1/reference/2006",
+      "2007": "/tmp/step5a-evidence/results/step4-closure-comparison-v1/reference/2007",
+      "2008": "/tmp/step5a-evidence/results/step4-closure-comparison-v1/reference/2008",
+      "2009": "/tmp/step5a-evidence/results/step4-closure-comparison-v1/reference/2009"
+    }
+  },
+  "text_feedback": "Replicated predictive model comparison: J1=+0; J2=+0; J3=+0. Coefficients statistically estimated; controls and Model 3 spending structure protected. Every year has five forecast batches; score pooled probabilities, not mean AUC. Monte Carlo intervals are approximate, conditional on selected fits; not causal or fitting/generalization uncertainty. Archive and parents use the declared MC-resolved heuristic; unresolved models remain eligible. This result reuses preexisting measured evidence, not a new discovery."
+}

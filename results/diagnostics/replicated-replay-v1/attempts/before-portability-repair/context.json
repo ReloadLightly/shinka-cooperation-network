@@ -1,0 +1,16 @@
+{
+  "read_only_runs": [
+    35655355966,
+    35655904750,
+    35656344905
+  ],
+  "causes": [
+    "missing fixture directory, corrected before native work",
+    "report-only spectral summaries differed at CPU/BLAS roundoff; exact acceptance fields unchanged",
+    "pending-controller test fixture omitted submitted_jobs; initialize it and use actual scheduler get_job_results API"
+  ],
+  "new_fits": 0,
+  "new_forecasts": 0,
+  "new_simulations": 0,
+  "llm_calls": 0
+}

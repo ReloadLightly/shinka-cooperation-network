@@ -1,0 +1,52 @@
+name: Step 5A - read-only integration inventory
+on:
+  push:
+    branches: [repairs/step5a-replicated-20260921]
+    paths: [.github/workflows/step5a-inventory.yml]
+permissions:
+  contents: read
+jobs:
+  inventory:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Read committed evidence and pinned interfaces only
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=1 origin 104ba59d81a92f1c98b77c89178fad9178b6ccb4
+          mkdir -p /tmp/step5a-evidence /tmp/step5a-inventory
+          git archive 104ba59d81a92f1c98b77c89178fad9178b6ccb4 results/step4-closure-comparison-v1 | tar -x -C /tmp/step5a-evidence
+          git clone --filter=blob:none --no-checkout https://github.com/SakanaAI/ShinkaEvolve.git /tmp/step5a-shinka
+          git -C /tmp/step5a-shinka checkout 9912af12d423504b8d580f4179fd15f5f88b8c50
+          python3 - <<'PY'
+          import pathlib,zipfile,json,hashlib
+          out=pathlib.Path('/tmp/step5a-inventory')
+          base=pathlib.Path('/tmp/step5a-evidence')
+          verified={}
+          for model in ('reference','gwesp69'):
+              for year in range(2006,2010):
+                  cell=base/'results/step4-closure-comparison-v1'/model/str(year)
+                  c=json.loads((cell/'cell-commitment.json').read_text())
+                  for name,h in c['files'].items():
+                      p=(cell/name).resolve();p.relative_to(cell.resolve())
+                      assert p.is_file() and hashlib.sha256(p.read_bytes()).hexdigest()==h,name
+                  verified[f'{model}/{year}']={'files_verified':len(c['files']),'commitment_sha256':hashlib.sha256((cell/'cell-commitment.json').read_bytes()).hexdigest()}
+          with zipfile.ZipFile(out/'step5a-inventory.zip','w',zipfile.ZIP_DEFLATED) as z:
+              for p in base.rglob('*'):
+                  if p.is_file() and (p.suffix in ('.json','.csv') or p.name=='REPORT.md'):
+                      z.write(p,p.relative_to(base))
+              src=pathlib.Path('/tmp/step5a-shinka')
+              for p in src.rglob('*'):
+                  if p.is_file() and '.git' not in p.parts and (p.suffix in ('.py','.toml') or p.name in ('requirements.txt','README.md')):
+                      z.write(p,'upstream/'+str(p.relative_to(src)))
+              z.writestr('inventory-verification.json',json.dumps({'verified':verified,'new_fits':0,'new_forecasts':0,'llm_calls':0},indent=2))
+          print(json.dumps(verified,indent=2))
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: step5a-readonly-inventory
+          path: /tmp/step5a-inventory/step5a-inventory.zip
+          retention-days: 1
+          if-no-files-found: error

@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Recover only the eight development packets from the published source archive.
+"""Restore the eight development packets from the verified repository bundle.
 
-Trusted data preparation, NOT forecasting or scoring. The mixed-year RData is
-necessarily deserialized by R, but rows after 2009 are discarded before packet
-construction. Every produced packet must match its PRE-EXISTING published hash.
-No primary evaluator, fit, metric, or reserved-year evaluation is changed.
+Prefer the byte-identical development-only bundle; this needs no R process or
+raw-data loading. The explicit --from-raw alternative is trusted preparation,
+NOT forecasting or scoring: its mixed-year RData is deserialized but rows after
+2009 are removed before construction. Every packet must match its pre-existing
+published hash. No evaluator, fit, metric or reserved-year evaluation is changed.
 """
 from __future__ import annotations
 
@@ -43,6 +44,42 @@ def restricted_preparation(original: str) -> str:
             raise ValueError("Ambiguous preparation source fragment: " + before)
         original = original.replace(before, after)
     return original
+
+
+def validated_bundle(bundle: Path, expected: dict[str, str]) -> dict[str, bytes]:
+    """Validate all bytes before writing anything; archive paths are never trusted."""
+    if set(expected) != set(packet_paths()):
+        raise ValueError("Exactly the eight declared development packets are required")
+    with zipfile.ZipFile(bundle) as archive:
+        if len(archive.namelist()) != 8 or set(archive.namelist()) != set(expected):
+            raise ValueError("Bundle contains missing, extra or duplicate entries")
+        # The verified archive is small; reject unexpectedly oversized members.
+        if any(info.file_size > 100_000_000 for info in archive.infolist()):
+            raise ValueError("Unexpected packet size")
+        contents = {name: archive.read(name) for name in packet_paths()}
+    if {name: hashlib.sha256(value).hexdigest() for name, value in contents.items()} != expected:
+        raise ValueError("Bundle packets differ from the published baseline hashes")
+    return contents
+
+
+def restore_bundle(bundle: Path, root: Path = ROOT) -> dict:
+    plan = inspect_inputs(root)
+    contents = validated_bundle(bundle, plan["packets"])
+    # inspect_inputs already refuses any conflicting existing input.
+    for name, value in contents.items():
+        path = root / name
+        if path.exists():
+            if sha(path) != plan["packets"][name]:
+                raise ValueError("Existing packet changed during restoration: " + name)
+            continue
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("xb") as handle:
+            handle.write(value)
+    if not inspect_inputs(root)["ready"]:
+        raise RuntimeError("Post-restoration input verification failed")
+    return {"status": "restored_from_verified_development_bundle",
+            "bundle_sha256": sha(bundle), "packets": plan["packets"],
+            "raw_archive_loaded": False, "fit_calls": 0, "forecast_calls": 0}
 
 
 def recover() -> dict:
@@ -118,12 +155,20 @@ def recover() -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--execute", action="store_true", help="Allow trusted mixed-year archive loading to recover development packets")
+    parser.add_argument("--execute", action="store_true", help="Restore only verified development inputs; no fitting or forecasts")
+    parser.add_argument("--from-raw", action="store_true", help="Explicitly permit mixed-year archive preparation instead of the verified bundle")
     args = parser.parse_args()
     if not args.execute:
-        print("Dry run. Add --execute to recover only hash-identical development inputs; no forecasts or refits.")
+        print("Dry run. Add --execute to restore only hash-identical development inputs; no forecasts or refits.")
         return 0
-    print(json.dumps(recover(), indent=2, allow_nan=False))
+    if args.from_raw:
+        result = recover()
+    else:
+        bundle = ROOT / "sources/archive/step2-development-inputs.zip"
+        if not bundle.is_file():
+            raise FileNotFoundError("Verified development bundle is missing; no implicit raw-data preparation")
+        result = restore_bundle(bundle)
+    print(json.dumps(result, indent=2, allow_nan=False))
     return 0
 
 

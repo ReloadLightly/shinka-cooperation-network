@@ -1,0 +1,96 @@
+name: Verify completed step 2 publication
+on:
+  push:
+    branches: [repairs/step2-github-input-recovery-20260921]
+    paths: [.github/workflows/step2-publication-verification.yml]
+permissions:
+  contents: write
+  actions: read
+jobs:
+  verify:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          name: step2-full-native-evidence
+          run-id: 35587860418
+          github-token: ${{ github.token }}
+          path: results/diagnostics/forecast-repeatability-v1
+      - uses: actions/download-artifact@v4
+        with:
+          name: step2-github-inputs
+          run-id: 35586281432
+          github-token: ${{ github.token }}
+          path: /tmp/step2-inputs
+      - name: Preserve the already completed outputs, not rerun them
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          cp /tmp/step2-inputs/step2-github-inputs.zip sources/archive/step2-development-inputs.zip
+          curl --fail --location --retry 2 -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' https://api.github.com/repos/ReloadLightly/shinka-cooperation-network/actions/jobs/106295277045/logs -o /tmp/measurement-job.log
+          python3 - <<'PY'
+          import pathlib,json
+          lines=pathlib.Path('/tmp/measurement-job.log').read_text().splitlines()
+          selected=set()
+          for i,line in enumerate(lines):
+              if any(k in line for k in ('ignored by','gitignore','##[error]','hint:','fatal:')):
+                  selected.update(range(max(0,i-3),min(len(lines),i+6)))
+          path=pathlib.Path('results/diagnostics/forecast-repeatability-v1/prior-attempts/publication-errors.json')
+          path.write_text(json.dumps({'run':35587860418,'native_measurement':'complete','lines':[lines[i] for i in sorted(selected)]},indent=2)+'\n')
+          PY
+      - name: Verify restored real inputs and every completed batch without R
+        run: |
+          set -euo pipefail
+          python -m unittest discover -s tests -v 2>&1 | tee /tmp/step2-final-tests.log
+          python scripts/recover_repeatability_inputs.py --execute
+          python scripts/update_readme_status.py --check
+          python - <<'PY'
+          import pathlib,json,os,subprocess,re,csv
+          from scripts.forecast_repeatability import inspect_inputs,verify_batch,summarize,YEARS,OFFSETS
+          root=pathlib.Path.cwd(); out=root/'results/diagnostics/forecast-repeatability-v1'
+          plan=json.loads((out/'plan.json').read_text())
+          assert inspect_inputs(root)==plan
+          rows=[verify_batch(out/str(y)/str(o),plan,y,o) for o in OFFSETS for y in YEARS]
+          summary=summarize(rows,plan['reference'])
+          assert summary==json.loads((out/'summary.json').read_text())
+          assert summary['status']=='complete' and len(rows)==20
+          for y in YEARS:
+              audits=[json.loads((out/str(y)/str(o)/'fixed_coefficient_audit.json').read_text()) for o in OFFSETS]
+              assert all(a['coefficients']==audits[0]['coefficients'] for a in audits)
+              assert all(a['RSiena']=='1.3.10' and '4.2.1' in a['R'] for a in audits)
+          tests=re.search(r'Ran (\d+) tests',pathlib.Path('/tmp/step2-final-tests.log').read_text())
+          assert tests and int(tests[1])==101
+          assert not (root/'environment/runtime/bin/Rscript').exists()
+          assert not (root/'data/targets/2010.rds').exists()
+          subprocess.run(['git','diff','--exit-code'],check=True)
+          record={'status':'verified','workflow_run':os.environ['GITHUB_RUN_ID'],
+            'source_commit':os.environ['GITHUB_SHA'],'python_tests':101,
+            'real_packets_restored_and_hash_verified':8,'committed_batches_verified':20,
+            'coefficient_vectors_identical_across_all_five_seeds_per_year':True,
+            'native_runtime_installed_in_this_verification_job':False,
+            'new_forecasts':0,'new_refits':0,'reserved_packets_created':0,
+            'summary_recomputed_from_verified_score_artifacts':True}
+          (out/'publication_verification.json').write_text(json.dumps(record,indent=2)+'\n')
+          with (out/'batch_metrics.csv').open('w') as f:
+              w=csv.DictWriter(f,fieldnames=['year','offset','seed',*rows[0]['metrics']]);w.writeheader()
+              for r in rows:w.writerow({k:v for k,v in r.items() if k!='metrics'}|r['metrics'])
+          print(json.dumps(record,indent=2))
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/diagnostics/forecast-repeatability-v1 sources/archive/step2-development-inputs.zip
+          git diff --cached --check -- '*.json'
+          git commit -m 'Verify portable development inputs and completed fixed-fit evidence from a fresh checkout'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: step2-final-tests
+          path: /tmp/step2-final-tests.log
+          retention-days: 30

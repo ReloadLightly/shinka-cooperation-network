@@ -11,6 +11,7 @@ environment/micromamba-root/
 vendor/
 sources/archive/*
 !sources/archive/IO_Final.zip
+!sources/archive/step2-development-inputs.zip
 sources/original/
 sources/reference/*.pdf
 sources/reference/paper.html

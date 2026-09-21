@@ -1,0 +1,163 @@
+Warning message:
+package ‘jsonlite’ was built under R version 4.2.3 
+$siena07
+$siena07$source
+[1] "R/siena07.r"
+
+$siena07$loaded_body_and_formals_match
+[1] TRUE
+
+
+$robmon
+$robmon$source
+[1] "R/robmon.r"
+
+$robmon$loaded_body_and_formals_match
+[1] TRUE
+
+
+$initializeFRAN
+$initializeFRAN$source
+[1] "R/initializeFRAN.r"
+
+$initializeFRAN$loaded_body_and_formals_match
+[1] TRUE
+
+
+$simstats0c
+$simstats0c$source
+[1] "R/simstatsc.r"
+
+$simstats0c$loaded_body_and_formals_match
+[1] TRUE
+
+
+$terminateFRAN
+$terminateFRAN$source
+[1] "R/terminateFRAN.r"
+
+$terminateFRAN$loaded_body_and_formals_match
+[1] TRUE
+
+
+$phase3
+$phase3$source
+[1] "R/phase3.r"
+
+$phase3$loaded_body_and_formals_match
+[1] TRUE
+
+
+$phase3.2
+$phase3.2$source
+[1] "R/phase3.r"
+
+$phase3.2$loaded_body_and_formals_match
+[1] TRUE
+
+
+$CalculateDerivative3
+$CalculateDerivative3$source
+[1] "R/phase3.r"
+
+$CalculateDerivative3$loaded_body_and_formals_match
+[1] TRUE
+
+
+$PotentialNR
+$PotentialNR$source
+[1] "R/phase3.r"
+
+$PotentialNR$loaded_body_and_formals_match
+[1] TRUE
+
+
+If you use this algorithm object, siena07 will create/use an output file /tmp/RtmpDh4nCZ/step4-receipt-test-84e66061aea/forecasts/1/forecast.txt .
+Tracing function "phase1.1" in package "namespace:RSiena"
+Tracing function "phase1.2" in package "namespace:RSiena"
+Tracing function "phase2.1" in package "namespace:RSiena"
+Tracing function "proc2subphase" in package "namespace:RSiena"
+Tracing function "maxlikec" in package "namespace:RSiena"
+Tracing function "phase3" in package "namespace:RSiena"
+Tracing function "simstats0c" in package "namespace:RSiena"
+Untracing function "simstats0c" in package "namespace:RSiena"
+Untracing function "phase3" in package "namespace:RSiena"
+Untracing function "maxlikec" in package "namespace:RSiena"
+Untracing function "proc2subphase" in package "namespace:RSiena"
+Untracing function "phase2.1" in package "namespace:RSiena"
+Untracing function "phase1.2" in package "namespace:RSiena"
+Untracing function "phase1.1" in package "namespace:RSiena"
+If you use this algorithm object, siena07 will create/use an output file /tmp/RtmpDh4nCZ/step4-receipt-test-84eabc3ab7/forecasts/1/forecast.txt .
+Tracing function "phase1.1" in package "namespace:RSiena"
+Tracing function "phase1.2" in package "namespace:RSiena"
+Tracing function "phase2.1" in package "namespace:RSiena"
+Tracing function "proc2subphase" in package "namespace:RSiena"
+Tracing function "maxlikec" in package "namespace:RSiena"
+Tracing function "phase3" in package "namespace:RSiena"
+Tracing function "simstats0c" in package "namespace:RSiena"
+Untracing function "simstats0c" in package "namespace:RSiena"
+Untracing function "phase3" in package "namespace:RSiena"
+Untracing function "maxlikec" in package "namespace:RSiena"
+Untracing function "proc2subphase" in package "namespace:RSiena"
+Untracing function "phase2.1" in package "namespace:RSiena"
+Untracing function "phase1.2" in package "namespace:RSiena"
+Untracing function "phase1.1" in package "namespace:RSiena"
+{
+  "status": "passed",
+  "checks": 57,
+  "models": {
+    "reference/2006": {
+      "parameters": 52,
+      "archived_checkpoints_verified": 4,
+      "closure": "transTriads",
+      "parameter": 0
+    },
+    "reference/2007": {
+      "parameters": 54,
+      "archived_checkpoints_verified": 4,
+      "closure": "transTriads",
+      "parameter": 0
+    },
+    "reference/2008": {
+      "parameters": 56,
+      "archived_checkpoints_verified": 3,
+      "closure": "transTriads",
+      "parameter": 0
+    },
+    "reference/2009": {
+      "parameters": 58,
+      "archived_checkpoints_verified": 4,
+      "closure": "transTriads",
+      "parameter": 0
+    },
+    "gwesp69/2006": {
+      "parameters": 52,
+      "archived_checkpoints_verified": 0,
+      "closure": "gwesp",
+      "parameter": 69
+    },
+    "gwesp69/2007": {
+      "parameters": 54,
+      "archived_checkpoints_verified": 0,
+      "closure": "gwesp",
+      "parameter": 69
+    },
+    "gwesp69/2008": {
+      "parameters": 56,
+      "archived_checkpoints_verified": 0,
+      "closure": "gwesp",
+      "parameter": 69
+    },
+    "gwesp69/2009": {
+      "parameters": 58,
+      "archived_checkpoints_verified": 0,
+      "closure": "gwesp",
+      "parameter": 69
+    }
+  },
+  "real_receipt_forecast_initializations_stopped": 2,
+  "new_empirical_simulations": 0,
+  "new_fits": 0,
+  "target_packets_read": 0,
+  "statement": "Verified importer identities and actual_n3 forecast consumption. Full new policy fits/forecasts remain part of the declared Step 4 execution."
+} 

@@ -1,0 +1,271 @@
+{
+  "status": "complete",
+  "pooled": {
+    "pr_auc": 0.93949130098317468,
+    "brier": 0.0040844544968553463,
+    "spending_rmse": 0.36353164996505571,
+    "formation_pr_auc": 0.042746824167013947,
+    "dissolution_pr_auc": 0.021303158183170467
+  },
+  "delete_one_batch": [
+    {
+      "pr_auc": 0.94010586725133571,
+      "brier": 0.0040841536016116356,
+      "spending_rmse": 0.3631998428171031,
+      "formation_pr_auc": 0.042794244969663782,
+      "dissolution_pr_auc": 0.021664233323939842
+    },
+    {
+      "pr_auc": 0.93779055591679583,
+      "brier": 0.0040848155906053462,
+      "spending_rmse": 0.36361551592451696,
+      "formation_pr_auc": 0.042535037925389436,
+      "dissolution_pr_auc": 0.02058588686356615
+    },
+    {
+      "pr_auc": 0.93989183925974285,
+      "brier": 0.0040853829500786167,
+      "spending_rmse": 0.36363032881785895,
+      "formation_pr_auc": 0.04260400703851653,
+      "dissolution_pr_auc": 0.021382656638916184
+    },
+    {
+      "pr_auc": 0.93773192932083604,
+      "brier": 0.0040856272061713834,
+      "spending_rmse": 0.36384931102706297,
+      "formation_pr_auc": 0.042550302238458765,
+      "dissolution_pr_auc": 0.021018659399397892
+    },
+    {
+      "pr_auc": 0.94003211900647032,
+      "brier": 0.0040835316381682392,
+      "spending_rmse": 0.36340411299558134,
+      "formation_pr_auc": 0.042825672991387023,
+      "dissolution_pr_auc": 0.021628631450043151
+    }
+  ],
+  "batches": [
+    {
+      "pr_auc": 0.93707590424995091,
+      "brier": 0.0040906195754716983,
+      "spending_rmse": 0.36498359732430369,
+      "formation_pr_auc": 0.042157186527330207,
+      "dissolution_pr_auc": 0.020130930446705778
+    },
+    {
+      "pr_auc": 0.94063464472204528,
+      "brier": 0.0040882936320754716,
+      "spending_rmse": 0.36337996642632903,
+      "formation_pr_auc": 0.04171043954799853,
+      "dissolution_pr_auc": 0.023107639335981759
+    },
+    {
+      "pr_auc": 0.93851078989237113,
+      "brier": 0.0040856731132075472,
+      "spending_rmse": 0.36328335504483489,
+      "formation_pr_auc": 0.03961727974661871,
+      "dissolution_pr_auc": 0.021264900548655225
+    },
+    {
+      "pr_auc": 0.93939017281153592,
+      "brier": 0.0040845846698113206,
+      "spending_rmse": 0.36242985709760378,
+      "formation_pr_auc": 0.042184288742955371,
+      "dissolution_pr_auc": 0.020831485608154801
+    },
+    {
+      "pr_auc": 0.93553458215574758,
+      "brier": 0.004092917531446541,
+      "spending_rmse": 0.36423526593037148,
+      "formation_pr_auc": 0.042266504026816483,
+      "dissolution_pr_auc": 0.019842773494092702
+    }
+  ],
+  "eligibility_sha256": "3e51b26e7feee1dda91b8fd2b9db0693e637428df9e02e9a3c2f56fbd9eef1cd",
+  "dyads": 12720,
+  "spending_countries": 152,
+  "primary_endpoints": 5000,
+  "uncertainty": "Conditional simulation precision only; five-block jackknife is approximate, especially for PR-AUC ties",
+  "structural_checks": [
+    {
+      "scope": "Network restricted to the common eligible dyad mask; inactive and invalid edges absent in both observed and simulated graphs",
+      "interpretation": "Descriptive predictive envelopes, not independent-dyad significance tests or coefficient uncertainty",
+      "observed": {
+        "ties": 484,
+        "triangles": 751,
+        "clustering": 0.26946537495514888,
+        "degree_variance": 74.187344720496895
+      },
+      "simulated": [
+        {
+          "statistic": "ties",
+          "finite_simulations": 1000,
+          "mean": 499.03899999999999,
+          "quantiles_025_50_975": [482, 499, 516]
+        },
+        {
+          "statistic": "triangles",
+          "finite_simulations": 1000,
+          "mean": 877.09500000000003,
+          "quantiles_025_50_975": [801.97500000000002, 876, 957.04999999999995]
+        },
+        {
+          "statistic": "clustering",
+          "finite_simulations": 1000,
+          "mean": 0.28515369694097431,
+          "quantiles_025_50_975": [0.27004392799444693, 0.28487492356902999, 0.30196723162547001]
+        },
+        {
+          "statistic": "degree_variance",
+          "finite_simulations": 1000,
+          "mean": 82.886936413043472,
+          "quantiles_025_50_975": [77.811253881987568, 82.900194099378893, 88.3186471273292]
+        }
+      ]
+    },
+    {
+      "scope": "Network restricted to the common eligible dyad mask; inactive and invalid edges absent in both observed and simulated graphs",
+      "interpretation": "Descriptive predictive envelopes, not independent-dyad significance tests or coefficient uncertainty",
+      "observed": {
+        "ties": 484,
+        "triangles": 751,
+        "clustering": 0.26946537495514888,
+        "degree_variance": 74.187344720496895
+      },
+      "simulated": [
+        {
+          "statistic": "ties",
+          "finite_simulations": 1000,
+          "mean": 498.97300000000001,
+          "quantiles_025_50_975": [482.97500000000002, 499, 515]
+        },
+        {
+          "statistic": "triangles",
+          "finite_simulations": 1000,
+          "mean": 875.29700000000003,
+          "quantiles_025_50_975": [802, 875, 956.04999999999995]
+        },
+        {
+          "statistic": "clustering",
+          "finite_simulations": 1000,
+          "mean": 0.28494181593493423,
+          "quantiles_025_50_975": [0.26791536739358512, 0.28519958107151289, 0.30092474921805762]
+        },
+        {
+          "statistic": "degree_variance",
+          "finite_simulations": 1000,
+          "mean": 82.747836180124224,
+          "quantiles_025_50_975": [77.908387034161493, 82.659161490683232, 88.41014557453417]
+        }
+      ]
+    },
+    {
+      "scope": "Network restricted to the common eligible dyad mask; inactive and invalid edges absent in both observed and simulated graphs",
+      "interpretation": "Descriptive predictive envelopes, not independent-dyad significance tests or coefficient uncertainty",
+      "observed": {
+        "ties": 484,
+        "triangles": 751,
+        "clustering": 0.26946537495514888,
+        "degree_variance": 74.187344720496895
+      },
+      "simulated": [
+        {
+          "statistic": "ties",
+          "finite_simulations": 1000,
+          "mean": 498.83800000000002,
+          "quantiles_025_50_975": [483.97499999999997, 499, 515]
+        },
+        {
+          "statistic": "triangles",
+          "finite_simulations": 1000,
+          "mean": 876.08799999999997,
+          "quantiles_025_50_975": [804, 873.5, 962]
+        },
+        {
+          "statistic": "clustering",
+          "finite_simulations": 1000,
+          "mean": 0.28536783214377243,
+          "quantiles_025_50_975": [0.27000747636061451, 0.28494185157517882, 0.30304809751760331]
+        },
+        {
+          "statistic": "degree_variance",
+          "finite_simulations": 1000,
+          "mean": 82.702143245341617,
+          "quantiles_025_50_975": [77.785060170807469, 82.517973602484474, 88.814167313664598]
+        }
+      ]
+    },
+    {
+      "scope": "Network restricted to the common eligible dyad mask; inactive and invalid edges absent in both observed and simulated graphs",
+      "interpretation": "Descriptive predictive envelopes, not independent-dyad significance tests or coefficient uncertainty",
+      "observed": {
+        "ties": 484,
+        "triangles": 751,
+        "clustering": 0.26946537495514888,
+        "degree_variance": 74.187344720496895
+      },
+      "simulated": [
+        {
+          "statistic": "ties",
+          "finite_simulations": 1000,
+          "mean": 498.92700000000002,
+          "quantiles_025_50_975": [483, 499, 517.02499999999998]
+        },
+        {
+          "statistic": "triangles",
+          "finite_simulations": 1000,
+          "mean": 875.57000000000005,
+          "quantiles_025_50_975": [800.95000000000005, 875, 966.04999999999995]
+        },
+        {
+          "statistic": "clustering",
+          "finite_simulations": 1000,
+          "mean": 0.28504851712867546,
+          "quantiles_025_50_975": [0.26793526343222751, 0.2851295510386419, 0.30248180168143257]
+        },
+        {
+          "statistic": "degree_variance",
+          "finite_simulations": 1000,
+          "mean": 82.740306677018637,
+          "quantiles_025_50_975": [77.767234083850923, 82.581638198757759, 88.849563276397504]
+        }
+      ]
+    },
+    {
+      "scope": "Network restricted to the common eligible dyad mask; inactive and invalid edges absent in both observed and simulated graphs",
+      "interpretation": "Descriptive predictive envelopes, not independent-dyad significance tests or coefficient uncertainty",
+      "observed": {
+        "ties": 484,
+        "triangles": 751,
+        "clustering": 0.26946537495514888,
+        "degree_variance": 74.187344720496895
+      },
+      "simulated": [
+        {
+          "statistic": "ties",
+          "finite_simulations": 1000,
+          "mean": 498.94499999999999,
+          "quantiles_025_50_975": [483, 499, 515.02499999999998]
+        },
+        {
+          "statistic": "triangles",
+          "finite_simulations": 1000,
+          "mean": 874.88699999999994,
+          "quantiles_025_50_975": [801, 871, 967.02499999999998]
+        },
+        {
+          "statistic": "clustering",
+          "finite_simulations": 1000,
+          "mean": 0.28474715602916961,
+          "quantiles_025_50_975": [0.26862643336817726, 0.2848035738497765, 0.30354842565413453]
+        },
+        {
+          "statistic": "degree_variance",
+          "finite_simulations": 1000,
+          "mean": 82.775859006211178,
+          "quantiles_025_50_975": [77.806052018633537, 82.684006211180119, 88.598922748447208]
+        }
+      ]
+    }
+  ]
+}

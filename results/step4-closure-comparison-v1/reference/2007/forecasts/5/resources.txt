@@ -1,0 +1,23 @@
+	Command being timed: "/home/runner/work/shinka-cooperation-network/shinka-cooperation-network/environment/run-r R/step4_compare.R forecast /home/runner/work/shinka-cooperation-network/shinka-cooperation-network/results/step4-closure-comparison-v1/reference/2007 /tmp/step4-past-4b_5ofi2/past.rds reference 2007 5"
+	User time (seconds): 58.67
+	System time (seconds): 0.29
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:59.04
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 549800
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 149322
+	Voluntary context switches: 57
+	Involuntary context switches: 450
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 66864
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

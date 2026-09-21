@@ -1,0 +1,124 @@
+Warning message:
+package ‘jsonlite’ was built under R version 4.2.3 
+STEP4 immutable optimization checkpoint 1 reused; policy decision still pending
+Tracing function "phase1.1" in package "namespace:RSiena"
+Tracing function "phase1.2" in package "namespace:RSiena"
+Tracing function "phase2.1" in package "namespace:RSiena"
+Tracing function "proc2subphase" in package "namespace:RSiena"
+Tracing function "maxlikec" in package "namespace:RSiena"
+Tracing function "phase3" in package "namespace:RSiena"
+Tracing function "simstats0c" in package "namespace:RSiena"
+Tracing function "phase3.2" in package "namespace:RSiena"
+Tracing function "PotentialNR" in package "namespace:RSiena"
+PRECISION 250 /3000; theta unchanged
+PRECISION 500 /3000; theta unchanged
+PRECISION 750 /3000; theta unchanged
+PRECISION 1000 /3000; theta unchanged
+PRECISION 1250 /3000; theta unchanged
+PRECISION 1500 /3000; theta unchanged
+PRECISION 1750 /3000; theta unchanged
+PRECISION 2000 /3000; theta unchanged
+PRECISION 2250 /3000; theta unchanged
+PRECISION 2500 /3000; theta unchanged
+PRECISION 2750 /3000; theta unchanged
+PRECISION 3000 /3000; theta unchanged
+Untracing function "PotentialNR" in package "namespace:RSiena"
+Untracing function "phase3.2" in package "namespace:RSiena"
+Untracing function "simstats0c" in package "namespace:RSiena"
+Untracing function "phase3" in package "namespace:RSiena"
+Untracing function "maxlikec" in package "namespace:RSiena"
+Untracing function "proc2subphase" in package "namespace:RSiena"
+Untracing function "phase2.1" in package "namespace:RSiena"
+Untracing function "phase1.2" in package "namespace:RSiena"
+Untracing function "phase1.1" in package "namespace:RSiena"
+STEP4 immutable optimization checkpoint 2 reused; policy decision still pending
+Tracing function "phase1.1" in package "namespace:RSiena"
+Tracing function "phase1.2" in package "namespace:RSiena"
+Tracing function "phase2.1" in package "namespace:RSiena"
+Tracing function "proc2subphase" in package "namespace:RSiena"
+Tracing function "maxlikec" in package "namespace:RSiena"
+Tracing function "phase3" in package "namespace:RSiena"
+Tracing function "simstats0c" in package "namespace:RSiena"
+Tracing function "phase3.2" in package "namespace:RSiena"
+Tracing function "PotentialNR" in package "namespace:RSiena"
+PRECISION 250 /3000; theta unchanged
+PRECISION 500 /3000; theta unchanged
+PRECISION 750 /3000; theta unchanged
+PRECISION 1000 /3000; theta unchanged
+PRECISION 1250 /3000; theta unchanged
+PRECISION 1500 /3000; theta unchanged
+PRECISION 1750 /3000; theta unchanged
+PRECISION 2000 /3000; theta unchanged
+PRECISION 2250 /3000; theta unchanged
+PRECISION 2500 /3000; theta unchanged
+PRECISION 2750 /3000; theta unchanged
+PRECISION 3000 /3000; theta unchanged
+Untracing function "PotentialNR" in package "namespace:RSiena"
+Untracing function "phase3.2" in package "namespace:RSiena"
+Untracing function "simstats0c" in package "namespace:RSiena"
+Untracing function "phase3" in package "namespace:RSiena"
+Untracing function "maxlikec" in package "namespace:RSiena"
+Untracing function "proc2subphase" in package "namespace:RSiena"
+Untracing function "phase2.1" in package "namespace:RSiena"
+Untracing function "phase1.2" in package "namespace:RSiena"
+Untracing function "phase1.1" in package "namespace:RSiena"
+$version
+[1] "step4-closure-comparison-v1"
+
+$status
+[1] "accepted"
+
+$model
+[1] "reference"
+
+$target
+[1] 2007
+
+$imported_optimization_checkpoints
+$imported_optimization_checkpoints$`1`
+$imported_optimization_checkpoints$`1`$source
+[1] "results/cache/af83d3ca1787321e3791be9a7247b403b2bd9f5cefd58fb9111edb65d9b347c7/fit-attempt-1.rds"
+
+$imported_optimization_checkpoints$`1`$sha256
+[1] "f56cc82370a4b785a626411422baa6709ba0575b0486e560c51fbebb5292a918"
+
+$imported_optimization_checkpoints$`1`$original_acceptance_imported
+[1] FALSE
+
+$imported_optimization_checkpoints$`1`$coefficient_change
+[1] FALSE
+
+
+$imported_optimization_checkpoints$`2`
+$imported_optimization_checkpoints$`2`$source
+[1] "results/cache/af83d3ca1787321e3791be9a7247b403b2bd9f5cefd58fb9111edb65d9b347c7/fit-attempt-2.rds"
+
+$imported_optimization_checkpoints$`2`$sha256
+[1] "f0159819bb01fb992288262697eded394e624a214f360276055d52d74323577d"
+
+$imported_optimization_checkpoints$`2`$original_acceptance_imported
+[1] FALSE
+
+$imported_optimization_checkpoints$`2`$coefficient_change
+[1] FALSE
+
+
+
+$new_optimization_calls_this_invocation
+[1] 0
+
+$authoritative_n3
+[1] 3000
+
+$accepted_attempt
+[1] 2
+
+$historical_acceptance_imported
+[1] FALSE
+
+$forecasts
+[1] 0
+
+$target_reads
+[1] 0
+

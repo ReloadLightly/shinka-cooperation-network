@@ -1,0 +1,18 @@
+{
+  "training_mean": 1.8487913981976294,
+  "scaffold_mean": 1.4720496894409938,
+  "delta": -0.3767417087566356,
+  "rule": "Expand each dynamic spending ego/alter factor q_train=q_forward+delta; lower-order terms receive fixed derived coefficients",
+  "changes": [
+    {
+      "source": "network|atom(altX|0|milex.beh)",
+      "destination": "network|atom(density|0|)",
+      "coefficient_increment": 0.01963737069831703
+    },
+    {
+      "source": "milex.beh|eval|quad|||0|1|NA",
+      "destination": "milex.beh|eval|linear|||0|1|NA",
+      "coefficient_increment": 0.027590646997464593
+    }
+  ]
+}

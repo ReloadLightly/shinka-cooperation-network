@@ -1,0 +1,207 @@
+name: Step 5A - replicated evaluator and native replay
+on:
+  push:
+    branches: [repairs/step5a-replicated-20260921]
+    paths: [.github/workflows/step5a-validate.yml]
+permissions:
+  contents: write
+concurrency:
+  group: step5a-validation
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 35
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      R_GC_MEM_GROW: '0'
+      MAKEFLAGS: -j2
+      SHINKA_PRICING_MODE: offline
+      SHINKA_REPLICATED_EVIDENCE_ROOT: /tmp/step5a-evidence
+      STEP5A_PAST_DIR: /tmp/step5a-past
+      STEP5A_NATIVE_REPORT: results/diagnostics/replicated-replay-v1/native-r.json
+      STEP5A_NATIVE_PY_OUT: results/diagnostics/replicated-replay-v1/native-shinka
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.13.5'
+      - name: Install exact prepared source and immutable read-only evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import base64,hashlib,json,lzma
+          from pathlib import Path
+          raw=base64.b64decode(''.join(Path(f'sources/step5a-prepared/part{i}.b64').read_text().strip() for i in (1,2,3)),validate=True)
+          assert hashlib.sha256(raw).hexdigest()=='973a4ba0211ffbb1e9c707f0d184a7ce1a3da048f96b33e6dca15d8a09e57f03'
+          data=lzma.decompress(raw)
+          assert hashlib.sha256(data).hexdigest()=='f8c648d9dcb853ffe39b410e08cf43ddf483224c03e4d05992e2bf663ac72a0e'
+          files=json.loads(data)
+          assert len(files)==15
+          for name,content in files.items():
+              path=Path(name); assert not path.is_absolute() and '..' not in path.parts
+              assert path.parts[0] in ('R','scripts','tests','configs','shinka','docs')
+              if path.exists():assert path.read_text()==content, name
+              else:path.parent.mkdir(parents=True,exist_ok=True);path.write_text(content)
+          PY
+          git fetch --no-tags --depth=1 origin 104ba59d81a92f1c98b77c89178fad9178b6ccb4
+          mkdir -p /tmp/step5a-evidence results/diagnostics/replicated-replay-v1
+          git archive 104ba59d81a92f1c98b77c89178fad9178b6ccb4 results/step4-closure-comparison-v1 | tar -x -C /tmp/step5a-evidence
+          python - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          from scripts import replicated_evaluation as e
+          registry=e.read(Path(e.REGISTRY))
+          fixture={'source_commit':e.RESULT_COMMIT,'statement':'Saved score/acceptance fixtures, NOT new observations or full artifact verification.','models':{}}
+          for entry in registry['specifications'].values():
+              model=entry['label'];fixture['models'][model]={}
+              for y in e.YEARS:
+                  cell=Path('/tmp/step5a-evidence')/e.RESULT_SUBDIR/model/str(y)
+                  e.verify_manifest(cell,'cell-commitment.json',entry['cells'][str(y)],'step4-closure-comparison-v1')
+                  fixture['models'][model][str(y)]={'metrics':e.read(cell/'scores/comparison-metrics.json'),'accepted':e.read(cell/'fit/accepted.json'),'evidence_sha256':e.sha(cell/'cell-commitment.json')}
+          data=(json.dumps(fixture,indent=2)+'\n').encode()
+          assert hashlib.sha256(data).hexdigest()=='b82031b32243a80a7b4f1d324058f53cd9dfd4b0d65527541026ed3f75492b41'
+          Path('tests/fixtures/step4-replicated-scores.json').write_bytes(data)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add R scripts tests configs shinka docs
+          git diff --cached --check
+          if ! git diff --cached --quiet; then
+            git commit -m 'Implement versioned replicated evaluator, MC-aware selection and canonical resumption before replay validation'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+      - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            environment/runtime
+            environment/R-library
+            environment/bin
+            environment/downloads
+            vendor/RSiena
+          key: step3b-native-r421-rsiena1310-6db791b62070759c2fb953aa07540b5feada3bf0602804ed6b38fac4c16a6b01
+      - name: Prepare pinned native runtimes without model access
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p environment/{bin,downloads,R-library,conda-pkgs} vendor
+          export MAMBA_ROOT_PREFIX="$PWD/environment/conda-pkgs"
+          if [ ! -x environment/bin/micromamba ]; then
+            curl --fail --location --retry 2 https://micro.mamba.pm/api/micromamba/linux-64/2.9.0 -o environment/downloads/micromamba.tar.bz2
+            echo '8761c382127e6363bd9e0a2451aa3ef90d071a79133f736e2f759a3bf13040dd  environment/downloads/micromamba.tar.bz2' | sha256sum -c -
+            tar -xjf environment/downloads/micromamba.tar.bz2 -C environment bin/micromamba
+          fi
+          if [ ! -x environment/runtime/bin/Rscript ]; then
+            environment/bin/micromamba create --yes --prefix "$PWD/environment/runtime" --file environment/conda-linux-64.explicit.txt
+          fi
+          if [ ! -d vendor/RSiena ]; then
+            curl --fail --location --retry 2 https://github.com/stocnet/rsiena/archive/refs/tags/v1.3.10.tar.gz -o environment/downloads/RSiena-v1.3.10.tar.gz
+            echo 'c7e0fc358f064e6b5d753ceb675a2eb00ea08cd6d58934ebabef31055302a1d5  environment/downloads/RSiena-v1.3.10.tar.gz' | sha256sum -c -
+            tar -xzf environment/downloads/RSiena-v1.3.10.tar.gz -C vendor
+            mv vendor/rsiena-1.3.10 vendor/RSiena
+          fi
+          if [ ! -f environment/R-library/RSiena/DESCRIPTION ]; then
+            environment/bin/micromamba run --prefix "$PWD/environment/runtime" R CMD INSTALL --library="$PWD/environment/R-library" vendor/RSiena
+          fi
+          git clone --filter=blob:none --no-checkout https://github.com/SakanaAI/ShinkaEvolve.git vendor/ShinkaEvolve
+          git -C vendor/ShinkaEvolve checkout 9912af12d423504b8d580f4179fd15f5f88b8c50
+          git -C vendor/ShinkaEvolve apply "$PWD/shinka/patches/local-evaluation-process-tree.patch"
+          git -C vendor/ShinkaEvolve apply "$PWD/shinka/multiobjective_native.patch"
+          git -C vendor/ShinkaEvolve apply --reverse --check "$PWD/shinka/multiobjective_native.patch"
+          python - <<'PY'
+          from pathlib import Path
+          lines=Path('shinka/requirements.lock').read_text().splitlines()
+          editable=[x for x in lines if x.startswith('-e ')]
+          assert editable==['-e file:///home/roland/actir/shinka-cooperation-network/vendor/ShinkaEvolve']
+          Path('/tmp/step5a-python.lock').write_text('\n'.join(x for x in lines if not x.startswith('-e '))+'\n')
+          PY
+          python -m pip install --no-deps -r /tmp/step5a-python.lock > results/diagnostics/replicated-replay-v1/python-install.log 2>&1
+          python -m pip install --no-deps -e vendor/ShinkaEvolve >> results/diagnostics/replicated-replay-v1/python-install.log 2>&1
+          python -m pip check
+      - name: Native read-only integer-pooling verification and fixed score-view binding
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=results/diagnostics/replicated-replay-v1
+          /usr/bin/time -v -o "$OUT/rescore-resources.txt" environment/run-r R/replicated_score_view.R /tmp/step5a-evidence "$OUT/score-view" > "$OUT/rescore.log" 2>&1
+          cat "$OUT/rescore.log"
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib,json
+          from scripts import replicated_evaluation as e
+          reg=e.read(Path(e.REGISTRY))
+          for entry in reg['specifications'].values():
+              entry['score_views']={}
+              for y in e.YEARS:
+                  path=f"results/diagnostics/replicated-replay-v1/score-view/{entry['label']}-{y}.json"
+                  value=e.read(Path(path))
+                  assert value['source_cell_commitment']==entry['cells'][str(y)]
+                  assert value['correction_source_sha256']==e.sha(Path('R/replicated_score_view.R'))
+                  assert all(value[x]==0 for x in ('new_fits','new_forecasts','new_simulations','target_packets_read'))
+                  entry['score_views'][str(y)]={'path':path,'sha256':e.sha(Path(path))}
+          Path(e.REGISTRY).write_text(json.dumps(reg,indent=2)+'\n')
+          from scripts.precision_fit import packet_bytes
+          past=Path('/tmp/step5a-past');past.mkdir(exist_ok=True)
+          for y in e.YEARS:(past/f'{y}.rds').write_bytes(packet_bytes(Path.cwd(),y))
+          PY
+          git add configs/replicated-evidence-v1.json "$OUT/score-view" "$OUT/rescore.log" "$OUT/rescore-resources.txt"
+          git commit -m 'Bind pinned-native read-only integer-pooling score views; retain original Step 4 evidence unchanged'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+      - name: Deterministic Python and stopped native-R initialization checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=results/diagnostics/replicated-replay-v1
+          python -m compileall -q scripts tests shinka
+          python -m unittest discover -s tests -v > "$OUT/python-tests.log" 2>&1
+          tail -20 "$OUT/python-tests.log"
+          /usr/bin/time -v -o "$OUT/native-r-resources.txt" environment/run-r R/test_replicated_evaluation.R > "$OUT/native-r.log" 2>&1
+          cat "$OUT/native-r.log"
+      - name: Replay actual native scheduler, selection, database and pending-state methods
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=results/diagnostics/replicated-replay-v1
+          /usr/bin/time -v -o "$OUT/native-shinka-resources.txt" python scripts/verify_replicated_native.py > "$OUT/native-shinka.log" 2>&1
+          tail -90 "$OUT/native-shinka.log"
+          python - <<'PY'
+          import os,re,json,hashlib,subprocess
+          from pathlib import Path
+          from scripts import replicated_evaluation as e
+          out=Path('results/diagnostics/replicated-replay-v1')
+          reg=e.read(Path(e.REGISTRY))
+          for entry in reg['specifications'].values():
+              for y in e.YEARS:e.verify_manifest(Path('/tmp/step5a-evidence')/e.RESULT_SUBDIR/entry['label']/str(y),'cell-commitment.json',entry['cells'][str(y)],'step4-closure-comparison-v1')
+          r=e.read(out/'native-r.json');s=e.read(out/'native-shinka/verification.json');log=(out/'python-tests.log').read_text()
+          assert r['status']==s['status']=='passed' and re.search(r'^OK$',log,re.M)
+          assert all(r[x]==s[x]==0 for x in ('new_fits','new_forecasts','new_simulations'))
+          assert s['llm_calls']==s['new_evolutionary_proposals']==0
+          result={'status':'verified','workflow_run':os.environ['GITHUB_RUN_ID'],'tested_source_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'python_tests':int(re.search(r'Ran (\d+) tests',log).group(1)),'native_r_checks':r['checks'],'native_shinka_checks':s['check_count'],'new_fits':0,'new_forecasts':0,'new_simulations':0,'llm_calls':0,'new_proposals':0,'original_step4_artifacts_unchanged':True,'full_live_evolution_loop_tested':False,'model_authentication_tested':False,'reference_and_candidate_integer_score_views_pinned':True}
+          (out/'execution.json').write_text(json.dumps(result,indent=2)+'\n')
+          # Pointers, original raw arrays and labels remain on their immutable result commit.
+          files={str(p.relative_to(out)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(out.rglob('*')) if p.is_file() and p.name!='commitment.json'}
+          (out/'commitment.json').write_text(json.dumps({'version':'step5a-replay-validation-v1','files':files},indent=2)+'\n')
+          print(json.dumps(result,indent=2))
+          PY
+      - name: Preserve success or failure evidence without numerical retries
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=results/diagnostics/replicated-replay-v1
+          if [ -d "$OUT" ]; then
+            git add "$OUT"
+            if ! git diff --cached --quiet; then
+              git commit -m 'Preserve Step 5A native replay validation outcome; zero new model fitting or forecasts'
+              git push origin "HEAD:${GITHUB_REF_NAME}"
+            fi
+          fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: step5a-replay-validation
+          path: results/diagnostics/replicated-replay-v1
+          retention-days: 1
+          if-no-files-found: ignore

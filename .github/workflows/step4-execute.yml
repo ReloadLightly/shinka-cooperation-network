@@ -1,0 +1,207 @@
+name: Step 4 - one bounded closure comparison
+on:
+  push:
+    branches: [repairs/step4-closure-comparison-20260921]
+    paths: [.github/workflows/step4-execute.yml]
+permissions:
+  contents: read
+concurrency:
+  group: step4-closure-comparison-v1
+  cancel-in-progress: false
+jobs:
+  reserve:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - name: Verify completed preflight and reserve this study once
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_RUN_ATTEMPT" = 1
+          python - <<'PY'
+          import hashlib,json,os,datetime
+          from pathlib import Path
+          out=Path('results/diagnostics/step4-preflight-v1')
+          c=json.loads((out/'commitment.json').read_text())
+          for n,h in c['files'].items():
+              assert hashlib.sha256((out/n).read_bytes()).hexdigest()==h, n
+          r=json.loads((out/'execution.json').read_text())
+          assert r['status']=='verified' and r['python_tests']==191 and r['native_checks']==57
+          requests=json.loads((out/'requests.json').read_text())['requests']
+          assert len(requests)==8
+          for req in requests:
+              for name,h in req['source_sha256'].items():
+                  assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==h, name
+          p=Path('results/step4-closure-comparison-v1');p.mkdir(parents=True,exist_ok=True)
+          record={'version':'step4-closure-comparison-v1','workflow_run':os.environ['GITHUB_RUN_ID'],'source_commit':os.environ['GITHUB_SHA'],'reserved_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'maximum_model_year_cells':8,'maximum_forecast_batches':40,'max_parallel_cells':8,'cell_native_seconds':14400,'automatic_numerical_retries':0,'reserved_year_access':False,'no_shinka_search':True,'plan_sha256':hashlib.sha256(Path('configs/step4-comparison-v1.json').read_bytes()).hexdigest()}
+          (p/'study-reservation.json').write_text(json.dumps(record,indent=2)+'\n')
+          PY
+          BRANCH=repairs/step4-reserved-v1
+          EXISTING=$(git ls-remote --heads origin "refs/heads/$BRANCH")
+          test -z "$EXISTING" || { echo 'Study already reserved; no duplicate launch'; exit 1; }
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/step4-closure-comparison-v1/study-reservation.json
+          git commit -m 'Reserve the fixed Step 4 study before any model-year execution'
+          git push origin "HEAD:refs/heads/$BRANCH"
+  cells:
+    needs: reserve
+    runs-on: ubuntu-22.04
+    timeout-minutes: 270
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        model: [reference, gwesp69]
+        year: [2006, 2007, 2008, 2009]
+    env:
+      MODEL: ${{ matrix.model }}
+      YEAR: ${{ matrix.year }}
+      R_GC_MEM_GROW: '0'
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      MAKEFLAGS: -j2
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - name: Refuse duplicate cells and fetch immutable import history
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_RUN_ATTEMPT" = 1
+          EXISTING=$(git ls-remote --heads origin "refs/heads/repairs/step4-results/${MODEL}-${YEAR}")
+          test -z "$EXISTING" || { echo 'Cell already preserved; do not repeat'; exit 1; }
+          git fetch --no-tags --depth=1 origin 2a7a8f5000dacfcc9e56f865e2d720e1b446ee53
+      - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            environment/runtime
+            environment/R-library
+            environment/bin
+            environment/downloads
+            vendor/RSiena
+          key: step3b-native-r421-rsiena1310-6db791b62070759c2fb953aa07540b5feada3bf0602804ed6b38fac4c16a6b01
+      - name: Install pinned runtime only on cache miss
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p environment/{bin,downloads,R-library,conda-pkgs} vendor
+          export MAMBA_ROOT_PREFIX="$PWD/environment/conda-pkgs"
+          if [ ! -x environment/bin/micromamba ]; then
+            curl --fail --location --retry 2 https://micro.mamba.pm/api/micromamba/linux-64/2.9.0 -o environment/downloads/micromamba.tar.bz2
+            echo '8761c382127e6363bd9e0a2451aa3ef90d071a79133f736e2f759a3bf13040dd  environment/downloads/micromamba.tar.bz2' | sha256sum -c -
+            tar -xjf environment/downloads/micromamba.tar.bz2 -C environment bin/micromamba
+          fi
+          if [ ! -x environment/runtime/bin/Rscript ]; then
+            environment/bin/micromamba create --yes --prefix "$PWD/environment/runtime" --file environment/conda-linux-64.explicit.txt
+          fi
+          if [ ! -d vendor/RSiena ]; then
+            curl --fail --location --retry 2 https://github.com/stocnet/rsiena/archive/refs/tags/v1.3.10.tar.gz -o environment/downloads/RSiena-v1.3.10.tar.gz
+            echo 'c7e0fc358f064e6b5d753ceb675a2eb00ea08cd6d58934ebabef31055302a1d5  environment/downloads/RSiena-v1.3.10.tar.gz' | sha256sum -c -
+            tar -xzf environment/downloads/RSiena-v1.3.10.tar.gz -C vendor
+            mv vendor/rsiena-1.3.10 vendor/RSiena
+          fi
+          if [ ! -f environment/R-library/RSiena/DESCRIPTION ]; then
+            environment/bin/micromamba run --prefix "$PWD/environment/runtime" R CMD INSTALL --library="$PWD/environment/R-library" vendor/RSiena
+          fi
+      - name: Execute one declared model-year cell
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p results/step4-execution-logs
+          python scripts/step4_compare.py cell --model "$MODEL" --year "$YEAR" --execute 2>&1 | tee "results/step4-execution-logs/${MODEL}-${YEAR}.log"
+      - name: Preserve completed or partial cell without a numerical retry
+        id: publish
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          FOLDER="results/step4-closure-comparison-v1/$MODEL/$YEAR"
+          if [ ! -d "$FOLDER" ]; then echo 'No scientific cell was started'; exit 1; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git diff --exit-code
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          folder=Path('results/step4-closure-comparison-v1')/os.environ['MODEL']/os.environ['YEAR']
+          for p in folder.rglob('*'):
+              if p.is_file() and p.stat().st_size>=99_000_000: raise RuntimeError(f'Preserve oversized evidence as artifact instead: {p}')
+          PY
+          git add "$FOLDER" results/step4-execution-logs
+          git commit -m "Preserve Step 4 $MODEL/$YEAR outcome and exact native evidence"
+          git push origin "HEAD:refs/heads/repairs/step4-results/${MODEL}-${YEAR}"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.publish.outcome != 'success'
+        with:
+          name: step4-fallback-${{ matrix.model }}-${{ matrix.year }}
+          path: |
+            results/step4-closure-comparison-v1/${{ matrix.model }}/${{ matrix.year }}
+            results/step4-execution-logs
+          retention-days: 1
+          compression-level: 6
+          if-no-files-found: ignore
+  report:
+    if: always() && needs.reserve.result == 'success'
+    needs: [reserve, cells]
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - name: Collect only saved results and calculate the declared comparison
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_RUN_ATTEMPT" = 1
+          python - <<'PY'
+          import subprocess,json,os
+          from pathlib import Path
+          out=Path('results/step4-closure-comparison-v1');out.mkdir(parents=True,exist_ok=True)
+          collected={}
+          for model in ('reference','gwesp69'):
+              for year in (2006,2007,2008,2009):
+                  branch=f'repairs/step4-results/{model}-{year}'
+                  result=subprocess.check_output(['git','ls-remote','--heads','origin',f'refs/heads/{branch}'],text=True).strip()
+                  if not result:
+                      collected[f'{model}/{year}']={'status':'missing_branch'};continue
+                  sha=result.split()[0]
+                  subprocess.run(['git','fetch','--no-tags','--depth=1','origin',branch],check=True)
+                  subprocess.run(['git','checkout','FETCH_HEAD','--',str(out/model/str(year))],check=True)
+                  collected[f'{model}/{year}']={'source_commit':sha,'branch':branch}
+          subprocess.run(['git','fetch','--no-tags','--depth=1','origin','repairs/step4-reserved-v1'],check=True)
+          subprocess.run(['git','checkout','FETCH_HEAD','--',str(out/'study-reservation.json')],check=True)
+          (out/'collection.json').write_text(json.dumps({'workflow_run':os.environ['GITHUB_RUN_ID'],'cells':collected,'new_simulations':0},indent=2)+'\n')
+          PY
+          python scripts/step4_compare.py report > /tmp/step4-summary.json
+          cat /tmp/step4-summary.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/step4-closure-comparison-v1
+          git commit -m 'Collect every Step 4 outcome and report only complete comparisons; no new numerical work'
+          git push origin HEAD:refs/heads/repairs/step4-comparison-results-20260921
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: step4-compact-summary
+          path: |
+            results/step4-closure-comparison-v1/REPORT.md
+            results/step4-closure-comparison-v1/summary.json
+            results/step4-closure-comparison-v1/collection.json
+            results/step4-closure-comparison-v1/study-reservation.json
+          retention-days: 1
+          if-no-files-found: ignore

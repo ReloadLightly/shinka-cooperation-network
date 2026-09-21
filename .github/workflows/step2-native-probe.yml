@@ -1,0 +1,94 @@
+name: Step 2 saved-native-input inspection
+on:
+  push:
+    branches: [repairs/step2-fixed-fit-repeatability-20260921]
+    paths: [.github/workflows/step2-native-probe.yml]
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 25
+    env:
+      R_GC_MEM_GROW: '0'
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      MAKEFLAGS: '-j2'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/cache@v4
+        with:
+          path: |
+            environment/runtime
+            environment/R-library
+            environment/bin
+            environment/downloads
+            vendor/RSiena
+          key: step2-native-r421-rsiena1310-${{ hashFiles('environment/conda-linux-64.explicit.txt') }}
+      - name: Install exact native environment without reading the empirical archive
+        run: |
+          set -euo pipefail
+          mkdir -p environment/{bin,downloads,logs,R-library,conda-pkgs} vendor
+          export MAMBA_ROOT_PREFIX="$PWD/environment/conda-pkgs"
+          if [ ! -x environment/bin/micromamba ]; then
+            curl --fail --location --retry 2 https://micro.mamba.pm/api/micromamba/linux-64/2.9.0 -o environment/downloads/micromamba.tar.bz2
+            echo '8761c382127e6363bd9e0a2451aa3ef90d071a79133f736e2f759a3bf13040dd  environment/downloads/micromamba.tar.bz2' | sha256sum -c -
+            tar -xjf environment/downloads/micromamba.tar.bz2 -C environment bin/micromamba
+          fi
+          if [ ! -x environment/runtime/bin/Rscript ]; then
+            environment/bin/micromamba create --yes --prefix "$PWD/environment/runtime" --file environment/conda-linux-64.explicit.txt
+          fi
+          if [ ! -d vendor/RSiena ]; then
+            curl --fail --location --retry 2 https://github.com/stocnet/rsiena/archive/refs/tags/v1.3.10.tar.gz -o environment/downloads/RSiena-v1.3.10.tar.gz
+            echo 'c7e0fc358f064e6b5d753ceb675a2eb00ea08cd6d58934ebabef31055302a1d5  environment/downloads/RSiena-v1.3.10.tar.gz' | sha256sum -c -
+            tar -xzf environment/downloads/RSiena-v1.3.10.tar.gz -C vendor
+            mv vendor/rsiena-1.3.10 vendor/RSiena
+          fi
+          if [ ! -f environment/R-library/RSiena/DESCRIPTION ]; then
+            environment/bin/micromamba run --prefix "$PWD/environment/runtime" R CMD INSTALL --library="$PWD/environment/R-library" vendor/RSiena
+          fi
+      - name: Inspect object structure and development file availability only
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/step2-probe
+          git ls-files '*prepared*.rds' '*past*.rds' '*target*.rds' '*packet*.rds' > /tmp/step2-probe/packet-paths.txt
+          cat > /tmp/step2-probe/inspect.R <<'RSCRIPT'
+          library(RSiena); library(jsonlite)
+          stopifnot(as.character(getRversion()) == '4.2.1', as.character(packageVersion('RSiena')) == '1.3.10')
+          manifest <- read_json('results/evolution_manifest.json', simplifyVector=FALSE)
+          cat('NATIVE:', R.version.string, as.character(packageVersion('RSiena')), '\n')
+          describe <- function(object,label) {
+            cat('\nOBJECT',label,'class',class(object),'names',paste(names(object),collapse=','),'\n')
+            for (key in intersect(c('f','data','effects','requestedEffects','x'),names(object))) {
+              item <- object[[key]]
+              cat('CHILD',key,'class',class(item),'dim',dim(item),'names',paste(names(item),collapse=','),'\n')
+              if(key == 'f') for (k in names(item)) cat('FCHILD',k,'class',class(item[[k]]),'dim',dim(item[[k]]),'names',paste(head(names(item[[k]]),15),collapse=','),'\n')
+            }
+          }
+          folder <- manifest$baseline_years[['2006']]$cache_directory
+          describe(readRDS(file.path(folder,'simulations.rds')),'2006 saved fixed forecast')
+          describe(readRDS(file.path(folder,'accepted_fit.rds')),'2006 accepted fit wrapper')
+          cat('\nSELECTED DEVELOPMENT CACHES\n')
+          for (year in as.character(2006:2009)) {
+            d <- manifest$baseline_years[[year]]$cache_directory
+            cat(year,d,paste(list.files(d),collapse=','),'\n')
+          }
+          cat('\nNATIVE SOURCE DATA RETENTION\n')
+          for (file in c('vendor/RSiena/R/initializeFRAN.r','vendor/RSiena/R/terminateFRAN.r')) {
+            if(file.exists(file)) {
+              txt <- readLines(file)
+              hit <- grep('f\\$data|z\\$f|returnDeps|saveData',txt)
+              cat(file,'\n'); cat(paste(hit,txt[hit],sep=': '),sep='\n')
+            }
+          }
+          RSCRIPT
+          environment/run-r /tmp/step2-probe/inspect.R > /tmp/step2-probe/inspection.txt 2>&1
+          cat /tmp/step2-probe/packet-paths.txt /tmp/step2-probe/inspection.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: step2-native-input-inspection
+          path: /tmp/step2-probe
+          retention-days: 7

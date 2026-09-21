@@ -1,0 +1,9 @@
+{
+  "args": [
+    "R/step4_compare.R",
+    "pool",
+    "/home/runner/work/shinka-cooperation-network/shinka-cooperation-network/results/step4-closure-comparison-v1/reference/2006"
+  ],
+  "timeout_seconds": 900,
+  "version": "step4-closure-comparison-v1"
+}

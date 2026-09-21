@@ -1,0 +1,52 @@
+{
+  "forecast_schema_version": "training-only-v2-fixed-origin-membership",
+  "native_origin_active": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+  "native_composition_events": 0,
+  "origin_membership_native_verified": true,
+  "inactive_dyads_native_structural_zero": 160,
+  "active_dyads_have_no_structural_constraints": true,
+  "network_missing_at_origin": 320,
+  "behavior_missing_at_origin": 7,
+  "inactive_at_origin": 260,
+  "support": [1, 11],
+  "placeholder": "duplicate origin network; origin behavior with two historical boundary values",
+  "conditional": false,
+  "simOnly": true,
+  "allowOnly": false,
+  "training_behavior_mean": 1.8730579658481392,
+  "forward_behavior_mean": 1.4751552795031055,
+  "covariate_centering": "training means preserved; missing origin values last known then training mean",
+  "rates": {
+    "dv.net": {
+      "value": 0.28692191613467716,
+      "training_period": "15",
+      "duration_adjustment": 1
+    },
+    "milex.beh": {
+      "value": 1.1053234294603305,
+      "training_period": "15",
+      "duration_adjustment": 1
+    }
+  },
+  "centering_corrections": [
+    {
+      "source": "network|atom(altX|0|milex.beh)",
+      "destination": "network|atom(density|0|)",
+      "coefficient_increment": 0.024393786880238837
+    },
+    {
+      "source": "milex.beh|eval|quad|||0|1|NA",
+      "destination": "milex.beh|eval|linear|||0|1|NA",
+      "coefficient_increment": 0.023511711722667358
+    }
+  ],
+  "mean_shift": -0.39790268634503367,
+  "seed": 61200605,
+  "requested_simulations": 1000,
+  "returned_simulations": 1000,
+  "elapsed_seconds": 50.409999999999997,
+  "target_outcomes_accessed": false,
+  "network_specification_version": "native-structured-network-v2",
+  "requested_training_effects": 52,
+  "fixed_forward_effects": 24
+}

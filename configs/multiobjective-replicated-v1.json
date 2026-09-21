@@ -1,0 +1,63 @@
+{
+  "version": "multiobjective-replicated-v1",
+  "development_years": [
+    2006,
+    2007,
+    2008,
+    2009
+  ],
+  "reference": {
+    "schema_version": 2,
+    "network_effects": [
+      {
+        "effect": "degPlus",
+        "parameter": 1
+      },
+      {
+        "effect": "transTriads",
+        "parameter": 0
+      }
+    ]
+  },
+  "fit_policy": "precision-before-continuation-v1",
+  "fit_settings": "configs/precision-fit-v1.json",
+  "forecast_batches": 5,
+  "endpoints_per_batch": 1000,
+  "pool_before_scoring": true,
+  "metrics": [
+    "pr_auc",
+    "brier",
+    "spending_rmse"
+  ],
+  "signs": [
+    1,
+    -1,
+    -1
+  ],
+  "selection": {
+    "version": "mc-resolved-pareto-v1",
+    "mc_multiplier": 2.7764451051977987,
+    "resolved_dominance": "point Pareto dominance and all paired-delete-block lower limits >= 0; at least one > 0",
+    "unresolved_parent_comparison": "uniform between two sampled valid canonical candidates",
+    "retention": "all candidates not resolved-dominated; archive size remains a soft target",
+    "scales": "reference mean deficits: 1-PR-AUC, Brier, spending RMSE",
+    "diversity_coordinates": "tanh(J_j / frozen reference deficit_j)",
+    "auxiliary_score": "2+tanh(mean(J_j/scale_j)-t4*block_jackknife_SE_of_mean_scaled_delta)",
+    "meaning": "operational uncertainty-averse search heuristic, not simultaneous coverage or a superiority test",
+    "runtime_bonus": 0,
+    "complexity_bonus": 0
+  },
+  "new_evaluation_budget": {
+    "cell_seconds": 14400,
+    "max_optimization_attempts": 4,
+    "max_supplemental_assessments": 3,
+    "new_canonical_admission_limit": null,
+    "execution_requires_explicit_admission_limit": true
+  },
+  "execution_backend": "local serial numerical worker; no implied remote GitHub dispatch",
+  "reserved_year_access": false,
+  "final_test_interface": "not enabled; independent protocol lock and reporting required",
+  "legacy_population_migration": false,
+  "network_pooling": "integer-network-count-pooling-v1",
+  "spending_pooling": "unchanged mean of equal-sized batch means"
+}

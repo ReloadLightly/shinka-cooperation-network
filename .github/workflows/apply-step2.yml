@@ -1,0 +1,102 @@
+name: Verify bounded fixed-fit diagnostic
+on:
+  push:
+    branches: [repairs/step2-fixed-fit-repeatability-20260921]
+    paths: [.github/workflows/apply-step2.yml, '.maintenance/step2.patch.gz.*']
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    env:
+      R_GC_MEM_GROW: '0'
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/cache@v4
+        with:
+          path: |
+            environment/runtime
+            environment/R-library
+            environment/bin
+            environment/downloads
+            vendor/RSiena
+          key: step2-native-r421-rsiena1310-${{ hashFiles('environment/conda-linux-64.explicit.txt') }}
+      - name: Apply checksum-bound patch and test source contracts
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/step2-verification
+          cat .maintenance/step2.patch.gz.* > /tmp/step2.patch.gz
+          echo '8a4bfcabf737542395fc97c6bd95bcb361f6570364c50c9153b0b444ab078ea0  /tmp/step2.patch.gz' | sha256sum -c -
+          gzip -dc /tmp/step2.patch.gz > /tmp/step2.patch
+          echo '17b8e09619214ba3926ffcee47ddb72dfd0984eb81bee7ca310d47cb7f2ca337  /tmp/step2.patch' | sha256sum -c -
+          git apply --check /tmp/step2.patch
+          git apply /tmp/step2.patch
+          python -m compileall -q evaluate.py scripts shinka tests
+          python -m unittest discover -s tests -v 2>&1 | tee /tmp/step2-verification/python-tests.log
+          python scripts/update_readme_status.py --check
+          git diff --check
+      - name: Execute R guards and inspect actual published input availability
+        run: |
+          set -euo pipefail
+          test -x environment/runtime/bin/Rscript
+          environment/run-r R/forecast_repeatability.R --guard-self-test 2>&1 | tee /tmp/step2-verification/native-guards.log
+          environment/run-r -e 'stopifnot(getRversion()=="4.2.1", packageVersion("RSiena")=="1.3.10"); cat(R.version.string, " / RSiena ", as.character(packageVersion("RSiena")), "\n")' | tee /tmp/step2-verification/native-version.log
+          set +e
+          python scripts/forecast_repeatability.py check > /tmp/step2-verification/input-check.json
+          code=$?
+          set -e
+          test "$code" -eq 2
+          python - <<'PY'
+          import datetime, hashlib, json, pathlib, subprocess
+          check=json.loads(pathlib.Path('/tmp/step2-verification/input-check.json').read_text())
+          expected={f'data/{kind}/{year}.rds' for year in range(2006,2010) for kind in ('past','targets')}
+          assert check['ready'] is False
+          assert {x['path'] for x in check['missing_inputs']}==expected
+          assert len(check['missing_inputs'])==8
+          report={'status':'blocked_missing_development_packets','study':'forecast-repeatability-v1',
+                  'base_commit':'2a98adc501ddf5e870c701632fd9dcb2a3f2fcda',
+                  'checked_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                  'workflow_run':__import__('os').environ['GITHUB_RUN_ID'],
+                  'planned_new_forecasts':20,'completed_new_forecasts':0,'new_fit_calls':0,
+                  'empirical_variability_estimated':False,'reserved_outcomes_accessed':False,
+                  'raw_archive_opened':False,'native_guard_contracts':'passed; zero native simulations',
+                  'native_version':pathlib.Path('/tmp/step2-verification/native-version.log').read_text().strip(),
+                  'python_regressions':'92 passed; numerical workflows mocked',
+                  'missing_inputs':check['missing_inputs'],
+                  'accepted_fit_sha256':{y:r['evidence']['accepted_fit.rds'] for y,r in check['reference'].items()},
+                  'checked_implementation_sha256':check['implementation'],
+                  'next_input':'Export exactly these eight hash-verified packets from the original local checkout. Do not regenerate from mixed-year raw archive.'}
+          path=pathlib.Path('results/diagnostics/forecast-repeatability-v1/availability.json')
+          path.parent.mkdir(parents=True,exist_ok=True)
+          assert not path.exists()
+          path.write_text(json.dumps(report,indent=2)+'\n')
+          print(json.dumps(report,indent=2))
+          PY
+      - name: Commit only the tested diagnostic and availability record to this branch
+        run: |
+          set -euo pipefail
+          git add R/forecast_repeatability.R configs/forecast-repeatability-v1.json docs/FORECAST_REPEATABILITY.md docs/REPAIR_STEPS.md scripts/forecast_repeatability.py tests/test_forecast_repeatability.py results/diagnostics/forecast-repeatability-v1/availability.json
+          git diff --cached --check
+          python - <<'PY'
+          import subprocess
+          names=set(subprocess.check_output(['git','diff','--cached','--name-only'],text=True).splitlines())
+          allowed={'R/forecast_repeatability.R','configs/forecast-repeatability-v1.json','docs/FORECAST_REPEATABILITY.md','docs/REPAIR_STEPS.md','scripts/forecast_repeatability.py','tests/test_forecast_repeatability.py','results/diagnostics/forecast-repeatability-v1/availability.json'}
+          assert names==allowed,(names,allowed)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Implement tested fixed-fit repeatability diagnostic; record eight missing development packets'
+          git push origin HEAD:repairs/step2-fixed-fit-repeatability-20260921
+          git log -1 --format='TESTED_COMMIT=%H%nTESTED_TREE=%T'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: step2-diagnostic-verification
+          path: /tmp/step2-verification
+          retention-days: 7

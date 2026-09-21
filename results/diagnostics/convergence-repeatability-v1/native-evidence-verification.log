@@ -1,0 +1,10 @@
+Warning message:
+package ‘jsonlite’ was built under R version 4.2.3 
+Tracing function "siena07" in package "namespace:RSiena"
+Tracing function "simstats0c" in package "namespace:RSiena"
+Tracing function "phase3" in package "namespace:RSiena"
+Tracing function "phase1.1" in package "namespace:RSiena"
+Tracing function "phase1.2" in package "namespace:RSiena"
+Tracing function "phase2.1" in package "namespace:RSiena"
+Tracing function "maxlikec" in package "namespace:RSiena"
+Verified all 10 native evidence bundles against their saved original coefficients. No simulations.

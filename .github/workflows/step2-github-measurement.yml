@@ -1,0 +1,123 @@
+name: Step 2 GitHub-only fixed-fit measurement
+on:
+  push:
+    branches: [repairs/step2-github-input-recovery-20260921]
+    paths: [.github/workflows/step2-github-measurement.yml]
+permissions:
+  contents: write
+jobs:
+  measure:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 45
+    env:
+      R_GC_MEM_GROW: '0'
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      MAKEFLAGS: '-j2'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/cache@v4
+        with:
+          path: |
+            environment/runtime
+            environment/R-library
+            environment/bin
+            environment/downloads
+            vendor/RSiena
+          key: step2-native-r421-rsiena1310-${{ hashFiles('environment/conda-linux-64.explicit.txt') }}
+      - name: Install the pinned native runtime only
+        run: |
+          set -euo pipefail
+          mkdir -p environment/{bin,downloads,R-library,conda-pkgs} vendor
+          export MAMBA_ROOT_PREFIX="$PWD/environment/conda-pkgs"
+          if [ ! -x environment/bin/micromamba ]; then
+            curl --fail --location --retry 2 https://micro.mamba.pm/api/micromamba/linux-64/2.9.0 -o environment/downloads/micromamba.tar.bz2
+            echo '8761c382127e6363bd9e0a2451aa3ef90d071a79133f736e2f759a3bf13040dd  environment/downloads/micromamba.tar.bz2' | sha256sum -c -
+            tar -xjf environment/downloads/micromamba.tar.bz2 -C environment bin/micromamba
+          fi
+          if [ ! -x environment/runtime/bin/Rscript ]; then
+            environment/bin/micromamba create --yes --prefix "$PWD/environment/runtime" --file environment/conda-linux-64.explicit.txt
+          fi
+          if [ ! -d vendor/RSiena ]; then
+            curl --fail --location --retry 2 https://github.com/stocnet/rsiena/archive/refs/tags/v1.3.10.tar.gz -o environment/downloads/RSiena-v1.3.10.tar.gz
+            echo 'c7e0fc358f064e6b5d753ceb675a2eb00ea08cd6d58934ebabef31055302a1d5  environment/downloads/RSiena-v1.3.10.tar.gz' | sha256sum -c -
+            tar -xzf environment/downloads/RSiena-v1.3.10.tar.gz -C vendor
+            mv vendor/rsiena-1.3.10 vendor/RSiena
+          fi
+          if [ ! -f environment/R-library/RSiena/DESCRIPTION ]; then
+            environment/bin/micromamba run --prefix "$PWD/environment/runtime" R CMD INSTALL --library="$PWD/environment/R-library" vendor/RSiena
+          fi
+      - name: Source and native guard regressions
+        run: |
+          set -euo pipefail
+          python -m unittest discover -s tests -v
+          python scripts/update_readme_status.py --check
+          environment/run-r R/forecast_repeatability.R --guard-self-test
+      - name: Recover only development packets and verify every published hash
+        run: |
+          set -euo pipefail
+          python scripts/recover_repeatability_inputs.py --execute
+          python scripts/forecast_repeatability.py check > /tmp/step2-verified-inputs.json
+          python scripts/forecast_repeatability.py export-inputs --output /tmp/step2-github-inputs.zip
+          test ! -e data/targets/2010.rds
+          test ! -e data/past/2010.rds
+      - name: Measure twenty declared forecast batches without fitting
+        run: |
+          set -euo pipefail
+          python scripts/forecast_repeatability.py run --execute
+          python - <<'PY'
+          import json, pathlib, subprocess, os
+          from scripts.forecast_repeatability import inspect_inputs, verify_batch, YEARS, OFFSETS, summarize
+          root=pathlib.Path.cwd(); out=root/'results/diagnostics/forecast-repeatability-v1'
+          plan=json.loads((out/'plan.json').read_text())
+          assert inspect_inputs(root)==plan
+          rows=[verify_batch(out/str(y)/str(o),plan,y,o) for o in OFFSETS for y in YEARS]
+          summary=summarize(rows,plan['reference'])
+          assert summary==json.loads((out/'summary.json').read_text())
+          assert summary['status']=='complete' and len(rows)==20
+          assert not (root/'data/targets/2010.rds').exists()
+          subprocess.run(['git','diff','--exit-code'],check=True)
+          execution={'status':'complete','workflow_run':os.environ['GITHUB_RUN_ID'],
+            'source_commit':os.environ['GITHUB_SHA'],'completed_batches':20,
+            'endpoints_per_batch':1000,'refits':0,
+            'all_twenty_batch_commitments_verified':True,'original_tracked_files_unchanged':True,
+            'reserved_forecasts_or_scores':0,'raw_archive_loaded_by_trusted_preparation':True}
+          (out/'execution.json').write_text(json.dumps(execution,indent=2)+'\n')
+          print(json.dumps(summary,indent=2))
+          PY
+      - name: Preserve complete evidence on the dedicated branch only
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- results/diagnostics/forecast-repeatability-v1
+          git diff --cached --check
+          git commit -m 'Record twenty fixed-fit forecast repetitions and byte-identical GitHub input recovery'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+      - name: Package compact report and diagnostic evidence
+        if: always()
+        run: |
+          python - <<'PY'
+          import pathlib, zipfile
+          root=pathlib.Path('results/diagnostics/forecast-repeatability-v1')
+          with zipfile.ZipFile('/tmp/step2-github-report.zip','w',zipfile.ZIP_DEFLATED) as z:
+            if root.exists():
+              for p in root.rglob('*'):
+                if p.is_file() and p.suffix in {'.json','.log','.txt','.R'}: z.write(p,p.as_posix())
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: step2-github-report
+          path: /tmp/step2-github-report.zip
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: step2-github-inputs
+          path: /tmp/step2-github-inputs.zip
+          if-no-files-found: ignore
+          retention-days: 30

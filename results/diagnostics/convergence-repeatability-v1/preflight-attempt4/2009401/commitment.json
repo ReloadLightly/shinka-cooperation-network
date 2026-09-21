@@ -1,0 +1,11 @@
+{
+  "stage": "3C-preflight",
+  "plan_sha256": "0f0b987240b0880148791531eea7e1bd1484e60009c5836b0891369d5fa91214",
+  "artifacts": {
+    "native-pilot.txt": "4cf3b7278c1e23d558120abfcdf27147b0d9411f57aada6f10c7c90f86092550",
+    "native.log": "8d70238e4e77c375ace03c7b67402ee41615736afae75f3a19b2e7a7e2618d59",
+    "preflight.json": "f213df221e159a19748cad09abd3d4edf8afac1a06a9bfbf4956596a0be2bb7e",
+    "request.json": "d3b52ad29b6f0a4d7cf290fcecf243d5726dd8aa0d447fa9ae9ec3308a3c82a6",
+    "resources.txt": "b8a92af087d077aa61b0a51981a543700607ebd98e58062f0b107ee7c2e60d32"
+  }
+}

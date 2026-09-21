@@ -1,0 +1,12 @@
+{
+  "stage": "3B",
+  "workflow_run": "35609438242",
+  "workflow_commit": "8b93514c6b917d886d3763ccfe1058c7912bbdcd",
+  "scientific_base": "0ea19d8ac6cf4092c51372d66c8c09a9e68485b0",
+  "native_step_outcome": "success",
+  "status": "completed_and_verified",
+  "verification_error": null,
+  "automatically_retried": false,
+  "step3c_started": false,
+  "published_to_main": false
+}

@@ -1,0 +1,33 @@
+{
+  "run": 35586786066,
+  "job": 106291873233,
+  "lines": [
+    "2026-09-21T10:06:33.3137171Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64",
+    "2026-09-21T10:06:33.3137564Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64",
+    "2026-09-21T10:06:33.3137951Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64",
+    "2026-09-21T10:06:33.3138362Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.16/x64/lib",
+    "2026-09-21T10:06:33.3138702Z ##[endgroup]",
+    "2026-09-21T10:06:53.2740943Z Traceback (most recent call last):",
+    "2026-09-21T10:06:53.2750347Z   File \"/home/runner/work/shinka-cooperation-network/shinka-cooperation-network/scripts/recover_repeatability_inputs.py\", line 131, in <module>",
+    "2026-09-21T10:06:53.2751134Z     raise SystemExit(main())",
+    "2026-09-21T10:06:53.2751429Z                      ^^^^^^",
+    "2026-09-21T10:06:53.2752117Z   File \"/home/runner/work/shinka-cooperation-network/shinka-cooperation-network/scripts/recover_repeatability_inputs.py\", line 126, in main",
+    "2026-09-21T10:06:53.2760388Z     print(json.dumps(recover(), indent=2, allow_nan=False))",
+    "2026-09-21T10:06:53.2770074Z                      ^^^^^^^^^",
+    "2026-09-21T10:06:53.2771163Z   File \"/home/runner/work/shinka-cooperation-network/shinka-cooperation-network/scripts/recover_repeatability_inputs.py\", line 86, in recover",
+    "2026-09-21T10:06:53.2772118Z     raise ValueError(\"Reconstructed packets are NOT identical: \" + json.dumps(differences))",
+    "2026-09-21T10:06:53.2775052Z ValueError: Reconstructed packets are NOT identical: {\"data/past/2009.rds\": {\"expected\": \"f8aea6ff84f4a82c43cce7cd6bc12fcd0a4fc36e0db0f6aeb4618381fc1771e4\", \"actual\": \"1566a301d90d90710d67c58ab53ba614979bada86e76cec7e2f88c4a5e1eee60\"}, \"data/past/2008.rds\": {\"expected\": \"332836625db9ff13b86e0dbf7a34386e8abcfc155df4b196cfacddf3aa1a496f\", \"actual\": \"52eb6c32a0a13a048f640c118dc70a145859f6c44a2229fdef9cda445b3b04ec\"}, \"data/past/2006.rds\": {\"expected\": \"7e00ccdf14204ac676cd141533e2612bc8bd810dbd371992d24670b47ad69ac5\", \"actual\": \"614ee8d7c113c0db9a6fde95258b8d1f16d04d173a50252d49f00441d1d7f60e\"}, \"data/past/2007.rds\": {\"expected\": \"7b772635ff780df37102249f103c96b6f0c79efda3fb9a1c55349ba110872435\", \"actual\": \"2984a982746939b34c863ea6578a7293ea3a0123db563aa17dacf3a951f41a07\"}}",
+    "2026-09-21T10:06:53.2864523Z ##[error]Process completed with exit code 1.",
+    "2026-09-21T10:06:53.2923194Z ##[group]Run python - <<'PY'",
+    "2026-09-21T10:06:53.2923699Z \u001b[36;1mpython - <<'PY'\u001b[0m",
+    "2026-09-21T10:06:53.2923959Z \u001b[36;1mimport pathlib, zipfile\u001b[0m",
+    "2026-09-21T10:06:53.2924365Z \u001b[36;1mroot=pathlib.Path('results/diagnostics/forecast-repeatability-v1')\u001b[0m",
+    "2026-09-21T10:06:53.2924961Z \u001b[36;1mwith zipfile.ZipFile('/tmp/step2-github-report.zip','w',zipfile.ZIP_DEFLATED) as z:\u001b[0m",
+    "2026-09-21T10:06:53.2925419Z \u001b[36;1m  if root.exists():\u001b[0m",
+    "2026-09-21T10:06:53.2925692Z \u001b[36;1m    for p in root.rglob('*'):\u001b[0m",
+    "2026-09-21T10:06:53.2926121Z \u001b[36;1m      if p.is_file() and p.suffix in {'.json','.log','.txt','.R'}: z.write(p,p.as_posix())\u001b[0m",
+    "2026-09-21T10:06:53.2926528Z \u001b[36;1mPY\u001b[0m",
+    "2026-09-21T10:06:53.3003444Z shell: /usr/bin/bash -e {0}",
+    "2026-09-21T10:06:53.3003731Z env:"
+  ]
+}

@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/runner/work/shinka-cooperation-network/shinka-cooperation-network/scripts/replicated_evaluation.py", line 476, in evaluate
+    spec, source = read_program(Path(program))
+                   ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/home/runner/work/shinka-cooperation-network/shinka-cooperation-network/scripts/network_specification_v2.py", line 195, in read_program
+    raise InvalidSpecification("Only build_network_spec(allowed_schema) is allowed; no imports or top-level executable statements.")
+scripts.network_specification_v2.InvalidSpecification: Only build_network_spec(allowed_schema) is allowed; no imports or top-level executable statements.

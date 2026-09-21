@@ -54,6 +54,10 @@ class IntegrityError(RuntimeError):
     """Corrupt/changed committed evidence; requires inspection, not a redraw."""
 
 
+class NumericalPolicyExhausted(ValueError):
+    """A terminal inadmissible fit, distinct from infrastructure interruption."""
+
+
 def read(path):
     return json.loads(Path(path).read_text())
 
@@ -262,11 +266,54 @@ def admit(spec, campaign, limit, fingerprint, root=ROOT):
         return True
 
 
+FAILURE_VERSION = 'replicated-failure-v1'
+
+
+def save_failure(cell, exc):
+    """Bind terminal failures to their complete evidence; never assign a loss."""
+    terminal = isinstance(exc, NumericalPolicyExhausted)
+    record = {'version': FAILURE_VERSION,
+              'kind': 'numerical_policy_exhausted' if terminal else 'interrupted_or_unverified',
+              'error': type(exc).__name__, 'message': str(exc),
+              'request_sha256': sha(cell/'request.json'),
+              'automatic_retry': False, 'fitness': None}
+    immutable_json(cell/'failure.json', record)
+    if terminal:
+        detail = read(cell/'last-native-error.json')
+        if detail.get('kind') != 'numerical_policy_exhausted':
+            raise IntegrityError('Terminal failure lacks matching native diagnostics')
+        commit(cell, 'failure-commitment.json',
+               ('failure.json', 'request.json', 'last-native-error.json', 'fit-invocation/native.log'))
+
+
+def replay_failure(cell, request):
+    """Replay an established failure without R, admission, or evidence mutation.
+
+    Legacy untyped, incomplete and altered records remain pauses. Do not infer a
+    terminal scientific status merely from an exception message or a directory.
+    """
+    try:
+        record = read(cell/'failure.json')
+        if (record.get('version') != FAILURE_VERSION
+                or record.get('kind') != 'numerical_policy_exhausted'
+                or record.get('error') != 'NumericalPolicyExhausted'
+                or record.get('automatic_retry') is not False
+                or record.get('fitness') is not None
+                or not isinstance(record.get('message'), str)):
+            raise IntegrityError('Preserved interrupted/untyped failure requires inspection, not retry')
+        verify_manifest(cell, 'failure-commitment.json', version=PROTOCOL)
+        if (read(cell/'request.json') != request
+                or record['request_sha256'] != sha(cell/'request.json')
+                or read(cell/'last-native-error.json').get('kind') != 'numerical_policy_exhausted'):
+            raise IntegrityError('Terminal failure identity or native evidence changed')
+    except (OSError, ValueError, KeyError, TypeError, AttributeError) as exc:
+        raise IntegrityError('Terminal failure evidence is missing or malformed; preserve and inspect') from exc
+    raise NumericalPolicyExhausted(record['message'])
+
+
 def run_new_cell(spec, year, cell, root=ROOT):
     """Explicit native path; never reached by replay-only evaluation."""
     req = numerical_request(spec, year, root)
-    # Verify actual pinned source files before invoking a native executable.
-    pf.request(root, spec, year)
     cell.mkdir(parents=True, exist_ok=True)
     with (cell / 'run.lock').open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
@@ -275,7 +322,9 @@ def run_new_cell(spec, year, cell, root=ROOT):
         if (cell / 'cell-commitment.json').exists():
             return validate_new_cell(cell, spec, year, root)
         if (cell / 'failure.json').exists():
-            raise IntegrityError('Preserved failed/interrupted cell must be inspected, not retried')
+            replay_failure(cell, req)
+        # Native source availability is needed only for genuinely new operations.
+        pf.request(root, spec, year)
         # A restart at a completed phase boundary does not buy a new four hours.
         budget_path = cell / 'wall-budget.json'
         used = read(budget_path)['seconds_used'] if budget_path.exists() else 0.0
@@ -314,7 +363,7 @@ def run_new_cell(spec, year, cell, root=ROOT):
                         immutable_json(out/'boundary-paused.json',{'version':PROTOCOL,'boundary':detail})
                         raise Paused('Cooperative R boundary; resume from completed native checkpoints') from exc
                     if detail.get('kind')=='numerical_policy_exhausted':
-                        raise ValueError('Native estimation policy exhausted; complete diagnostics retained') from exc
+                        raise NumericalPolicyExhausted('Native estimation policy exhausted; complete diagnostics retained') from exc
                     raise IntegrityError('Native execution error; inspect saved log/diagnostics rather than scoring it as bad prediction') from exc
         try:
             with tempfile.TemporaryDirectory(prefix='replicated-past-') as tmp:
@@ -356,7 +405,7 @@ def run_new_cell(spec, year, cell, root=ROOT):
             raise
         except Exception as exc:
             (cell / 'wall-budget.json').write_text(json.dumps({'seconds_used': used + time.monotonic()-start})+'\n')
-            immutable_json(cell / 'failure.json', {'error': type(exc).__name__, 'message': str(exc), 'automatic_retry': False, 'fitness': None})
+            save_failure(cell, exc)
             raise
 
 
@@ -373,6 +422,8 @@ def result_for(spec, evidence, root=ROOT, allow_new=False, campaign=None, admiss
         if (cell / 'cell-commitment.json').is_file():
             rows[year] = validate_new_cell(cell, spec, year, root)
             continue
+        if (cell / 'failure.json').exists():
+            replay_failure(cell, numerical_request(spec, year, root))
         if not allow_new:
             raise Paused('No compatible saved result for this specification; replay-only mode forbids numerical work')
         if not admitted:

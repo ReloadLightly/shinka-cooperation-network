@@ -1,0 +1,15 @@
+test_terminal_policy_failure_replays_as_invalid_without_native_call (test_step5c_handoff.FailureReplay.test_terminal_policy_failure_replays_as_invalid_without_native_call) ... FAIL
+
+======================================================================
+FAIL: test_terminal_policy_failure_replays_as_invalid_without_native_call (test_step5c_handoff.FailureReplay.test_terminal_policy_failure_replays_as_invalid_without_native_call)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/shinka-cooperation-network/shinka-cooperation-network/tests/test_step5c_handoff.py", line 63, in test_terminal_policy_failure_replays_as_invalid_without_native_call
+    self.assertEqual(code, 1)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^
+AssertionError: 75 != 1
+
+----------------------------------------------------------------------
+Ran 1 test in 0.038s
+
+FAILED (failures=1)

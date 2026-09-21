@@ -1,0 +1,42 @@
+name: Inspect step 2 failure only
+on:
+  push:
+    branches: [repairs/step2-github-input-recovery-20260921]
+    paths: [.github/workflows/step2-inspect-failure.yml]
+permissions:
+  contents: write
+  actions: read
+jobs:
+  inspect:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read the prior job's already-redacted log
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 2 -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' https://api.github.com/repos/ReloadLightly/shinka-cooperation-network/actions/jobs/106291873233/logs -o /tmp/step2-second-job.log
+          python3 - <<'PY'
+          import pathlib,json
+          lines=pathlib.Path('/tmp/step2-second-job.log').read_text().splitlines()
+          selected=set()
+          for i,line in enumerate(lines):
+              if any(k in line for k in ('Traceback','ValueError:','RuntimeError:','FileExistsError:','Error:','##[error]')):
+                  selected.update(range(max(0,i-5),min(len(lines),i+12)))
+          path=pathlib.Path('results/diagnostics/forecast-repeatability-v1/prior-attempts/second-job-errors.json')
+          path.write_text(json.dumps({'run':35586786066,'job':106291873233,'lines':[lines[i] for i in sorted(selected)]},indent=2)+'\n')
+          print(path.read_text())
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/diagnostics/forecast-repeatability-v1/prior-attempts/second-job-errors.json
+          git commit -m 'Preserve actual second-attempt error evidence'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: second-job-log
+          path: /tmp/step2-second-job.log
+          retention-days: 30

@@ -1,0 +1,371 @@
+{
+  "version": "integer-network-count-pooling-v1",
+  "source_commit": "104ba59d81a92f1c98b77c89178fad9178b6ccb4",
+  "source_cell_commitment": "c99a6515b25678c49ac1c0b9ca37838765be701da447d950d345f9257eaf439c",
+  "model": "gwesp69",
+  "year": 2008,
+  "correction_source_sha256": "08816f357515ea63202a5b6df21aac7619fc19b71913e1e17dde58dc5830506b",
+  "metrics": {
+    "status": "complete",
+    "pooled": {
+      "pr_auc": 0.91735916205149437,
+      "brier": 0.0044714156572327043,
+      "spending_rmse": 0.44096085590260298,
+      "formation_pr_auc": 0.02249943866777326,
+      "dissolution_pr_auc": 0.035144255263414068
+    },
+    "delete_one_batch": [
+      {
+        "pr_auc": 0.91650792448164653,
+        "brier": 0.0044719264052672956,
+        "spending_rmse": 0.44131000503947926,
+        "formation_pr_auc": 0.022219435069454497,
+        "dissolution_pr_auc": 0.035000712147119695
+      },
+      {
+        "pr_auc": 0.9181924464601352,
+        "brier": 0.0044706535917845907,
+        "spending_rmse": 0.44104864531505661,
+        "formation_pr_auc": 0.022496439668630287,
+        "dissolution_pr_auc": 0.03511360556133325
+      },
+      {
+        "pr_auc": 0.91822470347265961,
+        "brier": 0.0044752980100235852,
+        "spending_rmse": 0.44067618788458851,
+        "formation_pr_auc": 0.02224689396251402,
+        "dissolution_pr_auc": 0.034966266411950102
+      },
+      {
+        "pr_auc": 0.91841871393498276,
+        "brier": 0.0044691677574685536,
+        "spending_rmse": 0.4410490413200272,
+        "formation_pr_auc": 0.022542431023728288,
+        "dissolution_pr_auc": 0.035422496457936638
+      },
+      {
+        "pr_auc": 0.91738651145979455,
+        "brier": 0.0044709015821540882,
+        "spending_rmse": 0.44075313715384817,
+        "formation_pr_auc": 0.02264171765981968,
+        "dissolution_pr_auc": 0.035235172716692083
+      }
+    ],
+    "batches": [
+      {
+        "pr_auc": 0.91934829489615733,
+        "brier": 0.0044726912735849056,
+        "spending_rmse": 0.43968146159604327,
+        "formation_pr_auc": 0.02236562376125276,
+        "dissolution_pr_auc": 0.035274050590855456
+      },
+      {
+        "pr_auc": 0.9192020538931952,
+        "brier": 0.0044781342767295593,
+        "spending_rmse": 0.44073911302881286,
+        "formation_pr_auc": 0.021405933363134098,
+        "dissolution_pr_auc": 0.036201397479654236
+      },
+      {
+        "pr_auc": 0.91893947648812302,
+        "brier": 0.0044590863207547172,
+        "spending_rmse": 0.44225261639964186,
+        "formation_pr_auc": 0.022878492756752453,
+        "dissolution_pr_auc": 0.0368606715507174
+      },
+      {
+        "pr_auc": 0.91908146562043735,
+        "brier": 0.00448420070754717,
+        "spending_rmse": 0.44072999064907559,
+        "formation_pr_auc": 0.021609378906823514,
+        "dissolution_pr_auc": 0.034473747660197999
+      },
+      {
+        "pr_auc": 0.91899674023224887,
+        "brier": 0.0044768706761006286,
+        "spending_rmse": 0.44192472085651596,
+        "formation_pr_auc": 0.021015715431819276,
+        "dissolution_pr_auc": 0.035268155996195989
+      }
+    ],
+    "eligibility_sha256": "3e51b26e7feee1dda91b8fd2b9db0693e637428df9e02e9a3c2f56fbd9eef1cd",
+    "dyads": 12720,
+    "spending_countries": 146,
+    "primary_endpoints": 5000,
+    "uncertainty": "Conditional simulation precision only; five-block jackknife is approximate, especially for PR-AUC ties",
+    "structural_checks": [
+      {
+        "scope": "Network restricted to the common eligible dyad mask; inactive and invalid edges absent in both observed and simulated graphs",
+        "interpretation": "Descriptive predictive envelopes, not independent-dyad significance tests or coefficient uncertainty",
+        "observed": {
+          "ties": 508,
+          "triangles": 789,
+          "clustering": 0.26559694793536803,
+          "degree_variance": 77.677950310559012
+        },
+        "simulated": [
+          {
+            "statistic": "ties",
+            "finite_simulations": 1000,
+            "mean": 515.255,
+            "quantiles_025_50_975": [
+              502,
+              515,
+              530
+            ]
+          },
+          {
+            "statistic": "triangles",
+            "finite_simulations": 1000,
+            "mean": 854.92899999999997,
+            "quantiles_025_50_975": [
+              806,
+              854,
+              919
+            ]
+          },
+          {
+            "statistic": "clustering",
+            "finite_simulations": 1000,
+            "mean": 0.27718721777574645,
+            "quantiles_025_50_975": [
+              0.26697535180881365,
+              0.27700322620216766,
+              0.28929368948410461
+            ]
+          },
+          {
+            "statistic": "degree_variance",
+            "finite_simulations": 1000,
+            "mean": 80.866640295031061,
+            "quantiles_025_50_975": [
+              77.315440605590055,
+              80.761529503105578,
+              85.076409161490687
+            ]
+          }
+        ]
+      },
+      {
+        "scope": "Network restricted to the common eligible dyad mask; inactive and invalid edges absent in both observed and simulated graphs",
+        "interpretation": "Descriptive predictive envelopes, not independent-dyad significance tests or coefficient uncertainty",
+        "observed": {
+          "ties": 508,
+          "triangles": 789,
+          "clustering": 0.26559694793536803,
+          "degree_variance": 77.677950310559012
+        },
+        "simulated": [
+          {
+            "statistic": "ties",
+            "finite_simulations": 1000,
+            "mean": 515.524,
+            "quantiles_025_50_975": [
+              502,
+              515,
+              530
+            ]
+          },
+          {
+            "statistic": "triangles",
+            "finite_simulations": 1000,
+            "mean": 855.98000000000002,
+            "quantiles_025_50_975": [
+              807,
+              855,
+              912.02499999999998
+            ]
+          },
+          {
+            "statistic": "clustering",
+            "finite_simulations": 1000,
+            "mean": 0.27711624929818457,
+            "quantiles_025_50_975": [
+              0.26709002710500246,
+              0.27694517136624652,
+              0.28800768521647852
+            ]
+          },
+          {
+            "statistic": "degree_variance",
+            "finite_simulations": 1000,
+            "mean": 80.99950023291926,
+            "quantiles_025_50_975": [
+              77.586958462732923,
+              80.915333850931688,
+              85.159994177018646
+            ]
+          }
+        ]
+      },
+      {
+        "scope": "Network restricted to the common eligible dyad mask; inactive and invalid edges absent in both observed and simulated graphs",
+        "interpretation": "Descriptive predictive envelopes, not independent-dyad significance tests or coefficient uncertainty",
+        "observed": {
+          "ties": 508,
+          "triangles": 789,
+          "clustering": 0.26559694793536803,
+          "degree_variance": 77.677950310559012
+        },
+        "simulated": [
+          {
+            "statistic": "ties",
+            "finite_simulations": 1000,
+            "mean": 515.25400000000002,
+            "quantiles_025_50_975": [
+              502,
+              515,
+              531
+            ]
+          },
+          {
+            "statistic": "triangles",
+            "finite_simulations": 1000,
+            "mean": 855.01499999999999,
+            "quantiles_025_50_975": [
+              802.97499999999991,
+              854,
+              918
+            ]
+          },
+          {
+            "statistic": "clustering",
+            "finite_simulations": 1000,
+            "mean": 0.27697981467965505,
+            "quantiles_025_50_975": [
+              0.26672653412039443,
+              0.27710956915086704,
+              0.28771840691121087
+            ]
+          },
+          {
+            "statistic": "degree_variance",
+            "finite_simulations": 1000,
+            "mean": 80.964047282608689,
+            "quantiles_025_50_975": [
+              77.394006211180127,
+              80.928260869565221,
+              85.151319875776394
+            ]
+          }
+        ]
+      },
+      {
+        "scope": "Network restricted to the common eligible dyad mask; inactive and invalid edges absent in both observed and simulated graphs",
+        "interpretation": "Descriptive predictive envelopes, not independent-dyad significance tests or coefficient uncertainty",
+        "observed": {
+          "ties": 508,
+          "triangles": 789,
+          "clustering": 0.26559694793536803,
+          "degree_variance": 77.677950310559012
+        },
+        "simulated": [
+          {
+            "statistic": "ties",
+            "finite_simulations": 1000,
+            "mean": 515.21699999999998,
+            "quantiles_025_50_975": [
+              501.97500000000002,
+              515,
+              530
+            ]
+          },
+          {
+            "statistic": "triangles",
+            "finite_simulations": 1000,
+            "mean": 855.75199999999995,
+            "quantiles_025_50_975": [
+              806,
+              855,
+              912
+            ]
+          },
+          {
+            "statistic": "clustering",
+            "finite_simulations": 1000,
+            "mean": 0.27734940844386691,
+            "quantiles_025_50_975": [
+              0.26685205097286435,
+              0.27726947409079433,
+              0.28855216915968424
+            ]
+          },
+          {
+            "statistic": "degree_variance",
+            "finite_simulations": 1000,
+            "mean": 80.917964130434783,
+            "quantiles_025_50_975": [
+              77.378130822981376,
+              80.892585403726713,
+              84.738272515527953
+            ]
+          }
+        ]
+      },
+      {
+        "scope": "Network restricted to the common eligible dyad mask; inactive and invalid edges absent in both observed and simulated graphs",
+        "interpretation": "Descriptive predictive envelopes, not independent-dyad significance tests or coefficient uncertainty",
+        "observed": {
+          "ties": 508,
+          "triangles": 789,
+          "clustering": 0.26559694793536803,
+          "degree_variance": 77.677950310559012
+        },
+        "simulated": [
+          {
+            "statistic": "ties",
+            "finite_simulations": 1000,
+            "mean": 515.447,
+            "quantiles_025_50_975": [
+              502.97499999999997,
+              515,
+              530
+            ]
+          },
+          {
+            "statistic": "triangles",
+            "finite_simulations": 1000,
+            "mean": 855.077,
+            "quantiles_025_50_975": [
+              808.97499999999991,
+              854,
+              913.04999999999995
+            ]
+          },
+          {
+            "statistic": "clustering",
+            "finite_simulations": 1000,
+            "mean": 0.27713499186371793,
+            "quantiles_025_50_975": [
+              0.26729157857289354,
+              0.2768281804902174,
+              0.28848210234641153
+            ]
+          },
+          {
+            "statistic": "degree_variance",
+            "finite_simulations": 1000,
+            "mean": 80.878275465838513,
+            "quantiles_025_50_975": [
+              77.587237965838497,
+              80.840372670807454,
+              84.863522903726704
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "original_pooled": {
+    "pr_auc": 0.91734537000447192,
+    "brier": 0.0044714156572327043,
+    "spending_rmse": 0.44096085590260298,
+    "formation_pr_auc": 0.022483956197292616,
+    "dissolution_pr_auc": 0.035150253621466891
+  },
+  "new_fits": 0,
+  "new_forecasts": 0,
+  "new_simulations": 0,
+  "target_packets_read": 0,
+  "statement": "Read-only rescore of saved native forecasts. Preserve mathematically equal pooled binary probabilities by summing integer successes before dividing. Original Step 4 evidence untouched. Spending pooling/RMSE unchanged."
+}

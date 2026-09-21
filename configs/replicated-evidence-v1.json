@@ -23,6 +23,24 @@
         "2007": "bf6126a6ce685cd8670ec1e1e0f08d687a92151f7d9a6e1523d25aac34136385",
         "2008": "2e6dffca04df7aa7aac2523fbb82d14227bf525387c14400eb5f186e0966ebf3",
         "2009": "be2c50843dba4b847218dd0fce3fa3d5486200b8e25b3d5cfa4644bbf1285c02"
+      },
+      "score_views": {
+        "2006": {
+          "path": "results/diagnostics/replicated-replay-v1/score-view/reference-2006.json",
+          "sha256": "271297134a70e36f967b66e4bc2107227e441a1af0395eb0c119922ddf8f039b"
+        },
+        "2007": {
+          "path": "results/diagnostics/replicated-replay-v1/score-view/reference-2007.json",
+          "sha256": "0aea758a8169e7f719bf6063d54cf7480c1d81c0ee84484a20818bf7fb6cea83"
+        },
+        "2008": {
+          "path": "results/diagnostics/replicated-replay-v1/score-view/reference-2008.json",
+          "sha256": "006e5f74db0e1f7e056ba1ef4eb0dd20b64c9b0cfeeac47aa7484900dbbf2aea"
+        },
+        "2009": {
+          "path": "results/diagnostics/replicated-replay-v1/score-view/reference-2009.json",
+          "sha256": "9074a603e735d9613acb9345f9f5d4ab1daf2d481732dde821056ba15b3bc417"
+        }
       }
     },
     "884b086ba64149ae6f9180d3efd8da372f6d24cb9b2cca73a35cac88dd69923e": {
@@ -45,6 +63,24 @@
         "2007": "b2a3080792c50292d7d7d4eb1138d4a673ad5bb611bf9cd0ad09d9d7cf0ce48b",
         "2008": "c99a6515b25678c49ac1c0b9ca37838765be701da447d950d345f9257eaf439c",
         "2009": "d914665c3cb8d9e22882ebcf519cb1ac3fa96c15639fd536767d7c9245bcf4e7"
+      },
+      "score_views": {
+        "2006": {
+          "path": "results/diagnostics/replicated-replay-v1/score-view/gwesp69-2006.json",
+          "sha256": "4eb11e88a3f129849bdc7f2770cb4657c69b54a08078e15496bf7a44687929a1"
+        },
+        "2007": {
+          "path": "results/diagnostics/replicated-replay-v1/score-view/gwesp69-2007.json",
+          "sha256": "e3c32e4061641ddcf748559131f113b55c07111851eec674644dbd446ceb7cc6"
+        },
+        "2008": {
+          "path": "results/diagnostics/replicated-replay-v1/score-view/gwesp69-2008.json",
+          "sha256": "630451a120da8f080cc0869d2a24ba9a39fa95d7eecb8e2c848d7be02c21145e"
+        },
+        "2009": {
+          "path": "results/diagnostics/replicated-replay-v1/score-view/gwesp69-2009.json",
+          "sha256": "cc99a7eedae1612606c845bd18222d8246c7817a78811ed7c9e3a6e000989d0e"
+        }
       }
     }
   }

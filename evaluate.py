@@ -2,7 +2,7 @@
 """Fixed trusted predictive fitness for native ShinkaEvolve.
 
 Candidates specify RSiena network structure; they never implement the metric.
-Native invocation: evaluate.py --program_path PROGRAM --results_dir DIRECTORY.
+Native invocation: evaluate.py --protocol PROTOCOL --program_path PROGRAM --results_dir DIRECTORY.
 """
 from __future__ import annotations
 
@@ -271,13 +271,19 @@ def evaluate(program_path, results_dir):
         return 1
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
+def main(argv: list[str] | None = None) -> int:
+    """Require deliberate protocol choice before any evaluator can do work."""
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--program_path", required=True, type=Path)
     parser.add_argument("--results_dir", required=True, type=Path)
-    parser.add_argument("--protocol", choices=("pr-only-v2", "multiobjective-v1"), default="pr-only-v2")
-    options = parser.parse_args()
+    parser.add_argument("--protocol", choices=("pr-only-v2", "multiobjective-v1"), required=True,
+                        help="Required: multiobjective-v1 is current; pr-only-v2 explicitly selects the legacy evaluator.")
+    options = parser.parse_args(argv)
     if options.protocol == "multiobjective-v1":
         from scripts.multiobjective_evaluation import evaluate as evaluate_multiobjective
-        raise SystemExit(evaluate_multiobjective(options.program_path, options.results_dir))
-    raise SystemExit(evaluate(options.program_path, options.results_dir))
+        return evaluate_multiobjective(options.program_path, options.results_dir)
+    return evaluate(options.program_path, options.results_dir)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

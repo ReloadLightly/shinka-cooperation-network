@@ -98,13 +98,13 @@ score provenance. It does not start missing baseline fits implicitly.
 
 ```bash
 # Save the complete 15-model plan after baseline evidence is available.
-python3 scripts/conventional_search.py
+python3 scripts/conventional_search.py --protocol legacy-pr
 
 # Execute/resume that complete plan with the unchanged full evaluation budget.
-python3 scripts/conventional_search.py --execute
+python3 scripts/conventional_search.py --protocol legacy-pr --execute
 
 # Alternatively freeze a separate comparison budget from actual native outputs.
-python3 scripts/conventional_search.py \
+python3 scripts/conventional_search.py --protocol legacy-pr \
   --native-results-dir runs/evolution_native \
   --results-dir results/conventional_matched --execute
 ```

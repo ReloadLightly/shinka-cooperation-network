@@ -481,7 +481,8 @@ def run_multiobjective(args):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--protocol", choices=("legacy-pr", "multiobjective-v1"), default="legacy-pr")
+    parser.add_argument("--protocol", choices=("legacy-pr", "multiobjective-v1"), required=True,
+                        help="Required: multiobjective-v1 is current; legacy-pr explicitly selects the historical comparison.")
     parser.add_argument("--search-rule", choices=("scalar-local", "pareto-local"), default="scalar-local", help="Multiobjective comparator: historical scalar incumbent or deterministic Pareto-front expansion")
     parser.add_argument("--native-results-dir", type=Path, help="Derive the comparison cap from observed native completed attempts, using the selected protocol's counting rule")
     parser.add_argument("--limit", type=int, help="Fixed terminal-attempt cap including the reference; legacy default is 15; multiobjective requires this or observed native results")

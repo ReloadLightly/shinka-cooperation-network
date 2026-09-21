@@ -245,6 +245,11 @@ R_GC_MEM_GROW=0 .venv-shinka/bin/python scripts/run_shinka.py \
 
 The reference evaluator is complete; its four forecasts are reused by native seed evaluation without refitting. The command above starts or resumes the same native campaign. Do not start duplicate controllers. Paused candidate fits retain their candidate, generation and lineage. The fixed evaluator supports `python3 evaluate.py --protocol multiobjective-v1 --program_path PROGRAM --results_dir DIRECTORY`; candidate programs cannot edit or execute the evaluator.
 
+General entry points now require explicit routing: `evaluate.py --protocol ...`,
+`scripts/run_shinka.py --config ...`, and `scripts/conventional_search.py --protocol ...`.
+Omitting the selector stops with an argument error instead of choosing the retired
+workflow. Explicit legacy paths remain supported. See [bounded repair step 1](docs/REPAIR_STEPS.md).
+
 The exact package lock, source checksums and session information are versioned. [Environment notes](environment/README.md) record compiler/OpenBLAS and ancillary-package differences. Existing preparation instructions remain in the runbook; this continuation does not rebuild the environment or repeat readiness checks.
 
 

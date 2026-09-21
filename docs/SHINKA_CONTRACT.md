@@ -4,10 +4,31 @@ Inspected native source: ShinkaEvolve 0.0.7, commit
 `9912af12d423504b8d580f4179fd15f5f88b8c50`. The distribution is `shinka-evolve`,
 the Python import is `shinka`, and the runner is `ShinkaEvolveRunner`.
 
-The native local scheduler invokes:
+## Explicit protocol routing
+
+The scheduler must pass `--protocol` through `LocalJobConfig.extra_cmd_args`.
+The current launcher passes `multiobjective-v1`; the explicitly selected legacy
+profile and legacy invalid-evaluator fixture pass `pr-only-v2`. An omitted
+protocol is a command-line error, not a failed scientific evaluation, and creates
+no metrics or results directory. General launchers also require their selector:
+`run_shinka.py --config ...` and `conventional_search.py --protocol ...`.
+
+The current scheduler invocation is:
 
 ```bash
-python evaluate.py --program_path /absolute/candidate.py --results_dir /absolute/evaluation-directory
+python evaluate.py --protocol multiobjective-v1 --program_path /absolute/candidate.py --results_dir /absolute/evaluation-directory
+```
+
+Current vector/score semantics are in the README and `configs/multiobjective-v1.json`.
+
+## Historical PR-only contract
+
+The remainder records the legacy integration, including its `1 + F` scalar and
+historical readiness gates; it does not redefine the current Pareto campaign.
+The legacy local scheduler explicitly invokes:
+
+```bash
+python evaluate.py --protocol pr-only-v2 --program_path /absolute/candidate.py --results_dir /absolute/evaluation-directory
 ```
 
 The evaluator writes `metrics.json` with numeric `combined_score`, `public` and
@@ -183,13 +204,13 @@ python3 shinka/bootstrap.py
 python3 shinka/check_network_isolation.py
 
 # Resolve the native configuration and list unmet scientific gates.
-OPENBLAS_NUM_THREADS=1 MPLCONFIGDIR=/tmp/shinka-matplotlib .venv-shinka/bin/python scripts/run_shinka.py
+OPENBLAS_NUM_THREADS=1 MPLCONFIGDIR=/tmp/shinka-matplotlib .venv-shinka/bin/python scripts/run_shinka.py --config shinka/native_config.json
 
 # In a separate terminal when a scientifically ready campaign is to run:
 OPENBLAS_NUM_THREADS=1 .venv-shinka/bin/python shinka/embedding_server.py
 
 # Launch/resume; refuses to run until every readiness check and budget passes.
-OPENBLAS_NUM_THREADS=1 MPLCONFIGDIR=/tmp/shinka-matplotlib .venv-shinka/bin/python scripts/run_shinka.py --execute --results-dir runs/evolution_native
+OPENBLAS_NUM_THREADS=1 MPLCONFIGDIR=/tmp/shinka-matplotlib .venv-shinka/bin/python scripts/run_shinka.py --config shinka/native_config.json --execute --results-dir runs/evolution_native
 ```
 
 The native WebUI is automatically kept alive at `http://localhost:8899` during

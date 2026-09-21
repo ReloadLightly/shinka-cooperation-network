@@ -44,7 +44,7 @@
     "max_stdout_log_chars": null
   },
   "runner": {"max_evaluation_jobs": 1, "max_proposal_jobs": 1, "max_db_workers": 1},
-  "job": {"numeric_threads_per_job": 1, "time": null},
+  "job": {"numeric_threads_per_job": 1, "time": null, "extra_cmd_args": {"protocol": "pr-only-v2"}},
   "evaluation_timeout": {
     "readiness_seconds_field": "native_evaluation_timeout_seconds",
     "readiness_margin_field": "native_evaluation_timeout_margin_seconds",

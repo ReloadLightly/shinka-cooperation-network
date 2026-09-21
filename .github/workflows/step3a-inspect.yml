@@ -1,0 +1,106 @@
+name: Step 3A read-only native inventory
+on:
+  push:
+    branches: [repairs/step3a-diagnostic-preflight-20260921]
+    paths: [.github/workflows/step3a-inspect.yml]
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    env:
+      R_GC_MEM_GROW: '0'
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      MAKEFLAGS: '-j2'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/cache@v4
+        with:
+          path: |
+            environment/runtime
+            environment/R-library
+            environment/bin
+            environment/downloads
+            vendor/RSiena
+          key: step3a-native-r421-rsiena1310-${{ hashFiles('environment/conda-linux-64.explicit.txt') }}
+      - name: Install pinned runtime without data preparation
+        run: |
+          set -euo pipefail
+          mkdir -p environment/{bin,downloads,R-library,conda-pkgs} vendor
+          export MAMBA_ROOT_PREFIX="$PWD/environment/conda-pkgs"
+          if [ ! -x environment/bin/micromamba ]; then
+            curl --fail --location --retry 2 https://micro.mamba.pm/api/micromamba/linux-64/2.9.0 -o environment/downloads/micromamba.tar.bz2
+            echo '8761c382127e6363bd9e0a2451aa3ef90d071a79133f736e2f759a3bf13040dd  environment/downloads/micromamba.tar.bz2' | sha256sum -c -
+            tar -xjf environment/downloads/micromamba.tar.bz2 -C environment bin/micromamba
+          fi
+          if [ ! -x environment/runtime/bin/Rscript ]; then
+            environment/bin/micromamba create --yes --prefix "$PWD/environment/runtime" --file environment/conda-linux-64.explicit.txt
+          fi
+          if [ ! -d vendor/RSiena ]; then
+            curl --fail --location --retry 2 https://github.com/stocnet/rsiena/archive/refs/tags/v1.3.10.tar.gz -o environment/downloads/RSiena-v1.3.10.tar.gz
+            echo 'c7e0fc358f064e6b5d753ceb675a2eb00ea08cd6d58934ebabef31055302a1d5  environment/downloads/RSiena-v1.3.10.tar.gz' | sha256sum -c -
+            tar -xzf environment/downloads/RSiena-v1.3.10.tar.gz -C vendor
+            mv vendor/rsiena-1.3.10 vendor/RSiena
+          fi
+          if [ ! -f environment/R-library/RSiena/DESCRIPTION ]; then
+            environment/bin/micromamba run --prefix "$PWD/environment/runtime" R CMD INSTALL --library="$PWD/environment/R-library" vendor/RSiena
+          fi
+      - name: Restore one training packet and inventory saved objects only
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/step3a-inventory/native
+          python - <<'PY'
+          import pathlib,zipfile,hashlib,json
+          root=pathlib.Path.cwd(); out=pathlib.Path('/tmp/step3a-inventory')
+          name='data/past/2009.rds'
+          with zipfile.ZipFile(root/'sources/archive/step2-development-inputs.zip') as z:
+              data=z.read(name)
+          assert hashlib.sha256(data).hexdigest()=='f8aea6ff84f4a82c43cce7cd6bc12fcd0a4fc36e0db0f6aeb4618381fc1771e4'
+          (out/'past-2009.rds').write_bytes(data)
+          path=root/'results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99/fit-attempt-3.rds'
+          assert hashlib.sha256(path.read_bytes()).hexdigest()=='5c122ed7a1e061d8d23f50c73a22baa4b80884ad74be49ab7a56bdb80dfe0e5c'
+          (out/'input_hashes.json').write_text(json.dumps({'fit':str(path.relative_to(root)),'fit_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'packet_sha256':hashlib.sha256(data).hexdigest(),'target_packets_read':0,'raw_archives_read':0},indent=2)+'\n')
+          PY
+          cat > /tmp/step3a-inventory/inventory.R <<'RSCRIPT'
+          source('R/empirical.R')
+          stopifnot(as.character(getRversion())=='4.2.1',as.character(packageVersion('RSiena'))=='1.3.10')
+          ns <- asNamespace('RSiena')
+          # A read-only inventory must never invoke a simulator or optimization phase.
+          for(n in c('siena07','phase1','phase2','phase3','simstats0c','FRAN')) {
+            if(exists(n,envir=ns,inherits=FALSE)) trace(n,tracer=quote(stop('Forbidden numerical execution during step 3A inventory')),print=FALSE,where=ns)
+          }
+          p <- readRDS('/tmp/step3a-inventory/past-2009.rds')
+          stopifnot(identical(as.integer(p$years),1990:2008))
+          fit <- readRDS('results/cache/ed64802bacb0fbdd1ae1bc45746e29795f85bc0f92ceedf427660ea0c40efc99/fit-attempt-3.rds')
+          cat('FIT FIELDS\n'); print(names(fit)); cat('ALGORITHM\n');str(fit$x,max.level=1)
+          cat('F FIELDS\n'); print(names(fit$f));str(fit$f,max.level=1)
+          cat('DATA FIELDS\n');print(names(fit$f$Data));print(names(fit$data))
+          cat('REQUESTED EFFECTS\n');print(names(fit$requestedEffects));print(effect_table(fit$requestedEffects))
+          cat('THETA\n');print(fit$theta,digits=17)
+          cat('SAVED DIAGNOSTICS\n');print(fit_diagnostics(fit,1000L))
+          sf <- fit$sf; m <- colMeans(sf); V <- cov(sf)
+          cat('RECONSTRUCTED\n');print(c(p=length(fit$theta),draws=nrow(sf),max_t=max(abs(m/sqrt(diag(V)))),overall=sqrt(drop(t(m)%*%solve(V,m))),msf_error=max(abs(V-fit$msf))),digits=17)
+          netdata <- make_training_data(p);eff <- model_effects(netdata)
+          cat('RECONSTRUCTED TRAINING DATA\n');str(netdata,max.level=1);print(attributes(netdata))
+          cat('RECONSTRUCTED INCLUDED EFFECTS\n');print(effect_table(eff[eff$include,]))
+          cat('INITIALIZATION FORMALS\n');print(formals(RSiena:::initializeFRAN));print(formals(RSiena:::robmon))
+          cat('DATA COMPARE\n');print(all.equal(netdata,fit$f$Data));print(all.equal(netdata,fit$f[[1]]))
+          cat('PACKET METADATA\n');print(p$years);print(length(p$nms)); print(names(p)); print(sessionInfo())
+          cat('\nINVENTORY COMPLETE; zero simulations, zero refits.\n')
+          RSCRIPT
+          environment/run-r /tmp/step3a-inventory/inventory.R > /tmp/step3a-inventory/inventory.log 2>&1
+          cp -r vendor/RSiena/R vendor/RSiena/man /tmp/step3a-inventory/native/
+          cp vendor/RSiena/DESCRIPTION vendor/RSiena/NAMESPACE /tmp/step3a-inventory/native/
+          rm /tmp/step3a-inventory/past-2009.rds
+          git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: step3a-readonly-inventory
+          path: /tmp/step3a-inventory
+          retention-days: 14

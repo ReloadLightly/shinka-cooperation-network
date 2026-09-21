@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "checks": 57,
+  "models": {
+    "reference/2006": {
+      "parameters": 52,
+      "archived_checkpoints_verified": 4,
+      "closure": "transTriads",
+      "parameter": 0
+    },
+    "reference/2007": {
+      "parameters": 54,
+      "archived_checkpoints_verified": 4,
+      "closure": "transTriads",
+      "parameter": 0
+    },
+    "reference/2008": {
+      "parameters": 56,
+      "archived_checkpoints_verified": 3,
+      "closure": "transTriads",
+      "parameter": 0
+    },
+    "reference/2009": {
+      "parameters": 58,
+      "archived_checkpoints_verified": 4,
+      "closure": "transTriads",
+      "parameter": 0
+    },
+    "gwesp69/2006": {
+      "parameters": 52,
+      "archived_checkpoints_verified": 0,
+      "closure": "gwesp",
+      "parameter": 69
+    },
+    "gwesp69/2007": {
+      "parameters": 54,
+      "archived_checkpoints_verified": 0,
+      "closure": "gwesp",
+      "parameter": 69
+    },
+    "gwesp69/2008": {
+      "parameters": 56,
+      "archived_checkpoints_verified": 0,
+      "closure": "gwesp",
+      "parameter": 69
+    },
+    "gwesp69/2009": {
+      "parameters": 58,
+      "archived_checkpoints_verified": 0,
+      "closure": "gwesp",
+      "parameter": 69
+    }
+  },
+  "real_receipt_forecast_initializations_stopped": 2,
+  "new_empirical_simulations": 0,
+  "new_fits": 0,
+  "target_packets_read": 0,
+  "statement": "Verified importer identities and actual_n3 forecast consumption. Full new policy fits/forecasts remain part of the declared Step 4 execution."
+}

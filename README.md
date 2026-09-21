@@ -30,9 +30,39 @@ initialization. Eligible ratio-failing 1,000-draw fits receive one fixed
 3,000-draw assessment at unchanged coefficients before another optimization
 continuation. Thresholds and native validity checks are unchanged; valid
 short fits still pass without reassessment. This is **opt-in, fit-only**:
-historical evaluators and results remain unchanged and Step 4 has not run.
+historical evaluators and results remain unchanged. The separately declared Step 4 comparison below now explicitly consumes the new receipts.
 See [policy and handoff](docs/PRECISION_CONVERGENCE_POLICY.md) and
 [validation evidence](results/diagnostics/precision-policy-v1/REPORT.md).
+
+## Step 4: declared closure comparison launched
+
+The single **reference versus GWESP(69)** comparison is implemented and was
+launched in Actions run **35626907047**. This section records the launch,
+not a completed result. The running workers use their frozen source commit;
+documentation publication does not restart or modify their numerical work.
+
+Both specifications retain the original empirical controls and spending
+structure; only `transTriads(0)` is replaced by native `gwesp(69)` (alpha 0.69).
+The precision policy is applied consistently, including audited replay of
+the reference's 15 immutable optimization checkpoints, not historical
+acceptance labels. The new forecast consumer uses `authoritative_n3`.
+
+The finite plan is **eight model/year cells**, development years 2006–2009,
+and five 1,000-endpoint forecast batches per accepted cell. Primary annual
+points pool all 5,000 endpoints **before** scoring. Independent batch
+contrasts and an explicitly approximate five-block jackknife quantify
+conditional forecast Monte Carlo uncertainty, not fitting or historical
+generalization uncertainty. No decay search, Shinka run or 2010 scoring.
+
+Preflight passed **191 Python tests and 57 pinned-R checks**, including two
+actual receipt-aware forecast initializations stopped before simulation.
+See the [frozen design](docs/STEP4_COMPARISON.md) and
+[preflight evidence](results/diagnostics/step4-preflight-v1/execution.json).
+Each running model/year has a four-hour native-process budget; incomplete
+or failed cells are preserved, never replaced with another seed or a
+partial four-year score. Result branches are `repairs/step4-results/*`;
+the collector writes `repairs/step4-comparison-results-20260921` for review.
+Final results are not asserted here before that evidence is inspected.
 
 ## 1. Research question
 

@@ -1,0 +1,12 @@
+{
+  "status": "verified",
+  "workflow_run": "35626431458",
+  "tested_source_commit": "06399f30c7f64cb24857bb0a613c4eeadb148d71",
+  "python_tests": 191,
+  "native_checks": 57,
+  "real_stopped_forecast_initializations": 2,
+  "new_empirical_simulations": 0,
+  "new_fits": 0,
+  "target_packets_read": 0,
+  "step4_numerical_cells_started": false
+}

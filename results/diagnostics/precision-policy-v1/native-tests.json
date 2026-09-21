@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "version": "precision-before-continuation-v1",
+  "checks": 48,
+  "new_simulations": 0,
+  "new_refits": 0,
+  "new_forecasts": 0,
+  "target_packets_read": 0,
+  "saved_diagnostic_replay": true,
+  "replay_is_not_a_new_seed_result": true,
+  "real_stopped_initializations": {
+    "attempt3": {
+      "status": "initialization_verified_no_simulation",
+      "parameters": 58,
+      "seed": 52020091,
+      "coefficients_identical": true,
+      "new_simulations": 0,
+      "optimization_iterations": 0
+    },
+    "attempt4": {
+      "status": "initialization_verified_no_simulation",
+      "parameters": 58,
+      "seed": 52020091,
+      "coefficients_identical": true,
+      "new_simulations": 0,
+      "optimization_iterations": 0
+    }
+  },
+  "live_production_assessment_not_executed": true
+}

@@ -1,0 +1,17 @@
+{
+  "status": "verified",
+  "policy": "precision-before-continuation-v1",
+  "workflow_run": "35622485470",
+  "workflow_commit": "a2ad11d376767272dc1877ba0c587056d10900ff",
+  "tested_source_commit": "7a46cfd0611352e2ccb97d4aed1b936b4a256244",
+  "python_tests": 170,
+  "native_checks": 48,
+  "new_simulations": 0,
+  "new_refits": 0,
+  "new_forecasts": 0,
+  "target_packets_read": 0,
+  "step4_started": false,
+  "saved_fixture_replay_only": true,
+  "real_native_initializations_stopped_before_phase3": 2,
+  "live_production_assessment_not_executed": true
+}

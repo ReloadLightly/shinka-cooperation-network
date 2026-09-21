@@ -1,0 +1,134 @@
+Warning message:
+package ‘jsonlite’ was built under R version 4.2.3 
+$version
+[1] "precision-before-continuation-v1"
+
+$scope
+[1] "Opt-in structured Model 3 estimator; same rule for reference and candidate specifications."
+
+$trigger
+[1] "Complete 1000-draw fit with all non-ratio native checks passed and at least one failed convergence ratio."
+
+$short_pass
+[1] "Accept an already valid short fit; this is a prespecified supplemental gate, not uniform 3000-draw certification."
+
+$diagnostic_draws
+[1] 3000
+
+$nsub
+[1] 0
+
+$simOnly
+[1] FALSE
+
+$serial
+[1] TRUE
+
+$individual_strictly_below
+[1] 0.1
+
+$overall_strictly_below
+[1] 0.25
+
+$seed_base
+[1] 52000000
+
+$seed_rule
+[1] "52000000 + 10 * forecast_target_year + optimization_attempt (1..4)"
+
+$maximum_assessments_per_unchanged_vector
+[1] 1
+
+$maximum_extra_assessments_per_fit
+[1] 3
+
+$continuation_after_diagnostic_failure
+[1] "Use the original optimization checkpoint, not the diagnostic result, as prevAns."
+
+$complete_3000_failure
+[1] "Continue or exhaust the existing schedule; never reassess the unchanged vector."
+
+$native_invalid
+[1] "No precision reassessment; preserve ordinary continuation/failure behavior."
+
+$incomplete_operation
+[1] "Stop and retain evidence; no automatic rerun on resume."
+
+$historical_imports
+[1] "Not automatic. A separately audited checkpoint-import procedure is required; historical acceptance and forecasts are not migrated."
+
+$role_specific_rules
+[1] FALSE
+
+$reserved_outcome_access
+[1] FALSE
+
+$evidence_basis
+[1] "Steps 3B/3C at 7972dc9cac17ef62f78c774b1b8186d18ce9d1e1; descriptive evidence for two vectors, not universal certification."
+
+Tracing function "phase1.1" in package "namespace:RSiena"
+Tracing function "phase1.2" in package "namespace:RSiena"
+Tracing function "phase2.1" in package "namespace:RSiena"
+Tracing function "proc2subphase" in package "namespace:RSiena"
+Tracing function "maxlikec" in package "namespace:RSiena"
+Tracing function "phase3" in package "namespace:RSiena"
+Tracing function "simstats0c" in package "namespace:RSiena"
+Tracing function "phase3.2" in package "namespace:RSiena"
+Tracing function "PotentialNR" in package "namespace:RSiena"
+Untracing function "PotentialNR" in package "namespace:RSiena"
+Untracing function "phase3.2" in package "namespace:RSiena"
+Untracing function "simstats0c" in package "namespace:RSiena"
+Untracing function "phase3" in package "namespace:RSiena"
+Untracing function "maxlikec" in package "namespace:RSiena"
+Untracing function "proc2subphase" in package "namespace:RSiena"
+Untracing function "phase2.1" in package "namespace:RSiena"
+Untracing function "phase1.2" in package "namespace:RSiena"
+Untracing function "phase1.1" in package "namespace:RSiena"
+Tracing function "phase1.1" in package "namespace:RSiena"
+Tracing function "phase1.2" in package "namespace:RSiena"
+Tracing function "phase2.1" in package "namespace:RSiena"
+Tracing function "proc2subphase" in package "namespace:RSiena"
+Tracing function "maxlikec" in package "namespace:RSiena"
+Tracing function "phase3" in package "namespace:RSiena"
+Tracing function "simstats0c" in package "namespace:RSiena"
+Tracing function "phase3.2" in package "namespace:RSiena"
+Tracing function "PotentialNR" in package "namespace:RSiena"
+Untracing function "PotentialNR" in package "namespace:RSiena"
+Untracing function "phase3.2" in package "namespace:RSiena"
+Untracing function "simstats0c" in package "namespace:RSiena"
+Untracing function "phase3" in package "namespace:RSiena"
+Untracing function "maxlikec" in package "namespace:RSiena"
+Untracing function "proc2subphase" in package "namespace:RSiena"
+Untracing function "phase2.1" in package "namespace:RSiena"
+Untracing function "phase1.2" in package "namespace:RSiena"
+Untracing function "phase1.1" in package "namespace:RSiena"
+{
+  "status": "passed",
+  "version": "precision-before-continuation-v1",
+  "checks": 48,
+  "new_simulations": 0,
+  "new_refits": 0,
+  "new_forecasts": 0,
+  "target_packets_read": 0,
+  "saved_diagnostic_replay": true,
+  "replay_is_not_a_new_seed_result": true,
+  "real_stopped_initializations": {
+    "attempt3": {
+      "status": "initialization_verified_no_simulation",
+      "parameters": 58,
+      "seed": 52020091,
+      "coefficients_identical": true,
+      "new_simulations": 0,
+      "optimization_iterations": 0
+    },
+    "attempt4": {
+      "status": "initialization_verified_no_simulation",
+      "parameters": 58,
+      "seed": 52020091,
+      "coefficients_identical": true,
+      "new_simulations": 0,
+      "optimization_iterations": 0
+    }
+  },
+  "live_production_assessment_not_executed": true
+} 

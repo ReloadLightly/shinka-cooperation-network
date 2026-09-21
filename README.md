@@ -22,6 +22,18 @@ Can ShinkaEvolve discover interpretable alternative network-selection specificat
 |:---:|:---:|:---:|:---:|
 | **7 settings · 86 endpoints** | **4 / 4 development years** | **0 complete** | **0** |
 
+## Prospective convergence policy for the next comparison
+
+The separately versioned **precision-before-continuation-v1** estimator is
+implemented and validated using saved-fixture replay and stopped native
+initialization. Eligible ratio-failing 1,000-draw fits receive one fixed
+3,000-draw assessment at unchanged coefficients before another optimization
+continuation. Thresholds and native validity checks are unchanged; valid
+short fits still pass without reassessment. This is **opt-in, fit-only**:
+historical evaluators and results remain unchanged and Step 4 has not run.
+See [policy and handoff](docs/PRECISION_CONVERGENCE_POLICY.md) and
+[validation evidence](results/diagnostics/precision-policy-v1/REPORT.md).
+
 ## 1. Research question
 
 > Can ShinkaEvolve discover interpretable alternative network-selection specifications that improve forecasts of defense-cooperation agreements and defense spending relative to Kinne and Kang’s Model 3?
